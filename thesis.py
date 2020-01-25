@@ -57,6 +57,9 @@ def processLBP(img, x, y, lbp_values):
     return value_dec
 
 path = '/home/katerina/Documents/IBP/training/*'
+
+f = open("trainedValues.csv","w+")
+g = open("resultTrainedImg.csv","w+")
 for file in glob.glob(path):
     img = cv2.imread(file, 0) # uint8 image in grayscale
     img = cv2.resize(img,(360,360)) # resize of image
@@ -112,8 +115,20 @@ for file in glob.glob(path):
     if (sum_hist1_div > 1 or sum_hist2_div > 1 or sum_hist3_div > 1 or sum_hist4_div > 1):
         continue
 
-    print("[" + str(sum_hist1_div) + ", " + str(sum_hist2_div) + ", " + str(sum_hist3_div) + ", " + str(sum_hist4_div) + "],")
+    saved_str = str(sum_hist1_div) + ", " + str(sum_hist2_div) + ", " + str(sum_hist3_div) + ", " + str(sum_hist4_div) + "\n"
+    #print("[" + str(sum_hist1_div) + ", " + str(sum_hist2_div) + ", " + str(sum_hist3_div) + ", " + str(sum_hist4_div) + "],")
+    f.write(saved_str)
 
+    file_substr = file.split('/')[-1]
+    print(file_substr)
+    if ("fake" in file_substr):
+        print("This is FAKE image.")
+        g.write("0\n")
+    elif ("live" in file_substr):
+        print("This is LIVE image.")
+        g.write("1\n")
+
+    #print(file_substr)
 
 
 
@@ -123,3 +138,8 @@ for file in glob.glob(path):
     k = cv2.waitKey(1000)
     #destroy the window
     cv2.destroyAllWindows()
+
+
+
+f.close()
+g.close()
