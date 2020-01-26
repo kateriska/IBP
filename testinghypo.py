@@ -152,30 +152,85 @@ NN.train()
 # fake examples
 
 tested_values = np.genfromtxt('testedValues.csv',delimiter=",", usecols=(1,2,3,4))
-tested_files = np.genfromtxt('testedValues.csv',delimiter=",", usecols=(0), dtype=None)
-print(tested_files)
+tested_files = np.genfromtxt('testedValues.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
+#print(tested_files)
 #print(tested_values)
 #split_arrays = np.split(tested_values, 40)
 #print(split_arrays)
 
 rows = tested_values.shape[0]
 cols = tested_values.shape[1]
+all_results_arr = np.zeros((40, 2))
 #print(rows)
 #print(cols)
+live_sample = False
 tested_files_index = 0
+correct_clasify = 0
+wrong_clasify = 0
 for cols in tested_values:
     #for x in np.nditer(tested_files):
     #print(cols)
+        live_percent = 0
+        fake_percent = 0
+
         array_testing = cols[:,np.newaxis]
     #print(array_testing)
         array_transpose = array_testing.T
         #print(x)
-        print(tested_files.item(tested_files_index))
+        #print(tested_files.item(tested_files_index))
         #print(array_transpose)
-        tested_files_index = tested_files_index + 1
-        print(NN.predict(array_transpose))
+        #tested_files_index = tested_files_index + 1
+        #print(NN.predict(array_transpose))
         #print(NN.predict(array_transpose), ' - Correct: 0')
+        final_prediction = NN.predict(array_transpose)
+        final_prediction_str = str(final_prediction)
+        final_prediction_str = final_prediction_str[2:-2]
+        print(final_prediction_str)
+        file_tested_str = str(tested_files.item(tested_files_index))
+        #print(file_tested_str)
+        #file_tested_str = file_tested_str[2:-1]
+        #print(file_tested_str)
+        final_prediction_float = float(final_prediction_str)
+        live_percent = final_prediction_float * 100
+        fake_percent = (1 - final_prediction_float) * 100
+        if (final_prediction_float >= 0.5 and final_prediction_float <= 1):
+            live_sample = True
+        else:
+            live_sample = False
+        if (live_sample == True):
+            print("File " + file_tested_str + " is classified as LIVE (LIVE: " + str(round(live_percent, 6)) + " % , FAKE: " + str(round(fake_percent, 6)) + " %)")
+        else:
+            print("File " + file_tested_str + " is classified as FAKE (LIVE: " + str(round(live_percent, 6)) + " % , FAKE: " + str(round(fake_percent, 6)) + " %)")
+        all_results_arr = np.append(all_results_arr, np.array([[file_tested_str, final_prediction_str]]), axis=0)
+        #print(all_results_arr)
 
+        if (live_sample == True and "live" in file_tested_str) or (live_sample == False and "fake" in file_tested_str):
+            correct_clasify += 1
+        else:
+            wrong_clasify += 1
+
+        tested_files_index = tested_files_index + 1
+
+print("Number of correct classifications: " + str(correct_clasify))
+print("Number of wrong classifications: " + str(wrong_clasify))
+
+#print("Printing final array")
+#print(all_results_arr)
+
+#path_testing = '/home/katerina/Documents/IBP/testing/*'
+'''
+for cols in all_results_arr:
+    #print(cols)
+    cols_string = str(cols)
+    #print(cols_string)
+    if (cols_string == "['0.0' '0.0']"):
+        continue
+    print(cols_string)
+
+'''
+
+
+    #img = cv2.imshow(file, 0) # uint8 image in grayscale
 '''
 example_1 = np.array([[0.19929, 0.06074, 0.0516, 0.98437]]) # fake
 example_2 = np.array([[0.22732, 0.07991, 0.06907, 0.9197]]) # fake
