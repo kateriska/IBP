@@ -56,6 +56,8 @@ def processLBP(img, x, y, lbp_values):
     lbp_values.append(value_dec)
     return value_dec
 
+
+# IMAGES FOR TRAINING
 path = '/home/katerina/Documents/IBP/training/*'
 
 f = open("trainedValues.csv","w+")
@@ -115,12 +117,14 @@ for file in glob.glob(path):
     if (sum_hist1_div > 1 or sum_hist2_div > 1 or sum_hist3_div > 1 or sum_hist4_div > 1):
         continue
 
+    file_substr = file.split('/')[-1]
+
     saved_str = str(sum_hist1_div) + ", " + str(sum_hist2_div) + ", " + str(sum_hist3_div) + ", " + str(sum_hist4_div) + "\n"
     #print("[" + str(sum_hist1_div) + ", " + str(sum_hist2_div) + ", " + str(sum_hist3_div) + ", " + str(sum_hist4_div) + "],")
     f.write(saved_str)
 
-    file_substr = file.split('/')[-1]
-    print(file_substr)
+    #file_substr = file.split('/')[-1]
+    #print(file_substr)
     if ("fake" in file_substr):
         print("This is FAKE image.")
         g.write("0\n")
@@ -140,6 +144,87 @@ for file in glob.glob(path):
     cv2.destroyAllWindows()
 
 
+# IMAGES FOR TESTING
+path_testing = '/home/katerina/Documents/IBP/testing/*'
+
+h = open("testedValues.csv","w+")
+for file in glob.glob(path_testing):
+    img = cv2.imread(file, 0) # uint8 image in grayscale
+    img = cv2.resize(img,(360,360)) # resize of image
+    img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
+    segmented_img = imgSegmentation(img)
+    #cv2.imshow('Segmented image', segmented_img)
+    cv2.imwrite('segmented_img.tif', segmented_img)
+    img = cv2.imread('segmented_img.tif')
+    height, width, channel = img.shape
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    lbp_image = np.zeros((height, width,3), np.uint8)
+    # processing LBP algorithm
+    lbp_values = []
+    for i in range(0, height):
+        for j in range(0, width):
+            lbp_image[i, j] = processLBP(img_gray, i, j, lbp_values)
+
+    cv2.imshow("lbp image", lbp_image)
+    hist_lbp = cv2.calcHist([lbp_image], [0], None, [256], [0, 256])
+#print(histogram_values)
+    histogram_list = list()
+    histogram_list = hist_lbp
+    sum_hist1 = 0
+    sum_hist2 = 0
+    sum_hist3 = 0
+    sum_hist4 = 0
+    # get values from histogram
+    for i in range(0, 64):
+        hist_value = histogram_list[i]
+        hist_value_n = str(hist_value[0])
+        sum_hist1 = sum_hist1 + float(hist_value_n)
+
+    for i in range(64, 128):
+        hist_value = histogram_list[i]
+        hist_value_n = str(hist_value[0])
+        sum_hist2 = sum_hist2 + float(hist_value_n)
+
+    for i in range(128, 192):
+        hist_value = histogram_list[i]
+        hist_value_n = str(hist_value[0])
+        sum_hist3 = sum_hist3 + float(hist_value_n)
+
+    for i in range(192, 256):
+        hist_value = histogram_list[i]
+        hist_value_n = str(hist_value[0])
+        sum_hist4 = sum_hist4 + float(hist_value_n)
+
+    sum_hist1_div = sum_hist1 / 100000
+    sum_hist2_div = sum_hist2 / 100000
+    sum_hist3_div = sum_hist3 / 100000
+    sum_hist4_div = sum_hist4 / 100000
+
+    if (sum_hist1_div > 1 or sum_hist2_div > 1 or sum_hist3_div > 1 or sum_hist4_div > 1):
+        continue
+
+    file_substr = file.split('/')[-1]
+
+    saved_str = file_substr + ", " + str(sum_hist1_div) + ", " + str(sum_hist2_div) + ", " + str(sum_hist3_div) + ", " + str(sum_hist4_div) + "\n"
+    #print("[" + str(sum_hist1_div) + ", " + str(sum_hist2_div) + ", " + str(sum_hist3_div) + ", " + str(sum_hist4_div) + "],")
+    h.write(saved_str)
+
+    #file_substr = file.split('/')[-1]
+    #print(file_substr)
+
+    #print(file_substr)
+
+
+
+#print(weights)
+
+
+    k = cv2.waitKey(1000)
+    #destroy the window
+    cv2.destroyAllWindows()
+
+
 
 f.close()
 g.close()
+h.close()

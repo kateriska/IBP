@@ -89,7 +89,7 @@ inputs = np.array([[0.27747, 0.03639, 0.03105, 0.95109],
 '''
 inputs = np.genfromtxt('trainedValues.csv',delimiter=",")
 # output data
-print(inputs)
+#print(inputs)
 #values_real_fake = '[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1]'
 #outputs = np.array([[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1]])
 #outputs = np.genfromtxt('resultTrainedImg.csv',dtype=int, delimiter=",")
@@ -98,7 +98,7 @@ print(inputs)
 #outputs = np.zeros((80, 1))
 outputs = np.genfromtxt('resultTrainedImg.csv',dtype=int)
 outputs = outputs[:,np.newaxis]
-print(outputs)
+#print(outputs)
 # create NeuralNetwork class
 class NeuralNetwork:
 
@@ -150,6 +150,33 @@ NN.train()
 
 # create two new examples to predict
 # fake examples
+
+tested_values = np.genfromtxt('testedValues.csv',delimiter=",", usecols=(1,2,3,4))
+tested_files = np.genfromtxt('testedValues.csv',delimiter=",", usecols=(0), dtype=None)
+print(tested_files)
+#print(tested_values)
+#split_arrays = np.split(tested_values, 40)
+#print(split_arrays)
+
+rows = tested_values.shape[0]
+cols = tested_values.shape[1]
+#print(rows)
+#print(cols)
+tested_files_index = 0
+for cols in tested_values:
+    #for x in np.nditer(tested_files):
+    #print(cols)
+        array_testing = cols[:,np.newaxis]
+    #print(array_testing)
+        array_transpose = array_testing.T
+        #print(x)
+        print(tested_files.item(tested_files_index))
+        #print(array_transpose)
+        tested_files_index = tested_files_index + 1
+        print(NN.predict(array_transpose))
+        #print(NN.predict(array_transpose), ' - Correct: 0')
+
+'''
 example_1 = np.array([[0.19929, 0.06074, 0.0516, 0.98437]]) # fake
 example_2 = np.array([[0.22732, 0.07991, 0.06907, 0.9197]]) # fake
 example_3 = np.array([[0.1895, 0.10683, 0.09706, 0.90261]])
@@ -234,7 +261,7 @@ print(NN.predict(example_37), ' - Correct: 1')
 print(NN.predict(example_38), ' - Correct: 0')
 print(NN.predict(example_39), ' - Correct: 1')
 print(NN.predict(example_40), ' - Correct: 1')
-
+'''
 # plot the error over the entire training duration
 plt.figure(figsize=(15,5))
 plt.plot(NN.epoch_list, NN.error_history)
