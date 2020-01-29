@@ -12,8 +12,8 @@ bins = np.array([0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 2
 inds = np.digitize(image, bins)
 
 max_value = inds.max() + 1
-matrix_coocurrence = greycomatrix(inds, [1], [0, np.pi/4, np.pi/2, 3*np.pi/4], levels=max_value, normed=False, symmetric=False)
-print(matrix_coocurrence)
+matrix_coocurrence = greycomatrix(inds, [1], [0], levels=max_value, normed=False, symmetric=False)
+#print(matrix_coocurrence)
 # Charasterictics of Gray Level Matrix:
 # contrast ***
 contrast = greycoprops(matrix_coocurrence, 'contrast')
@@ -21,16 +21,16 @@ print("Contrast:")
 print(contrast)
 # dissimalirity
 dissimilarity = greycoprops(matrix_coocurrence, 'dissimilarity')
-print("Dissimilarity:")
-print(dissimilarity)
+#print("Dissimilarity:")
+#print(dissimilarity)
 # homogeinity ***
 homogeneity = greycoprops(matrix_coocurrence, 'homogeneity')
 print("Homogeneity:")
 print(homogeneity)
 # ASM
 asm = greycoprops(matrix_coocurrence, 'ASM')
-print("ASM:")
-print(asm)
+#print("ASM:")
+#print(asm)
 # Energy ***
 energy = greycoprops(matrix_coocurrence, 'energy')
 print("Energy:")

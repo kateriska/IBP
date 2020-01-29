@@ -185,7 +185,7 @@ for cols in tested_values:
         final_prediction = NN.predict(array_transpose)
         final_prediction_str = str(final_prediction)
         final_prediction_str = final_prediction_str[2:-2]
-        print(final_prediction_str)
+        #print(final_prediction_str)
         file_tested_str = str(tested_files.item(tested_files_index))
         #print(file_tested_str)
         #file_tested_str = file_tested_str[2:-1]
