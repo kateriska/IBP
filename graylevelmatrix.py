@@ -19,6 +19,11 @@ matrix_coocurrence = greycomatrix(inds, [1], [0], levels=max_value, normed=False
 contrast = greycoprops(matrix_coocurrence, 'contrast')
 print("Contrast:")
 print(contrast)
+contrast_float = float(contrast)
+contrast_float = contrast_float / 10
+print(contrast_float)
+contrast_str = str(contrast)
+contrast_str = contrast_str[2:-2]
 # dissimalirity
 dissimilarity = greycoprops(matrix_coocurrence, 'dissimilarity')
 #print("Dissimilarity:")
@@ -27,6 +32,8 @@ dissimilarity = greycoprops(matrix_coocurrence, 'dissimilarity')
 homogeneity = greycoprops(matrix_coocurrence, 'homogeneity')
 print("Homogeneity:")
 print(homogeneity)
+homogeneity_str = str(homogeneity)
+homogeneity_str = homogeneity_str[2:-2]
 # ASM
 asm = greycoprops(matrix_coocurrence, 'ASM')
 #print("ASM:")
@@ -35,7 +42,13 @@ asm = greycoprops(matrix_coocurrence, 'ASM')
 energy = greycoprops(matrix_coocurrence, 'energy')
 print("Energy:")
 print(energy)
+energy_str = str(energy)
+energy_str = energy_str[2:-2]
 # Correlation ***
 correlation = greycoprops(matrix_coocurrence, 'correlation')
 print("Correlation:")
 print(correlation)
+correlation_str = str(correlation)
+correlation_str = correlation_str[2:-2]
+
+print(str(contrast_str) + " ," + str(homogeneity_str) + " ," + str(energy_str) + " ," + str(correlation_str) )
