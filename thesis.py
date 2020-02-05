@@ -7,7 +7,7 @@ import glob
 
 ### IMAGE SEGMENTATION WITH MORPHOLOGY OPERATIONS
 def imgSegmentation(img):
-    ret, tresh_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    ret, tresh_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
 
     # noise removal
     kernel = np.ones((21,21), np.uint8)
@@ -58,7 +58,7 @@ def processLBP(img, x, y, lbp_values):
 
 
 # IMAGES FOR TRAINING
-path = '/home/katerina/Documents/IBP/training/*'
+path = '/home/katerina/Documents/IBP/trainingGood/*'
 
 f = open("trainedValues.csv","w+")
 g = open("resultTrainedImg.csv","w+")
@@ -68,11 +68,14 @@ for file in glob.glob(path):
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
     segmented_img = imgSegmentation(img)
     #cv2.imshow('Segmented image', segmented_img)
-    cv2.imwrite('segmented_img.tif', segmented_img)
-    img = cv2.imread('segmented_img.tif')
+    cv2.imwrite('segmented_img.jpg', segmented_img)
+    img = cv2.imread('segmented_img.jpg')
     height, width, channel = img.shape
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     lbp_image = np.zeros((height, width,3), np.uint8)
+
+    file_substr = file.split('/')[-1]
+    print(file_substr)
     # processing LBP algorithm
     lbp_values = []
     for i in range(0, height):
@@ -81,7 +84,6 @@ for file in glob.glob(path):
 
     cv2.imshow("lbp image", lbp_image)
     hist_lbp = cv2.calcHist([lbp_image], [0], None, [256], [0, 256])
-#print(histogram_values)
     histogram_list = list()
     histogram_list = hist_lbp
     sum_hist1 = 0
@@ -109,15 +111,13 @@ for file in glob.glob(path):
         hist_value_n = str(hist_value[0])
         sum_hist4 = sum_hist4 + float(hist_value_n)
 
-    sum_hist1_div = sum_hist1 / 100000
-    sum_hist2_div = sum_hist2 / 100000
-    sum_hist3_div = sum_hist3 / 100000
-    sum_hist4_div = sum_hist4 / 100000
+    sum_hist1_div = sum_hist1 / 1000000
+    sum_hist2_div = sum_hist2 / 1000000
+    sum_hist3_div = sum_hist3 / 1000000
+    sum_hist4_div = sum_hist4 / 1000000
 
-    if (sum_hist1_div > 1 or sum_hist2_div > 1 or sum_hist3_div > 1 or sum_hist4_div > 1):
-        continue
-
-    file_substr = file.split('/')[-1]
+    #if (sum_hist1_div > 1 or sum_hist2_div > 1 or sum_hist3_div > 1 or sum_hist4_div > 1):
+    #    continue
 
     saved_str = str(sum_hist1_div) + ", " + str(sum_hist2_div) + ", " + str(sum_hist3_div) + ", " + str(sum_hist4_div) + "\n"
     #print("[" + str(sum_hist1_div) + ", " + str(sum_hist2_div) + ", " + str(sum_hist3_div) + ", " + str(sum_hist4_div) + "],")
@@ -132,20 +132,13 @@ for file in glob.glob(path):
         print("This is LIVE image.")
         g.write("1\n")
 
-    #print(file_substr)
-
-
-
-#print(weights)
-
-
     k = cv2.waitKey(1000)
     #destroy the window
     cv2.destroyAllWindows()
 
 
 # IMAGES FOR TESTING
-path_testing = '/home/katerina/Documents/IBP/testing/*'
+path_testing = '/home/katerina/Documents/IBP/testingGood/*'
 
 h = open("testedValues.csv","w+")
 for file in glob.glob(path_testing):
@@ -154,8 +147,8 @@ for file in glob.glob(path_testing):
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
     segmented_img = imgSegmentation(img)
     #cv2.imshow('Segmented image', segmented_img)
-    cv2.imwrite('segmented_img.tif', segmented_img)
-    img = cv2.imread('segmented_img.tif')
+    cv2.imwrite('segmented_img.jpg', segmented_img)
+    img = cv2.imread('segmented_img.jpg')
     height, width, channel = img.shape
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     lbp_image = np.zeros((height, width,3), np.uint8)
@@ -195,29 +188,16 @@ for file in glob.glob(path_testing):
         hist_value_n = str(hist_value[0])
         sum_hist4 = sum_hist4 + float(hist_value_n)
 
-    sum_hist1_div = sum_hist1 / 100000
-    sum_hist2_div = sum_hist2 / 100000
-    sum_hist3_div = sum_hist3 / 100000
-    sum_hist4_div = sum_hist4 / 100000
-
-    if (sum_hist1_div > 1 or sum_hist2_div > 1 or sum_hist3_div > 1 or sum_hist4_div > 1):
-        continue
+    sum_hist1_div = sum_hist1 / 1000000
+    sum_hist2_div = sum_hist2 / 1000000
+    sum_hist3_div = sum_hist3 / 1000000
+    sum_hist4_div = sum_hist4  / 1000000
 
     file_substr = file.split('/')[-1]
 
     saved_str = file_substr + ", " + str(sum_hist1_div) + ", " + str(sum_hist2_div) + ", " + str(sum_hist3_div) + ", " + str(sum_hist4_div) + "\n"
     #print("[" + str(sum_hist1_div) + ", " + str(sum_hist2_div) + ", " + str(sum_hist3_div) + ", " + str(sum_hist4_div) + "],")
     h.write(saved_str)
-
-    #file_substr = file.split('/')[-1]
-    #print(file_substr)
-
-    #print(file_substr)
-
-
-
-#print(weights)
-
 
     k = cv2.waitKey(1000)
     #destroy the window
