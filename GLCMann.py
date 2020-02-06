@@ -128,7 +128,7 @@ class NeuralNetwork:
         self.weights += np.dot(self.inputs.T, delta)
 
     # train the neural net for 25,000 iterations
-    def train(self, epochs=25000):
+    def train(self, epochs=1000000):
         for epoch in range(epochs):
             # flow forward and produce an output
             self.feed_forward()

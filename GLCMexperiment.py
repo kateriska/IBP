@@ -22,7 +22,7 @@ def imgSegmentation(img):
 
 
 # IMAGES FOR TRAINING
-path = '/home/katerina/Documents/IBP/training/*'
+path = '/home/katerina/Documents/IBP/trainingGood/*'
 
 f = open("GLCMTrained.csv","w+")
 g = open("GLCMTrainedResult.csv","w+")
@@ -103,7 +103,7 @@ for file in glob.glob(path):
 
 
 # IMAGES FOR TESTING
-path_testing = '/home/katerina/Documents/IBP/testing/*'
+path_testing = '/home/katerina/Documents/IBP/testingGood/*'
 
 h = open("GLCMTested.csv","w+")
 for file in glob.glob(path_testing):
