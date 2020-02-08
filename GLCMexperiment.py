@@ -9,7 +9,7 @@ from skimage import io, color, img_as_ubyte
 
 ### IMAGE SEGMENTATION WITH MORPHOLOGY OPERATIONS
 def imgSegmentation(img):
-    ret, tresh_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    ret, tresh_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
 
     # noise removal
     kernel = np.ones((21,21), np.uint8)
@@ -28,12 +28,12 @@ f = open("GLCMTrained.csv","w+")
 g = open("GLCMTrainedResult.csv","w+")
 for file in glob.glob(path):
     img = cv2.imread(file, 0) # uint8 image in grayscale
-    img = cv2.resize(img,(360,360)) # resize of image
+    #img = cv2.resize(img,(360,360)) # resize of image
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
     segmented_img = imgSegmentation(img)
     #cv2.imshow('Segmented image', segmented_img)
-    cv2.imwrite('segmented_img.tif', segmented_img)
-    img = cv2.imread('segmented_img.tif', 0)
+    cv2.imwrite('segmented_img.jpg', segmented_img)
+    img = cv2.imread('segmented_img.jpg', 0)
 
     image = img_as_ubyte(img)
 
@@ -108,12 +108,12 @@ path_testing = '/home/katerina/Documents/IBP/testingGood/*'
 h = open("GLCMTested.csv","w+")
 for file in glob.glob(path_testing):
     img = cv2.imread(file, 0) # uint8 image in grayscale
-    img = cv2.resize(img,(360,360)) # resize of image
+    #img = cv2.resize(img,(400,400)) # resize of image
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
     segmented_img = imgSegmentation(img)
     #cv2.imshow('Segmented image', segmented_img)
-    cv2.imwrite('segmented_img.tif', segmented_img)
-    img = cv2.imread('segmented_img.tif', 0)
+    cv2.imwrite('segmented_img.jpg', segmented_img)
+    img = cv2.imread('segmented_img.jpg', 0)
 
     image = img_as_ubyte(img)
 

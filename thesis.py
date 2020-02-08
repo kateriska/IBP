@@ -64,7 +64,7 @@ f = open("trainedValues.csv","w+")
 g = open("resultTrainedImg.csv","w+")
 for file in glob.glob(path):
     img = cv2.imread(file, 0) # uint8 image in grayscale
-    img = cv2.resize(img,(360,360)) # resize of image
+    #img = cv2.resize(img,(400,400)) # resize of image
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
     segmented_img = imgSegmentation(img)
     #cv2.imshow('Segmented image', segmented_img)
@@ -143,7 +143,7 @@ path_testing = '/home/katerina/Documents/IBP/testingGood/*'
 h = open("testedValues.csv","w+")
 for file in glob.glob(path_testing):
     img = cv2.imread(file, 0) # uint8 image in grayscale
-    img = cv2.resize(img,(360,360)) # resize of image
+    #img = cv2.resize(img,(360,360)) # resize of image
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
     segmented_img = imgSegmentation(img)
     #cv2.imshow('Segmented image', segmented_img)

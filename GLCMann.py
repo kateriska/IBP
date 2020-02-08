@@ -213,6 +213,8 @@ for cols in tested_values:
 
 print("Number of correct classifications: " + str(correct_clasify))
 print("Number of wrong classifications: " + str(wrong_clasify))
+accuracy = (100 * correct_clasify) / (correct_clasify + wrong_clasify)
+print("Accuracy: " + str(accuracy) + " %" )
 
 #print("Printing final array")
 #print(all_results_arr)
