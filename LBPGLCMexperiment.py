@@ -60,7 +60,7 @@ def processLBP(img, x, y, lbp_values):
 
 
 # IMAGES FOR TRAINING
-path = '/home/katerina/Documents/IBP/trainingGood/*'
+path = '/home/katerina/Documents/IBP/trainingNew/*'
 
 f = open("LBPGLCMTrained.csv","w+")
 g = open("LBPGLCMresultTrained.csv","w+")
@@ -165,7 +165,7 @@ for file in glob.glob(path):
     if ("fake" in file_substr):
         print("This is FAKE image.")
         g.write("0\n")
-    elif ("live" in file_substr):
+    elif ("Images" in file_substr):
         print("This is LIVE image.")
         g.write("1\n")
 
@@ -175,7 +175,7 @@ for file in glob.glob(path):
 
 
 # IMAGES FOR TESTING
-path_testing = '/home/katerina/Documents/IBP/testingGood/*'
+path_testing = '/home/katerina/Documents/IBP/testingNew/*'
 
 h = open("LBPGLCMtested.csv","w+")
 for file in glob.glob(path_testing):

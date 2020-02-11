@@ -25,8 +25,8 @@ def imgSegmentation(img):
 # IMAGES FOR TRAINING
 path = '/home/katerina/Documents/IBP/trainingNew/*'
 
-f = open("WaveletTrained.csv","w+")
-g = open("WaveleTrainedResult.csv","w+")
+f = open("SLTrained.csv","w+")
+g = open("SLTrainedResult.csv","w+")
 for file in glob.glob(path):
     img = cv2.imread(file, 0) # uint8 image in grayscale
     #img = cv2.resize(img,(360,360)) # resize of image
@@ -38,41 +38,15 @@ for file in glob.glob(path):
     image = cv2.imread('segmented_img.jpg')
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    # Convert to float for more resolution for use with pywt
-    image = np.float32(image)
-    image /= 255
-
-    # ...
-    # Do your processing
-    # ...
-
-    # Wavelet transform of image, and plot approximation and details
-    titles = ['Approximation', ' Horizontal detail',
-              'Vertical detail', 'Diagonal detail']
-    coeffs2 = pywt.dwt2(image, 'bior1.3')
-    LL, (LH, HL, HH) = coeffs2
-    #fig = plt.figure(figsize=(3, 3))
-    #ax = fig.add_subplot(1, 1, 1)
-    plt.imshow(LL, interpolation="nearest", cmap=plt.cm.gray)
-    plt.axis('off')
-
-    plt.savefig('LLimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
-
-    plt.imshow(LH, interpolation="nearest", cmap=plt.cm.gray)
-    plt.axis('off')
-    plt.savefig('LHimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
-
-    plt.imshow(HL, interpolation="nearest", cmap=plt.cm.gray)
-    plt.axis('off')
-    plt.savefig('HLimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
-
-    plt.imshow(HH, interpolation="nearest", cmap=plt.cm.gray)
-    plt.axis('off')
-    plt.savefig('HHimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
-
+    laplacian = cv2.Laplacian(image,cv2.CV_64F)
+    cv2.imwrite("laplacian_img.jpg", laplacian)
+    sobelx = cv2.Sobel(image,cv2.CV_64F,1,0,ksize=5)  # x
+    cv2.imwrite("sobelx_img.jpg", sobelx)
+    sobely = cv2.Sobel(image,cv2.CV_64F,0,1,ksize=5)  # y
+    cv2.imwrite("sobely_img.jpg", sobelx)
 
     # PROCESS LL IMAGE
-    img = cv2.imread('LLimg.png',0)
+    img = cv2.imread('laplacian_img.jpg',0)
     image = img_as_ubyte(img)
 
     bins = np.array([0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 255]) #16-bit
@@ -106,7 +80,7 @@ for file in glob.glob(path):
     correlation_str = correlation_float / 10
 
     # PROCESS LH IMAGE
-    img = cv2.imread('LHimg.png',0)
+    img = cv2.imread('sobelx_img.jpg',0)
     image = img_as_ubyte(img)
 
     bins = np.array([0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 255]) #16-bit
@@ -140,7 +114,7 @@ for file in glob.glob(path):
     correlation_str2 = correlation_float2 / 10
 
     # PROCESS HL IMAGE
-    img = cv2.imread('HLimg.png',0)
+    img = cv2.imread('sobely_img.jpg',0)
     image = img_as_ubyte(img)
 
     bins = np.array([0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 255]) #16-bit
@@ -173,47 +147,8 @@ for file in glob.glob(path):
     correlation_float3 = float(correlation3)
     correlation_str3 = correlation_float3 / 10
 
-    # PROCESS HH IMAGE
-    img = cv2.imread('HHimg.png',0)
-    image = img_as_ubyte(img)
-
-    bins = np.array([0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 255]) #16-bit
-    inds = np.digitize(image, bins)
-
-    max_value = inds.max() + 1
-    matrix_coocurrence = greycomatrix(inds, [1], [0], levels=max_value, normed=False, symmetric=False)
-
-    contrast4 = greycoprops(matrix_coocurrence, 'contrast')
-    print("Contrast:")
-    print(contrast4)
-    contrast_float4 = float(contrast4)
-    contrast_str4 = contrast_float4 / 10
-
-    homogeneity4 = greycoprops(matrix_coocurrence, 'homogeneity')
-    print("Homogeneity:")
-    print(homogeneity4)
-    homogeneity_float4 = float(homogeneity4)
-    homogeneity_str4 = homogeneity_float4 / 10
-
-    energy4 = greycoprops(matrix_coocurrence, 'energy')
-    print("Energy:")
-    print(energy4)
-    energy_float4 = float(energy4)
-    energy_str4 = energy_float4 / 10
-
-    correlation4 = greycoprops(matrix_coocurrence, 'correlation')
-    print("Correlation:")
-    print(correlation4)
-    correlation_float4 = float(correlation4)
-    correlation_str4 = correlation_float4 / 10
-
-    saved_str = (str(contrast_str) + ", " + str(homogeneity_str) + ", " + str(energy_str) + ", " + str(correlation_str) + ", "+ str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3) + ", " +  str(contrast_str4) + ", " + str(homogeneity_str4) + ", " + str(energy_str4) + ", " + str(correlation_str4) +   "\n" )
+    saved_str = (str(contrast_str) + ", " + str(homogeneity_str) + ", " + str(energy_str) + ", " + str(correlation_str) + ", "+ str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3) +   "\n" )
     print(saved_str)
-
-    #plt.show()
-    # Convert back to uint8 OpenCV format
-    image *= 255
-    image = np.uint8(image)
 
 
     file_substr = file.split('/')[-1]
@@ -236,7 +171,7 @@ for file in glob.glob(path):
 # IMAGES FOR TESTING
 path_testing = '/home/katerina/Documents/IBP/testingNew/*'
 
-h = open("WaveletTested.csv","w+")
+h = open("SLTested.csv","w+")
 for file in glob.glob(path_testing):
     img = cv2.imread(file, 0) # uint8 image in grayscale
     #img = cv2.resize(img,(360,360)) # resize of image
@@ -244,43 +179,19 @@ for file in glob.glob(path_testing):
     segmented_img = imgSegmentation(img)
     #cv2.imshow('Segmented image', segmented_img)
     cv2.imwrite('segmented_img.jpg', segmented_img)
+
     image = cv2.imread('segmented_img.jpg')
     image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    # Convert to float for more resolution for use with pywt
-    image = np.float32(image)
-    image /= 255
-
-    # ...
-    # Do your processing
-    # ...
-
-    # Wavelet transform of image, and plot approximation and details
-    titles = ['Approximation', ' Horizontal detail',
-              'Vertical detail', 'Diagonal detail']
-    coeffs2 = pywt.dwt2(image, 'bior1.3')
-    LL, (LH, HL, HH) = coeffs2
-
-    plt.imshow(LL, interpolation="nearest", cmap=plt.cm.gray)
-    plt.axis('off')
-
-    plt.savefig('LLimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
-
-    plt.imshow(LH, interpolation="nearest", cmap=plt.cm.gray)
-    plt.axis('off')
-    plt.savefig('LHimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
-
-    plt.imshow(HL, interpolation="nearest", cmap=plt.cm.gray)
-    plt.axis('off')
-    plt.savefig('HLimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
-
-    plt.imshow(HH, interpolation="nearest", cmap=plt.cm.gray)
-    plt.axis('off')
-    plt.savefig('HHimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
-
+    laplacian = cv2.Laplacian(image,cv2.CV_64F)
+    cv2.imwrite("laplacian_img.jpg", laplacian)
+    sobelx = cv2.Sobel(image,cv2.CV_64F,1,0,ksize=5)  # x
+    cv2.imwrite("sobelx_img.jpg", sobelx)
+    sobely = cv2.Sobel(image,cv2.CV_64F,0,1,ksize=5)  # y
+    cv2.imwrite("sobely_img.jpg", sobelx)
 
     # PROCESS LL IMAGE
-    img = cv2.imread('LLimg.png',0)
+    img = cv2.imread('laplacian_img.jpg',0)
     image = img_as_ubyte(img)
 
     bins = np.array([0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 255]) #16-bit
@@ -314,7 +225,7 @@ for file in glob.glob(path_testing):
     correlation_str = correlation_float / 10
 
     # PROCESS LH IMAGE
-    img = cv2.imread('LHimg.png',0)
+    img = cv2.imread('sobelx_img.jpg',0)
     image = img_as_ubyte(img)
 
     bins = np.array([0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 255]) #16-bit
@@ -348,7 +259,7 @@ for file in glob.glob(path_testing):
     correlation_str2 = correlation_float2 / 10
 
     # PROCESS HL IMAGE
-    img = cv2.imread('HLimg.png',0)
+    img = cv2.imread('sobely_img.jpg',0)
     image = img_as_ubyte(img)
 
     bins = np.array([0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 255]) #16-bit
@@ -381,50 +292,13 @@ for file in glob.glob(path_testing):
     correlation_float3 = float(correlation3)
     correlation_str3 = correlation_float3 / 10
 
-    # PROCESS HH IMAGE
-    img = cv2.imread('HHimg.png',0)
-    image = img_as_ubyte(img)
-
-    bins = np.array([0, 16, 32, 48, 64, 80, 96, 112, 128, 144, 160, 176, 192, 208, 224, 240, 255]) #16-bit
-    inds = np.digitize(image, bins)
-
-    max_value = inds.max() + 1
-    matrix_coocurrence = greycomatrix(inds, [1], [0], levels=max_value, normed=False, symmetric=False)
-
-    contrast4 = greycoprops(matrix_coocurrence, 'contrast')
-    print("Contrast:")
-    print(contrast4)
-    contrast_float4 = float(contrast4)
-    contrast_str4 = contrast_float4 / 10
-
-    homogeneity4 = greycoprops(matrix_coocurrence, 'homogeneity')
-    print("Homogeneity:")
-    print(homogeneity4)
-    homogeneity_float4 = float(homogeneity4)
-    homogeneity_str4 = homogeneity_float4 / 10
-
-    energy4 = greycoprops(matrix_coocurrence, 'energy')
-    print("Energy:")
-    print(energy4)
-    energy_float4 = float(energy4)
-    energy_str4 = energy_float4 / 10
-
-    correlation4 = greycoprops(matrix_coocurrence, 'correlation')
-    print("Correlation:")
-    print(correlation4)
-    correlation_float4 = float(correlation4)
-    correlation_str4 = correlation_float4 / 10
 
     file_substr = file.split('/')[-1]
 
-    saved_str = (file_substr + ", " + str(contrast_str) + ", " + str(homogeneity_str) + ", " + str(energy_str) + ", " + str(correlation_str) + ", "+ str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3) + ", " +  str(contrast_str4) + ", " + str(homogeneity_str4) + ", " + str(energy_str4) + ", " + str(correlation_str4) +   "\n" )
+    saved_str = (file_substr + ", " + str(contrast_str) + ", " + str(homogeneity_str) + ", " + str(energy_str) + ", " + str(correlation_str) + ", "+ str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3)  +   "\n" )
     print(saved_str)
 
-    #plt.show()
 
-    # Convert back to uint8 OpenCV format
-    image *= 255
-    image = np.uint8(image)
 
     h.write(saved_str)
 

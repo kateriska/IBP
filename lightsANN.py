@@ -87,7 +87,7 @@ inputs = np.array([[0.27747, 0.03639, 0.03105, 0.95109],
 [0.25172, 0.11854, 0.09875, 0.82699],
 [0.21535, 0.10865, 0.09741, 0.87459]])
 '''
-inputs = np.genfromtxt('LBPGLCMTrained.csv',delimiter=",")
+inputs = np.genfromtxt('LightsTrained.csv',delimiter=",")
 # output data
 #print(inputs)
 #values_real_fake = '[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1]'
@@ -96,7 +96,7 @@ inputs = np.genfromtxt('LBPGLCMTrained.csv',delimiter=",")
 #print(outputs)
 #outputs.reshape(outputs.size, 1)
 #outputs = np.zeros((80, 1))
-outputs = np.genfromtxt('LBPGLCMresultTrained.csv',dtype=int)
+outputs = np.genfromtxt('LightsresultTrained.csv',dtype=int)
 outputs = outputs[:,np.newaxis]
 #print(outputs)
 # create NeuralNetwork class
@@ -107,7 +107,7 @@ class NeuralNetwork:
         self.inputs  = inputs
         self.outputs = outputs
         # initialize weights as .50 for simplicity
-        self.weights = np.array([[.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50]])
+        self.weights = np.array([[.50], [.50], [.50], [.50]])
         self.error_history = []
         self.epoch_list = []
 
@@ -151,8 +151,8 @@ NN.train()
 # create two new examples to predict
 # fake examples
 
-tested_values = np.genfromtxt('LBPGLCMtested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8))
-tested_files = np.genfromtxt('LBPGLCMtested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
+tested_values = np.genfromtxt('LightsTested.csv',delimiter=",", usecols=(1,2,3,4))
+tested_files = np.genfromtxt('LightsTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
 #print(tested_files)
 #print(tested_values)
 #split_arrays = np.split(tested_values, 40)

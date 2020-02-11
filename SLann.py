@@ -87,7 +87,7 @@ inputs = np.array([[0.27747, 0.03639, 0.03105, 0.95109],
 [0.25172, 0.11854, 0.09875, 0.82699],
 [0.21535, 0.10865, 0.09741, 0.87459]])
 '''
-inputs = np.genfromtxt('LBPGLCMTrained.csv',delimiter=",")
+inputs = np.genfromtxt('SLTrained.csv',delimiter=",")
 # output data
 #print(inputs)
 #values_real_fake = '[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[0],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1],[1]'
@@ -96,7 +96,7 @@ inputs = np.genfromtxt('LBPGLCMTrained.csv',delimiter=",")
 #print(outputs)
 #outputs.reshape(outputs.size, 1)
 #outputs = np.zeros((80, 1))
-outputs = np.genfromtxt('LBPGLCMresultTrained.csv',dtype=int)
+outputs = np.genfromtxt('SLTrainedResult.csv',dtype=int)
 outputs = outputs[:,np.newaxis]
 #print(outputs)
 # create NeuralNetwork class
@@ -107,7 +107,7 @@ class NeuralNetwork:
         self.inputs  = inputs
         self.outputs = outputs
         # initialize weights as .50 for simplicity
-        self.weights = np.array([[.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50]])
+        self.weights = np.array([[.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50]])
         self.error_history = []
         self.epoch_list = []
 
@@ -151,8 +151,8 @@ NN.train()
 # create two new examples to predict
 # fake examples
 
-tested_values = np.genfromtxt('LBPGLCMtested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8))
-tested_files = np.genfromtxt('LBPGLCMtested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
+tested_values = np.genfromtxt('SLTested.csv',delimiter=",", usecols=(1,2,3,4, 5, 6, 7, 8, 9, 10, 11, 12))
+tested_files = np.genfromtxt('SLTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
 #print(tested_files)
 #print(tested_values)
 #split_arrays = np.split(tested_values, 40)
@@ -167,8 +167,6 @@ live_sample = False
 tested_files_index = 0
 correct_clasify = 0
 wrong_clasify = 0
-far_value = 0 # the percentage of identification instances in which unauthorised persons are incorrectly accepted
-frr_value = 0 # the percentage of identification instances in which authorised persons are incorrectly rejected
 for cols in tested_values:
     #for x in np.nditer(tested_files):
     #print(cols)
@@ -206,15 +204,10 @@ for cols in tested_values:
         all_results_arr = np.append(all_results_arr, np.array([[file_tested_str, final_prediction_str]]), axis=0)
         #print(all_results_arr)
 
-        if (live_sample == True and "Images" in file_tested_str) or (live_sample == False and "fake" in file_tested_str):
+        if (live_sample == True and "Image" in file_tested_str) or (live_sample == False and "fake" in file_tested_str):
             correct_clasify += 1
         else:
             wrong_clasify += 1
-
-        if (live_sample == True and "fake" in file_tested_str):
-            far_value += 1
-        elif (live_sample == False and "Images" in file_tested_str):
-            frr_value += 1
 
         tested_files_index = tested_files_index + 1
 
@@ -222,10 +215,6 @@ print("Number of correct classifications: " + str(correct_clasify))
 print("Number of wrong classifications: " + str(wrong_clasify))
 accuracy = (100 * correct_clasify) / (correct_clasify + wrong_clasify)
 print("Accuracy: " + str(accuracy) + " %" )
-far_count = (far_value * 100) / (correct_clasify + wrong_clasify)
-frr_count = (frr_value * 100) / (correct_clasify + wrong_clasify)
-print("FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): " + str(far_count))
-print("FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): " + str(frr_count))
 
 #print("Printing final array")
 #print(all_results_arr)

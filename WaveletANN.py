@@ -128,7 +128,7 @@ class NeuralNetwork:
         self.weights += np.dot(self.inputs.T, delta)
 
     # train the neural net for 25,000 iterations
-    def train(self, epochs=25000):
+    def train(self, epochs=1000000):
         for epoch in range(epochs):
             # flow forward and produce an output
             self.feed_forward()
@@ -204,7 +204,7 @@ for cols in tested_values:
         all_results_arr = np.append(all_results_arr, np.array([[file_tested_str, final_prediction_str]]), axis=0)
         #print(all_results_arr)
 
-        if (live_sample == True and "live" in file_tested_str) or (live_sample == False and "fake" in file_tested_str):
+        if (live_sample == True and "Image" in file_tested_str) or (live_sample == False and "fake" in file_tested_str):
             correct_clasify += 1
         else:
             wrong_clasify += 1
@@ -213,6 +213,8 @@ for cols in tested_values:
 
 print("Number of correct classifications: " + str(correct_clasify))
 print("Number of wrong classifications: " + str(wrong_clasify))
+accuracy = (100 * correct_clasify) / (correct_clasify + wrong_clasify)
+print("Accuracy: " + str(accuracy) + " %" )
 
 #print("Printing final array")
 #print(all_results_arr)

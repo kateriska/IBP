@@ -8,6 +8,7 @@ import skimage
 import skimage.feature
 from skimage.color import rgb2xyz, rgb2luv
 from skimage import io, img_as_float
+import skimage.measure
 
 ### IMAGE SEGMENTATION WITH MORPHOLOGY OPERATIONS
 def imgSegmentation(img):
@@ -58,8 +59,47 @@ print(np.std(image))
 print(np.average(image))
 
 print(np.var(image))
+
+entropy = skimage.measure.shannon_entropy(img_segmented)
+print(entropy)
 #print(np.median(image))
 hist = cv2.calcHist([img_segmented], [0], None, [256], [0, 256])
+histogram_list = list()
+histogram_list = hist
+sum_hist1 = 0
+sum_hist2 = 0
+sum_hist3 = 0
+sum_hist4 = 0
+# get values from histogram
+for i in range(0, 64):
+    hist_value = histogram_list[i]
+    hist_value_n = str(hist_value[0])
+    sum_hist1 = sum_hist1 + float(hist_value_n)
+
+for i in range(64, 128):
+    hist_value = histogram_list[i]
+    hist_value_n = str(hist_value[0])
+    sum_hist2 = sum_hist2 + float(hist_value_n)
+
+for i in range(128, 192):
+    hist_value = histogram_list[i]
+    hist_value_n = str(hist_value[0])
+    sum_hist3 = sum_hist3 + float(hist_value_n)
+
+for i in range(192, 256):
+    hist_value = histogram_list[i]
+    hist_value_n = str(hist_value[0])
+    sum_hist4 = sum_hist4 + float(hist_value_n)
+
+sum_hist1_div = sum_hist1 / 1000000
+sum_hist2_div = sum_hist2 / 1000000
+sum_hist3_div = sum_hist3 / 1000000
+sum_hist4_div = sum_hist4  / 1000000
+
+print(sum_hist1_div)
+print(sum_hist2_div)
+print(sum_hist3_div)
+print(sum_hist4_div)
 figure = plt.figure()
 current_plot = figure.add_subplot(1, 1, 1)
 current_plot.plot(hist, color = (0, 0, 0.2))
