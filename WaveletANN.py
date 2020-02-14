@@ -151,7 +151,7 @@ NN.train()
 # create two new examples to predict
 # fake examples
 
-tested_values = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(1,2,3,4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16))
+tested_values = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(1,2,3,4, 5, 6, 7, 8, 9, 10, 11, 12))
 tested_files = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
 #print(tested_files)
 #print(tested_values)
