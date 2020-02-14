@@ -107,7 +107,7 @@ class NeuralNetwork:
         self.inputs  = inputs
         self.outputs = outputs
         # initialize weights as .50 for simplicity
-        self.weights = np.array([[.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50]])
+        self.weights = np.array([[.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50], [.50]])
         self.error_history = []
         self.epoch_list = []
 
@@ -167,6 +167,8 @@ live_sample = False
 tested_files_index = 0
 correct_clasify = 0
 wrong_clasify = 0
+far_value = 0 # the percentage of identification instances in which unauthorised persons are incorrectly accepted
+frr_value = 0 # the percentage of identification instances in which authorised persons are incorrectly rejected
 for cols in tested_values:
     #for x in np.nditer(tested_files):
     #print(cols)
@@ -209,12 +211,21 @@ for cols in tested_values:
         else:
             wrong_clasify += 1
 
+        if (live_sample == True and "fake" in file_tested_str):
+            far_value += 1
+        elif (live_sample == False and "Images" in file_tested_str):
+            frr_value += 1
+
         tested_files_index = tested_files_index + 1
 
 print("Number of correct classifications: " + str(correct_clasify))
 print("Number of wrong classifications: " + str(wrong_clasify))
 accuracy = (100 * correct_clasify) / (correct_clasify + wrong_clasify)
 print("Accuracy: " + str(accuracy) + " %" )
+far_count = (far_value * 100) / (correct_clasify + wrong_clasify)
+frr_count = (frr_value * 100) / (correct_clasify + wrong_clasify)
+print("FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): " + str(far_count) + " %")
+print("FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): " + str(frr_count) + " %")
 
 #print("Printing final array")
 #print(all_results_arr)

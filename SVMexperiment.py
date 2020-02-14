@@ -3,18 +3,18 @@ import matplotlib.pyplot as plt # to plot error during training
 from numpy import newaxis
 from sklearn import svm
 
-inputs = np.genfromtxt('LBPGLCMTrained.csv',delimiter=",")
-outputs = np.genfromtxt('LBPGLCMresultTrained.csv',dtype=int)
+inputs = np.genfromtxt('WaveletTrained.csv',delimiter=",")
+outputs = np.genfromtxt('WaveleTrainedResult.csv',dtype=int)
 #print(outputs)
 
 clf = svm.SVC()
 clf.fit(inputs, outputs)
 
-tested_values = np.genfromtxt('LBPGLCMtested.csv',delimiter=",", usecols=(1,2,3,4, 5, 6, 7, 8))
+tested_values = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(1,2,3,4, 5, 6, 7, 8, 9, 10, 11, 12))
 prediction = clf.predict(tested_values)
 print(prediction)
 
-tested_files = np.genfromtxt('LBPGLCMtested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
+tested_files = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
 print(tested_files)
 
 i = 0

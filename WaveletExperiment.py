@@ -21,6 +21,34 @@ def imgSegmentation(img):
     result_orig = cv2.add(img, opening)
     return result_orig
 
+def adaptiveSegmentationGaussian(img):
+    th3 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
+            cv2.THRESH_BINARY,3,4)
+    kernel = np.ones((21,21), np.uint8)
+    opening = cv2.morphologyEx(th3, cv2.MORPH_OPEN,kernel)
+    #cv2.imshow('Opening', opening)
+    im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    #cv2.drawContours(opening, contours, -1, (0,255,0), 3)
+
+    cv2.Canny(opening, 100, 200);
+    #cv2.imshow('Opening with contours', opening)
+    result = cv2.add(img, opening)
+    #cv2.imshow('Img after noise removal', result)
+    #cv2.imwrite("segment.tif", result)
+    return result
+
+def adaptiveSegmentationMean(img):
+    th2 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
+            cv2.THRESH_BINARY,11,7)
+    kernel = np.ones((24,24), np.uint8)
+    opening = cv2.morphologyEx(th2, cv2.MORPH_OPEN,kernel)
+    im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+    cv2.Canny(opening, 100, 200);
+    #cv2.imshow('Opening with contours', opening)
+    result = cv2.add(img, opening)
+    return result
+
 
 # IMAGES FOR TRAINING
 path = '/home/katerina/Documents/IBP/trainingNew/*'
@@ -47,16 +75,15 @@ for file in glob.glob(path):
     # ...
 
     # Wavelet transform of image, and plot approximation and details
-    titles = ['Approximation', ' Horizontal detail',
-              'Vertical detail', 'Diagonal detail']
+    #titles = ['Approximation', ' Horizontal detail', 'Vertical detail', 'Diagonal detail']
     coeffs2 = pywt.dwt2(image, 'bior1.3')
     LL, (LH, HL, HH) = coeffs2
     #fig = plt.figure(figsize=(3, 3))
     #ax = fig.add_subplot(1, 1, 1)
-    plt.imshow(LL, interpolation="nearest", cmap=plt.cm.gray)
-    plt.axis('off')
+    #plt.imshow(LL, interpolation="nearest", cmap=plt.cm.gray)
+    #plt.axis('off')
 
-    plt.savefig('LLimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
+    #plt.savefig('LLimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
 
     plt.imshow(LH, interpolation="nearest", cmap=plt.cm.gray)
     plt.axis('off')
@@ -72,6 +99,7 @@ for file in glob.glob(path):
 
 
     # PROCESS LL IMAGE
+    '''
     img = cv2.imread('LLimg.png',0)
     image = img_as_ubyte(img)
 
@@ -104,8 +132,8 @@ for file in glob.glob(path):
     print(correlation)
     correlation_float = float(correlation)
     correlation_str = correlation_float / 10
-
-    # PROCESS LH IMAGE
+    '''
+    # PROCESS LH IMAGE - Horizontal detail
     img = cv2.imread('LHimg.png',0)
     image = img_as_ubyte(img)
 
@@ -139,7 +167,8 @@ for file in glob.glob(path):
     correlation_float2 = float(correlation2)
     correlation_str2 = correlation_float2 / 10
 
-    # PROCESS HL IMAGE
+
+    # PROCESS HL IMAGE - Vertical detail
     img = cv2.imread('HLimg.png',0)
     image = img_as_ubyte(img)
 
@@ -173,7 +202,7 @@ for file in glob.glob(path):
     correlation_float3 = float(correlation3)
     correlation_str3 = correlation_float3 / 10
 
-    # PROCESS HH IMAGE
+    # PROCESS HH IMAGE - Diagonal detail
     img = cv2.imread('HHimg.png',0)
     image = img_as_ubyte(img)
 
@@ -207,13 +236,13 @@ for file in glob.glob(path):
     correlation_float4 = float(correlation4)
     correlation_str4 = correlation_float4 / 10
 
-    saved_str = (str(contrast_str) + ", " + str(homogeneity_str) + ", " + str(energy_str) + ", " + str(correlation_str) + ", "+ str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3) + ", " +  str(contrast_str4) + ", " + str(homogeneity_str4) + ", " + str(energy_str4) + ", " + str(correlation_str4) +   "\n" )
+    saved_str = (str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3) + ", " +  str(contrast_str4) + ", " + str(homogeneity_str4) + ", " + str(energy_str4) + ", " + str(correlation_str4) +   "\n" )
     print(saved_str)
 
     #plt.show()
     # Convert back to uint8 OpenCV format
-    image *= 255
-    image = np.uint8(image)
+    #image *= 255
+    #image = np.uint8(image)
 
 
     file_substr = file.split('/')[-1]
@@ -228,9 +257,9 @@ for file in glob.glob(path):
         g.write("1\n")
 
 
-    k = cv2.waitKey(1000)
+    #k = cv2.waitKey(1000)
     #destroy the window
-    cv2.destroyAllWindows()
+    #cv2.destroyAllWindows()
 
 
 # IMAGES FOR TESTING
@@ -256,15 +285,14 @@ for file in glob.glob(path_testing):
     # ...
 
     # Wavelet transform of image, and plot approximation and details
-    titles = ['Approximation', ' Horizontal detail',
-              'Vertical detail', 'Diagonal detail']
+    #titles = ['Approximation', ' Horizontal detail', 'Vertical detail', 'Diagonal detail']
     coeffs2 = pywt.dwt2(image, 'bior1.3')
     LL, (LH, HL, HH) = coeffs2
 
-    plt.imshow(LL, interpolation="nearest", cmap=plt.cm.gray)
-    plt.axis('off')
+    #plt.imshow(LL, interpolation="nearest", cmap=plt.cm.gray)
+    #plt.axis('off')
 
-    plt.savefig('LLimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
+    #plt.savefig('LLimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
 
     plt.imshow(LH, interpolation="nearest", cmap=plt.cm.gray)
     plt.axis('off')
@@ -280,6 +308,7 @@ for file in glob.glob(path_testing):
 
 
     # PROCESS LL IMAGE
+    '''
     img = cv2.imread('LLimg.png',0)
     image = img_as_ubyte(img)
 
@@ -312,6 +341,7 @@ for file in glob.glob(path_testing):
     print(correlation)
     correlation_float = float(correlation)
     correlation_str = correlation_float / 10
+    '''
 
     # PROCESS LH IMAGE
     img = cv2.imread('LHimg.png',0)
@@ -417,20 +447,20 @@ for file in glob.glob(path_testing):
 
     file_substr = file.split('/')[-1]
 
-    saved_str = (file_substr + ", " + str(contrast_str) + ", " + str(homogeneity_str) + ", " + str(energy_str) + ", " + str(correlation_str) + ", "+ str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3) + ", " +  str(contrast_str4) + ", " + str(homogeneity_str4) + ", " + str(energy_str4) + ", " + str(correlation_str4) +   "\n" )
+    saved_str = (file_substr + ", " + str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3) + ", " +  str(contrast_str4) + ", " + str(homogeneity_str4) + ", " + str(energy_str4) + ", " + str(correlation_str4) +   "\n" )
     print(saved_str)
 
     #plt.show()
 
     # Convert back to uint8 OpenCV format
-    image *= 255
-    image = np.uint8(image)
+    #image *= 255
+    #image = np.uint8(image)
 
     h.write(saved_str)
 
-    k = cv2.waitKey(1000)
+    #k = cv2.waitKey(1000)
     #destroy the window
-    cv2.destroyAllWindows()
+    #cv2.destroyAllWindows()
 
 
 
