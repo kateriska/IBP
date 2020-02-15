@@ -2,8 +2,8 @@ import numpy as np
 from matplotlib import pyplot as plt
 import math
 
-trained_vectors = np.genfromtxt('LBPGLCMTrained.csv',delimiter=",")
-trained_results = np.genfromtxt('LBPGLCMresultTrained.csv',dtype=int)
+trained_vectors = np.genfromtxt('WaveletTrained.csv',delimiter=",")
+trained_results = np.genfromtxt('WaveleTrainedResult.csv',dtype=int)
 #print(trained_vectors.size)
 #print(trained_results.size)
 trained_vectors_size = trained_vectors.size
@@ -59,9 +59,9 @@ class ArtificialNeuralNetwork:
 artificial_neural_network = ArtificialNeuralNetwork(trained_vectors, trained_results, vector_weights)
 artificial_neural_network.processTraining()
 
-tested_vectors = np.genfromtxt('LBPGLCMtested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8))
+tested_vectors = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8,9,10,11,12))
 print(tested_vectors)
-tested_files = np.genfromtxt('LBPGLCMtested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
+tested_files = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
 
 
 rows = tested_vectors.shape[0]
