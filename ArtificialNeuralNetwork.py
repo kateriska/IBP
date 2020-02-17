@@ -10,7 +10,11 @@ trained_vectors_size = trained_vectors.size
 trained_results_size = trained_results.size
 vector_length = int (trained_vectors_size / trained_results_size)
 print(vector_length)
-vector_weights = np.full((vector_length, 1), 0.5)
+#vector_weights = np.full((vector_length, 1), 0.1)
+#vector_weights = np.random.uniform(low=0.0, high=0.1, size=(vector_length, 1))
+mu, sigma = 0, 1 # mean and standard deviation
+vector_weights = np.random.normal(mu, sigma, size=(vector_length, 1))
+print(vector_weights)
 trained_results = trained_results[:,np.newaxis]
 #print(vector_weights)
 
