@@ -22,7 +22,7 @@ class ArtificialNeuralNetwork:
         self.epochs_list = []
         self.error_list = []
 
-    def sigmoidFunction(self, x, derivative_value=False):
+    def sigmoidFunction(self, x, derivative_value):
         if (derivative_value == False):
             function_value = (1 / (1 + np.exp(-x)))
         elif (derivative_value == True):
@@ -31,16 +31,16 @@ class ArtificialNeuralNetwork:
 
     def processData(self):
         vector_weights_product = np.dot(self.trained_vectors, self.vector_weights)
-        self.hidden_layer = self.sigmoidFunction(vector_weights_product)
+        self.hidden_layer = self.sigmoidFunction(vector_weights_product, False)
 
     def processBackpropagation(self):
         self.error_value = self.trained_results - self.hidden_layer
-        delta_value = self.error_value * self.sigmoidFunction(self.hidden_layer, derivative_value=True)
+        delta_value = self.error_value * self.sigmoidFunction(self.hidden_layer, True)
         trained_vectors_transpose = self.trained_vectors.T
         vector_delta_product = np.dot(trained_vectors_transpose, delta_value)
         self.vector_weights = self.vector_weights + vector_delta_product
 
-    def processTraining(self, epochs_count=1000000):
+    def processTraining(self, epochs_count):
         epoch = 0
         while (epoch < epochs_count):
             self.processData()
@@ -53,11 +53,11 @@ class ArtificialNeuralNetwork:
 
     def processTesting(self, tested_vector):
         tested_vector_weight_product = np.dot(tested_vector, self.vector_weights)
-        tested_result = self.sigmoidFunction(tested_vector_weight_product)
+        tested_result = self.sigmoidFunction(tested_vector_weight_product, False)
         return tested_result
 
 artificial_neural_network = ArtificialNeuralNetwork(trained_vectors, trained_results, vector_weights)
-artificial_neural_network.processTraining()
+artificial_neural_network.processTraining(1000000)
 
 tested_vectors = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8,9,10,11,12))
 print(tested_vectors)
