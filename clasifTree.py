@@ -17,12 +17,17 @@ class DecisionTreeClassifier:
 
     def fit(self, X, y):
         self.n_classes_ = len(set(y))
-        self.n_features_ = X.shape[1]
+        print(self.n_classes_)
+        self.n_features_ = np.size(X, 1)
+        print(self.n_features_)
         self.tree_ = self._grow_tree(X, y)
-
+    '''
     def predict(self, X):
-        return [self._predict(inputs) for inputs in X]
-
+        for inputs in X:
+            prediction = self._predict(inputs)
+        #return [self._predict(inputs) for inputs in X]
+        return prediction
+    '''
     def _best_split(self, X, y):
         m = y.size
         if m <= 1:
@@ -36,14 +41,20 @@ class DecisionTreeClassifier:
             num_right = num_parent.copy()
             for i in range(1, m):
                 c = classes[i - 1]
-                num_left[c] += 1
-                num_right[c] -= 1
-                gini_left = 1.0 - sum(
-                    (num_left[x] / i) ** 2 for x in range(self.n_classes_)
-                )
-                gini_right = 1.0 - sum(
-                    (num_right[x] / (m - i)) ** 2 for x in range(self.n_classes_)
-                )
+                num_left[c] = num_left[c] + 1
+                num_right[c] = num_right[c] - 1
+
+                gini_left_sum = 0
+                gini_right_sum = 0
+
+                for j in range(self.n_classes_):
+                    gini_left_sum = gini_left_sum + ((num_left[j] / i) ** 2)
+                    gini_right_sum = gini_right_sum + ((num_right[j] / (m - i)) ** 2)
+
+                gini_left = 1.0 - gini_left_sum
+                gini_right = 1.0 - gini_right_sum
+                #gini_left = 1.0 - sum((num_left[x] / i) ** 2 for x in range(self.n_classes_))
+                #gini_right = 1.0 - sum((num_right[x] / (m - i)) ** 2 for x in range(self.n_classes_))
                 #gini = (i * gini_left + (m - i) * gini_right) / m
                 gini = (((i/m)*gini_left) + (((m-i)/m ) * gini_right ))
                 if thresholds[i] == thresholds[i - 1]:
@@ -109,16 +120,19 @@ if __name__ == "__main__":
     for cols in tested_vectors:
             live_percent = 0
             fake_percent = 0
+            #print(cols)
+            #array_testing = cols[:,np.newaxis]
+            #print(array_testing)
+            #array_transpose = array_testing.T
+            #print(array_transpose)
 
-            array_testing = cols[:,np.newaxis]
-
-            array_transpose = array_testing.T
-            print(array_transpose)
-
-            final_prediction = clf.predict(array_transpose)
+            #final_prediction = clf.predict(array_transpose)
+            #for inputs in array_transpose:
+                #print(inputs)
+            final_prediction = clf._predict(cols)
             print(final_prediction)
             final_prediction_str = str(final_prediction)
-            final_prediction_str = final_prediction_str[1:-1]
+            #final_prediction_str = final_prediction_str[1:-1]
             final_prediction_int = int(final_prediction_str)
             print(final_prediction_str)
 
