@@ -33,7 +33,11 @@ class DecisionTreeClassifier:
         if m <= 1:
             return None, None
         num_parent = [np.sum(y == c) for c in range(self.n_classes_)]
-        best_gini = 1.0 - sum((n / m) ** 2 for n in num_parent)
+        best_gini_sum = 0
+        for n in num_parent:
+            best_gini_sum = best_gini_sum + ((n / m) ** 2)
+        #best_gini = 1.0 - sum((n / m) ** 2 for n in num_parent)
+        best_gini = 1.0 - best_gini_sum
         best_idx, best_thr = None, None
         for idx in range(self.n_features_):
             thresholds, classes = zip(*sorted(zip(X[:, idx], y)))
