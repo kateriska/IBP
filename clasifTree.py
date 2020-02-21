@@ -84,7 +84,24 @@ class DecisionTreeClassifier:
         if depth < self.max_depth:
             idx, thr = self._best_split(X, y)
             if idx is not None:
-                indices_left = X[:, idx] < thr
+                print("Printing array index")
+                print(X)
+                print(thr)
+                indices_left = X[:, idx]
+                print(indices_left)
+                position = 0
+                for item in np.nditer(indices_left):
+                    if (item < thr):
+                        indices_left[position] = 1
+                    else:
+                        indices_left[position] = 0
+                    position = position + 1
+
+                indices_left = indices_left.astype(int)
+                #indices_left = X[:, idx] < thr
+                #if (X[:, idx] < thr):
+                #    indices_left = X[:, idx]
+                print(indices_left)
                 X_left = X[indices_left]
                 y_left = y[indices_left]
                 #X_right = X[~indices_left]
