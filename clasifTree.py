@@ -16,7 +16,8 @@ class DecisionTreeClassifier:
         self.max_depth = max_depth
 
     def fit(self, X, y):
-        self.n_classes_ = len(set(y))
+        #self.n_classes_ = len(set(y))
+        self.n_classes_ = 2
         print(self.n_classes_)
         self.n_features_ = np.size(X, 1)
         print(self.n_features_)
@@ -70,15 +71,26 @@ class DecisionTreeClassifier:
         return best_idx, best_thr
 
     def _grow_tree(self, X, y, depth=0):
+        print("Print nclasses")
+        print(self.n_classes_)
+        print("Print y")
+        print(y)
         num_samples_per_class = [np.sum(y == i) for i in range(self.n_classes_)]
+        print("Sum per class")
+        print(num_samples_per_class)
+
         predicted_class = np.argmax(num_samples_per_class)
         node = Node(predicted_class=predicted_class)
         if depth < self.max_depth:
             idx, thr = self._best_split(X, y)
             if idx is not None:
                 indices_left = X[:, idx] < thr
-                X_left, y_left = X[indices_left], y[indices_left]
-                X_right, y_right = X[~indices_left], y[~indices_left]
+                X_left = X[indices_left]
+                y_left = y[indices_left]
+                #X_right = X[~indices_left]
+                #y_right = y[~indices_left]
+                X_right = X[np.logical_not(indices_left)]
+                y_right = y[np.logical_not(indices_left)]
                 node.feature_index = idx
                 node.threshold = thr
                 node.left = self._grow_tree(X_left, y_left, depth + 1)
