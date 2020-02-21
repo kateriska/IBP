@@ -75,11 +75,32 @@ class DecisionTreeClassifier:
         print(self.n_classes_)
         print("Print y")
         print(y)
-        num_samples_per_class = [np.sum(y == i) for i in range(self.n_classes_)]
+        #num_samples_per_class = [np.sum(y == i) for i in range(self.n_classes_)]
+        fake_count = 0
+        live_count = 0
+        for item in np.nditer(y):
+            print(item)
+            if (item == 0):
+                fake_count = fake_count + 1
+            elif (item == 1):
+                live_count = live_count + 1
+
+        num_samples_per_class = np.array([fake_count, live_count])
+
         print("Sum per class")
         print(num_samples_per_class)
 
-        predicted_class = np.argmax(num_samples_per_class)
+        #predicted_class = np.argmax(num_samples_per_class)
+        max_class = 0
+        max_index = 0
+        index = 0
+        for item in np.nditer(num_samples_per_class):
+            if (item > max_class):
+                max_class = item
+                max_index = index
+            index = index + 1
+
+        predicted_class = max_index
         node = Node(predicted_class=predicted_class)
         if depth < self.max_depth:
             idx, thr = self._best_split(X, y)
