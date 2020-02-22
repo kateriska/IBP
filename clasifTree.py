@@ -1,7 +1,7 @@
 """Implementation of the CART algorithm to train decision tree classifiers."""
 import numpy as np
 
-
+'''
 class Node:
     def __init__(self, predicted_class):
         self.predicted_class = predicted_class
@@ -9,19 +9,21 @@ class Node:
         self.threshold = 0
         self.left = None
         self.right = None
-
+'''
 
 class DecisionTreeClassifier:
-    def __init__(self, max_depth=None):
-        self.max_depth = max_depth
+    #def __init__(self, max_depth=None):
+        #self.max_depth = max_depth
 
-    def fit(self, X, y):
+    def __init__(self, X, y):
         #self.n_classes_ = len(set(y))
         self.n_classes_ = 2
-        print(self.n_classes_)
-        self.n_features_ = np.size(X, 1)
-        print(self.n_features_)
+        self.max_depth = 1
+        #print(self.n_classes_)
+        self.n_features_ = np.size(X, 1) #12
+        #print(self.n_features_)
         self.tree_ = self._grow_tree(X, y)
+
     '''
     def predict(self, X):
         for inputs in X:
@@ -33,7 +35,18 @@ class DecisionTreeClassifier:
         m = y.size
         if m <= 1:
             return None, None
-        num_parent = [np.sum(y == c) for c in range(self.n_classes_)]
+        #num_parent = [np.sum(y == c) for c in range(self.n_classes_)]
+        #print(num_parent)
+        fake_count = 0
+        live_count = 0
+        for item in np.nditer(y):
+            #print(item)
+            if (item == 0):
+                fake_count = fake_count + 1
+            elif (item == 1):
+                live_count = live_count + 1
+
+        num_parent = np.array([fake_count, live_count])
         best_gini_sum = 0
         for n in num_parent:
             best_gini_sum = best_gini_sum + ((n / m) ** 2)
@@ -41,8 +54,23 @@ class DecisionTreeClassifier:
         best_gini = 1.0 - best_gini_sum
         best_idx, best_thr = None, None
         for idx in range(self.n_features_):
-            thresholds, classes = zip(*sorted(zip(X[:, idx], y)))
-            num_left = [0] * self.n_classes_
+            #print(X[:, idx])
+            #print(y)
+            #thresholds, classes = zip(*sorted(zip(X[:, idx], y)))
+            pairs = zip(X[:, idx], y)
+            pairs_tuple = (tuple(pairs))
+            sorted_tuple = (sorted(pairs_tuple, key=lambda pair: pair[0]))
+            print(sorted_tuple)
+            #thresholds, classes = zip(pairs_sorted)
+            sorted_array = np.array(sorted_tuple)
+            thresholds = sorted_array[:, 0]
+            classes = sorted_array[:, 1]
+            classes = classes.astype(int)
+            #print(thresholds)
+            #print(classes)
+            #print(self.n_classes_)
+            num_left = np.array([0,0])
+            #print(num_left)
             num_right = num_parent.copy()
             for i in range(1, m):
                 c = classes[i - 1]
@@ -68,18 +96,18 @@ class DecisionTreeClassifier:
                     best_gini = gini
                     best_idx = idx
                     best_thr = (thresholds[i] + thresholds[i - 1]) / 2
-        return best_idx, best_thr
+        return best_thr, best_idx
 
     def _grow_tree(self, X, y, depth=0):
-        print("Print nclasses")
-        print(self.n_classes_)
-        print("Print y")
-        print(y)
+        #print("Print nclasses")
+        #print(self.n_classes_)
+        #print("Print y")
+        #print(y)
         #num_samples_per_class = [np.sum(y == i) for i in range(self.n_classes_)]
         fake_count = 0
         live_count = 0
         for item in np.nditer(y):
-            print(item)
+            #print(item)
             if (item == 0):
                 fake_count = fake_count + 1
             elif (item == 1):
@@ -87,8 +115,8 @@ class DecisionTreeClassifier:
 
         num_samples_per_class = np.array([fake_count, live_count])
 
-        print("Sum per class")
-        print(num_samples_per_class)
+        #print("Sum per class")
+        #print(num_samples_per_class)
 
         #predicted_class = np.argmax(num_samples_per_class)
         max_class = 0
@@ -101,15 +129,15 @@ class DecisionTreeClassifier:
             index = index + 1
 
         predicted_class = max_index
-        node = Node(predicted_class=predicted_class)
+        node = Node(predicted_class)
         if depth < self.max_depth:
-            idx, thr = self._best_split(X, y)
+            thr, idx = self._best_split(X, y)
             if idx is not None:
-                print("Printing array index")
-                print(X)
-                print(thr)
+                #print("Printing array index")
+                #print(X)
+                #print(thr)
                 indices_left = X[:, idx]
-                print(indices_left)
+                #print(indices_left)
                 position = 0
                 for item in np.nditer(indices_left):
                     if (item < thr):
@@ -122,7 +150,7 @@ class DecisionTreeClassifier:
                 #indices_left = X[:, idx] < thr
                 #if (X[:, idx] < thr):
                 #    indices_left = X[:, idx]
-                print(indices_left)
+                #print(indices_left)
                 X_left = X[indices_left]
                 y_left = y[indices_left]
                 #X_right = X[~indices_left]
@@ -137,29 +165,37 @@ class DecisionTreeClassifier:
 
     def _predict(self, inputs):
         node = self.tree_
-        while node.left:
+        #print(node.left)
+        while node.left != None:
             if inputs[node.feature_index] < node.threshold:
                 node = node.left
             else:
                 node = node.right
         return node.predicted_class
 
+class Node:
+    def __init__(self, predicted_class):
+        self.predicted_class = predicted_class
+        self.feature_index = 0
+        self.threshold = 0
+        self.left = None
+        self.right = None
 
 if __name__ == "__main__":
     import sys
     #from sklearn.datasets import load_iris
 
     #dataset = load_iris()
-    trained_vectors = np.genfromtxt('WaveletTrained.csv',delimiter=",")
-    trained_results = np.genfromtxt('WaveleTrainedResult.csv',dtype=int)
+    trained_vectors = np.genfromtxt('SLTrained.csv',delimiter=",")
+    trained_results = np.genfromtxt('SLTrainedResult.csv',dtype=int)
     X, y = trained_vectors, trained_results # pylint: disable=no-member
     #print(X)
     #print(y)
-    clf = DecisionTreeClassifier(max_depth=1)
-    clf.fit(X, y)
-    tested_vectors = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8,9,10,11,12))
+    clf = DecisionTreeClassifier(X, y)
+    #clf.fit(X, y)
+    tested_vectors = np.genfromtxt('SLTested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8,9,10,11,12))
     #print(tested_vectors)
-    tested_files = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
+    tested_files = np.genfromtxt('SLTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
 
 
     rows = tested_vectors.shape[0]

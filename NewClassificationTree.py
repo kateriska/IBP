@@ -155,13 +155,13 @@ class TreeNode:
 
 
 
-trained_vectors = np.genfromtxt('SLTrained.csv',delimiter=",")
-trained_results = np.genfromtxt('SLTrainedResult.csv',dtype=int)
+trained_vectors = np.genfromtxt('WaveletTrained.csv',delimiter=",")
+trained_results = np.genfromtxt('WaveleTrainedResult.csv',dtype=int)
 
 decision_tree = DecisionTree(trained_vectors, trained_results)
 
-tested_vectors = np.genfromtxt('SLTested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8,9,10,11,12))
-tested_files = np.genfromtxt('SLTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
+tested_vectors = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8,9,10,11,12))
+tested_files = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
 
 
 rows = tested_vectors.shape[0]

@@ -59,7 +59,7 @@ for file in glob.glob(path):
     img = cv2.imread(file, 0) # uint8 image in grayscale
     #img = cv2.resize(img,(360,360)) # resize of image
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
-    segmented_img = adaptiveSegmentationMean(img)
+    segmented_img = imgSegmentation(img)
     #cv2.imshow('Segmented image', segmented_img)
     cv2.imwrite('segmented_img.jpg', segmented_img)
 
@@ -76,7 +76,7 @@ for file in glob.glob(path):
 
     # Wavelet transform of image, and plot approximation and details
     #titles = ['Approximation', ' Horizontal detail', 'Vertical detail', 'Diagonal detail']
-    coeffs2 = pywt.dwt2(image, 'bior1.3')
+    coeffs2 = pywt.dwt2(image, 'bior2.2')
     LL, (LH, HL, HH) = coeffs2
     #fig = plt.figure(figsize=(3, 3))
     #ax = fig.add_subplot(1, 1, 1)
@@ -270,7 +270,7 @@ for file in glob.glob(path_testing):
     img = cv2.imread(file, 0) # uint8 image in grayscale
     #img = cv2.resize(img,(360,360)) # resize of image
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
-    segmented_img = adaptiveSegmentationMean(img)
+    segmented_img = imgSegmentation(img)
     #cv2.imshow('Segmented image', segmented_img)
     cv2.imwrite('segmented_img.jpg', segmented_img)
     image = cv2.imread('segmented_img.jpg')
@@ -286,7 +286,7 @@ for file in glob.glob(path_testing):
 
     # Wavelet transform of image, and plot approximation and details
     #titles = ['Approximation', ' Horizontal detail', 'Vertical detail', 'Diagonal detail']
-    coeffs2 = pywt.dwt2(image, 'bior1.3')
+    coeffs2 = pywt.dwt2(image, 'bior2.2')
     LL, (LH, HL, HH) = coeffs2
 
     #plt.imshow(LL, interpolation="nearest", cmap=plt.cm.gray)
