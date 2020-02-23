@@ -1,0 +1,133 @@
+Biorthogonal filters:
+allImages, OTSU segmentation
+bior2.2
+
+ANN:
+Number of correct classifications: 38
+Number of wrong classifications: 4
+Accuracy: 90.47619047619048 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 7.142857142857143 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 2.380952380952381 %
+
+
+SVM:
+Number of correct classifications: 35
+Number of wrong classifications: 7
+Accuracy: 83.33333333333333 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 16.666666666666668 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 0.0 %
+
+
+CLF:
+Number of correct classifications: 33
+Number of wrong classifications: 9
+Accuracy: 78.57142857142857 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 9.523809523809524 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 11.904761904761905 %
+
+
+My CLF:
+Number of correct classifications: 31
+Number of wrong classifications: 11
+Accuracy: 73.80952380952381 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 26.19047619047619 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 0.0 %
+
+
+bior1.5
+
+ANN:
+Number of correct classifications: 35
+Number of wrong classifications: 7
+Accuracy: 83.33333333333333 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 9.523809523809524 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 7.142857142857143 %
+
+
+SVM:
+Number of correct classifications: 34
+Number of wrong classifications: 8
+Accuracy: 80.95238095238095 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 19.047619047619047 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 0.0 %
+
+
+CLF:
+Number of correct classifications: 37
+Number of wrong classifications: 5
+Accuracy: 88.0952380952381 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 9.523809523809524 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 2.380952380952381 %
+
+
+My CLF:
+Number of correct classifications: 36
+Number of wrong classifications: 6
+Accuracy: 85.71428571428571 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 9.523809523809524 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 4.761904761904762 %
+
+bior2.4
+ANN:
+Number of correct classifications: 39
+Number of wrong classifications: 3
+Accuracy: 92.85714285714286 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 2.380952380952381 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 4.761904761904762 %
+
+SVM:
+Number of correct classifications: 34
+Number of wrong classifications: 8
+Accuracy: 80.95238095238095 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 19.047619047619047 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 0.0 %
+
+CLF:
+Number of correct classifications: 36
+Number of wrong classifications: 6
+Accuracy: 85.71428571428571 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 9.523809523809524 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 4.761904761904762 %
+
+
+My CLF:
+Number of correct classifications: 31
+Number of wrong classifications: 11
+Accuracy: 73.80952380952381 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 26.19047619047619 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 0.0 %
+
+
+bior2.8
+ANN:
+Number of correct classifications: 37
+Number of wrong classifications: 5
+Accuracy: 88.0952380952381 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 7.142857142857143 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 4.761904761904762 %
+
+
+SVM:
+Number of correct classifications: 33
+Number of wrong classifications: 9
+Accuracy: 78.57142857142857 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 21.428571428571427 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 0.0 %
+
+
+CLF:
+Number of correct classifications: 34
+Number of wrong classifications: 8
+Accuracy: 80.95238095238095 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 11.904761904761905 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 7.142857142857143 %
+
+
+My CLF:
+Number of correct classifications: 31
+Number of wrong classifications: 11
+Accuracy: 73.80952380952381 %
+FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): 26.19047619047619 %
+FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): 0.0 %
+
+
