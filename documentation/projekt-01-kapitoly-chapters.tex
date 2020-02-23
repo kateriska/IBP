@@ -252,6 +252,9 @@ I bříško prstu obsahuje potní žlázy, proto detekce pórů může poslouži
     \caption{Srovnání vývoje detekce potu v čase mezi živým a falešným prstem, převzato z \cite{PoresResearch}}
 \end{figure}
 
+
+
+
 \chapter{Využité algoritmy pro předzpracování a analýzu živosti otisků prstů}
 Tato kapitola se zabývá popisem použitých algoritmů pro předzpracování obrazu a následně vybraných algoritmů pro samotnou detekci živosti otisků prstů. Pro hlavní analýzu bylo algoritmů vybráno více, dokonce v kombinaci s některým přídavným hardwarovým vybavením. Samotná detekce se pak sestává z aplikace různých řešení a získání vlastností z samotného obrazu otisku prstu, které jsou použitelné pro rozlišení falešných a živých vzorků.
 \section{Převedení na normalizovaný obraz}
@@ -549,6 +552,34 @@ Poslední extrahovanou charakteristikou byla homogenita. Tato vlastnost předsta
 $$homogeneity = \sum_{i,j=0}^{levels-1}\frac{P_{i,j}}{1+(i-j)^2}$$
 
 \chapter{Klasifikační algoritmy pro rozhodování o živosti a neživosti otisku prstu}
+Pro samotné rozhodnutí o živosti či neživosti otisku prstu je potřeba navrhnout a použít některý z klasifikátorů, které jsou založeny na bázi umělé inteligence. Pro vlastní výzkum jsem použila neuronovou síť a klasifikátor SVM (Support Vector Machine). Tato kapitola popisuje stručný úvod do umělé inteligence a popisy jednotlivých přístupů.
+
+\section{Umělá neuronová síť}
+Umělá neuronová síť byla sestavena jako abstrakce podobná lidskému myšlení. Umělý neuron se nazývá perceptron a byl inspirován právě nervovou buňkou - neurononem. Výstupní signály umělých neuronů jsou statické, narozdíl od těch skutečných. Obecné schéma umělého neuronu je následující, proměnná $u$ představuje vnitřní potenciál, $f$ pak bázovou funkci, $g$ aktivační funkci, $i$ hodnotu daného vstupu a $w$ váhu:
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=300px]{obrazky-figures/neuron.png}
+    \caption{Obecný model umělého neuronu, převzato z \cite{PrednaskaIZU9}}
+\end{figure}
+
+Každá neuronová síť funguje na následujícím principu: váhy se vynásobí s daným vstupem, dále probíhá přičtení speciální hodnoty zvané bias. Poté se aplikuje daná aktivační funkce a vstup se předá další vrstvě, zpětně se pak provádí zpětná propagace, při které se aktualizují váhy. Vnitřní stav sítě můžeme tedy charakterizovat následujícím předpisem: $w_0x_0 + \sum_{i=1}^{n}P_{i,j}w_ix_i$, kde bias představuje prvek s hodnotou $x_0$ a s vahou $w_0$ a proměnné $x_1, x_2, ...x_i$ představují vstupní hodnoty s danými vahami $w_1, w_2, ...w_i$. V některých případech může být výstup daných hodnot velmi velký, pokud pracujeme s více vrstvami neuronové sítě, hodnoty se mohou stále stávat vyššími a vyššími a samotný výpočet pak nekontrolovatelným. Proto hraje důležitou roli aktivační funkce, která na výstupu pracuje s hodnotami v určitém intervalu, např. $(-1, 1)$ nebo $(0, 1)$.\cite{MediumDeepLearning} 
+
+V rámci bakalářské práce jsem jako aktivační funkci využila sigmoidu. Jedná se o nelineární funkci, která nabývá hodnot v intervalu $(0, 1)$, proto je vhodná pro modely, kde máme předpovědět pravděpodobnost vstupu. Rovnice funkce je následující:
+$$f(x)=\frac{1}{1+e^{-x}}$$
+Sigmoida je snadno diferencovatelná, můžeme ji lehce použít pro aktualizaci daných vah.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=300px]{obrazky-figures/sigmoid.jpeg}
+    \caption{Graf sigmoidy a její derivace, převzato z \cite{MediumDeepLearning}}
+\end{figure}
+
+Zderivovaná sigmoida má pak následující předpis:
+$$g(x)=e^{-x}*{(1+e^{-x})}^{-2}$$
+
+Dále pro sigmoidu a její derivaci platí následující pravidlo:
+$$\frac{df(x)}{f(x)} = f(x)*(1-f(x))$$
 
 \chapter{Průběh implementace, experimenty a vyhodnocení}
 Cílem samotné implemetace bylo aplikovat algoritmy pro předzpracování obrazu a následně využít postupy, které mohou zajistit na základě analýzy textury výsledné rozhodnutí o živosti či neživosti daného otisku prstu.
