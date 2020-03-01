@@ -77,9 +77,9 @@ def showWavelet(segmentation_type, input_img, wavelet_type):
           'Vertical detail', 'Diagonal detail']
     coeffs2 = pywt.dwt2(img, wavelet_type)
     LL, (LH, HL, HH) = coeffs2
-    fig = plt.figure(figsize=(12, 3))
+    fig = plt.figure(figsize=(11, 11))
     for i, a in enumerate([LL, LH, HL, HH]):
-        ax = fig.add_subplot(1, 4, i + 1)
+        ax = fig.add_subplot(2, 2, i + 1)
         ax.imshow(a, interpolation="nearest", cmap=plt.cm.gray)
         ax.set_title(titles[i], fontsize=10)
         ax.set_xticks([])
