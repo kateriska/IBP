@@ -219,9 +219,11 @@ Bezdotykový senzor je založen na snímání, kdy daný prst nepřichází do k
 Použitý bezdotakový senzor v rámci bakalářské práce je složen ze tří kamer a světlech, o různých vlnových délkách, které dokáží prst nasvítit. Pro výzkum byla použita prostřední kamera. Prsty byly nasvicovány modrým, zeleným a červeným světlem. Byly provedeny experimenty i s ultrafialovým zářením, ale toto záření bylo velmi slabé a proto nebylo při výsledné práci nakonec použito.
 
 \section{Sběr datasetu}
-Pro snímky živých otisků prstů bylo použito zhruba pět osob. Prsty byly nasvicovány jednotlivými světly a bylo potřeba dbát na skutečnost, aby nebyly obrazy přesvětlené a vynikly tak co nejlépe dané papilární linie a textura povrchu prstu. I přes vynaloženou snahu, se mohou na snímcích objevit stíny, ale snažila jsem se co nejvíce simulovat skutečné používání senzoru, aby dokázal analyzovat živost s co největším rozpětím a robustností. 
+Pro snímky živých otisků prstů bylo použito zhruba šest osob. Prsty byly nasvicovány jednotlivými světly a bylo potřeba dbát na skutečnost, aby nebyly obrazy přesvětlené a vynikly tak co nejlépe dané papilární linie a textura povrchu prstu. I přes vynaloženou snahu, se mohou na snímcích objevit stíny, ale snažila jsem se co nejvíce simulovat skutečné používání senzoru, aby dokázal analyzovat živost s co největším rozpětím a robustností. 
 
 Zjistila jsem, že pro některé osoby bylo zpočátku trochu nezvyklé držet prst opravdu ve statické poloze při snímání, což beru jako mírnou nevýhodu bezdotykového senzoru, kde není k dispozici žádný povrch pro položení prstu při analýze. 
+
+Pro svoji analýzu jsem dále použila zhruba 30 falešných otisků prstů. I zde bylo potřeba dbát na co nejvyšší vyniknutí papilárních linií.
 
 \chapter{Průzkum současných řešení detekce živosti otisků prstů}
 Algoritmů pro detekci živosti otisku prstu byla objevena ve studiích celá řada. Jedná se o práce, které využívají jak hardwarové metody analýzy, tak softwarové metody. Nevýhodou hardwarových metod je, že požadují zvláštní vybavení navíc. V mojí práci se budu zabývat softwarovými metodami detekce, avšak v některých případech i s využitím hardwarového prostředku, například nasvícení prstu na senzoru světlem o různé vlnové délce. Tato kapitola popisuje stručně současné přístupy k analýze.
@@ -319,91 +321,91 @@ Papilární linie jsou odděleny po vyprahování úzkými místy a tento algori
   \end{minipage}
 \end{figure}
 
-\section{Ztenčování linií}
-Pro extrakci markantů (ukončení a vidličky) je potřeba ztenčit papilární linie otisku prstů. Pro ztenčení bylo znovu využito morfologických operací. V každé iteraci algoritmu je znovu provedena eroze obrazu.
-Známým postupem pro vytvoření morfologické kostry je Lantuéjoulova formule:\cite{WikipediaSkeleton}\\\\
-Pro diskrétní binární obraz $X$ $\subset$ $\mathds{Z}^2$, skeleton $S(X)$ je sjednocením podmnožin koster ${S_n(X)},$\\$ n = 0,1,..,N$, kde:
-$$S_n(X) = (X \ominus nB) - (X \ominus nB) \circ B$$ Symboly $\ominus$ a $\circ$ jsou morfologická eroze a otevření. 
+%\section{Ztenčování linií}
+%Pro extrakci markantů (ukončení a vidličky) je potřeba ztenčit papilární linie otisku prstů. Pro ztenčení bylo znovu využito morfologických operací. V každé iteraci algoritmu je znovu provedena eroze obrazu.
+%Známým postupem pro vytvoření morfologické kostry je Lantuéjoulova formule:\cite{WikipediaSkeleton}\\\\
+%Pro diskrétní binární obraz $X$ $\subset$ $\mathds{Z}^2$, skeleton $S(X)$ je sjednocením podmnožin koster ${S_n(X)},$\\$ n = 0,1,..,N$, kde:
+%$$S_n(X) = (X \ominus nB) - (X \ominus nB) \circ B$$ Symboly $\ominus$ a $\circ$ jsou morfologická eroze a otevření. 
 
-\begin{figure}[htbp]
-  \begin{minipage}[b]{0.5\linewidth}
-    \centering
-    \includegraphics[width=130px]{obrazky-figures/SG_LLnorm.png}
-    \caption{Vstupní normalizovaný a segmentovaný obraz}
-  \end{minipage}
-  \hspace{0.5cm}
-  \begin{minipage}[b]{0.5\linewidth}
-    \centering
-    \includegraphics[width=130px]{obrazky-figures/SG_LLthin.png}
-    \caption{Obraz se ztenčenými papilárními liniemi}
-  \end{minipage}
-\end{figure}
-\section{Extrakce ukončení a vidličky}
-Extrakce těchto nejdůležitějších markantů v otisku prstu probíhá po normalizaci, segmentaci a ztenčení obrazu. Předchozí práce ukázala, že úroveň jasu v šedotónovém obrazu je náhodnou u živých otisků prstů, ale má sklon být buď uniformní nebo periodická u falešných otisků prstů. Stejná myšlenka je pak použita u místní analýzy textury otisku prstu. Z~tohoto důvodu počet hřebenů ukončení papilárních linií u živých otisků prstů má tendenci dosahovat k větším číslům, jak u falešných otisků prstů. Proto je očividné, že tato metoda může být efektivní vlastností, jak odlišit živé otisky prstů od falešných.\cite{AbhiskekStudy}
+%\begin{figure}[htbp]
+%  \begin{minipage}[b]{0.5\linewidth}
+%    \centering
+%    \includegraphics[width=130px]{obrazky-figures/SG_LLnorm.png}
+%    \caption{Vstupní normalizovaný a segmentovaný obraz}
+%  \end{minipage}
+% \hspace{0.5cm}
+%  \begin{minipage}[b]{0.5\linewidth}
+%    \centering
+%    \includegraphics[width=130px]{obrazky-figures/SG_LLthin.png}
+%    \caption{Obraz se ztenčenými papilárními liniemi}
+%  \end{minipage}
+%\end{figure}
+%\section{Extrakce ukončení a vidličky}
+%Extrakce těchto nejdůležitějších markantů v otisku prstu probíhá po normalizaci, segmentaci a ztenčení obrazu. Předchozí práce ukázala, že úroveň jasu v šedotónovém obrazu je náhodnou u živých otisků prstů, ale má sklon být buď uniformní nebo periodická u falešných otisků prstů. Stejná myšlenka je pak použita u místní analýzy textury otisku prstu. Z~tohoto důvodu počet hřebenů ukončení papilárních linií u živých otisků prstů má tendenci dosahovat k větším číslům, jak u falešných otisků prstů. Proto je očividné, že tato metoda může být efektivní vlastností, jak odlišit živé otisky prstů od falešných.\cite{AbhiskekStudy}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=250px]{obrazky-figures/graylevel.png}
-    \caption{Ukázka změn úrovně šedotónového jasu u živých otisků prstů v porovnání s falešnými otisky z syntetických materiálů, převzato z \cite{AbhiskekStudy}}
-\end{figure}
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width=250px]{obrazky-figures/graylevel.png}
+%    \caption{Ukázka změn úrovně šedotónového jasu u živých otisků prstů v porovnání s falešnými otisky z syntetických materiálů, převzato z \cite{AbhiskekStudy}}
+%\end{figure}
 
-Pro extrakci ukončení i vidličky bylo použito okna o velikosti 3x3 pixely. U každého pixelu pak bylo na základě tohoto okna ve středu s procházeným pixelem zjištěno, jaké hodnoty mají jeho sousedé a tento prostřední centrální pixel. 
+%Pro extrakci ukončení i vidličky bylo použito okna o velikosti 3x3 pixely. U každého pixelu pak bylo na základě tohoto okna ve středu s procházeným pixelem zjištěno, jaké hodnoty mají jeho sousedé a tento prostřední centrální pixel. 
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=350px]{obrazky-figures/windowridge.png}
-    \caption{Okno o velikosti 9 pixelů pro extrakci ukončení, převzato z \cite{BansalStudy}}
-\end{figure}
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=350px]{obrazky-figures/bif.png}
-    \caption{Okno o velikosti 9 pixelů pro extrakci vidličky}
-\end{figure}
-
-
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width=350px]{obrazky-figures/windowridge.png}
+%    \caption{Okno o velikosti 9 pixelů pro extrakci ukončení, převzato z \cite{BansalStudy}}
+%\end{figure}
+%\begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width=350px]{obrazky-figures/bif.png}
+%    \caption{Okno o velikosti 9 pixelů pro extrakci vidličky}
+%\end{figure}
 
 
 
-\section{Extrakce orientovaného pole}
-Tento algoritmus z detekovaného otisku prstu vytvoří orientovanou mapu. Algoritmus postupuje následovně:\\
-1. Rozdělte normalizovaný obraz $G$ na bloky o velikosti $w$ x $w$.\\
-2. Spočítejte gradienty $\delta_x$$(i, j)$ a $\delta_y$$(i, j)$ v každém pixelu obrazu. \\
-2. Odhadněte místní orientaci každého bloku se středem v pixelu $(i, j)$ pomocí těchto rovnic:
-$$V_x(i, j) = \sum_{u=i-\frac{w}{2}}^{i+\frac{w}{2}}\sum_{v=j-\frac{w}{2}}^{j+\frac{w}{2}} 2\delta_x(u,v)\delta_y(u,v)$$
-$$V_y(i, j) = \sum_{u=i-\frac{w}{2}}^{i+\frac{w}{2}}\sum_{v=j-\frac{w}{2}}^{j+\frac{w}{2}} \delta_x^2(u,v) - \delta_y^2(u,v)$$
-$$\theta(i, j) = \frac{1}{2}\tan^{-1}(\frac{V_y(i,j)}{V_x(i, j)}$$
-3. Spočítejte magnitudu:
-$$V(i,j) = \sqrt{V_x(i,j)^2 + V_y(i,j)^2}$$
-4. Převeďte orientovaný obraz na souvislé pole vektorů pomocí rovnic:
-$$\Phi_x(i,j) = V(i,j)\cos{2\theta(i,j)}$$
-$$\Phi_y(i,j) = V(i,j)\sin{2\theta(i,j)}$$
-5. Vypočítejte výsledný úhel se středem v pixelu $(i, j)$:
-$$O(i, j) = \frac{1}{2}\tan^{-1}(\frac{\Phi_y(i,j)}{\Phi_x(i, j)}$$
-Výsledné vykreslení orientovaných úseček probíhá následovně:\\
-6. Vypočítejte počáteční body $(x_0,y_0)$ orientované úsečky:\\
-$$x_0 = i + \frac{w}{2}$$
-$$y_0 = j + \frac{w}{2}$$
-7. Vypočítejte koncové body $(x_1,y_1)$ orientované úsečky:\\
-$$r = \frac{w}{2}$$
-$$x_1 = r * \cos({O(i,j)})+ x_0$$
-$$y_1 = r * \sin({O(i,j)})+ y_0$$
-8. Sestavte výsledné rovnice orientovaných úseček. Vypočtený úhel je kolmý směrem k hřebenům papilárních linií:\\
-$$x_1 = r * cos(O(i,j)- \frac{\pi}{2}) + x_0$$
-$$y_1 = r * sin(O(i,j)- \frac{\pi}{2}) + y_0$$
 
-\begin{figure}[htbp]
-  \begin{minipage}[b]{0.5\linewidth}
-    \centering
-    \includegraphics[width=135px]{obrazky-figures/norm_img.png}
-    \caption{Normalizovaný a segmentovaný obraz}
-  \end{minipage}
-  \hspace{0.5cm}
-  \begin{minipage}[b]{0.5\linewidth}
-    \centering
-    \includegraphics[width=140px]{obrazky-figures/orient.png}
-    \caption{Orientované pole obrazu}
-  \end{minipage}
-\end{figure}
+
+%\section{Extrakce orientovaného pole}
+%Tento algoritmus z detekovaného otisku prstu vytvoří orientovanou mapu. Algoritmus postupuje následovně:\\
+%1. Rozdělte normalizovaný obraz $G$ na bloky o velikosti $w$ x $w$.\\
+%2. Spočítejte gradienty $\delta_x$$(i, j)$ a $\delta_y$$(i, j)$ v každém pixelu obrazu. \\
+%2. Odhadněte místní orientaci každého bloku se středem v pixelu $(i, j)$ pomocí těchto rovnic:
+%$$V_x(i, j) = \sum_{u=i-\frac{w}{2}}^{i+\frac{w}{2}}\sum_{v=j-\frac{w}{2}}^{j+\frac{w}{2}} 2\delta_x(u,v)\delta_y(u,v)$$
+%$$V_y(i, j) = \sum_{u=i-\frac{w}{2}}^{i+\frac{w}{2}}\sum_{v=j-\frac{w}{2}}^{j+\frac{w}{2}} \delta_x^2(u,v) - \delta_y^2(u,v)$$
+%$$\theta(i, j) = \frac{1}{2}\tan^{-1}(\frac{V_y(i,j)}{V_x(i, j)}$$
+%3. Spočítejte magnitudu:
+%$$V(i,j) = \sqrt{V_x(i,j)^2 + V_y(i,j)^2}$$
+%4. Převeďte orientovaný obraz na souvislé pole vektorů pomocí rovnic:
+%$$\Phi_x(i,j) = V(i,j)\cos{2\theta(i,j)}$$
+%$$\Phi_y(i,j) = V(i,j)\sin{2\theta(i,j)}$$
+%5. Vypočítejte výsledný úhel se středem v pixelu $(i, j)$:
+%$$O(i, j) = \frac{1}{2}\tan^{-1}(\frac{\Phi_y(i,j)}{\Phi_x(i, j)}$$
+%Výsledné vykreslení orientovaných úseček probíhá následovně:\\
+%6. Vypočítejte počáteční body $(x_0,y_0)$ orientované úsečky:\\
+%$$x_0 = i + \frac{w}{2}$$
+%$$y_0 = j + \frac{w}{2}$$
+%7. Vypočítejte koncové body $(x_1,y_1)$ orientované úsečky:\\
+%$$r = \frac{w}{2}$$
+%$$x_1 = r * \cos({O(i,j)})+ x_0$$
+%$$y_1 = r * \sin({O(i,j)})+ y_0$$
+%8. Sestavte výsledné rovnice orientovaných úseček. Vypočtený úhel je kolmý směrem k hřebenům papilárních linií:\\
+%$$x_1 = r * cos(O(i,j)- \frac{\pi}{2}) + x_0$$
+%$$y_1 = r * sin(O(i,j)- \frac{\pi}{2}) + y_0$$
+
+%\begin{figure}[htbp]
+%  \begin{minipage}[b]{0.5\linewidth}
+%    \centering
+%    \includegraphics[width=135px]{obrazky-figures/norm_img.png}
+%    \caption{Normalizovaný a segmentovaný obraz}
+%  \end{minipage}
+%  \hspace{0.5cm}
+%  \begin{minipage}[b]{0.5\linewidth}
+%    \centering
+%    \includegraphics[width=140px]{obrazky-figures/orient.png}
+%    \caption{Orientované pole obrazu}
+%  \end{minipage}
+%\end{figure}
 
 
 
@@ -581,6 +583,42 @@ $$g(x)=e^{-x}*{(1+e^{-x})}^{-2}$$
 Dále pro sigmoidu a její derivaci platí následující pravidlo:
 $$\frac{df(x)}{f(x)} = f(x)*(1-f(x))$$
 
+\section{Algoritmy podpůrných vektorů (SVM)}
+Algoritmy podpůrných vektorů (Support Vector Machines) jsou další metodou strojového učení sloužící pro klasifikaci. Principem algoritmu je nalézt nadrovinu, sloužící pro členění daných vektorů. Data určená pro trénování, u kterých víme, jaké mají dané výsledky, jsou určena právě pro nalezení optimální nadroviny, která potom rozdělí do kategorií testované vzorky, u kterých předpovídáme výsledek. V dvourozměrném prostoru je nadrovina přímka, která dělí rovinu na dvě části (poloroviny), kdy vzorky z jedné třídy leží v jedné polorovině, vzorky druhé třídy pak v druhé polorovině. 
+
+Pokud není možné vzorky rozumně rozdělit polorovinou, aplikujeme transformaci a přidáme jeden další rozměr, osu $z$. Nechť hodnoty bodů na ose $z$ mají hodnotu $w = x^2 + y^2$. V tomto případě můžeme měnit vzdálenosti bodu od osy $z$. Pokud nyní načrtneme graf o souřadních $yz$, vidíme zde rozdělení, které můžeme zase oddělit přímkou. 
+
+\begin{figure}[htbp]
+  \begin{minipage}[b]{0.5\linewidth}
+  \centering
+   \includegraphics[width=200px]{obrazky-figures/mediumsvm1.png}
+   \caption{Vstupní vzorky, které není možné rozdělit polorovinou, převzato z \cite{MediumSVM}}
+  \end{minipage}
+   \hspace{0.5cm}
+  \begin{minipage}[b]{0.5\linewidth}
+  \centering
+   \includegraphics[width=200px]{obrazky-figures/mediumsvm2.png}
+  \caption{Graf o souřadnicích yz s rozdělením na dané poloroviny, převzato z \cite{MediumSVM}} 
+  \end{minipage}
+ \end{figure}
+
+Pokud zpět transformujeme tuto přímku do grafu o závislosti osy $y$ na ose $x$, vzorky jsou nyní rozděleny hranicí ve tvaru kružnice. Tato transormace se nazývá jádrová transformace. Slouží tedy pro převedení lineárně neseparovatelné úlohy na úlohu, která je již lineárně separovatelná a můžeme tedy nalézt finální rozdělující nadrovinu.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=300px]{obrazky-figures/sigmoid.jpeg}
+    \caption{Nalezení finální rozdělující nadroviny, převzato z \cite{MediumSVM}}
+\end{figure}
+
+Výhodami SVM jsou:
+\begin{itemize}
+    \item Jedná se o efektivní metodu v prostorech o více dimenzích
+    \item SVM je efektivní i při případech, kdy počet dimenzí je větší než počet vzorků
+    \item Jedná se o pamětově efektivní algoritmus
+\end{itemize}
+
+Je však na druhou stranu nevýhodou, že pokud je počet vlastností o mnoho vyšší jak počet vzorků, nemusíme dostávat tolik přesné výsledky. 
+
 \chapter{Průběh implementace, experimenty a vyhodnocení}
 Cílem samotné implemetace bylo aplikovat algoritmy pro předzpracování obrazu a následně využít postupy, které mohou zajistit na základě analýzy textury výsledné rozhodnutí o živosti či neživosti daného otisku prstu.
 Pro implementaci byla využit jazyk Python s dalšími podporovanými knihovnami. Pro vývoj byl využit operační systém Ubuntu verze.
@@ -589,7 +627,7 @@ Pro implementaci byla využit jazyk Python s dalšími podporovanými knihovnami
 OpenCV je open-source knihovna, která slouží pro práci s obrazem a získávání důležitých dat. Vedle programovacího jazyka Python může být využita například i s jazykem Java nebo C++. Samotná knihovna byla napsána v jazyce C/C++.\cite{OpenCVLibrary} Vedle práce s obrazem nabízí tato knihovna například i práci s kamerami, která byla využita například při získávání dat ze senzoru. Tato knihovna byla využita při práci s otisky prstů, její funkce byly nápomocny při předzpracování obrazu a dále napomáhala i při práci při implementaci algoritmu pro lokální binární vzor.
 
 \section{Knihovna scikit-learn}
-Ekvivalentem pro knihovnu OpenCV je knihovna scikit-learn, která však umožňuje pouze podporu pro jazyk Python. Tato knihovna se primárně specializuje na podporu strojového učení, obsahuje však i funkce na podporu analýzy obrazu. Tato knihovna byla využita pouze v případě extrahování matice souvislostí ostínů šedi v obraze. Na základě funkce, kterou tato knihovna poskytuje, mohlo být experimentováno s různými parametry a vypočítány důležité vlasnosti, které mohly napomoct při další analýze živosti.
+Ekvivalentem pro knihovnu OpenCV je knihovna scikit-learn, která však umožňuje pouze podporu pro jazyk Python. Tato knihovna se primárně specializuje na podporu strojového učení, obsahuje však i funkce na podporu analýzy obrazu. Byla nápomocná při extrahování matice GLCM z obrazu, jejíž některé vlastnosti byli klíčové pro extrahovaný vektor při všech uvažovaných a zkoumaných formách analýzy. Pro klasifikaci pak byla využita funkce pro metodu SVM a taky pro rozhodovací strom. Knihovna scikit-learn představuje snadnou práci s algoritmy umělé inteligence, algoritmy jsou dobře optimalizované a rychlé. Umožňuje experimenty s různými metodami a přístupy, na základě kterých může člověk uvážit co nejvíce metod klasifikace, které mezi sebou můžeme porovnat a zkoumat chování v různých podmínkách.
 
 \section{Implementace}
 
