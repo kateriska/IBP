@@ -1,9 +1,14 @@
 \chapter{Úvod}
 S rozvojem moderních technologií a komunikačních zařízení se stále více aktuální stává otázka bezpečnosti a ochrany dat. Zabezpečování údajů pomocí biometrie si získalo velký úspěch, zvláště díky snadnosti přihlášení do systému a větší míře bezpečnosti jak například u~hesel. Není zde totiž potřeba si pamatovat údaje, stačí pouze použít svůj vlastní biometrický identifikátor, který bývá i bezpečnějším způsobem přihlášení nebo ochrany soukromých údajů. 
 
-Mnoho systémů dnes využívá zabezpečení pomocí otisku prstu. Přestože tento druh identifikace se nám může jevit jako opravdu spolehlivý, i tato metoda může být napadena. Zfalšované otisky prstů mohou být buď generované softwarovým programem nebo vyrobeny z syntetických materiálů. Je proto potřeba vytvořit algoritmus, který by mohl falšování otisků prstů nějakým způsobem rozlišovat a odhalit, zda je systém narušený útočníkem.
+Mnoho systémů dnes využívá zabezpečení pomocí otisku prstu. Přestože tento druh identifikace se nám může jevit jako opravdu spolehlivý, i tato metoda může být napadena. Zfalšované otisky prstů mohou být vyrobeny z různých syntetických materiálů, které nemusí být nijak moc nákladné. Je proto potřeba vytvořit algoritmus, který by mohl falšování otisků prstů nějakým způsobem rozlišovat a odhalit, zda je systém narušený útočníkem.
 
-Ve své práci se zaměřuji na implementaci kombinace různých algoritmů pro detekci živosti otisku prstu. Jedná se o algoritmy, které se zaměřují na zpracování obrazu, úpravu obrazu a výzkum, jak se dané algoritmy chovají u obrázků falešných a přirozených otisků. Byla mi k dispozici databáze pravých otisků prstů, poskytovaných univerzitou v Bologni a dále databáze softwarově generovaných otisků prstů. Na těchto souborech jsem poté testovala implementované algoritmy, zkoumala jejich chování a vyhodnocovala závěry.
+Ve své práci se zaměřuji na implementaci kombinace různých algoritmů pro detekci živosti otisku prstu. Jedná se o algoritmy, které se zaměřují na zpracování obrazu, úpravu obrazu a výzkum, jak se dané algoritmy chovají u obrázků falešných a přirozených otisků. Pro svůj výzkum jsem využila bezdotykový senzor, který poskytuje mnoho výhod, ve srovnání s klasickámi dotykovými přístroji. Na daném senzoru probíhal sběr datasetu živých a falešných otisků prstů, kdy živé otisky mi poskytlo několik osob a falešné otisky byly vyrobeny z různých materiálů, poskytované naší fakultou. Pro práci s bezdotykovým senzorem bylo využito nasvicování prstů o světle různé vlnové délky. 
+
+Výsledná analýza se sestávala z porovnání metod analýzy textury obrazu, analýzy hran a využití různých metod vlnkové transformace. Klasifikace probíhala za pomocí umělých neuronových sítí, algoritmu SVM a rozhodovacích stromů. Součástí mé práce je porovnání jednotlivých klasifikačních metod. Dále jsem zkoumala, jaké nasvicované světlo (červené, zelené nebo modré) vykazovalo největší přesnost a spolehlivost. 
+
+
+Na těchto souborech jsem poté testovala implementované algoritmy, zkoumala jejich chování a vyhodnocovala závěry.
 
 Přes zimní semestr jsem se hlavně seznamovala s hlavními používanými algoritmy a literaturou, v letním semestru plánuji do své práce zakomponovat nejen softwarově generované otisky prstů, ale i otisky z různých syntetických materiálů získané ze senzoru a práci s dalšími algoritmy.
 
@@ -279,7 +284,17 @@ Po načtení obrazu bylo potřeba obraz převést na šedotonový. Poté byla pr
 
 
 \section{Prahování}
-Při prahování jsou světlé objekty odděleny od tmavých pomocí zadaných konstantních prahů. Tento algoritmus je nutno použít před samotnou segmentací obrazu pomocí morfologických metod.
+Při prahování jsou světlé objekty odděleny od tmavých pomocí zadaných prahů. Tento algoritmus je nutno použít před samotnou segmentací obrazu pomocí morfologických metod. Jednoduché prahování závisí na oddělení světlých a tmavých objektů podle daných konstantních prahů. Existují však i další metody prahování, které poskytují lepší analýzu a výsledky a při mém výzkumu byly použity.
+
+\subsection{Prahování pomocí metody Otsu}
+Při globálním prahování je nutné si vybrat konstantní práh již před analýzou obrazu. Methoda Otsu tento globální optimální práh vybírá sama automaticky, na základě daného vstupního obrazu. \cite{OpenCVTresholding}Výpočet daného optimálního prahu zahrnuje iteraci přes všechny možné prahové hodnoty a výpočet rozložení pixelů na jednotlivých stranách prahu, pixelů, které spadají buď do popředí nebo pozadí obrazu. Účelem je pak najít hodnotu prahu, kdy součet rozložení na popředí a pozadí je na svém minimu.\cite{LabBookPagesTresholding}
+
+\subsection{Adaptivní prahování}
+Adaptivní prahování slouží pro analýzu obrazu např. při situacích, kdy určité části obrazu mají jiné světelné podmínky, např. při výskytu stínů. Metoda nevyužívá konstantního prahu. Algoritmus určí pro pixel hodnotu prahu na základě malého okolí okolo něj. Výsledkem jsou jiné hodnoty prahů pro různé oblasti obrazu. Pro adaptivní prahování bylo využity následující metody:\cite{OpenCVTresholding}
+\begin{itemize}
+    \item Adaptivní průměrné prahování (Adaptive Mean Tresholding) - Hodnota prahu je průměrem okolí. Dále je od tohoto výsledku odečtena konstanta C.
+    \item Adaptivní prahování Gaussian (Adaptive Gaussian Tresholding) - Výslednou hodnotu prahu udává vážená suma okolních hodnot, kdy vahy jsou gaussian oknem. I zde je odečtena konstanta C.
+\end{itemize}
 
 \begin{figure}[htbp]
   \begin{minipage}[b]{0.5\linewidth}
@@ -628,6 +643,16 @@ Je však na druhou stranu nevýhodou, že pokud je počet vlastností o mnoho vy
 \section{Rozhodovací stromy}
 Cílem dalšího z klasifikačních algoritmů, rozhodovacích stromů (Decision Trees - DTs) je předpovědět výsledek na základě jednoduchých rozhodovacích pravidel, které jsou odvozené od vlastností dat. Tato klasifikační metoda tedy pro svoji práci využívá graf, který můžeme označit jako strom, protože je souvislý a neobsahuje žádnou kružnici. Cesty od kořene k listu reprezentují klasifikační pravidla. 
 
+Výhody rozhodovacích stromů jsou:\cite{ScikitDTs}
+\begin{itemize}
+    \item Jednoduché na pochopení a vizualizaci, stromy jde také vizualizovat
+    \item Vstupní data nemusí být různě upravována nebo normalizována
+    \item Používá model white box - bílou skříňku. Pokud je daná situace v modelu pozorovatelná, vysvětlení pro podmínky může být snadno vysvětleno pomocí boolovské logiky. Umělá neuronová síť je reprezentantem modelu black box - černé skříňky, kdy mohou být výsledky obtížnější intrepretovat. 
+\end{itemize}
+
+
+Algoritmus však může v některých případech vytvořit až příliš komplexní strom, který data špatně zpracovává a generalizuje. Tato situace se nazývá overfitting. Jedná se tedy o chybu v modelování, kdy je model příliš složitý a fukce je příliš kompatabilní s omezenou sadou datových bodů. Při nepatrně nepřesných údajích může finální model získat podstatné chyby a predikce může být pak nepřesná.
+    
 \chapter{Průběh implementace, experimenty a vyhodnocení}
 Cílem samotné implemetace bylo aplikovat algoritmy pro předzpracování obrazu a následně využít postupy, které mohou zajistit na základě analýzy textury výsledné rozhodnutí o živosti či neživosti daného otisku prstu.
 Pro implementaci byla využit jazyk Python s dalšími podporovanými knihovnami. Pro vývoj byl využit operační systém Ubuntu 18.04.4 LTS.
