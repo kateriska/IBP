@@ -589,6 +589,12 @@ Algoritmy podpůrných vektorů (Support Vector Machines) jsou další metodou s
 Pokud není možné vzorky rozumně rozdělit polorovinou, aplikujeme transformaci a přidáme jeden další rozměr, osu $z$. Nechť hodnoty bodů na ose $z$ mají hodnotu $w = x^2 + y^2$. V tomto případě můžeme měnit vzdálenosti bodu od osy $z$. Pokud nyní načrtneme graf o souřadních $yz$, vidíme zde rozdělení, které můžeme zase oddělit přímkou. 
 
 \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=300px]{obrazky-figures/svmVapnik.png}
+    \caption{Příklad problému v dvourozměrném prostoru a nalezení optimální nadroviny a rozpětí, převzato z \cite{VapnikSVM}, na které se podílel jeden z původních výzkumníků algoritmu}
+\end{figure}
+
+\begin{figure}[htbp]
   \begin{minipage}[b]{0.5\linewidth}
   \centering
    \includegraphics[width=200px]{obrazky-figures/mediumsvm1.png}
@@ -602,7 +608,7 @@ Pokud není možné vzorky rozumně rozdělit polorovinou, aplikujeme transforma
   \end{minipage}
  \end{figure}
 
-Pokud zpět transformujeme tuto přímku do grafu o závislosti osy $y$ na ose $x$, vzorky jsou nyní rozděleny hranicí ve tvaru kružnice. Tato transormace se nazývá jádrová transformace. Slouží tedy pro převedení lineárně neseparovatelné úlohy na úlohu, která je již lineárně separovatelná a můžeme tedy nalézt finální rozdělující nadrovinu.
+Pokud zpět transformujeme tuto přímku do grafu o závislosti osy $y$ na ose $x$, vzorky jsou nyní rozděleny hranicí ve tvaru kružnice. Tato transormace se nazývá jádrová transformace. Slouží tedy pro převedení lineárně neseparovatelné úlohy na úlohu, která je již lineárně separovatelná a můžeme tedy nalézt finální rozdělující nadrovinu.\cite{MediumSVM}
 
 \begin{figure}[htbp]
     \centering
@@ -610,7 +616,7 @@ Pokud zpět transformujeme tuto přímku do grafu o závislosti osy $y$ na ose $
     \caption{Nalezení finální rozdělující nadroviny, převzato z \cite{MediumSVM}}
 \end{figure}
 
-Výhodami SVM jsou:
+Výhodami SVM jsou:\cite{ScikitSVM}
 \begin{itemize}
     \item Jedná se o efektivní metodu v prostorech o více dimenzích
     \item SVM je efektivní i při případech, kdy počet dimenzí je větší než počet vzorků
@@ -619,9 +625,12 @@ Výhodami SVM jsou:
 
 Je však na druhou stranu nevýhodou, že pokud je počet vlastností o mnoho vyšší jak počet vzorků, nemusíme dostávat tolik přesné výsledky. 
 
+\section{Rozhodovací stromy}
+Cílem dalšího z klasifikačních algoritmů, rozhodovacích stromů (Decision Trees - DTs) je předpovědět výsledek na základě jednoduchých rozhodovacích pravidel, které jsou odvozené od vlastností dat. Tato klasifikační metoda tedy pro svoji práci využívá graf, který můžeme označit jako strom, protože je souvislý a neobsahuje žádnou kružnici. Cesty od kořene k listu reprezentují klasifikační pravidla. 
+
 \chapter{Průběh implementace, experimenty a vyhodnocení}
 Cílem samotné implemetace bylo aplikovat algoritmy pro předzpracování obrazu a následně využít postupy, které mohou zajistit na základě analýzy textury výsledné rozhodnutí o živosti či neživosti daného otisku prstu.
-Pro implementaci byla využit jazyk Python s dalšími podporovanými knihovnami. Pro vývoj byl využit operační systém Ubuntu verze.
+Pro implementaci byla využit jazyk Python s dalšími podporovanými knihovnami. Pro vývoj byl využit operační systém Ubuntu 18.04.4 LTS.
 
 \section{Knihovna OpenCV}
 OpenCV je open-source knihovna, která slouží pro práci s obrazem a získávání důležitých dat. Vedle programovacího jazyka Python může být využita například i s jazykem Java nebo C++. Samotná knihovna byla napsána v jazyce C/C++.\cite{OpenCVLibrary} Vedle práce s obrazem nabízí tato knihovna například i práci s kamerami, která byla využita například při získávání dat ze senzoru. Tato knihovna byla využita při práci s otisky prstů, její funkce byly nápomocny při předzpracování obrazu a dále napomáhala i při práci při implementaci algoritmu pro lokální binární vzor.
