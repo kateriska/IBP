@@ -7,10 +7,9 @@ Ve své práci se zaměřuji na implementaci kombinace různých algoritmů pro 
 
 Výsledná analýza se sestávala z porovnání metod analýzy textury obrazu, analýzy hran a využití různých metod vlnkové transformace. Klasifikace probíhala za pomocí umělých neuronových sítí, algoritmu SVM a rozhodovacích stromů. Součástí mé práce je porovnání jednotlivých klasifikačních metod. Dále jsem zkoumala, jaké nasvicované světlo (červené, zelené nebo modré) vykazovalo největší přesnost a spolehlivost. 
 
+Na souborech získaných ze senzoru jsem poté testovala implementované algoritmy, zkoumala jejich chování a vyhodnocovala závěry.
 
-Na těchto souborech jsem poté testovala implementované algoritmy, zkoumala jejich chování a vyhodnocovala závěry.
 
-Přes zimní semestr jsem se hlavně seznamovala s hlavními používanými algoritmy a literaturou, v letním semestru plánuji do své práce zakomponovat nejen softwarově generované otisky prstů, ale i otisky z různých syntetických materiálů získané ze senzoru a práci s dalšími algoritmy.
 
 
 %\chapter{Abstrakt}
@@ -567,6 +566,37 @@ $$energy = \sqrt{ASM}$$
 Poslední extrahovanou charakteristikou byla homogenita. Tato vlastnost představuje blízkost distribuce prvků v GLCM matici ve srovnání s danou GLCM diagonálou. Homogenita může nabývat hodnot z rozsahu $<0, 1>$, kde homogenita s hodnotou jedna je typická pro diagonální GLCM matici.\cite{MatlabGLCM}\cite{ScikitGLCM}
 
 $$homogeneity = \sum_{i,j=0}^{levels-1}\frac{P_{i,j}}{1+(i-j)^2}$$
+
+\section{Vlnková transformace}
+Vlnková transformace (Wavelet transform) je další z metod, které mohou být použity při klasifikaci živosti nebo např. při rozpoznávání. Jedná se o skupinu transformací, které se liší podle dané bázové funkce - vlnky. Zadané vlnky jsou odvozené od základní funkce - mateřské vlnky (mother wavelet). Vlnková transformace je zástupcem lineární transformace. Signál (obraz) se analyzuje pomocí násobení funkcí okna a ortogonálním rozkladem, podobně jako dalších integrálních lineárních transformací. 
+
+Vlnková transformace může být využita také pro kompresi obrazu nebo pro filtraci šumu. \cite{WaveletHlavac} Obecně představuje alternativu ke krátkodobé Fourierově transformaci. Fourierova transformace byla velmi využívána v minulosti, ale nyní se více zaměřuje na víceměřítkové transformace (Multiresolution Transform - MT), ke kterým patří i vlnková transformace. Fourierova transformace využívá pro rozklad signálu do spektrální roviny periodické sinusové a kosinusové funkce, báze vlnkové transformace je tvořena časově omezenými funkcemi - vlnkami. Vlnky mohou být nadefinovány podle charakteru analyzovaných dat a můžeme dosáhnout i velmi přesné lokalizace průdkých změn v signálu a lepší vyhodnocení v případě nestacionárních a neperiodických signálů.\cite{WaveletElektrorevue}
+
+\subsection{Rodičovské a dceřinné vlnky}
+Mateřská vlnka je základní vlnkovou funkcí. Určuje tvar vlnky a pokrývá celý definiční obor, který nás zajímá. Mateřskou vlnku značíme symbolem $\Psi$. Má nulovou střední hodnotu.
+
+Otcovská vlnka pak poskytuje funkci určující měřítko, tvoří z základní vlnky další s různým měřítkem a dovoluje vyjádřit detaily aproximované funkce, které zkoumáme. Otcovská vlnka se značí symbolem $\Phi$.
+
+Odvozené vlnky nazýváme dceřinnými vlnkami. Tyto vlnky se odvozují od rodičovských vlnek za pomocí generující bázové funkce $\Psi_{s,\tau}$, kde parametr $s$ určuje měřítko vlnkové funkce a $\tau$ pak posun dané vlnkové funkce.\cite{WaveletHlavac}
+
+\subsection{Spojitá vlnková transformace}
+Spojitá vlnková transformace (Continuous Wavelet Transform - CWT) lze zapsat následující rovnicí:\cite{WaveletMathworks}
+$$y(a,b) = \frac{1}{\sqrt{a}}\int_{-\infty}^{\infty} x(t)\Psi^*(\frac{t-b}{a}) dt$$
+Signál $x(t)$ je korelován s vlnkami, které jsou odvozené od mateřské vlnky $\Psi(t)$. Symbol * je pak značením komplexně sdružené funkce. Výsledkem je funkce $y(a,b)$, kde parametr $a$ určuje umístění vlnky na časové ose a parametr $b$ pak měřítko. Konstanta $\frac{1}{\sqrt{a}}$ pak slouží pro normalizaci energie vlnky při změnách měřítka.
+
+Pro případ symetrické vlnkové funkce se postupně hledá míra korelace (podobnosti) mezi naším vstupním signálem a vlnkou s měnícím se měřítkem. Ve výsledku se tedy můžou extrahovat různě velké detaily z dat, které jsou zpracována.\cite{WaveletElektrorevue}
+
+\subsection{Diskrétní vlnková transformace v obraze}
+Diskrétní vlnková transformace (Discrete Wavelet Transform - DWT) pro svoje fungování nepotřebuje nadbytečné množství koeficientů, které produkuje právě spojitá vlnková transformace, ale koeficienty redukuje. Používají se koeficienty, které odpovídají měřítkům $s = 2^j$, kde parametr $j$ může nabývat hodnot z množiny $\{0,1,2,..n\}$ Díky vhodné dvojkové závislosti paramterů $s$ a $p$ můžeme vytvořit z vlnky $\Psi$ ortonormální bázi. Nechť parametry $j, k \in Z$, pak pro $s$ a $p$ platí:
+$$s = 2^j$$
+$$p = k2^j$$
+
+Pak mužeme vzorec diskrétní vlnkové transformace napsat následujícím způsobem:
+$$\Psi_{j,k} = \frac{1}{\sqrt{2^j}}\Psi\frac{n-k2^j}{2^j}$$
+
+Diskrétní vlnková transformace při zpracování obrazu se využívá hlavně pro detekci hran a textur, kompresi, filtraci šumu a získání důležitých vlastností pro další klasifikaci.\cite{WaveletElektrorevue}
+
+
 
 \chapter{Klasifikační algoritmy pro rozhodování o živosti a neživosti otisku prstu}
 Pro samotné rozhodnutí o živosti či neživosti otisku prstu je potřeba navrhnout a použít některý z klasifikátorů, které jsou založeny na bázi umělé inteligence. Pro vlastní výzkum jsem použila neuronovou síť a klasifikátor SVM (Support Vector Machine). Tato kapitola popisuje stručný úvod do umělé inteligence a popisy jednotlivých přístupů.
