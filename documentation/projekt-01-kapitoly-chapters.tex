@@ -596,25 +596,26 @@ $$\Psi_{j,k} = \frac{1}{\sqrt{2^j}}\Psi\frac{n-k2^j}{2^j}$$
 
 Diskrétní vlnková transformace při zpracování obrazu se využívá hlavně pro detekci hran a textur, kompresi, filtraci šumu a získání důležitých vlastností pro další klasifikaci.\cite{WaveletElektrorevue}
 
-\section{Wavelet rodiny vhodné pro DWT}
-Existuje mnoho druhů mateřských vlnek. Na základě mateřské vlnky můžeme odvodit celou danou rodinu. Vlnky mají různé vlastnosti, které můžou být např. následující:
+\section{Wavelet rodiny vhodné pro diskrétní vlnkovou transformaci v analýze obrazu}
+Existuje mnoho druhů mateřských vlnek. Na základě mateřské vlnky můžeme odvodit celou danou rodinu. Vlnky mají různé vlastnosti, které můžou být např. následující:\cite{PyWaveletsBrowser}
 \begin{itemize}
     \item Symetričnost
     \item Asymetričnost
-    \item Ortogonálnost - Jedná se o vlnku, jejíž vlnková transformace je ortogonální, to znamená, že inverzní vlnková transformace je sdružená vlnkové transformaci. 
+    \item Ortogonálnost - Jedná se o vlnku, jejíž vlnková transformace je ortogonální, to znamená, že inverzní vlnková transformace je sdružená vlnkové transformaci.\cite{WaveletBasics} 
     \item Biortogonálnost - Vlastnost vlnky, kdy je daná vlnková transformace invertovaná, ale ne nutně ortogonální. 
 \end{itemize}
 
-Pro diskrétní vlnkovou transformaci se používají následující Wavelet rodiny:
+Pro diskrétní vlnkovou transformaci se používají například následující Wavelet rodiny.
 
-\begin{itemize}
-    \item Vlnky Daubechies - Jedná se o asymetrické, ortogonální a biortogonální vlnky. Značí se jako dbA, kde A vyjadřuje počet nulových momentů. Pro práci můžeme využít Daubechies db1 až db20, běžně užívány jsou vlnky typu db1 až db10. Dosahují vysoké míry komprese. Poskytují stejné parametry filtrů pro přímou i zpětnou transformaci, zajišťují rychlou a přesnou rekonstrukci.\cite{WaveletHlavac} 
+\subsection{Vlnky Daubechies}
+
+Jedná se o asymetrické, ortogonální a biortogonální vlnky. Značí se jako db$A$, kde $A$ vyjadřuje počet nulových momentů. Pro práci můžeme využít Daubechies db1 až db20, běžně užívány jsou však vlnky typu db1 až db10.\cite{PyWaveletsBrowser} Dosahují vysoké míry komprese. Poskytují stejné parametry filtrů pro přímou i zpětnou transformaci, zajišťují rychlou a přesnou rekonstrukci.\cite{WaveletHlavac} 
     
-    Každá Daubechies vlnka má počet nulových momentů rovných polovině svých koeficientů. Například vlnka db1 (také jinak zvaná jako Haar vlnka) má jeden nulový moment, db2 pak dva nulové momenty, atd. Nulový moment určuje schopnost vlnky reprezentovat chování polynomu nebo informace v signálu. Například vlnka db1 s jedním nulovým momentem snadno kóduje konstatní složky signálu. Daubechies vlnka db2 snadno pracuje s s konstantními a lineárními signálovými složkami, db3 pak pracuje s konnstantními, lineárními a kvadratickými složkami signálu.
+Každá Daubechies vlnka má počet nulových momentů rovných polovině svých koeficientů. Například vlnka db1 (také jinak zvaná jako Haar vlnka) má jeden nulový moment, db2 pak dva nulové momenty, atd. Nulový moment určuje schopnost vlnky reprezentovat chování polynomu nebo informace v signálu. Například vlnka db1 s jedním nulovým momentem snadno kóduje konstatní složky signálu. Daubechies vlnka db2 snadno pracuje s s konstantními a lineárními signálovými složkami, db3 pak pracuje s konnstantními, lineárními a kvadratickými složkami signálu.\cite{WaveletsSignalImageProcessing}
     
-    \item Biortogonální spline vlnky
-    \item Reverzní biortogonální spline vlnky
-\end{itemize}
+\subsection{Biortogonální spline vlnky}
+\subsection{Reverzní biortogonální spline vlnky}
+
 
 
 
