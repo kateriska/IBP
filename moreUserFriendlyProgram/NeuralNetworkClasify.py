@@ -120,14 +120,14 @@ def clasifyANN(method_type):
             print("File " + file_tested_str + " is classified as FAKE (LIVE: " + str(round(live_percent, 6)) + " % , FAKE: " + str(round(fake_percent, 6)) + " %)")
         #all_results_arr = np.append(all_results_arr, np.array([[file_tested_str, final_prediction_str]]), axis=0)
 
-        if (live_sample == True and "Image" in file_tested_str) or (live_sample == False and "fake" in file_tested_str):
+        if (live_sample == True and "live" in file_tested_str) or (live_sample == False and "fake" in file_tested_str):
             correct_clasify += 1
         else:
             wrong_clasify += 1
 
         if (live_sample == True and "fake" in file_tested_str):
             far_value += 1
-        elif (live_sample == False and "Images" in file_tested_str):
+        elif (live_sample == False and "live" in file_tested_str):
             frr_value += 1
 
         tested_files_index = tested_files_index + 1

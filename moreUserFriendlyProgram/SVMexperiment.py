@@ -50,14 +50,14 @@ def clasifySVM(method_type):
         elif (prediction[i] == 0):
             live_sample = False
 
-        if (live_sample == True and "Image" in cols) or (live_sample == False and "fake" in cols):
+        if (live_sample == True and "live" in cols) or (live_sample == False and "fake" in cols):
             correct_clasify += 1
         else:
             wrong_clasify += 1
 
         if (live_sample == True and "fake" in cols):
             far_value += 1
-        elif (live_sample == False and "Images" in cols):
+        elif (live_sample == False and "live" in cols):
             frr_value += 1
 
 

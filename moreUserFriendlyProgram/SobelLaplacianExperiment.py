@@ -54,14 +54,14 @@ def imgSegmentation(img):
 def vectorSobelLaplacian(color_type):
 #path = '/home/katerina/Documents/IBP/trainingNew/*'
     if (color_type == "b"):
-        path_training = '/home/katerina/Documents/FinalProgramIBP/blueImagesTraining/*'
-        path_testing = '/home/katerina/Documents/FinalProgramIBP/blueImagesTesting/*'
+        path_training = '/home/katerina/Documents/FinalProgramIBP/blueTraining/*'
+        path_testing = '/home/katerina/Documents/FinalProgramIBP/blueTesting/*'
     elif (color_type == "g"):
-        path_training = '/home/katerina/Documents/FinalProgramIBP/greenImagesTraining/*'
-        path_testing = '/home/katerina/Documents/FinalProgramIBP/greenImagesTesting/*'
+        path_training = '/home/katerina/Documents/FinalProgramIBP/greenTraining/*'
+        path_testing = '/home/katerina/Documents/FinalProgramIBP/greenTesting/*'
     elif (color_type == "r"):
-        path_training = '/home/katerina/Documents/FinalProgramIBP/redImagesTraining/*'
-        path_testing = '/home/katerina/Documents/FinalProgramIBP/redImagesTesting/*'
+        path_training = '/home/katerina/Documents/FinalProgramIBP/redTraining/*'
+        path_testing = '/home/katerina/Documents/FinalProgramIBP/redTesting/*'
     elif (color_type == "all"):
         path_training = '/home/katerina/Documents/FinalProgramIBP/trainingNew/*'
         path_testing = '/home/katerina/Documents/FinalProgramIBP/testingNew/*'
@@ -199,7 +199,7 @@ def vectorSobelLaplacian(color_type):
         if ("fake" in file_substr):
             print("This is FAKE image.")
             g.write("0\n")
-        elif ("Images" in file_substr):
+        elif ("live" in file_substr):
             print("This is LIVE image.")
             g.write("1\n")
 
