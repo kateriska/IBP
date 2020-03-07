@@ -52,11 +52,16 @@ def adaptiveSegmentationMean(img):
 ### LBP ALGORITHM
 def LBPprocesspixel(img, pix5, x, y):
     new_value = 0
+    
     try:
-        if img[x][y] >= pix5:
+        if (img[x][y] >= pix5):
             new_value = 1
+        else:
+            new_value = 0
+
     except:
         pass
+
     return new_value
 
 def processLBP(img, x, y, lbp_values):

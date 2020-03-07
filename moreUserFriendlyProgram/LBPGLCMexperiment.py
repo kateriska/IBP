@@ -53,11 +53,16 @@ def imgSegmentation(img):
 ### LBP ALGORITHM
 def LBPprocesspixel(img, pix5, x, y):
     new_value = 0
+    
     try:
-        if img[x][y] >= pix5:
+        if (img[x][y] >= pix5):
             new_value = 1
+        else:
+            new_value = 0
+
     except:
         pass
+
     return new_value
 
 def processLBP(img, x, y, lbp_values):
@@ -100,8 +105,8 @@ def vectorLBP(segmentation_type, color_type):
         path_training = '/home/katerina/Documents/FinalProgramIBP/redTraining/*'
         path_testing = '/home/katerina/Documents/FinalProgramIBP/redTesting/*'
     elif (color_type == "all"):
-        path_training = '/home/katerina/Documents/FinalProgramIBP/trainingNew/*'
-        path_testing = '/home/katerina/Documents/FinalProgramIBP/testingNew/*'
+        path_training = '/home/katerina/Documents/FinalProgramIBP/allTraining/*'
+        path_testing = '/home/katerina/Documents/FinalProgramIBP/allTesting/*'
 
 
 

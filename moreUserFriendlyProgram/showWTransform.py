@@ -48,10 +48,7 @@ def adaptiveSegmentationMean(img):
     return result
 
 def showWavelet(segmentation_type, input_img, wavelet_type):
-    if (segmentation_type != "none"):
-        img = cv2.imread(input_img, 0) # uint8 image in grayscale
-    else:
-        img = cv2.imread(input_img)
+    img = cv2.imread(input_img, 0) # uint8 image in grayscale
 #img = cv2.resize(img,(400,400)) # resize of image
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
 #segmented_img = adaptiveSegmentationMean(img)
@@ -65,8 +62,8 @@ def showWavelet(segmentation_type, input_img, wavelet_type):
     if (segmentation_type != "none"):
         cv2.imwrite('segmented_img.jpg', segmented_img)
         img = cv2.imread('segmented_img.jpg')
-
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    if (segmentation_type != "none"):
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
 # Convert to float for more resolution for use with pywt
     img = np.float32(img)

@@ -63,8 +63,8 @@ def vectorSobelLaplacian(color_type):
         path_training = '/home/katerina/Documents/FinalProgramIBP/redTraining/*'
         path_testing = '/home/katerina/Documents/FinalProgramIBP/redTesting/*'
     elif (color_type == "all"):
-        path_training = '/home/katerina/Documents/FinalProgramIBP/trainingNew/*'
-        path_testing = '/home/katerina/Documents/FinalProgramIBP/testingNew/*'
+        path_training = '/home/katerina/Documents/FinalProgramIBP/allTraining/*'
+        path_testing = '/home/katerina/Documents/FinalProgramIBP/allTesting/*'
 
     f = open("SLTrained.csv","w+")
     g = open("SLTrainedResult.csv","w+")

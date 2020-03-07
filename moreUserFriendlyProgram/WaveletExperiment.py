@@ -66,8 +66,8 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         path_training = '/home/katerina/Documents/FinalProgramIBP/redTraining/*'
         path_testing = '/home/katerina/Documents/FinalProgramIBP/redTesting/*'
     elif (color_type == "all"):
-        path_training = '/home/katerina/Documents/FinalProgramIBP/trainingNew/*'
-        path_testing = '/home/katerina/Documents/FinalProgramIBP/testingNew/*'
+        path_training = '/home/katerina/Documents/FinalProgramIBP/allTraining/*'
+        path_testing = '/home/katerina/Documents/FinalProgramIBP/allTesting/*'
 
     for file in glob.glob(path_training):
         img = cv2.imread(file, 0) # uint8 image in grayscale
