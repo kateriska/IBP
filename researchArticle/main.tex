@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[left=2cm,text={17cm, 24cm},top=3cm]{geometry}
+
+\title{Liveness Detection on Touchless Fingerprint Scanner - Research Article}
+\author{Katerina Fortova}
+\date{March 2020}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\section{Extracted vectors from image}
+Three different vectors were used for analyzing. I worked with vector based on Local Binary Pattern, Sobel and Laplacian Operator and Wavelet transformation. The important feature for every vector was Gray Level Cooccurrence Matrix (GLCM), which works as classifier of texture in image. The features which I used and extracted from GLCM were contrast, correlation, energy and homogeneity. 
+
+\subsection{Extracted vector based on LBP}
+This vector is focused on image processed by LBP and extraction of characteristics from GLCM based on prepossessed gray level image. The histogram is extracted from LBP image and feature based on histogram is extracted in these way:
+
+Suppose we have histogram of LBP image which looks like this:
+
+Histogram contains 256 bins and then their pixel count values. Parameter $value_b$ means pixel value of $b$ bin, where $b$ is from set $\{0,1,2,...,255\}$.
+$$histogram = \{value_b, value_{b+1}, ... value_{255}\}$$
+I extracted four partial sums of this histogram:
+$$partitialLBPsum_1 = \sum_{b=0}^{b=63} value_b $$
+$$partitialLBPsum_2 = \sum_{b=64}^{b=127} value_b $$
+$$partitialLBPsum_3 = \sum_{b=128}^{b=191} value_b $$
+$$partitialLBPsum_4 = \sum_{b=192}^{b=255} value_b $$
+
+The extracted vector $v$ contains these four partitial sums of LBP histogram and then characteristics of input grayscale preprocessed image - contrast $f_1$, homogeneity $f_2$, energy $f_3$ and correlation $f_4$:
+$$v = [partitialLBPsum_1, partitialLBPsum_2, partitialLBPsum_3, partitialLBPsum_4, f_1, f_2, f_3, f_4]$$
+
+\subsection{Extracted vector based on Sobel and Laplacian operator}
+Sobel and Laplacian works well as edge and texture detectors. Kernel 5x5 was used for this feature extraction. We can extract Sobel only based on x or y axis. So we have two different results of horizontal and vertical sobel operator. Then Laplacian image was extracted and extracted characteristics also added to vector.
+
+Vector contains features $f_1$ (contrast), $f_2$ (homogeneity), $f_3$ (energy), $f_4$ (correlation) of GLCM matrix for Sobel x image $Sobelx$ , Sobel y $Sobely$ image and Laplacian $Laplacian$ image.
+
+This is the final extracted vector:
+
+$$v = [f_1_{Sobelx}, f_2_{Sobelx}, f_3_{Sobelx}, f_4_{Sobelx}, f_1_{Sobely}, f_2_{Sobely}, f_3_{Sobely}, f_4_{Sobely}, f_1_{Laplacian}, f_2_{Laplacian}, f_3_{Laplacian}, f_4_{Laplacian}]$$
+
+\subsection{Extracted vector based on Wavelet Transformation}
+Wavelet processing with different wavelet families such as biorthogonal or Daubechies wavelets is also used in image processing. We have three details from image processed by wavelet transformation - horizontal $LH$, vertical $HL$ and diagonal $HH$. We can extract features from GLCM matrix for each detail. Features $f_1$, $f_2$, $f_3$, $f_4$ stands for same features from GLCM matrix as in previous vectors.
+
+$$v = [f_1_{LH}, f_2_{LH}, f_3_{LH}, f_4_{LH}, f_1_{HL}, f_2_{HL}, f_3_{HL}, f_4_{HL}, f_1_{HH}, f_2_{HH}, f_3_{HH}, f_4_{HH}]$$
+
+\end{document}
