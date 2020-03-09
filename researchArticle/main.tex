@@ -1,6 +1,8 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage[left=2cm,text={17cm, 24cm},top=3cm]{geometry}
+\usepackage{graphicx}
+
 
 \title{Liveness Detection on Touchless Fingerprint Scanner - Research Article}
 \author{Katerina Fortova}
@@ -44,5 +46,90 @@ $$v = [f_1_{Sobelx}, f_2_{Sobelx}, f_3_{Sobelx}, f_4_{Sobelx}, f_1_{Sobely}, f_2
 Wavelet processing with different wavelet families such as biorthogonal or Daubechies wavelets is also used in image processing. We have three details from image processed by wavelet transformation - horizontal $LH$, vertical $HL$ and diagonal $HH$. We can extract features from GLCM matrix for each detail. Features $f_1$, $f_2$, $f_3$, $f_4$ stands for same features from GLCM matrix as in previous vectors.
 
 $$v = [f_1_{LH}, f_2_{LH}, f_3_{LH}, f_4_{LH}, f_1_{HL}, f_2_{HL}, f_3_{HL}, f_4_{HL}, f_1_{HH}, f_2_{HH}, f_3_{HH}, f_4_{HH}]$$
+
+\section{Analyzing the images with same light }
+During taking the dataset from touchless sensor, we use lights of different wavelength for taking the images. The lights were blue, green and red. The goal was to realize which light is most accurate for liveness detection. The all methods were also compared. Three methods for segmentation were used. First type of segmentation uses Otsu tresholding, which uses constant tresh based on particular image. The other two types of segmentation uses Gaussian and Mean adaptive tresholding, which is suitable for images with various light properties and the tresh isn't constant for whole image as with Otsu algorithm, but it changes for every pixel based on their neighbors.  
+
+Below are some examples of images, how they were taken with our touchless fingerprint scanner.
+
+\begin{figure}[htbp]
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=100px]{images/live120.jpg}
+    \caption{Image of live fingerprint with blue light}
+  \end{minipage}
+  \hspace{0.3cm}
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=100px]{images/live38.jpg}
+    \caption{Image of live fingerprint with green light}
+  \end{minipage}
+  \hspace{0.3cm}
+    \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=100px]{images/live56.jpg}
+    \caption{Image of live fingerprint with red light}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[htbp]
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=100px]{images/fake23.jpg}
+    \caption{Image of fake fingerprint with blue light}
+  \end{minipage}
+  \hspace{0.3cm}
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=100px]{images/fake64.jpg}
+    \caption{Image of fake fingerprint with green light}
+  \end{minipage}
+  \hspace{0.3cm}
+    \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=100px]{images/fake47.jpg}
+    \caption{Image of fake fingerprint with red light}
+  \end{minipage}
+\end{figure}
+
+Each tested and trained dataset contains images with same light. These are datasets for blue, green and red images:
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=200px]{images/BlueLightImages.png}
+    \caption{Dataset for images with blue light}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=200px]{images/GreenLightImages.png}
+    \caption{Dataset for images with green light}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=200px]{images/RedLightImages.png}
+    \caption{Dataset for images with red light}
+\end{figure}
+
+Each dataset was trained and tested with three different types of segmentation with different type of tresholding and Artificial Neural Network, Support Vector Machines and Decision Trees were used for final classification, training and decision about results for dataset for testing.  
+
+This is the rating of different segmentation based on their accuracy:
+
+Different wavelet families were used for Wavelet transformation. I used two wavelet transformation based on Daubechies wavelet family (db2, db4), three wavelets based on biorthogonal wavelet family (bior1.3, bior2.4, bior1.5) and one wavelet type based on reverse biorthogonal wavelet family (rbio3.1). We can compare not only different methods but also different types of wavelet transformation.
+
+Finally we can find out which color gives the best accuracy and is the most reliable for liveness detection on touchless device.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=200px]{images/accuracyLights.png}
+    \caption{Average accuracy for all tested datasets with blue, green and red lights}
+\end{figure}
+
+We can see that the best accuracy have the images with red light. Therefore they are most suitable for liveness detection on our device. It is commonly known that green light reflects the biggest light amount back, so it is most suitable for measure reflected light with some specialized device, but the 
+
+\section{Analyzing images with mix of images with all lights}
+The all datasets from previous chapter are combined into one dataset, so we have dataset with mix of images with all the different lights.
+
+Similar to analyzing data set with various lights, we want to figure out what type of segmentation, classifier and method is most suitable for liveness detection, when we have large dataset with different lights.
 
 \end{document}
