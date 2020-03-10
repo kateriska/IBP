@@ -34,7 +34,7 @@ Identifikace, verifikace, identita a autentizace jsou základními čtyřmi pojm
     \item \textbf{Autentizace} - Systém při tomto úkonu potvrzuje autentičnost (hodnověrnost) dané osoby. Může být využita při identifikaci a verifikaci. Porovnávání většinou funguje na~základě pomyslného prahu.
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=150px]{obrazky-figures/identifver.png}
     \caption{Rozdíl mezi identifikací a verifikací, převzato z \cite{Drahansky}}
@@ -49,7 +49,7 @@ Biometrické systémy dělíme do dvou základních kategorií\cite{Drahansky}:
     \item \textbf{Verifikační modul} - Zde je zaregistrována biometrická informace podobně jako u~registračního modulu, ale výsledek není uložen do databáze, nýbrž jsou data z databáze načítána, aby se extrahovaný biometrický markant mohl porovnat s daty v~databázi. 
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=340px]{obrazky-figures/biosystem.png}
     \caption{Znázornění biometrického systému, převzato z \cite{Drahansky}}
@@ -58,9 +58,9 @@ Biometrické systémy dělíme do dvou základních kategorií\cite{Drahansky}:
 \section{Skóre porovnání}
 Skóre porovnání udává kvantifikovanou podobnost extrahovaného vzorku a šablony. Extrahovaný vzorek obsahuje významná rysy z vstupních dat. Šablona je pak uložená v např. v databázi nebo na čipové kartě. Tato míra shody je založená na aplikaci prahu T, na základě kterého je rozhodnuto o přijetí nebo nepřijetí daného objektu.\cite{Drahansky}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=340px]{obrazky-figures/mira.png}
+    \includegraphics[width=250px]{obrazky-figures/mira.png}
     \caption{Skóre porovnání na základě zvoleného prahu, převzato z \cite{Drahansky}}
 \end{figure}
 
@@ -73,11 +73,11 @@ FRR (False Rejection Rate) představuje procentuální zastoupení identifikovan
 $$FRR = \frac{pocet\:zamitnutych\:autorizovanych\:osob}{celkovy\:pocet\:testovaných\:vzorku} * 100 \%$$
 
 \subsection{Souvislost FAR a FRR}
-Vliv charakteristik FAR a FRR znázorňuje následující graf. S větší úrovní zabezpečení se snižuje FAR, čili je přijato stále méně a méně neautorizovaných osob. Naopak se zvyšuje riziko zamítnutí autorizovaných osob daným systémem. Průsečík těchto dvou křivek nese zkratku EER (Equal Error Rate) neboli česky Míra vyrovnání chyb. V tomto bodě bude chybně akceptován a chybně odmítnut stejný počet osob. Můžeme mít systém, který je více bezpečny, ale méně uživatelsky přívětivý nebo obráceně.
+Vliv charakteristik FAR a FRR znázorňuje následující graf. S větší úrovní zabezpečení se snižuje FAR, čili je přijato stále méně a méně neautorizovaných osob. Naopak se zvyšuje riziko zamítnutí autorizovaných osob daným systémem. Průsečík těchto dvou křivek nese zkratku EER (Equal Error Rate) neboli česky Míra vyrovnání chyb. V tomto bodě bude chybně akceptován a chybně odmítnut stejný počet osob. Můžeme mít systém, který je více bezpečny, ale méně uživatelsky přívětivý nebo obráceně.\cite{FARFRR}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=340px]{obrazky-figures/frrfar.jpeg}
+    \includegraphics[width=150px]{obrazky-figures/frrfar.jpeg}
     \caption{Souvislost charakteristik FAR a FRR, převzato z \cite{FARFRR}}
 \end{figure}
 
@@ -108,9 +108,9 @@ Otisky prstů dělíme na základní tři druhy:\cite{Drahansky}
 \item Latentní otisk (skrytý)
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=340px]{obrazky-figures/druhyotisk.png}
+    \includegraphics[width=320px]{obrazky-figures/druhyotisk.png}
     \caption{Válený, píchaný a latentní otisk prstu, převzato z \cite{Drahansky}}
 \end{figure}
 
@@ -119,29 +119,29 @@ Nejdůležitějším částí detekce je senzor, který zaznamenává výsledný
 \begin{itemize}
 \item \textbf{Optické senzory} - Využívají jednoduchý zdroj světla (LED), které osvětlí plochu prstu.\cite{Drahansky} Nejvíce používaným zástupcem optických senzorů je senzor FTIR. Prst se při snímání dotýká skleněného nebo plastového hranolu. Při dotyku jsou hřebeny papilárních linií v kontaktu s povrchem snímače, ale údolí jsou vzdálena. Světlo pocházející z hranolu dopadá na prst a je odraženo údolími papilárních liníí nebo náhodně pohlceno hřebeny. Ve výsledném obrazu jsou pak hřebeny tmavá místa a údolí světlá místa. FTIR snímače dokáží snímat 3D otisk prstu a tak dokáží detekovat i zfalšované otisky prstu, které například pocházejí z fotografie. \cite{Maltoni2009}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=250px]{obrazky-figures/ftiredit.png}
+    \includegraphics[width=200px]{obrazky-figures/ftiredit.png}
     \caption{Senzor FTIR, převzato z \cite{Maltoni2009}}
 \end{figure}
 
 \item \textbf{Kapacitní senzory} - Jsou složeny z matice malých vodivých plošek, na níž je napařena vrstva nevodivého oxidu křemičitého.\cite{Drahansky} Mezi povrchem prstu a každou z plošek (mikrokapacitorů) v čipu vzniká malý elektrický náboj. Při skládání výsledného otisku prstu je důležitá vzdálenost mezi povrchem otisku prstu a mikrokapacitorem. Hřebeny a údolí papilárních linií otisku prstu mají jinou vzdálenost od mikrokapacitoru, tudíž i odlišnou intenzitu ve výsledném obraze. Stejně jako u senzoru FTIR nemůže tato technologie být zneužita útočníkem při předložení fotografie. Jsou zde totiž měřeny vzdálenosti a pouze trojrozměrný povrch může být nasnímán.\cite{Maltoni2009}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=300px]{obrazky-figures/kapacit.png}
     \caption{Kapacitní senzor, převzato z \cite{Maltoni2009}}
 \end{figure}
 \item \textbf{Ultrazvukové senzory} - Jsou založeny na posílání akustického signálu prstu a zachytávání odraženého signálu. Odražený signál je použit na výpočet hloubky obrazu a struktury papilárních linií. Senzor se skládá z vysílače a příjimače. Vysílač generuje krátké zvukové pulsy a příjímač detekuje odpověď po odražení těchto akustických pulsů od povrchu prstu. Senzor je schopný detekovat strukturu otisku prstu i např. přes tenké rukavice, stejně jako si dokáže poradit s nečistotami i mastnotou.\cite{Maltoni2009}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=300px]{obrazky-figures/ultrasound.png}
     \caption{Ultrazvukový senzor, převzato z \cite{Maltoni2009}}
 \end{figure}
 \item \textbf{Elektrooptické senzory} - Tyto snímače jsou složeny ze dvou vrstev. První dokáže emitovat světlo, pokud je polarizována správným nápětím. Druhá vrstva úzce spolupracuje s první, zpracovává emitované světlo a vytváří finální digitální obraz.\cite{Maltoni2009}\\\\\\\\
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=320px]{obrazky-figures/electro.png}
     \caption{Elektrooptický senzor, převzato z \cite{Maltoni2009}}
@@ -169,7 +169,7 @@ Otisk prstu obsahuje útvary, které tvoří papilární linie - markanty. Mezi 
     \item Průsečná linie (Through Line)
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=260px]{obrazky-figures/markants.png}
     \caption{Základní typy markantů ve vyjmenovaném pořadí, převzato z \cite{Drahansky}}
@@ -188,7 +188,7 @@ Otisky prstů můžeme na základě charakteristických znaků rozdělit do nás
     \item Dvojitá smyčka (Twin Loop)
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=250px]{obrazky-figures/classes.png}
     \caption{Třídy otisků prstů, převzato z \cite{Drahansky}}
@@ -252,9 +252,9 @@ Tyto techniky zkoumají, jak se deformuje lidská kůže, když je prst přitla�
 \subsection{Detekce potu}
 I bříško prstu obsahuje potní žlázy, proto detekce pórů může posloužit pro detekci živosti prstu. Na základě uběhnutého času se může změřit změna velikosti pórů, kdy se vzor stává postupně tmavším. Důležitou statickou charakteristikou je pak variabilita odstínů šedi okolo hřebenů papilárních linií, dynamickou pak právě vývoj v čase při změně extrahovaného signálu z hřebenů. Falešné snímky pak nedokáží pořádně poskytnout tyto vlastnosti kvůli neschopnosti provést hlavně dané dynamické vlastnosti, které jsou u živých prstů běžné.\cite{PoresResearch}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
-    \includegraphics[width=250px]{obrazky-figures/pores.png}
+    \includegraphics[width=150px]{obrazky-figures/pores.png}
     \caption{Srovnání vývoje detekce potu v čase mezi živým a falešným prstem, převzato z \cite{PoresResearch}}
 \end{figure}
 
@@ -269,13 +269,13 @@ Po načtení obrazu bylo potřeba obraz převést na šedotonový. Poté byla pr
 \begin{figure}[htbp]
   \begin{minipage}[b]{0.5\linewidth}
     \centering
-    \includegraphics[width=200px]{obrazky-figures/102_1.png}
+    \includegraphics[width=150px]{obrazky-figures/102_1.png}
     \caption{Vstupní obraz}
   \end{minipage}
   \hspace{0.5cm}
   \begin{minipage}[b]{0.5\linewidth}
     \centering
-    \includegraphics[width=200px]{obrazky-figures/norm_img.png}
+    \includegraphics[width=150px]{obrazky-figures/norm_img.png}
     \caption{Normalizovaný obraz}
   \end{minipage}
 \end{figure}
@@ -295,16 +295,16 @@ Adaptivní prahování slouží pro analýzu obrazu např. při situacích, kdy 
     \item Adaptivní prahování Gaussian (Adaptive Gaussian Tresholding) - Výslednou hodnotu prahu udává vážená suma okolních hodnot, kdy vahy jsou gaussian oknem. I zde je odečtena konstanta C.
 \end{itemize}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
   \begin{minipage}[b]{0.5\linewidth}
     \centering
-    \includegraphics[width=150px]{obrazky-figures/104_7norm.png}
+    \includegraphics[width=100px]{obrazky-figures/104_7norm.png}
     \caption{Normalizovaný obraz}
   \end{minipage}
   \hspace{0.5cm}
   \begin{minipage}[b]{0.5\linewidth}
     \centering
-    \includegraphics[width=150px]{obrazky-figures/tresh104.png}
+    \includegraphics[width=100px]{obrazky-figures/tresh104.png}
     \caption{Obraz po aplikaci prahování}
   \end{minipage}
 \end{figure}
@@ -315,7 +315,7 @@ Morfologické operace se používají obvykle na úpravu binárního obrazu. Pot
 
 Papilární linie jsou odděleny po vyprahování úzkými místy a tento algoritmus má za cíl úzká místa spojit a vytvořit tak masku, která bude určovat pozici otisku prstu v obrazu. Struktura objektu se tedy při vzniku masky zjednodušší. Výsledná maska je následně aplikována na normalizovaný obraz a je tedy vybrána pouze část obrazu, která obsahuje otisk prstu, pozadí zůstává bílé.
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
   \begin{minipage}[b]{0.3\linewidth}
     \centering
     \includegraphics[width=100px]{obrazky-figures/105_5norm.png}
@@ -433,13 +433,13 @@ Postup algoritmu je následující:\\
 2. Pro každý pixel v 3x3 okně je spočítána nová hodnota na základě tohoto pravidla - Pokud je hodnota zjišťovaného pixelu větší nebo rovna hodnotě středového pixelu, pak je novou hodnotou zjišťovaného pixelu 1, jinak 0.\\
 3. Po spočítání nových hodnot celého 3x3 okna je spočítána nová binární hodnota středového pixelu.\\
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=120px]{obrazky-figures/lbpn.png}
     \caption{Okno o velikosti 9 pixelů se středovým pixelem a jeho sousedy pro analýzu lokálního binárního vzoru, převzato z \cite{GragnanielloStudy}}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=460px]{obrazky-figures/lbpprincip.png}
     \caption{Princip výpočtu lokálního binárního vzoru, upraveno s využitím \cite{GaikwadStudy}}
@@ -570,7 +570,7 @@ $$homogeneity = \sum_{i,j=0}^{levels-1}\frac{P_{i,j}}{1+(i-j)^2}$$
 \section{Vlnková transformace}
 Vlnková transformace (Wavelet transform) je další z metod, které mohou být použity při klasifikaci živosti nebo např. při rozpoznávání. Jedná se o skupinu transformací, které se liší podle dané bázové funkce - vlnky. Zadané vlnky jsou odvozené od základní funkce - mateřské vlnky (mother wavelet). Vlnková transformace je zástupcem lineární transformace. Signál (obraz) se analyzuje pomocí násobení funkcí okna a ortogonálním rozkladem, podobně jako dalších integrálních lineárních transformací. 
 
-Vlnková transformace může být využita také pro kompresi obrazu nebo pro filtraci šumu. \cite{WaveletHlavac} Obecně představuje alternativu ke krátkodobé Fourierově transformaci. Fourierova transformace byla velmi využívána v minulosti, ale nyní se více zaměřuje na víceměřítkové transformace (Multiresolution Transform - MT), ke kterým patří i vlnková transformace. Fourierova transformace využívá pro rozklad signálu do spektrální roviny periodické sinusové a kosinusové funkce, báze vlnkové transformace je tvořena časově omezenými funkcemi - vlnkami. Vlnky mohou být nadefinovány podle charakteru analyzovaných dat a můžeme dosáhnout i velmi přesné lokalizace průdkých změn v signálu a lepší vyhodnocení v případě nestacionárních a neperiodických signálů.\cite{WaveletElektrorevue}
+Vlnková transformace může být využita také pro kompresi obrazu nebo pro filtraci šumu. \cite{WaveletHlavac} Obecně představuje alternativu ke krátkodobé Fourierově transformaci. Fourierova transformace byla velmi využívána v minulosti, ale nyní se více zaměřuje na víceměřítkové transformace (Multiresolution Transform - MT), ke kterým patří i vlnková transformace. Fourierova transformace využívá pro rozklad signálu do spektrální roviny periodické sinusové a kosinusové funkce, báze vlnkové transformace je tvořena časově omezenými funkcemi - vlnkami. Vlnky mohou být nadefinovány podle charakteru analyzovaných dat a můžeme dosáhnout i velmi přesné lokalizace průdkých změn v signálu a lepšího vyhodnocení v případě nestacionárních a neperiodických signálů.\cite{WaveletElektrorevue}
 
 \subsection{Rodičovské a dceřinné vlnky}
 Mateřská vlnka je základní vlnkovou funkcí. Určuje tvar vlnky a pokrývá celý definiční obor, který nás zajímá. Mateřskou vlnku značíme symbolem $\Psi$. Má nulovou střední hodnotu.
@@ -582,7 +582,7 @@ Odvozené vlnky nazýváme dceřinnými vlnkami. Tyto vlnky se odvozují od rodi
 \subsection{Spojitá vlnková transformace}
 Spojitá vlnková transformace (Continuous Wavelet Transform - CWT) lze zapsat následující rovnicí:\cite{WaveletMathworks}
 $$y(a,b) = \frac{1}{\sqrt{a}}\int_{-\infty}^{\infty} x(t)\Psi^*(\frac{t-b}{a}) dt$$
-Signál $x(t)$ je korelován s vlnkami, které jsou odvozené od mateřské vlnky $\Psi(t)$. Symbol * je pak značením komplexně sdružené funkce. Výsledkem je funkce $y(a,b)$, kde parametr $a$ určuje umístění vlnky na časové ose a parametr $b$ pak měřítko. Konstanta $\frac{1}{\sqrt{a}}$ pak slouží pro normalizaci energie vlnky při změnách měřítka.
+Signál $x(t)$ je korelován s vlnkami, které jsou odvozené od mateřské vlnky $\Psi(t)$. Symbol $*$ je pak značením komplexně sdružené funkce. Výsledkem je funkce $y(a,b)$, kde parametr $a$ určuje umístění vlnky na časové ose a parametr $b$ pak měřítko. Konstanta $\frac{1}{\sqrt{a}}$ pak slouží pro normalizaci energie vlnky při změnách měřítka.
 
 Pro případ symetrické vlnkové funkce se postupně hledá míra korelace (podobnosti) mezi naším vstupním signálem a vlnkou s měnícím se měřítkem. Ve výsledku se tedy můžou extrahovat různě velké detaily z dat, které jsou zpracována.\cite{WaveletElektrorevue}
 
@@ -609,12 +609,14 @@ Pro diskrétní vlnkovou transformaci se používají například následující
 
 \subsection{Vlnky Daubechies}
 
-Jedná se o asymetrické, ortogonální a biortogonální vlnky. Značí se jako db$A$, kde $A$ vyjadřuje počet nulových momentů. Pro práci můžeme využít Daubechies db1 až db20, běžně užívány jsou však vlnky typu db1 až db10.\cite{PyWaveletsBrowser} Dosahují vysoké míry komprese. Poskytují stejné parametry filtrů pro přímou i zpětnou transformaci, zajišťují rychlou a přesnou rekonstrukci.\cite{WaveletHlavac} 
+Jedná se o asymetrické, ortogonální a biortogonální vlnky. Značí se jako $dbA$, kde $A$ vyjadřuje počet nulových momentů. Pro práci můžeme využít Daubechies $db1$ až $db20$, běžně užívány jsou však vlnky typu $db1$ až $db10$.\cite{PyWaveletsBrowser} Dosahují vysoké míry komprese. Poskytují stejné parametry filtrů pro přímou i zpětnou transformaci, zajišťují rychlou a přesnou rekonstrukci.\cite{WaveletHlavac} 
     
-Každá Daubechies vlnka má počet nulových momentů rovných polovině svých koeficientů. Například vlnka db1 (také jinak zvaná jako Haar vlnka) má jeden nulový moment, db2 pak dva nulové momenty, atd. Nulový moment určuje schopnost vlnky reprezentovat chování polynomu nebo informace v signálu. Například vlnka db1 s jedním nulovým momentem snadno kóduje konstatní složky signálu. Daubechies vlnka db2 snadno pracuje s s konstantními a lineárními signálovými složkami, db3 pak pracuje s konnstantními, lineárními a kvadratickými složkami signálu.\cite{WaveletsSignalImageProcessing}
+Každá Daubechies vlnka má počet nulových momentů rovných polovině svých koeficientů. Například vlnka $db1$ (také jinak zvaná jako Haar vlnka) má jeden nulový moment, $db2$ pak dva nulové momenty, atd. Nulový moment určuje schopnost vlnky reprezentovat chování polynomu nebo informace v signálu. Například vlnka $db1$ s jedním nulovým momentem snadno kóduje konstatní složky signálu. Daubechies vlnka $db2$ snadno pracuje s konstantními a lineárními signálovými složkami, $db3$ pak pracuje s konnstantními, lineárními a kvadratickými složkami signálu.\cite{WaveletsSignalImageProcessing}
     
 \subsection{Biortogonální spline vlnky}
+Biortogonální spline vlnky jsou symetrické, biortogonální, ale nejsou ortogonální. Pro analýzu můžeme využít vlnky $bior1.1$, $bior1.3$, $bior1.5$, $bior2.2$, $bior2.4$, $bior2.6$, $bior2.8$, $bior 3.1$, $bior3.3$, $bior3.5$, $bior3.7$, $bior3.9$, $bior4.4$, $bior5.5$ a $bior6.8$.\cite{PyWaveletsBrowser} Jinak se také nazývají Cohen–Daubechies–Feauveau vlnky. Liší se vlastnostmi a tvarem od vlnek Daubechies, ale princip konstrukce vlnek je podobný. Biortogonální spline vlnky jsou generovány pomocí B-splinu. \cite{GeneralizedBiorthogonalDaubechiesWavelets} Jsou využity ve standardu komprese obrazu JPEG 2000, dále se používají například při kompresi otisků prstů pro FBI. 
 \subsection{Reverzní biortogonální spline vlnky}
+Reverzní biortogonální spline vlnky jsou symetrické. biortogonální a nejsou ortogonální. Pro práci můžeme využít tyto vlnky z dané rodiny - $rbio1.1$, $rbio1.3$, $rbio1.5$, $rbio2.2$, $rbio2.4$, $rbio2.6$, $rbio2.8$, $rbio3.1$, $rbio3.3$, $rbio3.5$, $rbio3.7$, $rbio3.9$, $rbio4.4$, $rbio 5.5$ a $rbio6.8$.\cite{PyWaveletsBrowser} Tato rodina vlnek byla v minulém výzkumu využita například pro rozpoznávání oční duhovky.\cite{IrisRecognition}
 
 
 
@@ -625,7 +627,7 @@ Pro samotné rozhodnutí o živosti či neživosti otisku prstu je potřeba navr
 \section{Umělá neuronová síť}
 Umělá neuronová síť byla sestavena jako abstrakce podobná lidskému myšlení. Umělý neuron se nazývá perceptron a byl inspirován právě nervovou buňkou - neurononem. Výstupní signály umělých neuronů jsou statické, narozdíl od těch skutečných. Obecné schéma umělého neuronu je následující, proměnná $u$ představuje vnitřní potenciál, $f$ pak bázovou funkci, $g$ aktivační funkci, $i$ hodnotu daného vstupu a $w$ váhu:
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=300px]{obrazky-figures/neuron.png}
     \caption{Obecný model umělého neuronu, převzato z \cite{PrednaskaIZU9}}
@@ -637,7 +639,7 @@ V rámci bakalářské práce jsem jako aktivační funkci využila sigmoidu. Je
 $$f(x)=\frac{1}{1+e^{-x}}$$
 Sigmoida je snadno diferencovatelná, můžeme ji lehce použít pro aktualizaci daných vah.
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=300px]{obrazky-figures/sigmoid.jpeg}
     \caption{Graf sigmoidy a její derivace, převzato z \cite{MediumDeepLearning}}
@@ -654,13 +656,13 @@ Algoritmy podpůrných vektorů (Support Vector Machines) jsou další metodou s
 
 Pokud není možné vzorky rozumně rozdělit polorovinou, aplikujeme transformaci a přidáme jeden další rozměr, osu $z$. Nechť hodnoty bodů na ose $z$ mají hodnotu $w = x^2 + y^2$. V tomto případě můžeme měnit vzdálenosti bodu od osy $z$. Pokud nyní načrtneme graf o souřadních $yz$, vidíme zde rozdělení, které můžeme zase oddělit přímkou. 
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=300px]{obrazky-figures/svmVapnik.png}
     \caption{Příklad problému v dvourozměrném prostoru a nalezení optimální nadroviny a rozpětí, převzato z \cite{VapnikSVM}, na které se podílel jeden z původních výzkumníků algoritmu}
 \end{figure}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
   \begin{minipage}[b]{0.5\linewidth}
   \centering
    \includegraphics[width=200px]{obrazky-figures/mediumsvm1.png}
@@ -676,7 +678,7 @@ Pokud není možné vzorky rozumně rozdělit polorovinou, aplikujeme transforma
 
 Pokud zpět transformujeme tuto přímku do grafu o závislosti osy $y$ na ose $x$, vzorky jsou nyní rozděleny hranicí ve tvaru kružnice. Tato transormace se nazývá jádrová transformace. Slouží tedy pro převedení lineárně neseparovatelné úlohy na úlohu, která je již lineárně separovatelná a můžeme tedy nalézt finální rozdělující nadrovinu.\cite{MediumSVM}
 
-\begin{figure}[htbp]
+\begin{figure}[!htbp]
     \centering
     \includegraphics[width=300px]{obrazky-figures/sigmoid.jpeg}
     \caption{Nalezení finální rozdělující nadroviny, převzato z \cite{MediumSVM}}
@@ -713,6 +715,9 @@ OpenCV je open-source knihovna, která slouží pro práci s obrazem a získáv�
 
 \section{Knihovna scikit-learn}
 Ekvivalentem pro knihovnu OpenCV je knihovna scikit-learn, která však umožňuje pouze podporu pro jazyk Python. Tato knihovna se primárně specializuje na podporu strojového učení, obsahuje však i funkce na podporu analýzy obrazu. Byla nápomocná při extrahování matice GLCM z obrazu, jejíž některé vlastnosti byli klíčové pro extrahovaný vektor při všech uvažovaných a zkoumaných formách analýzy. Pro klasifikaci pak byla využita funkce pro metodu SVM a taky pro rozhodovací strom. Knihovna scikit-learn představuje snadnou práci s algoritmy umělé inteligence, algoritmy jsou dobře optimalizované a rychlé. Umožňuje experimenty s různými metodami a přístupy, na základě kterých může člověk uvážit co nejvíce metod klasifikace, které mezi sebou můžeme porovnat a zkoumat chování v různých podmínkách.
+
+\section{Knihovna PyWavelets}
+Knihovna PyWavelets (pywt) představuje open source knihovnu umožňující vlnkové transformace pro práci v jazyce Python. Knihovna je částečně implementována v jazyce C. Knihovna poskytuje 1D či 2D diskrétní vlnkovou transformaci a také 1D spojitou vlnkovou transformaci. Obsahuje více jak 100 vestavěných vlnkových filtrů a podporuje i tvorbu vlastních vlnek pro uživatele. Poskytuje co nejpřesnější výsledky. Výsledky jsou kompatabilní například z Matlab Wavelet Toolbox (TM) v programovacím jazyce Matlab.\cite{PywtAbout}
 
 \section{Implementace}
 
