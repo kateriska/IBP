@@ -227,7 +227,47 @@ Pro snímky živých otisků prstů bylo použito zhruba šest osob. Prsty byly 
 
 Zjistila jsem, že pro některé osoby bylo zpočátku trochu nezvyklé držet prst opravdu ve statické poloze při snímání, což beru jako mírnou nevýhodu bezdotykového senzoru, kde není k dispozici žádný povrch pro položení prstu při analýze. 
 
-Pro svoji analýzu jsem dále použila zhruba 30 falešných otisků prstů. I zde bylo potřeba dbát na co nejvyšší vyniknutí papilárních linií.
+Pro svoji analýzu jsem dále použila zhruba 36 falešných otisků prstů. I zde bylo potřeba dbát na co nejvyšší vyniknutí papilárních linií.
+
+\begin{figure}[!htbp]
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/live120.jpg}
+    \caption{Obrázek živého otisku prstu s nasvícením modrým světlem}
+  \end{minipage}
+  \hspace{0.3cm}
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/live38.jpg}
+    \caption{Obrázek živého otisku prstu s nasvícením zeleným světlem}
+  \end{minipage}
+  \hspace{0.3cm}
+    \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/live56.jpg}
+    \caption{Obrázek živého otisku prstu s nasvícením červeným světlem}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/fake23.jpg}
+    \caption{Obrázek falešného otisku prstu s nasvícením modrým světlem}
+  \end{minipage}
+  \hspace{0.3cm}
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/fake64.jpg}
+    \caption{Obrázek falešného otisku prstu s nasvícením zeleným světlem}
+  \end{minipage}
+  \hspace{0.3cm}
+    \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/fake47.jpg}
+    \caption{Obrázek falešného otisku prstu s nasvícením červeným světlem}
+  \end{minipage}
+\end{figure}
 
 \chapter{Průzkum současných řešení detekce živosti otisků prstů}
 Algoritmů pro detekci živosti otisku prstu byla objevena ve studiích celá řada. Jedná se o práce, které využívají jak hardwarové metody analýzy, tak softwarové metody. Nevýhodou hardwarových metod je, že požadují zvláštní vybavení navíc. V mojí práci se budu zabývat softwarovými metodami detekce, avšak v některých případech i s využitím hardwarového prostředku, například nasvícení prstu na senzoru světlem o různé vlnové délce. Tato kapitola popisuje stručně současné přístupy k analýze.
@@ -291,8 +331,8 @@ Při globálním prahování je nutné si vybrat konstantní práh již před an
 \subsection{Adaptivní prahování}
 Adaptivní prahování slouží pro analýzu obrazu např. při situacích, kdy určité části obrazu mají jiné světelné podmínky, např. při výskytu stínů. Metoda nevyužívá konstantního prahu. Algoritmus určí pro pixel hodnotu prahu na základě malého okolí okolo něj. Výsledkem jsou jiné hodnoty prahů pro různé oblasti obrazu. Pro adaptivní prahování bylo využity následující metody:\cite{OpenCVTresholding}
 \begin{itemize}
-    \item Adaptivní průměrné prahování (Adaptive Mean Tresholding) - Hodnota prahu je průměrem okolí. Dále je od tohoto výsledku odečtena konstanta C.
-    \item Adaptivní prahování Gaussian (Adaptive Gaussian Tresholding) - Výslednou hodnotu prahu udává vážená suma okolních hodnot, kdy vahy jsou gaussian oknem. I zde je odečtena konstanta C.
+    \item Adaptivní průměrné prahování (Adaptive Mean Tresholding) - Hodnota prahu je průměrem okolí. Dále je od tohoto výsledku odečtena konstanta $C$.
+    \item Adaptivní prahování Gaussian (Adaptive Gaussian Tresholding) - Výslednou hodnotu prahu udává vážená suma okolních hodnot, kdy vahy jsou gaussian oknem. I zde je odečtena konstanta $C$.
 \end{itemize}
 
 \begin{figure}[!htbp]
@@ -315,6 +355,8 @@ Morfologické operace se používají obvykle na úpravu binárního obrazu. Pot
 
 Papilární linie jsou odděleny po vyprahování úzkými místy a tento algoritmus má za cíl úzká místa spojit a vytvořit tak masku, která bude určovat pozici otisku prstu v obrazu. Struktura objektu se tedy při vzniku masky zjednodušší. Výsledná maska je následně aplikována na normalizovaný obraz a je tedy vybrána pouze část obrazu, která obsahuje otisk prstu, pozadí zůstává bílé.
 
+Získaná maska vzniká prahováním, pro které byly využity tři výše zmíněné metody - metoda Otsu a dále adaptivní prahovací metody Mean a Gaussian.
+
 \begin{figure}[!htbp]
   \begin{minipage}[b]{0.3\linewidth}
     \centering
@@ -332,6 +374,26 @@ Papilární linie jsou odděleny po vyprahování úzkými místy a tento algori
     \centering
     \includegraphics[width=100px]{obrazky-figures/105_5segment.png}
     \caption{Výsledný segmentovaný obraz}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=170px]{obrazky-figures/Images14otsu.png}
+    \caption{Segmentace při použítí Otsu prahování}
+  \end{minipage}
+  \hspace{0.3cm}
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=170px]{obrazky-figures/Images14gauss.png}
+    \caption{Segmentace při použítí Gaussian prahování}
+  \end{minipage}
+  \hspace{0.3cm}
+    \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=170px]{obrazky-figures/Images14mean.png}
+    \caption{Segmentace při použítí Mean prahování}
   \end{minipage}
 \end{figure}
 
@@ -423,13 +485,13 @@ Papilární linie jsou odděleny po vyprahování úzkými místy a tento algori
 
 
 
-\section{Lokální binární vzor}
-Lokální binární vzor byl hlavním algoritmem, s jehož výstupy budu dále při práci pracovat. Jedná se o efektivní algoritmus, který se používá pro analýzu textury objektů.  Algoritmus je užitečný pro informace o změnách intenzity mezi jednotlivými pixely obrázku a jejich sousedy. Kalkulace lokálního binárního vzoru vypadá následovně:\cite{GaikwadStudy}
+\section{Lokální binární vzor (LBP)}
+Lokální binární vzor (Local Binary Pattern - LBP) je jedním z hlavních algoritmů, s jehož výstupy budu dále při práci pracovat. Jedná se o efektivní algoritmus, který se používá pro analýzu textury objektů.  Algoritmus je užitečný pro informace o změnách intenzity mezi jednotlivými pixely obrázku a jejich sousedy. Kalkulace lokálního binárního vzoru vypadá následovně:\cite{GaikwadStudy}
 
 $$LBP(x_c,y_c) = \sum_{n=0}^{7}2^n(I_n-I(x_c,y_c)),$$
 kde $I_n$ jsou hodnoty sousedních pixelů a a $I(x_c,y_c)$ hodnota středového pixelu, $n$ je index souseda.\\\\
 Postup algoritmu je následující:\\
-1. Pro každý pixel je zjištěno okno 3x3 pixely, kde námi procházený pixel x je středem, středem s 8 sousedy.\\
+1. Pro každý pixel je zjištěno okno 3x3 pixely, kde námi procházený pixel $x$ je středem, středem s 8 sousedy.\\
 2. Pro každý pixel v 3x3 okně je spočítána nová hodnota na základě tohoto pravidla - Pokud je hodnota zjišťovaného pixelu větší nebo rovna hodnotě středového pixelu, pak je novou hodnotou zjišťovaného pixelu 1, jinak 0.\\
 3. Po spočítání nových hodnot celého 3x3 okna je spočítána nová binární hodnota středového pixelu.\\
 
@@ -470,14 +532,35 @@ Pro výpočet lokálního binárního vzoru byl použit algoritmus, který lze z
  }
 \end{algorithm}
 
- Nyní bylo potřeba vyextrahovat pro lokální binární vzor informace, na základě kterých by se dala detekovat problematika živosti otisku prstu. První informací, kterou jsem si z nového obrazu vyextrahovala byl jeho histogram. Histogramy se zvláště ve středových hodnotách podstatně liší. Svoji hypotézu jsem otestovala na základě porovnání částečných sum hodnot histogramů. Na základě prahu jsem pak mohla rozhodnout, zda je otisk prstu živý nebo falešný.
+Výsledný předzpracovaný obraz po aplikaci Lokálního binárního vzoru může vypadat například následovně:
+\begin{figure}[!htbp]
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=170px]{obrazky-figures/fake53otsulbp.png}
+    \caption{Falešný otisk prstu po aplikaci algoritmu LBP}
+  \end{minipage}
+  \hspace{0.3cm}
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=170px]{obrazky-figures/Images29lbp.png}
+    \caption{Živý otisk prstu po aplikaci algoritmu LBP}
+  \end{minipage}
+  \hspace{0.3cm}
+    \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=170px]{obrazky-figures/fake44otsulbp.png}
+    \caption{Falešný otisk prstu po aplikaci algoritmu LBP}
+  \end{minipage}
+\end{figure}
+
+ %Nyní bylo potřeba vyextrahovat pro lokální binární vzor informace, na základě kterých by se dala detekovat problematika živosti otisku prstu. První informací, kterou jsem si z nového obrazu vyextrahovala byl jeho histogram. Histogramy se zvláště ve středových hodnotách podstatně liší. Svoji hypotézu jsem otestovala na základě porovnání částečných sum hodnot histogramů. Na základě prahu jsem pak mohla rozhodnout, zda je otisk prstu živý nebo falešný.
  
- Hypotéza byla otestována na třech databázích - dvou obsahující živé otisky prstu a jedné obsahující falešné otisky prstů. Celkem bylo pracováno se 140 snímky. Při výpočtu přesnosti budu využívat již zmiňovaný vzorec:\\
- $$a = \frac{C}{N}$$
- Do vzorce dosadíme:\\
-  $$a = \frac{122}{140} = 87,14\%$$
+ %Hypotéza byla otestována na třech databázích - dvou obsahující živé otisky prstu a jedné obsahující falešné otisky prstů. Celkem bylo pracováno se 140 snímky. Při výpočtu přesnosti budu využívat již zmiňovaný vzorec:\\
+ %$$a = \frac{C}{N}$$
+ %Do vzorce dosadíme:\\
+ % $$a = \frac{122}{140} = 87,14\%$$
  
- Analýzou lokálního binárního vzoru pro detekci živosti a  dalšími algoritmy se budu dále zabívat v letním semestru.
+ %Analýzou lokálního binárního vzoru pro detekci živosti a  dalšími algoritmy se budu dále zabívat v letním semestru.
  
  %\begin{figure}[htbp]
  % \begin{minipage}[b]{0.5\linewidth}
@@ -612,11 +695,105 @@ Pro diskrétní vlnkovou transformaci se používají například následující
 Jedná se o asymetrické, ortogonální a biortogonální vlnky. Značí se jako $dbA$, kde $A$ vyjadřuje počet nulových momentů. Pro práci můžeme využít Daubechies $db1$ až $db20$, běžně užívány jsou však vlnky typu $db1$ až $db10$.\cite{PyWaveletsBrowser} Dosahují vysoké míry komprese. Poskytují stejné parametry filtrů pro přímou i zpětnou transformaci, zajišťují rychlou a přesnou rekonstrukci.\cite{WaveletHlavac} 
     
 Každá Daubechies vlnka má počet nulových momentů rovných polovině svých koeficientů. Například vlnka $db1$ (také jinak zvaná jako Haar vlnka) má jeden nulový moment, $db2$ pak dva nulové momenty, atd. Nulový moment určuje schopnost vlnky reprezentovat chování polynomu nebo informace v signálu. Například vlnka $db1$ s jedním nulovým momentem snadno kóduje konstatní složky signálu. Daubechies vlnka $db2$ snadno pracuje s konstantními a lineárními signálovými složkami, $db3$ pak pracuje s konnstantními, lineárními a kvadratickými složkami signálu.\cite{WaveletsSignalImageProcessing}
+
+\begin{figure}[!htbp]
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=150px]{obrazky-figures/db2wavelet.PNG}
+    \caption{Vlnková funkce pro vlnku Daubechies db2, převzato z \cite{PyWaveletsBrowser}}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=150px]{obrazky-figures/db4wavelet.PNG}
+    \caption{Vlnková funkce pro vlnku Daubechies db4, převzato z \cite{PyWaveletsBrowser}}
+  \end{minipage}
+\end{figure}
     
 \subsection{Biortogonální spline vlnky}
 Biortogonální spline vlnky jsou symetrické, biortogonální, ale nejsou ortogonální. Pro analýzu můžeme využít vlnky $bior1.1$, $bior1.3$, $bior1.5$, $bior2.2$, $bior2.4$, $bior2.6$, $bior2.8$, $bior 3.1$, $bior3.3$, $bior3.5$, $bior3.7$, $bior3.9$, $bior4.4$, $bior5.5$ a $bior6.8$.\cite{PyWaveletsBrowser} Jinak se také nazývají Cohen–Daubechies–Feauveau vlnky. Liší se vlastnostmi a tvarem od vlnek Daubechies, ale princip konstrukce vlnek je podobný. Biortogonální spline vlnky jsou generovány pomocí B-splinu. \cite{GeneralizedBiorthogonalDaubechiesWavelets} Jsou využity ve standardu komprese obrazu JPEG 2000, dále se používají například při kompresi otisků prstů pro FBI. 
+
+\begin{figure}[!htbp]
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=150px]{obrazky-figures/bior13wavelet.PNG}
+    \caption{Dekompoziční vlnková funkce pro bior1.3, převzato z \cite{PyWaveletsBrowser}}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=150px]{obrazky-figures/bior24wavelet.PNG}
+    \caption{Dekompoziční vlnková funkce pro bior2.4, převzato z \cite{PyWaveletsBrowser}}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=160px]{obrazky-figures/Images14bior15mean.png}
+    \caption{Vlnková transformace bior1.5 pro živý otisk prstu}
+\end{figure}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=160px]{obrazky-figures/fake21otsubior15.png}
+    \caption{Vlnková transformace bior1.5 pro falešný otisk prstu}
+\end{figure}
+
 \subsection{Reverzní biortogonální spline vlnky}
 Reverzní biortogonální spline vlnky jsou symetrické. biortogonální a nejsou ortogonální. Pro práci můžeme využít tyto vlnky z dané rodiny - $rbio1.1$, $rbio1.3$, $rbio1.5$, $rbio2.2$, $rbio2.4$, $rbio2.6$, $rbio2.8$, $rbio3.1$, $rbio3.3$, $rbio3.5$, $rbio3.7$, $rbio3.9$, $rbio4.4$, $rbio 5.5$ a $rbio6.8$.\cite{PyWaveletsBrowser} Tato rodina vlnek byla v minulém výzkumu využita například pro rozpoznávání oční duhovky.\cite{IrisRecognition}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=170px]{obrazky-figures/rbio31wavelet.PNG}
+    \caption{Dekompoziční vlnková funkce pro rbio2.4, převzato z \cite{PyWaveletsBrowser}}
+\end{figure}
+
+\section{Detektory hran Sobel a Laplaceův operátor}
+Metody Sobel a Laplaceův operátor jsou vhodným řešením detekce hran v obrazu a tedy také popisem textury. Umožňují rychlé a snadné řešení jak snížit počet dat - pixelů pro analýzu a zvýraznit strukturální aspekt vstupního obrazu. 
+
+Sobel operátor je metoda založená na gradientu. Principem je spočítání derivací 1. řádu pro obraz při ose $x$ a ose $y$. Získáme tak dva odlišné výsledky, se kterými můžeme dále pracovat. Pro analýzu bylo využito jádro (kernel) o velikosti $5x5$, které se využívají pro aproximování daných výsledků - derivací 1. řádu, protože samotný obraz není spojitý. 
+
+Laplaceův operátor využívá pouze jedno jádro. Získáme jeden finální výsledek, ne dva výsledky pro osu $x$ a $y$ jako u předchozího detektoru hran.\cite{SobelLaplacianDetectors}
+
+\begin{figure}[!htbp]
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=125px]{obrazky-figures/sobelxlive.png}
+    \caption{Výsledek aplikace Sobel operátoru pro osu x živého otisku prstu}
+  \end{minipage}
+  \hspace{0.3cm}
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=125px]{obrazky-figures/sobelylive.png}
+    \caption{Výsledek aplikace Sobel operátoru pro osu y živého otisku prstu}
+  \end{minipage}
+  \hspace{0.3cm}
+    \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=125px]{obrazky-figures/laplacianlive.png}
+    \caption{Výsledek aplikace Laplaceova operátoru pro živý otisk prstu}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=125px]{obrazky-figures/sobelxfingerprint.png}
+    \caption{Výsledek aplikace Sobel operátoru pro osu x falešného otisku prstu}
+  \end{minipage}
+  \hspace{0.3cm}
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=125px]{obrazky-figures/sobelyfingerprint.png}
+    \caption{Výsledek aplikace Sobel operátoru pro osu y falešného otisku prstu}
+  \end{minipage}
+  \hspace{0.3cm}
+    \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=125px]{obrazky-figures/laplacianfingerprint.png}
+    \caption{Výsledek aplikace Laplaceova operátoru pro falešný otisk prstu}
+  \end{minipage}
+\end{figure}
 
 
 
@@ -717,7 +894,9 @@ OpenCV je open-source knihovna, která slouží pro práci s obrazem a získáv�
 Ekvivalentem pro knihovnu OpenCV je knihovna scikit-learn, která však umožňuje pouze podporu pro jazyk Python. Tato knihovna se primárně specializuje na podporu strojového učení, obsahuje však i funkce na podporu analýzy obrazu. Byla nápomocná při extrahování matice GLCM z obrazu, jejíž některé vlastnosti byli klíčové pro extrahovaný vektor při všech uvažovaných a zkoumaných formách analýzy. Pro klasifikaci pak byla využita funkce pro metodu SVM a taky pro rozhodovací strom. Knihovna scikit-learn představuje snadnou práci s algoritmy umělé inteligence, algoritmy jsou dobře optimalizované a rychlé. Umožňuje experimenty s různými metodami a přístupy, na základě kterých může člověk uvážit co nejvíce metod klasifikace, které mezi sebou můžeme porovnat a zkoumat chování v různých podmínkách.
 
 \section{Knihovna PyWavelets}
-Knihovna PyWavelets (pywt) představuje open source knihovnu umožňující vlnkové transformace pro práci v jazyce Python. Knihovna je částečně implementována v jazyce C. Knihovna poskytuje 1D či 2D diskrétní vlnkovou transformaci a také 1D spojitou vlnkovou transformaci. Obsahuje více jak 100 vestavěných vlnkových filtrů a podporuje i tvorbu vlastních vlnek pro uživatele. Poskytuje co nejpřesnější výsledky. Výsledky jsou kompatabilní například z Matlab Wavelet Toolbox (TM) v programovacím jazyce Matlab.\cite{PywtAbout}
+Knihovna PyWavelets ($pywt$) představuje open source knihovnu umožňující vlnkové transformace pro práci v jazyce Python. Knihovna je částečně implementována v jazyce C. Knihovna poskytuje 1D či 2D diskrétní vlnkovou transformaci a také 1D spojitou vlnkovou transformaci. Obsahuje více jak 100 vestavěných vlnkových filtrů a podporuje i tvorbu vlastních vlnek pro uživatele. Poskytuje co nejpřesnější výsledky. Výsledky jsou kompatabilní například z Matlab Wavelet Toolbox (TM) v programovacím jazyce Matlab.
+
+Knihovna byla využita pro diskrétní vlnkovou transformaci analyzovaných otisků prstů. Vedle využitých vlnkových rodin (birotogonální spline vlnky, reverzní biortogonální spline vlnky, vlnky Daubechies) poskytuje pro možnou analýzu i další vlnkové rodiny jako např. Symlety nebo Coiflety.\cite{PywtAbout}
 
 \section{Implementace}
 
