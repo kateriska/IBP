@@ -66,8 +66,11 @@ def showSobelLaplacian(segmentation_type, input_img):
 
 # convolute with proper kernels
     laplacian = cv2.Laplacian(img,cv2.CV_64F)
+    cv2.imwrite("laplacianShow.jpg", laplacian)
     sobelx = cv2.Sobel(img,cv2.CV_64F,1,0,ksize=5)  # x
+    cv2.imwrite("sobelxShow.jpg", sobelx)
     sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5)  # y
+    cv2.imwrite("sobelyShow.jpg", sobely)
 
     plt.subplot(2,2,1),plt.imshow(img,cmap = 'gray')
     plt.title('Original'), plt.xticks([]), plt.yticks([])

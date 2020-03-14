@@ -52,7 +52,7 @@ def adaptiveSegmentationMean(img):
 ### LBP ALGORITHM
 def LBPprocesspixel(img, pix5, x, y):
     new_value = 0
-    
+
     try:
         if (img[x][y] >= pix5):
             new_value = 1
@@ -129,7 +129,7 @@ def showLBP(segmentation_type, input_img):
     current_plot = figure.add_subplot(1, 1, 1)
     current_plot.plot(hist_lbp, color = (0, 0, 0.2))
 #current_plot.set_xlim([0,260])
-    current_plot.set_xlim([0,250])
+    current_plot.set_xlim([0,256])
     current_plot.set_ylim([0,6000])
     current_plot.set_title("LBP Histogram")
     current_plot.set_xlabel("Intensity")
