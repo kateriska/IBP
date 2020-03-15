@@ -76,6 +76,7 @@
 \usepackage{enumitem}
 \usepackage{ dsfont }
 \usepackage[]{algorithm2e}
+\usepackage{caption}
 
 \ifczech
   \main@language{czech}

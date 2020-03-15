@@ -1003,13 +1003,46 @@ Segmentace je v tomto režimu povinná pouze v posledním případě.
 V následující kapitole se zaměřím na analýzu získaného a použitého datasetu. V první části jsem rozdělila dané snímky na tři různé menší datasety, každý s obrazy nasvícenými stejným světlem (zeleným, modrým a červeným). Ve druhé části jsem analyzovala celý velký dataset obsahující kombinaci snímků o různých světlech, tedy soubor všech snímků získaných z bezdotykového senzoru. Mým úkolem bylo analyzovat různé přístupy, metody klasifikace, segmentace či u datasetu se stejným nasvicovaným světlem zjistit, jaké světlo poskytuje největší přesnost při analýze a co by mohlo být důvodem právě získaného výsledku.
 
 \subsection{Analýza datasetů otisků prstů nasvíceným stejnou barvou světla}
-Cílem experimentu je zjistit, jaká barva světla poskytuje nejlepší výsledky. Získaný dataset byl rozdělen na tři menší, kde každý obsahoval snímky nasvícené stejnou barvou světla. Dataset byl dále rozdělen na snímky sloužící pro trénování a snímky sloužící pro testování. U trénovacích snímků jsem programu předložila i jejich výsledky, které byly znázorněny konstantou - číslem 1 pro živý otisk prstu a číslem 0 pro falešný otisk prstu. Klasifikátor měl dále po trénování na daných snímcích předpovědět výsledek pro neznámé otisky prstů. 
+Cílem experimentu je zjistit, jaká barva světla poskytuje nejlepší výsledky. Získaný dataset byl rozdělen na tři menší, kde každý obsahoval snímky nasvícené stejnou barvou světla. Dataset byl dále rozdělen na snímky sloužící pro trénování a snímky sloužící pro testování. U trénovacích snímků jsem programu předložila i jejich výsledky, které byly znázorněny konstantou - číslem 1 pro živý otisk prstu a číslem 0 pro falešný otisk prstu. Klasifikátor měl dále po trénování na daných snímcích předpovědět výsledek pro neznámé otisky prstů.
 
-Dataset snímků nasvícených pouze modrým světlem:
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|ll}
+\cline{1-3}
+\textbf{} & \textbf{Počet trénovaných vzorků} & \textbf{Počet testovaných vzorků} &  &  \\ \cline{1-3}
+\textbf{Živé otisky prstů}        & 21                                & 18                                &  &  \\ \cline{1-3}
+\textbf{Falešné otisky prstů}     & 21                                & 9                                 &  &  \\ \cline{1-3}
+Součet                            & 42                                & 27                                &  &  \\ \cline{1-3}
+\end{tabular}
+\caption{Dataset snímků nasvícených pouze modrým světlem}
+\end{table}
+\capstarttrue
 
-Dataset snímků nasvícených pouze zeleným světlem:
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|ll}
+\cline{1-3}
+\textbf{}                     & \textbf{Počet trénovaných vzorků} & \textbf{Počet testovaných vzorků} &  &  \\ \cline{1-3}
+\textbf{Živé otisky prstů}    & 23                                & 11                                &  &  \\ \cline{1-3}
+\textbf{Falešné otisky prstů} & 23                                & 17                                &  &  \\ \cline{1-3}
+Součet                        & 46                                & 28                                &  &  \\ \cline{1-3}
+\end{tabular}
+\caption{Dataset snímků nasvícených pouze zeleným světlem}
+\end{table}
+\capstarttrue
 
-Dataset snímků nasvícených pouze červeným světlem:
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|ll}
+\cline{1-3}
+\textbf{}                     & \textbf{Počet trénovaných vzorků} & \textbf{Počet testovaných vzorků} &  &  \\ \cline{1-3}
+\textbf{Živé otisky prstů}    & 23                                & 12                                &  &  \\ \cline{1-3}
+\textbf{Falešné otisky prstů} & 23                                & 15                                &  &  \\ \cline{1-3}
+Součet                        & 46                                & 27                                &  &  \\ \cline{1-3}
+\end{tabular}
+\caption{Dataset snímků nasvícených pouze červeným světlem}
+\end{table}
+\capstarttrue
 
 \section{Implementace}
 
