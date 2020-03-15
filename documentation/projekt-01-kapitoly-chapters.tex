@@ -222,7 +222,7 @@ $a = \frac{C}{N}$, kde $C$ je počet správných rozhodnutí (klasifikace živé
 Tato kapitola se zabývá popisem bezdotykového senzoru, který je základním přístrojem, se kterým jsem v rámci své bakalářské práce pracovala. Dále je zde popsán průběh sběru datasetu, jak byly otisky prstů snímány a také jaké falešné otisky byly použity.
 
 \section{Popis bezdotykového senzoru}
-Bezdotykový senzor je založen na typu snímání, kdy daný prst nepřichází do kontaktu s žádným povrchem, jako je to u dotykových senzorů. Díky kontaktu s daným povrchem se mohou obrazy otisku prstu od stejného objektu lišit. Dále je i použití dotykových senzorů otisků prstů mírně nehygienické v místech, kde ho denně použijí stovky nebo tisíce lidí. Dané povrchy pro analýzu jsou u dotykového senzoru ploché, ale sám povrch prstu plochý není. Objekt musí tedy použít jistý tlak na senzor, který dokáže výsledný obraz zkreslit. Bezdotykový senzor může sloužit k 2D i 3D snímání, při analýze je možné použít různé algoritmy pro analýzu textury nebo nasvícení světlem o různých vlnových délkách. \cite{PatternRecognition2006}
+Bezdotykový senzor je založen na typu snímání, kdy daný prst nepřichází do kontaktu s žádným povrchem, jako je to u dotykových senzorů. Díky kontaktu s daným povrchem se mohou obrazy otisku prstu od stejného objektu lišit. Dále je i použití dotykových senzorů otisků prstů mírně nehygienické v místech, kde ho denně použijí stovky nebo tisíce lidí. Dané povrchy pro analýzu jsou u dotykového senzoru ploché, ale sám povrch prstu plochý není. Objekt musí tedy použít jistý tlak na senzor, který dokáže výsledný obraz zkreslit. Bezdotykový senzor může sloužit k 2D i 3D snímání, při analýze je možné použít různé algoritmy pro analýzu textury nebo nasvícení světlem o různých vlnových délkách. \cite{TouchlessSensorStudy}
 
 Použitý bezdotakový senzor v rámci bakalářské práce je složen ze tří kamer a světel o různých vlnových délkách, které dokáží prst nasvítit. Pro výzkum byla použita prostřední kamera. Prsty byly nasvicovány modrým, zeleným a červeným světlem. Byly provedeny experimenty i s ultrafialovým zářením, ale toto světlo bylo velmi slabé, výsledky nebyly dobré a proto nebylo při výsledné analýze nakonec použito.
 
@@ -548,19 +548,19 @@ Výsledný předzpracovaný obraz po aplikaci lokálního binárního vzoru mů�
 \begin{figure}[!htbp]
   \begin{minipage}[b]{0.3\linewidth}
     \centering
-    \includegraphics[width=190px]{obrazky-figures/fake53otsulbp.png}
+    \includegraphics[width=210px]{obrazky-figures/fake53otsulbp.png}
     \caption{Falešný otisk prstu po aplikaci algoritmu LBP}
   \end{minipage}
   \hspace{0.3cm}
   \begin{minipage}[b]{0.3\linewidth}
     \centering
-    \includegraphics[width=190px]{obrazky-figures/Images29lbp.png}
+    \includegraphics[width=210px]{obrazky-figures/Images29lbp.png}
     \caption{Živý otisk prstu po aplikaci algoritmu LBP}
   \end{minipage}
   \hspace{0.3cm}
     \begin{minipage}[b]{0.3\linewidth}
     \centering
-    \includegraphics[width=190px]{obrazky-figures/fake44otsulbp.png}
+    \includegraphics[width=210px]{obrazky-figures/fake44otsulbp.png}
     \caption{Falešný otisk prstu po aplikaci algoritmu LBP}
   \end{minipage}
 \end{figure}
@@ -691,7 +691,7 @@ $$\Psi_{j,k} = \frac{1}{\sqrt{2^j}}\Psi\frac{n-k2^j}{2^j}$$
 
 Diskrétní vlnková transformace při zpracování obrazu se využívá hlavně pro detekci hran a textur, kompresi, filtraci šumu a získání důležitých vlastností pro další klasifikaci.\cite{WaveletElektrorevue}
 
-\section{Wavelet rodiny vhodné pro diskrétní vlnkovou transformaci v analýze obrazu}
+\subsection{Wavelet rodiny vhodné pro diskrétní vlnkovou transformaci v analýze obrazu}
 Existuje mnoho druhů mateřských vlnek. Na základě mateřské vlnky můžeme odvodit celou danou rodinu. Vlnky mají různé vlastnosti:\cite{PyWaveletsBrowser}
 \begin{itemize}
     \item Symetričnost
@@ -702,7 +702,7 @@ Existuje mnoho druhů mateřských vlnek. Na základě mateřské vlnky můžeme
 
 Pro diskrétní vlnkovou transformaci se používají například následující Wavelet rodiny.
 
-\subsection{Vlnky Daubechies}
+\subsubsection{Vlnky Daubechies}
 
 Jedná se o asymetrické, ortogonální a biortogonální vlnky. Značí se jako $dbA$, kde $A$ vyjadřuje počet nulových momentů. Pro práci můžeme využít Daubechies $db1$ až $db20$, běžně užívány jsou však vlnky typu $db1$ až $db10$.\cite{PyWaveletsBrowser} Dosahují vysoké míry komprese. Poskytují stejné parametry filtrů pro přímou i zpětnou transformaci, zajišťují rychlou a přesnou rekonstrukci.\cite{WaveletHlavac} 
     
@@ -711,30 +711,30 @@ Každá Daubechies vlnka má počet nulových momentů rovných polovině svých
 \begin{figure}[!htbp]
   \begin{minipage}[b]{0.5\linewidth}
     \centering
-    \includegraphics[width=150px]{obrazky-figures/db2wavelet.PNG}
+    \includegraphics[width=170px]{obrazky-figures/db2wavelet.PNG}
     \caption{Vlnková funkce pro vlnku Daubechies db2, převzato z \cite{PyWaveletsBrowser}}
   \end{minipage}
   \hspace{0.5cm}
   \begin{minipage}[b]{0.5\linewidth}
     \centering
-    \includegraphics[width=150px]{obrazky-figures/db4wavelet.PNG}
+    \includegraphics[width=170px]{obrazky-figures/db4wavelet.PNG}
     \caption{Vlnková funkce pro vlnku Daubechies db4, převzato z \cite{PyWaveletsBrowser}}
   \end{minipage}
 \end{figure}
     
-\subsection{Biortogonální spline vlnky}
+\subsubsection{Biortogonální spline vlnky}
 Biortogonální spline vlnky jsou symetrické, biortogonální, ale nejsou ortogonální. Pro analýzu můžeme využít vlnky $bior1.1$, $bior1.3$, $bior1.5$, $bior2.2$, $bior2.4$, $bior2.6$, $bior2.8$, $bior 3.1$, $bior3.3$, $bior3.5$, $bior3.7$, $bior3.9$, $bior4.4$, $bior5.5$ a $bior6.8$.\cite{PyWaveletsBrowser} Jinak se také nazývají jako Cohen–Daubechies–Feauveau vlnky. Liší se vlastnostmi a tvarem od vlnek Daubechies, ale princip konstrukce vlnek je podobný. Biortogonální spline vlnky jsou generovány pomocí B-splinu. \cite{GeneralizedBiorthogonalDaubechiesWavelets} Jsou využity ve standardu komprese obrazu JPEG 2000, dále se používají například při kompresi otisků prstů pro FBI. 
 
 \begin{figure}[!htbp]
   \begin{minipage}[b]{0.5\linewidth}
     \centering
-    \includegraphics[width=150px]{obrazky-figures/bior13wavelet.PNG}
+    \includegraphics[width=170px]{obrazky-figures/bior13wavelet.PNG}
     \caption{Dekompoziční vlnková funkce pro bior1.3, převzato z \cite{PyWaveletsBrowser}}
   \end{minipage}
   \hspace{0.5cm}
   \begin{minipage}[b]{0.5\linewidth}
     \centering
-    \includegraphics[width=150px]{obrazky-figures/bior24wavelet.PNG}
+    \includegraphics[width=170px]{obrazky-figures/bior24wavelet.PNG}
     \caption{Dekompoziční vlnková funkce pro bior2.4, převzato z \cite{PyWaveletsBrowser}}
   \end{minipage}
 \end{figure}
@@ -742,27 +742,30 @@ Biortogonální spline vlnky jsou symetrické, biortogonální, ale nejsou ortog
 \begin{figure}[!htbp]
   \begin{minipage}[b]{0.5\linewidth}
     \centering
-    \includegraphics[width=180px]{obrazky-figures/Images14bior15mean.png}
+    \includegraphics[width=220px]{obrazky-figures/Images14bior15mean.png}
     \caption{Vlnková transformace bior1.5 pro živý otisk prstu}
   \end{minipage}
   \hspace{0.5cm}
   \begin{minipage}[b]{0.5\linewidth}
     \centering
-    \includegraphics[width=180px]{obrazky-figures/fake21otsubior15.png}
+    \includegraphics[width=220px]{obrazky-figures/fake21otsubior15.png}
     \caption{Vlnková transformace bior1.5 pro falešný otisk prstu}
   \end{minipage}
 \end{figure}
 
 
 
-\subsection{Reverzní biortogonální spline vlnky}
-Reverzní biortogonální spline vlnky jsou symetrické. biortogonální a nejsou ortogonální. Pro práci můžeme využít tyto vlnky z dané rodiny - $rbio1.1$, $rbio1.3$, $rbio1.5$, $rbio2.2$, $rbio2.4$, $rbio2.6$, $rbio2.8$, $rbio3.1$, $rbio3.3$, $rbio3.5$, $rbio3.7$, $rbio3.9$, $rbio4.4$, $rbio 5.5$ a $rbio6.8$.\cite{PyWaveletsBrowser} Tato rodina vlnek byla v minulém výzkumu využita například pro rozpoznávání oční duhovky.\cite{IrisRecognition}
+\subsubsection{Reverzní biortogonální spline vlnky}
+Reverzní biortogonální spline vlnky jsou symetrické. biortogonální a nejsou ortogonální. Pro práci můžeme využít tyto vlnky z dané rodiny - $rbio1.1$, $rbio1.3$, $rbio1.5$, $rbio2.2$, $rbio2.4$, $rbio2.6$, $rbio2.8$, $rbio3.1$, $rbio3.3$, $rbio3.5$, $rbio3.7$, $rbio3.9$, $rbio4.4$, $rbio 5.5$ a $rbio6.8$.\cite{PyWaveletsBrowser} Tato rodina vlnek byla v minulém výzkumu využita například pro rozpoznávání oční duhovky.\cite{IrisRecognition}\\\\
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=150px]{obrazky-figures/rbio31wavelet.PNG}
+    \includegraphics[width=170px]{obrazky-figures/rbio31wavelet.PNG}
     \caption{Dekompoziční vlnková funkce pro rbio2.4, převzato z \cite{PyWaveletsBrowser}}
 \end{figure}
+
+\subsection{Použité vlnky pro testování algoritmu}
+Pro testování byly využity tři metody Wavelet rodiny biortogonálních spline vlnek ($bior1.3$, $bior1.5$, $bior2.4$), dvě vlnky rodiny Daubechies ($db2$, $db4$) a jedna vlnka z rodiny reverzních biortogonálních spline vlnek ($rbio3.1)$. Cílem práce je poté mimo jiné tyto vlnky analyzovat a porovnat na základě jejich přesnosti při detekci živosti otisků prstů.
 
 \section{Detektory hran Sobel a Laplaceův operátor}
 Sobel a Laplaceův operátor jsou vhodným řešením detekce hran v obrazu a tedy také popisem textury. Umožňují rychlé a snadné řešení jak snížit počet dat - pixelů pro analýzu a zvýraznit strukturální aspekt vstupního obrazu. 
@@ -774,19 +777,19 @@ Laplaceův operátor využívá pouze jedno jádro. Získáme jeden finální v�
 \begin{figure}[!htbp]
   \begin{minipage}[b]{0.3\linewidth}
     \centering
-    \includegraphics[width=110px]{obrazky-figures/sobelxlive.png}
+    \includegraphics[width=120px]{obrazky-figures/sobelxlive.png}
     \caption{Výsledek aplikace Sobel operátoru pro osu x živého otisku prstu}
   \end{minipage}
   \hspace{0.3cm}
   \begin{minipage}[b]{0.3\linewidth}
     \centering
-    \includegraphics[width=110px]{obrazky-figures/sobelylive.png}
+    \includegraphics[width=120px]{obrazky-figures/sobelylive.png}
     \caption{Výsledek aplikace Sobel operátoru pro osu y živého otisku prstu}
   \end{minipage}
   \hspace{0.3cm}
     \begin{minipage}[b]{0.3\linewidth}
     \centering
-    \includegraphics[width=110px]{obrazky-figures/laplacianlive.png}
+    \includegraphics[width=120px]{obrazky-figures/laplacianlive.png}
     \caption{Výsledek aplikace Laplaceova operátoru pro živý otisk prstu}
   \end{minipage}
 \end{figure}
@@ -794,19 +797,19 @@ Laplaceův operátor využívá pouze jedno jádro. Získáme jeden finální v�
 \begin{figure}[!htbp]
   \begin{minipage}[b]{0.3\linewidth}
     \centering
-    \includegraphics[width=110px]{obrazky-figures/sobelxfingerprint.png}
+    \includegraphics[width=120px]{obrazky-figures/sobelxfingerprint.png}
     \caption{Výsledek aplikace Sobel operátoru pro osu x falešného otisku prstu}
   \end{minipage}
   \hspace{0.3cm}
   \begin{minipage}[b]{0.3\linewidth}
     \centering
-    \includegraphics[width=110px]{obrazky-figures/sobelyfingerprint.png}
+    \includegraphics[width=120px]{obrazky-figures/sobelyfingerprint.png}
     \caption{Výsledek aplikace Sobel operátoru pro osu y falešného otisku prstu}
   \end{minipage}
   \hspace{0.3cm}
     \begin{minipage}[b]{0.3\linewidth}
     \centering
-    \includegraphics[width=110px]{obrazky-figures/laplacianfingerprint.png}
+    \includegraphics[width=120px]{obrazky-figures/laplacianfingerprint.png}
     \caption{Výsledek aplikace Laplaceova operátoru pro falešný otisk prstu}
   \end{minipage}
 \end{figure}
@@ -973,10 +976,25 @@ Jedná se o extrakci vektorů a následnou klasifikace na základě vektoru zalo
 Tento příkaz programu je určený pro extrakci a klasifikaci za pomocí Sobel a Laplaceova operátoru. Přepínač \verb=-s= tato metoda nevyužívá, segmentace je přímo provedena s využitím prahovací metody Otsu. Tato skutečnost je dána mým výzkumem, kdy některé testované datasety při využití umělé neuronové sítě poskytovaly špatnou křivku pro vývoj chyby, která by měla mít správně zhruba následující průběh:
 
 Vysvětlení dalších přepínačů je uvedeno výše.\\\\
-\verb=-test wavelet -t [type] -s otsu|gauss|mean -clasif ann|svm|clf -img b|g|r|all=\\
+\verb=-test wavelet -t <type> -s otsu|gauss|mean -clasif ann|svm|clf -img b|g|r|all=\\
 Každý obraz otisku prstu je analyzován pomocí vlnkové transformace. Získaný vektor může být pomalejší při získání, zejména u velkých datasetů. Diskrétní vlnková transformace však poskytuje mnoho různých Wavelet rodin. Přepínač \verb=-t= je určený pro nastavení dané vlnkové rodiny a vlnky. Všechny podporované vlnky implementovaného programu \verb=type=, a zároveň i všechny podporované vlnky knihovnou PyWavelets pro 2D diskrétní vlnkovou transformaci, jsou uvedeny v Readme. 
 
 Další přepínače jsou obdobné jako v předchozích případech.
+
+\subsection{Režim metody zobrazení jednotlivých technik}
+Cílem tohoto režimu je předložit uživateli snadno různé použité techniky využité při analýze. Program je možné spustit následovně:\\\\
+\verb=-show lbp [-s otsu|gauss|mean] -img <path>=\\
+Uživatel proměnnou \verb=path= nahradí cestou k obrazu otisku prstu, který chce analyzovat. Výsledkem je zobrazení otisku prstu zpracovaného pomocí algoritmu LBP a výsledný histogram, který byl i důležitou vlastností v případě extrakce vektoru pro analýzu.\\\\
+\verb=-show sobel [-s otsu|gauss|mean] -img <path>=\\
+Tento příkaz umožňí zobrazit okno se zpracovaným otiskem prstu pomocí Sobel operátorů na základě osy $x$ a $y$ a s využitím Laplaceového operátoru.\\\\
+\verb=-show wavelet -t <type> [-s otsu|gauss|mean] -img <path>=\\
+Provádí vlnkovou transformaci a výsledkem je horizontální, vertikální a digonální detail a jejich aproximace. Nastavení použité metody provede uživatel v proměnné \verb=type=.\\\\
+\verb=-show seg -s otsu|gauss|mean -img <path>=\\
+Ukáže segmentovaný obraz podle dané metody, jehož cestu uživatel zadal místo proměnné \verb=path=.\\\\
+Segmentace je v tomto režimu povinná pouze v posledním případě.
+
+
+
 
 
 
@@ -985,7 +1003,13 @@ Další přepínače jsou obdobné jako v předchozích případech.
 V následující kapitole se zaměřím na analýzu získaného a použitého datasetu. V první části jsem rozdělila dané snímky na tři různé menší datasety, každý s obrazy nasvícenými stejným světlem (zeleným, modrým a červeným). Ve druhé části jsem analyzovala celý velký dataset obsahující kombinaci snímků o různých světlech, tedy soubor všech snímků získaných z bezdotykového senzoru. Mým úkolem bylo analyzovat různé přístupy, metody klasifikace, segmentace či u datasetu se stejným nasvicovaným světlem zjistit, jaké světlo poskytuje největší přesnost při analýze a co by mohlo být důvodem právě získaného výsledku.
 
 \subsection{Analýza datasetů otisků prstů nasvíceným stejnou barvou světla}
-Cílem experimentu je zjistit, jaká barva světla poskytuje nejlepší výsledky. Získaný dataset byl rozdělen na tři menší, kde každý obsahoval snímky nasvícené stejnou barvou světla. Dataset byl dále rozdělen na snímky sloužící pro trénování a snímky sloužící pro testování. U trénovacích snímků jsem programu předložila i jejich výsledky, které byly znázorněny konstantou - číslem 1 pro živý otisk prstu a číslem 0 pro falešný otisk prstu. 
+Cílem experimentu je zjistit, jaká barva světla poskytuje nejlepší výsledky. Získaný dataset byl rozdělen na tři menší, kde každý obsahoval snímky nasvícené stejnou barvou světla. Dataset byl dále rozdělen na snímky sloužící pro trénování a snímky sloužící pro testování. U trénovacích snímků jsem programu předložila i jejich výsledky, které byly znázorněny konstantou - číslem 1 pro živý otisk prstu a číslem 0 pro falešný otisk prstu. Klasifikátor měl dále po trénování na daných snímcích předpovědět výsledek pro neznámé otisky prstů. 
+
+Dataset snímků nasvícených pouze modrým světlem:
+
+Dataset snímků nasvícených pouze zeleným světlem:
+
+Dataset snímků nasvícených pouze červeným světlem:
 
 \section{Implementace}
 
