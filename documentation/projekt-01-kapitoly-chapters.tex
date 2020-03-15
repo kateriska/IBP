@@ -1003,7 +1003,7 @@ Segmentace je v tomto režimu povinná pouze v posledním případě.
 V následující kapitole se zaměřím na analýzu získaného a použitého datasetu. V první části jsem rozdělila dané snímky na tři různé menší datasety, každý s obrazy nasvícenými stejným světlem (zeleným, modrým a červeným). Ve druhé části jsem analyzovala celý velký dataset obsahující kombinaci snímků o různých světlech, tedy soubor všech snímků získaných z bezdotykového senzoru. Mým úkolem bylo analyzovat různé přístupy, metody klasifikace, segmentace či u datasetu se stejným nasvicovaným světlem zjistit, jaké světlo poskytuje největší přesnost při analýze a co by mohlo být důvodem právě získaného výsledku.
 
 \subsection{Analýza datasetů otisků prstů nasvíceným stejnou barvou světla}
-Cílem experimentu je zjistit, jaká barva světla poskytuje nejlepší výsledky. Získaný dataset byl rozdělen na tři menší, kde každý obsahoval snímky nasvícené stejnou barvou světla. Dataset byl dále rozdělen na snímky sloužící pro trénování a snímky sloužící pro testování. U trénovacích snímků jsem programu předložila i jejich výsledky, které byly znázorněny konstantou - číslem 1 pro živý otisk prstu a číslem 0 pro falešný otisk prstu. Klasifikátor měl dále po trénování na daných snímcích předpovědět výsledek pro neznámé otisky prstů.
+Cílem experimentu je zjistit, jaká barva světla poskytuje nejlepší výsledky. Získaný dataset byl rozdělen na tři menší, kde každý obsahoval snímky nasvícené stejnou barvou světla. Dataset byl dále rozdělen na snímky sloužící pro trénování a snímky sloužící pro testování. U trénovacích snímků jsem programu předložila i jejich výsledky, které byly znázorněny konstantou - číslem 1 pro živý otisk prstu a číslem 0 pro falešný otisk prstu. Klasifikátor měl dále po trénování na daných snímcích předpovědět výsledek pro testované otisky prstů, u kterých program nevěděl, zda jsou živé nebo falešné. Níže jsou uvedeny počty snímků všech tří rozdělených datasetů - datasetů, u kterých jsou otisky získané z senzoru nasvícené pouze modrou, zelenou nebo červenou barvou světla. \\\
 
 \capstartfalse
 \begin{table}[!htbp]
@@ -1043,6 +1043,22 @@ Součet                        & 46                                & 27         
 \caption{Dataset snímků nasvícených pouze červeným světlem}
 \end{table}
 \capstarttrue
+
+Klasifikátory SVM, rozhodovací stromy a umělé neuronové sítě byly určeny pro finální klasifikaci testovaných otisků prstů. Můžeme vidět, že umělá neuronová síť dosahuje nejvyšší přesnosti. Přesnost této metody tkví zejména ve skutečnosti, že neuronová síť může být trénována pomocí velkého počtu epoch. Počet epoch je parametr, který definuje, kolikrát algoritmus učení bude pracovat s celým trénovacím datasetem.\cite{BatchEpochANN} Můžeme nastavit tisíce epoch, ale i miliony. Algoritmus se pak stává stále více jistějším ve finální analýze pro testované vzorky a výsledná síť by se měla stále více příklánět k jednomu či druhému výsledku (konstanta 1 - živý otisk prstu, konstanta 0 - falešný otisk prstu). Samozřejmě však je nutno podotknout, že čím více epoch je umělá neuronová síť trénovaná, tím může finální klasifikace trvat delší dobu. 
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|}
+\hline
+                             & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
+\textbf{Umělá neuronová síť} & 89,5843                                         \\ \hline
+\textbf{SVM}                 & 84,3915                                         \\ \hline
+\textbf{Rozhodovací strom}   & 82,9826                                         \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti použitých klasifikačních metod}
+\end{table}
+\capstarttrue
+
 
 \section{Implementace}
 
