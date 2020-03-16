@@ -847,6 +847,11 @@ $$g(x)=e^{-x}*{(1+e^{-x})}^{-2}$$
 Dále pro sigmoidu a její derivaci platí následující pravidlo:
 $$\frac{df(x)}{f(x)} = f(x)*(1-f(x))$$
 
+Při zpětné propagaci bylo využito delta pravidlo (\textit{delta rule}). Jedná se o pravidlo, které slouží pro aktualizaci vah vstupů pro umělou neuronovou síť s jednou vrstvou. Pokud máme neuron $j$ a aktivační funkci $f(x)$, delta pravidlo pro i-tou váhu neuronu $j$ - váhu $w_{ji}$ má následující vzorec:
+$$\Delta_{ji} = \alpha(t_j - y_j)f^{'}(h_j)x_i$$
+Parametr $\alpha$ je malá konstanta zvaná \textit{learning rate}, která rozhoduje o velikosti kroku při každé iteraci, většinou se jedná o malou kladnou hodnotu ležící v intervalu $<0,1>$.\cite{LearningRate} Funkce $f(x)$ je aktivační funkcí, v našem případě se jedná o sigmoidu, $f'(x)$ je derivace aktivační funkce $f(x)$, $t_j$ jsou výstupy daných vstupů, v našem případě se jedná o výsledky trénovaných vektorů, u kterých víme, zda jsou dané otisky prstů živé (konstanta 1) nebo falešné (konstanta 0). Parametr $h_j$ je váženou sumou vstupů neuronů. Parametr $y_j$ je aktuálním výstupem vstupních vektorů, $x_i$ je i-tým vstupem.\cite{DeltaRule}
+
+
 \section{Algoritmy podpůrných vektorů (SVM)}
 Algoritmy podpůrných vektorů (\textit{Support Vector Machines}) jsou další metodou strojového učení sloužící pro klasifikaci. Principem algoritmu je nalézt nadrovinu pro členění daných vektorů. Data určená pro trénování, u kterých víme, jaké mají výsledky, slouží právě pro nalezení optimální nadroviny, která potom rozdělí do kategorií testované vzorky, u kterých předpovídáme výsledek. V dvourozměrném prostoru je nadrovina přímka, která dělí rovinu na dvě části (poloroviny), kdy vzorky z jedné třídy leží v jedné polorovině, vzorky druhé třídy pak v druhé polorovině. 
 
