@@ -1079,7 +1079,44 @@ Dále byly testovány průměrné přesnosti všech metod segmentace - s využit
 \end{table}
 \capstarttrue
 
+ Pro všechny využité druhy segmentace byla testována každá ze zvolených metod kromě metody s extrahovaným vektorem na základě Sobel a Laplacova operátoru. Pro tuto metodu byla zvolena pouze segmentace s Otsu prahováním. Níže můžeme vidět průměrnou přesnost pro všechny metody, při kterých se uvažovaly všechny tři typy segmentace. Metoda využívající extrahovaného vektoru na základě lokálního binárního vzoru byla nejpřesnější, dosahuje přesnosti průměrně 90,3\%. Nejspolehlivější metodou založenou na vlnkové transformaci byla metoda $rbio3.1$ spadající do reverzních biortogonálních spline vlnek. Nejspolehlivější metodou biortogonálních spline vlnek byla vlnka $bior1.3$. Ačkoliv jsou vlnky Daubechies hojně používanými při zpracování obrazu, jejich přesnost je ve výsledku jednou z nejnižších. Přesto však všechny tyto metody dosahují přesnosti vyšší jak 80\%.
+ 
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|}
+\hline
+                 & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
+\textbf{LBP}     & 90,3341                                         \\ \hline
+\textbf{rbio3.1} & 86,2630                                         \\ \hline
+\textbf{bior1.3} & 85,0333                                         \\ \hline
+\textbf{bior1.5} & 85,0186                                         \\ \hline
+\textbf{db4}     & 84,8569                                         \\ \hline
+\textbf{bior2.4} & 83,8722                                         \\ \hline
+\textbf{db2}     & 82,7944                                         \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti jednotlivých metod, které využívají všechny typy segmentace}
+\end{table}
+\capstarttrue
 
+Protože metoda založená na vektoru získaného z obrazu založeného na Sobel a Laplaceově operátoru využívá jen segmentaci s prahováním Otsu, bylo potřeba spočítat i průměrnou přesnost metod pouze s použitím tohoto prahování. Klasifikace podle těchto dvou algoritmů fungujícími jako detektory hran, je poměrně přesná a hlavně velmi rychlá. U datasetů nasvícených pouze jednou stejnou barvou světla dosahuje průměrné přesnosti 89,8\%. Avšak i při využívání pouze Otsu prahování je stále nejpřesnějším lokální binární vzor.
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|}
+\hline
+                                    & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
+\textbf{LBP}                        & 90,6526                                         \\ \hline
+\textbf{rbio3.1}                    & 90,2851                                         \\ \hline
+\textbf{bior1.5}                    & 90,2275                                         \\ \hline
+\textbf{Sobel a Laplaceův operátor} & 89,8442                                         \\ \hline
+\textbf{bior1.3}                    & 89,0506                                         \\ \hline
+\textbf{db4}                        & 88,2275                                         \\ \hline
+\textbf{db2}                        & 86,5961                                         \\ \hline
+\textbf{bior2.4}                    & 84,1711                                         \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti jednotlivých metod, které využívají pouze segmentaci s prahováním Otsu}
+\end{table}
+\capstarttrue
 \section{Implementace}
 
 \section{Experimenty}
