@@ -1064,6 +1064,21 @@ Klasifikátory SVM, rozhodovací stromy a umělé neuronové sítě byly určeny
 \end{table}
 \capstarttrue
 
+Dále byly testovány průměrné přesnosti všech metod segmentace - s využitím prahování pomocí algoritmu Otsu nebo adaptivního prahování Mean a Gaussian. Bylo zjištěno, že ačkoliv by mohla být segmentace s využitím adaptivního prahování lepší, protože tato metoda je vhodné i pro snímky s různými světelnými podmínkami, s obsahem různých stínů atd., nakonec nejvyšší přesnost vykazuje segmentace s Otsu prahováním, pomocí konstantního optimálního prahu závislého na daném vstupním obrazu.
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|}
+\hline
+                  & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
+\textbf{Otsu}     & 88,4585                                         \\ \hline
+\textbf{Mean}     & 85,4833                                         \\ \hline
+\textbf{Gaussian} & 82,4179                                         \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti jednotlivých metod segmentace s využitým typem prahování}
+\end{table}
+\capstarttrue
+
 
 \section{Implementace}
 
