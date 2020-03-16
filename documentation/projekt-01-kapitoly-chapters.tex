@@ -1117,6 +1117,26 @@ Protože metoda založená na vektoru získaného z obrazu založeného na Sobel
 \caption{Srovnání přesnosti jednotlivých metod, které využívají pouze segmentaci s prahováním Otsu}
 \end{table}
 \capstarttrue
+
+Nyní zbývá rozhodnout, které barevné světlo dává co nejlepší výsledky při nasvicování otisků prstů na bezdotykovém senzoru. Bylo zjištěno, že nejlepší přesnost vykazují snímky nasvícené červeným světlem. Proto byly nejvhodnější použitou barvou světla na užitém bezdotykovém senzoru. 
+
+Modré světlo má nejkratší vlnovou délku ve srovnání s zeleným a červeným světlem, je nejvíce absorbováno prstem. Na druhou stranu červené světlo, s nejdelší vlnovou délkou, prst dokáže co nejvíce prosvítit při hardwarové datekci živosti, která užívá multispektrální analýzu a CMOS nebo CCD detektor, který má měřit odražené světlo od otisku prstu.\cite{AdvancedBiometricsTechnologies2011}
+
+Červené světlo je tedy nejen světlem, které celý prst dokáže prosvítit, ale snímky daného světla jsou nejpřesnější pro naši představenou metodu. Avšak všechny tři barvy LED světel vykazovaly při analýze přesnost nad 80\%.
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|}
+\hline
+                              & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
+\textbf{Červená barva světla} & 89,7868                                         \\ \hline
+\textbf{Modrá barva světla}   & 86,8687                                         \\ \hline
+\textbf{Zelená barva světla}  & 80,3030                                         \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti jednotlivých barev světla}
+\end{table}
+\capstarttrue
+
 \section{Implementace}
 
 \section{Experimenty}
