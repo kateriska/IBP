@@ -11,3 +11,161 @@
 
 %\chapter{Plakát}
 
+\chapter{Výsledky analýzy datasetů otisků prstů nasvíceným stejnou barvou světla}
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Segmentace} & \textbf{Klasifikace}         & \textbf{Modré světlo} & \textbf{Zelené světlo} & \textbf{Červené světlo} \\ \hline
+\textbf{Otsu}       & \textbf{Umělá neuronová síť} & 96,2962963            & 96,42857143            & 92,59259259             \\ \hline
+\textbf{}           & \textbf{SVM}                 & 92,59259259           & 82,14285714            & 81,48148148             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 88,88888889           & 92,85714286            & 92,59259259             \\ \hline
+\textbf{Gaussian}   & \textbf{Umělá neuronová síť} & 96,2962963            & 96,42857143            & 100                     \\ \hline
+\textbf{}           & \textbf{SVM}                 & 92,59259259           & 57,14285714            & 100                     \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 88,88888889           & 71,42857143            & 100                     \\ \hline
+\textbf{Mean}       & \textbf{Umělá neuronová síť} & 96,2962963            & 92,85714286            & 96,2962963              \\ \hline
+\textbf{}           & \textbf{SVM}                 & 92,59259259           & 71,42857143            & 100                     \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 85,18518519           & 85,71428571            & 100                     \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti v \% pro metodu LBP }
+\end{table}
+\capstarttrue
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Segmentace} & \textbf{Klasifikace}         & \textbf{Modré světlo} & \textbf{Zelené světlo} & \textbf{Červené světlo} \\ \hline
+\textbf{Otsu}       & \textbf{Umělá neuronová síť} & 96,2962963            & 92,85714286            & 96,2962963              \\ \hline
+\textbf{}           & \textbf{SVM}                 & 92,59259259           & 78,57142857            & 85,18518519             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 81,48148148           & 96,42857143            & 88,88888889             \\  \hline
+\end{tabular}
+\caption{Srovnání přesnosti v \% pro metodu využívající Sobel a Laplaceova operátoru }
+\end{table}
+\capstarttrue
+
+
+
+
+
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Segmentace} & \textbf{Klasifikace}         & \textbf{Modré světlo} & \textbf{Zelené světlo} & \textbf{Červené světlo} \\ \hline
+\textbf{Otsu}       & \textbf{Umělá neuronová síť} & 96,2962963            & 100                    & 85,18518519             \\ \hline
+\textbf{}           & \textbf{SVM}                 & 96,2962963            & 85,71428571            & 81,48148148             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 92,59259259           & 75                     & 88,88888889             \\ \hline
+\textbf{Gaussian}   & \textbf{Umělá neuronová síť} & 85,18518519           & 89,28571429            & 88,88888889             \\ \hline
+\textbf{}           & \textbf{SVM}                 & 85,18518519           & 71,42857143            & 92,59259259             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 85,18518519           & 78,57142857            & 74,07407407             \\ \hline
+\textbf{Mean}       & \textbf{Umělá neuronová síť} & 85,18518519           & 64,28571429            & 96,2962963              \\ \hline
+\textbf{}           & \textbf{SVM}                 & 88,88888889           & 71,42857143            & 88,88888889             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 77,77777778           & 75                     & 96,2962963              \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti v \% pro metodu bior1.3 }
+\end{table}
+\capstarttrue
+
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Segmentace} & \textbf{Klasifikace}         & \textbf{Modré světlo} & \textbf{Zelené světlo} & \textbf{Červené světlo} \\ \hline
+\textbf{Otsu}       & \textbf{Umělá neuronová síť} & 92,59259259           & 89,28571429            & 96,2962963              \\ \hline
+\textbf{}           & \textbf{SVM}                 & 88,88888889           & 85,71428571            & 85,18518519             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 77,77777778           & 82,14285714            & 81,48148148             \\ \hline
+\textbf{Gaussian}   & \textbf{Umělá neuronová síť} & 74,07407407           & 85,71428571            & 96,2962963              \\ \hline
+\textbf{}           & \textbf{SVM}                 & 85,18518519           & 89,28571429            & 81,48148148             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 62,96296296           & 78,57142857            & 74,07407407             \\ \hline
+\textbf{Mean}       & \textbf{Umělá neuronová síť} & 74,07407407           & 71,42857143            & 92,59259259             \\ \hline
+\textbf{}           & \textbf{SVM}                 & 92,59259259           & 78,57142857            & 81,48148148             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 74,07407407           & 82,14285714            & 81,48148148             \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti v \% pro metodu db2 }
+\end{table}
+\capstarttrue
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Segmentace} & \textbf{Klasifikace}         & \textbf{Modré světlo} & \textbf{Zelené světlo} & \textbf{Červené světlo} \\ \hline
+\textbf{Otsu}       & \textbf{Umělá neuronová síť} & 96,2962963            & 92,85714286            & 96,2962963              \\ \hline
+\textbf{}           & \textbf{SVM}                 & 92,59259259           & 82,14285714            & 85,18518519             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 92,59259259           & 85,71428571            & 88,88888889             \\ \hline
+\textbf{Gaussian}   & \textbf{Umělá neuronová síť} & 96,2962963            & 71,42857143            & 92,59259259             \\ \hline
+\textbf{}           & \textbf{SVM}                 & 81,48148148           & 78,57142857            & 88,88888889             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 66,66666667           & 92,85714286            & 92,59259259             \\ \hline
+\textbf{Mean}       & \textbf{Umělá neuronová síť} & 92,59259259           & 75                     & 96,2962963              \\ \hline
+\textbf{}           & \textbf{SVM}                 & 85,18518519           & 75                     & 96,2962963              \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 77,77777778           & 60,71428571            & 96,2962963              \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti v \% pro metodu rbio3.1 }
+\end{table}
+\capstarttrue
+
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Segmentace} & \textbf{Klasifikace}         & \textbf{Modré světlo} & \textbf{Zelené světlo} & \textbf{Červené světlo} \\ \hline
+\textbf{Otsu}       & \textbf{Umělá neuronová síť} & 92,59259259           & 89,28571429            & 92,59259259             \\ \hline
+\textbf{}           & \textbf{SVM}                 & 88,88888889           & 85,71428571            & 88,88888889             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 74,07407407           & 71,42857143            & 74,07407407             \\ \hline
+\textbf{Gaussian}   & \textbf{Umělá neuronová síť} & 92,59259259           & 67,85714286            & 96,2962963              \\ \hline
+\textbf{}           & \textbf{SVM}                 & 81,48148148           & 60,71428571            & 85,18518519             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 81,48148148           & 67,85714286            & 100                     \\ \hline
+\textbf{Mean}       & \textbf{Umělá neuronová síť} & 92,59259259           & 75                     & 96,2962963              \\ \hline
+\textbf{}           & \textbf{SVM}                 & 92,59259259           & 78,57142857            & 92,59259259             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 88,88888889           & 60,71428571            & 96,2962963              \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti v \% pro metodu bior2.4 }
+\end{table}
+\capstarttrue
+
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Segmentace} & \textbf{Klasifikace}         & \textbf{Modré světlo} & \textbf{Zelené světlo} & \textbf{Červené světlo} \\ \hline
+\textbf{Otsu}       & \textbf{Umělá neuronová síť} & 92,59259259           & 96,42857143            & 88,88888889             \\ \hline
+\textbf{}           & \textbf{SVM}                 & 96,2962963            & 89,28571429            & 81,48148148             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 85,18518519           & 89,28571429            & 92,59259259             \\ \hline
+\textbf{Gaussian}   & \textbf{Umělá neuronová síť} & 88,88888889           & 78,57142857            & 92,59259259             \\ \hline
+\textbf{}           & \textbf{SVM}                 & 85,18518519           & 71,42857143            & 92,59259259             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 77,77777778           & 71,42857143            & 66,66666667             \\ \hline
+\textbf{Mean}       & \textbf{Umělá neuronová síť} & 81,48148148           & 67,85714286            & 96,2962963              \\ \hline
+\textbf{}           & \textbf{SVM}                 & 85,18518519           & 75                     & 88,88888889             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 88,88888889           & 82,14285714            & 92,59259259             \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti v \% pro metodu bior1.5 }
+\end{table}
+\capstarttrue
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\textbf{Segmentace} & \textbf{Klasifikace}         & \textbf{Modré světlo} & \textbf{Zelené světlo} & \textbf{Červené světlo} \\ \hline
+\textbf{Otsu}       & \textbf{Umělá neuronová síť} & 96,2962963            & 96,42857143            & 92,59259259             \\ \hline
+\textbf{}           & \textbf{SVM}                 & 88,88888889           & 85,71428571            & 74,07407407             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 88,88888889           & 78,57142857            & 92,59259259             \\ \hline
+\textbf{Gaussian}   & \textbf{Umělá neuronová síť} & 70,37037037           & 89,28571429            & 85,18518519             \\ \hline
+\textbf{}           & \textbf{SVM}                 & 70,37037037           & 71,42857143            & 85,18518519             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 70,37037037           & 67,85714286            & 81,48148148             \\ \hline
+\textbf{Mean}       & \textbf{Umělá neuronová síť} & 100                   & 82,14285714            & 100                     \\ \hline
+\textbf{}           & \textbf{SVM}                 & 88,88888889           & 89,28571429            & 74,07407407             \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 96,2962963            & 78,57142857            & 96,2962963              \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti v \% pro metodu db4 }
+\end{table}
+\capstarttrue
+
+
+
