@@ -169,3 +169,93 @@
 
 
 
+
+
+
+\chapter{Výsledky analýzy datasetu obsahující všechny získané snímky otisků prstů}
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Segmentace} & \textbf{Klasifikace}         & \textbf{LBP} & \textbf{Sobel a Laplaceův operátor} \\ \hline
+\textbf{Otsu}       & \textbf{Umělá neuronová síť} & 96,15384615  & 94,87179487                         \\ \hline
+\textbf{}           & \textbf{SVM}                 & 88,46153846  & 84,61538462                         \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 93,58974359  & 96,15384615                         \\ \hline
+\textbf{Gaussian}   & \textbf{Umělá neuronová síť} & 94,87179487  &                                     \\ \hline
+\textbf{}           & \textbf{SVM}                 & 83,33333333  &                                     \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 87,17948718  &                                     \\ \hline
+\textbf{Mean}       & \textbf{Umělá neuronová síť} & 94,87179487  &                                     \\ \hline
+\textbf{}           & \textbf{SVM}                 & 80,76923077  &                                     \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 88,46153846  &                                     \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti v \% pro metody LBP a Sobel a Laplaceův operátor }
+\end{table}
+\capstarttrue
+
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Segmentace} & \textbf{Klasifikace}         & \textbf{bior1.3} & \textbf{db2} \\ \hline
+\textbf{Otsu}       & \textbf{Umělá neuronová síť} & 89,74358974      & 89,74358974  \\ \hline
+\textbf{}           & \textbf{SVM}                 & 89,74358974      & 88,46153846  \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 85,8974359       & 83,33333333  \\ \hline
+\textbf{Gaussian}   & \textbf{Umělá neuronová síť} & 88,46153846      & 79,48717949  \\ \hline
+\textbf{}           & \textbf{SVM}                 & 88,46153846      & 75,64102564  \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 82,05128205      & 74,35897436  \\ \hline
+\textbf{Mean}       & \textbf{Umělá neuronová síť} & 88,46153846      & 83,33333333  \\ \hline
+\textbf{}           & \textbf{SVM}                 & 80,76923077      & 83,33333333  \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 84,61538462      & 76,92307692  \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti v \% pro metody bior1.3 a db2 }
+\end{table}
+\capstarttrue
+
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Segmentace} & \textbf{Klasifikace}         & \textbf{rbio3.1} & \textbf{bior2.4} \\ \hline
+\textbf{Otsu}       & \textbf{Umělá neuronová síť} & 88,46153846      & 93,58974359      \\ \hline
+\textbf{}           & \textbf{SVM}                 & 85,8974359       & 88,46153846      \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 87,17948718      & 83,33333333      \\ \hline
+\textbf{Gaussian}   & \textbf{Umělá neuronová síť} & 87,17948718      & 85,8974359       \\ \hline
+\textbf{}           & \textbf{SVM}                 & 85,8974359       & 80,76923077      \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 85,8974359       & 76,92307692      \\ \hline
+\textbf{Mean}       & \textbf{Umělá neuronová síť} & 89,74358974      & 89,74358974      \\ \hline
+\textbf{}           & \textbf{SVM}                 & 85,8974359       & 88,46153846      \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 85,8974359       & 80,76923077      \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti v \% pro metody rbio3.1 a bior2.4 }
+\end{table}
+\capstarttrue
+
+
+
+
+
+
+\capstartfalse
+\begin{table}[!htbp]
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{Segmentace} & \textbf{Klasifikace}         & \textbf{bior1.5} & \textbf{db4} \\ \hline
+\textbf{Otsu}       & \textbf{Umělá neuronová síť} & 89,74358974      & 84,61538462  \\ \hline
+\textbf{}           & \textbf{SVM}                 & 87,17948718      & 84,61538462  \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 85,8974359       & 78,20512821  \\ \hline
+\textbf{Gaussian}   & \textbf{Umělá neuronová síť} & 83,33333333      & 88,46153846  \\ \hline
+\textbf{}           & \textbf{SVM}                 & 87,17948718      & 85,8974359   \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 76,92307692      & 78,20512821  \\ \hline
+\textbf{Mean}       & \textbf{Umělá neuronová síť} & 85,8974359       & 87,17948718  \\ \hline
+\textbf{}           & \textbf{SVM}                 & 79,48717949      & 87,17948718  \\ \hline
+\textbf{}           & \textbf{Rozhodovací strom}   & 82,05128205      & 85,8974359   \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti v \% pro metody bior1.5 a db4 }
+\end{table}
+\capstarttrue
+
+
+
