@@ -1,12 +1,15 @@
-import numpy as np # helps with the math
-import matplotlib.pyplot as plt # to plot error during training
+# Author: Katerina Fortova
+# Bachelor's Thesis: Liveness Detection on Touchless Fingerprint Scanner
+# Academic Year: 2019/20
+# File: SVMexperiment.py - clasificcation with Support Vector Machines (SVM)
+
+import numpy as np
+import matplotlib.pyplot as plt
 from numpy import newaxis
 from sklearn import svm
 
 def clasifySVM(method_type):
-#inputs = np.genfromtxt('WaveletTrained.csv',delimiter=",")
-#outputs = np.genfromtxt('WaveleTrainedResult.csv',dtype=int)
-#print(outputs)
+    # csv files with data about vectors for LBP, Sobel and Wavelet methods
     if (method_type == "lbp"):
         trained_vectors = np.genfromtxt('LBPGLCMTrained.csv',delimiter=",")
         trained_results = np.genfromtxt('LBPGLCMresultTrained.csv',dtype=int)
@@ -25,14 +28,11 @@ def clasifySVM(method_type):
         tested_vectors = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8,9,10,11,12))
         tested_files = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
 
+    # function for Support Vector Machines from sklearn library
     clf = svm.SVC()
-    clf.fit(trained_vectors, trained_results)
-
-#tested_values = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(1,2,3,4, 5, 6, 7, 8, 9, 10, 11, 12))
-    prediction = clf.predict(tested_vectors)
+    clf.fit(trained_vectors, trained_results) # train SVM with trained vectors and their results
+    prediction = clf.predict(tested_vectors) # predict results of tested vectors
     print(prediction)
-
-#tested_files = np.genfromtxt('WaveletTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
     print(tested_files)
 
     i = 0
@@ -45,16 +45,19 @@ def clasifySVM(method_type):
         print(cols)
         print(prediction[i])
 
+        # get final predicted value for fingerprint from vector of predictions
         if (prediction[i] == 1):
             live_sample = True
         elif (prediction[i] == 0):
             live_sample = False
 
+        # compare predicted value with name of file
         if (live_sample == True and "live" in cols) or (live_sample == False and "fake" in cols):
             correct_clasify += 1
         else:
             wrong_clasify += 1
 
+        # compute FAR and FRR
         if (live_sample == True and "fake" in cols):
             far_value += 1
         elif (live_sample == False and "live" in cols):
