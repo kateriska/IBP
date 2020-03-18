@@ -374,11 +374,11 @@ Získaná maska vzniká prahováním, pro které byly využity tři výše zmín
     \includegraphics[width=150px]{obrazky-figures/live104norm.png}
     \caption{Vstupní normalizovaný obraz}
   \end{minipage}
-  \hspace{0.3cm}
+  \hspace{0.55cm}
   \begin{minipage}[b]{0.3\linewidth}
     \centering
-    \includegraphics[width=150px]{obrazky-figures/live104mask.png}
-    \caption{Získaná maska s využitím prahování pomocí Otsu metody}
+    \includegraphics[width=160px]{obrazky-figures/live104mask.png}
+    \caption{Získaná maska s využitím Otsu prahování}
   \end{minipage}
   \hspace{0.3cm}
     \begin{minipage}[b]{0.3\linewidth}
@@ -824,7 +824,7 @@ Umělá neuronová síť byla sestavena jako abstrakce podobná lidskému myšle
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=270px]{obrazky-figures/neuron.png}
+    \includegraphics[width=240px]{obrazky-figures/neuron.png}
     \caption{Obecný model umělého neuronu, převzato z \cite{PrednaskaIZU9}}
 \end{figure}
 
@@ -836,7 +836,7 @@ Sigmoida je snadno diferencovatelná, můžeme ji lehce použít pro aktualizaci
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=350px]{obrazky-figures/sigmoid.jpeg}
+    \includegraphics[width=300px]{obrazky-figures/sigmoid.jpeg}
     \caption{Graf sigmoidy a její derivace, převzato z \cite{MediumDeepLearning}}
 \end{figure}
 
@@ -850,6 +850,8 @@ Při zpětné propagaci bylo využito delta pravidlo (\textit{delta rule}). Jedn
 $$\Delta_{ji} = \alpha(t_j - y_j)f^{'}(h_j)x_i$$
 Parametr $\alpha$ je malá konstanta zvaná \textit{learning rate}, která rozhoduje o velikosti kroku při každé iteraci, většinou se jedná o malou kladnou hodnotu ležící v intervalu $<0,1>$. \cite{LearningRate} Funkce $f(x)$ je aktivační funkcí, v našem případě se jedná o sigmoidu, $f'(x)$ je derivace aktivační funkce $f(x)$, $t_j$ jsou výstupy daných vstupů, v našem případě se jedná o výsledky trénovaných vektorů, u kterých víme, zda jsou dané otisky prstů živé (konstanta 1) nebo falešné (konstanta 0). Parametr $h_j$ je váženou sumou vstupů neuronů. Parametr $y_j$ je aktuálním výstupem vstupních vektorů, $x_i$ je i-tým vstupem. \cite{DeltaRule}
 
+Důležitým parametrem pro práci umělé neuronové sítě je počet epoch. Každou epochu se provádí zpracování dat a zpětná propagace, kdy se aktualizují hodnoty vah vstupních vektorů. Po procesu trénování je schopna umělá neuronová síť předpovědět výsledky neznámých vzorků. Čím větší počet epoch probíhá trénování umělé neuronové sítě, tím dokáže algoritmus s větší jistotou rozlišit, zda je otisk prstu živý nebo falešný. Menší nevýhodou je, že trénování sítě při vyšším počtu epoch trvá déle, řádově několik sekund, výhodou však je stále nižší chyba a také větší jistota ve finální klasifikaci testovaných otisků prstů.
+
 
 \section{Algoritmy podpůrných vektorů (SVM)}
 Algoritmy podpůrných vektorů (\textit{Support Vector Machines}) jsou další metodou strojového učení sloužící pro klasifikaci. Principem algoritmu je nalézt nadrovinu pro členění daných vektorů. Data určená pro trénování, u kterých víme, jaké mají výsledky, slouží právě pro nalezení optimální nadroviny, která potom rozdělí do kategorií testované vzorky, u kterých předpovídáme výsledek. V dvourozměrném prostoru je nadrovina přímka, která dělí rovinu na dvě části (poloroviny), kdy vzorky z jedné třídy leží v jedné polorovině, vzorky druhé třídy pak v druhé polorovině. 
@@ -858,20 +860,20 @@ Pokud není možné vzorky rozumně rozdělit polorovinou, aplikujeme transforma
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=300px]{obrazky-figures/svmVapnik.png}
+    \includegraphics[width=230px]{obrazky-figures/svmVapnik.png}
     \caption{Příklad problému v dvourozměrném prostoru a nalezení optimální nadroviny a rozpětí, převzato z \cite{VapnikSVM}, na které se podílel jeden z původních výzkumníků algoritmu}
 \end{figure}
 
 \begin{figure}[!htbp]
   \begin{minipage}[b]{0.5\linewidth}
   \centering
-   \includegraphics[width=300px]{obrazky-figures/mediumsvm1.png}
+   \includegraphics[width=260px]{obrazky-figures/mediumsvm1.png}
    \caption{Vstupní vzorky, které není možné rozdělit polorovinou, převzato z \cite{MediumSVM}}
   \end{minipage}
    \hspace{0.5cm}
   \begin{minipage}[b]{0.5\linewidth}
   \centering
-   \includegraphics[width=300px]{obrazky-figures/mediumsvm2.png}
+   \includegraphics[width=260px]{obrazky-figures/mediumsvm2.png}
   \caption{Graf o souřadnicích yz s rozdělením na dané poloroviny, převzato z \cite{MediumSVM}} 
   \end{minipage}
  \end{figure}
@@ -1015,12 +1017,13 @@ Cílem experimentu je zjistit, jaká barva světla poskytuje nejlepší výsledk
 
 \capstartfalse
 \begin{table}[!htbp]
-\begin{tabular}{|l|l|l|ll}
-\cline{1-3}
-\textbf{} & \textbf{Počet trénovaných vzorků} & \textbf{Počet testovaných vzorků} &  &  \\ \cline{1-3}
-\textbf{Živé otisky prstů}        & 21                                & 18                                &  &  \\ \cline{1-3}
-\textbf{Falešné otisky prstů}     & 21                                & 9                                 &  &  \\ \cline{1-3}
-Součet                            & 42                                & 27                                &  &  \\ \cline{1-3}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{}                     & \textbf{Počet trénovaných vzorků} & \textbf{Počet testovaných vzorků} \\ \hline
+\textbf{Živé otisky prstů}    & 21                                & 18                                \\ \hline
+\textbf{Falešné otisky prstů} & 21                                & 9                                \\ \hline
+\textbf{Součet}               & 42                                & 27                                \\ \hline
 \end{tabular}
 \caption{Dataset snímků nasvícených pouze modrým světlem}
 \end{table}
@@ -1028,12 +1031,13 @@ Součet                            & 42                                & 27     
 
 \capstartfalse
 \begin{table}[!htbp]
-\begin{tabular}{|l|l|l|ll}
-\cline{1-3}
-\textbf{}                     & \textbf{Počet trénovaných vzorků} & \textbf{Počet testovaných vzorků} &  &  \\ \cline{1-3}
-\textbf{Živé otisky prstů}    & 23                                & 11                                &  &  \\ \cline{1-3}
-\textbf{Falešné otisky prstů} & 23                                & 17                                &  &  \\ \cline{1-3}
-Součet                        & 46                                & 28                                &  &  \\ \cline{1-3}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{}                     & \textbf{Počet trénovaných vzorků} & \textbf{Počet testovaných vzorků} \\ \hline
+\textbf{Živé otisky prstů}    & 23                                & 11                                \\ \hline
+\textbf{Falešné otisky prstů} & 23                                & 17                                \\ \hline
+\textbf{Součet}               & 46                                & 28                                \\ \hline
 \end{tabular}
 \caption{Dataset snímků nasvícených pouze zeleným světlem}
 \end{table}
@@ -1041,27 +1045,29 @@ Součet                        & 46                                & 28         
 
 \capstartfalse
 \begin{table}[!htbp]
-\begin{tabular}{|l|l|l|ll}
-\cline{1-3}
-\textbf{}                     & \textbf{Počet trénovaných vzorků} & \textbf{Počet testovaných vzorků} &  &  \\ \cline{1-3}
-\textbf{Živé otisky prstů}    & 23                                & 12                                &  &  \\ \cline{1-3}
-\textbf{Falešné otisky prstů} & 23                                & 15                                &  &  \\ \cline{1-3}
-Součet                        & 46                                & 27                                &  &  \\ \cline{1-3}
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{}                     & \textbf{Počet trénovaných vzorků} & \textbf{Počet testovaných vzorků} \\ \hline
+\textbf{Živé otisky prstů}    & 23                                & 12                                \\ \hline
+\textbf{Falešné otisky prstů} & 23                                & 15                                \\ \hline
+\textbf{Součet}               & 46                                & 27                                \\ \hline
 \end{tabular}
 \caption{Dataset snímků nasvícených pouze červeným světlem}
 \end{table}
 \capstarttrue
 
-Klasifikátory SVM, rozhodovací stromy a umělé neuronové sítě byly určeny pro finální klasifikaci testovaných otisků prstů. Můžeme vidět, že umělá neuronová síť dosahuje nejvyšší přesnosti. Přesnost této metody tkví zejména ve skutečnosti, že neuronová síť může být trénována pomocí velkého počtu epoch. Počet epoch je parametr, který definuje, kolikrát algoritmus učení bude pracovat s celým trénovacím datasetem. \cite{BatchEpochANN} Můžeme nastavit tisíce epoch, ale i miliony. Algoritmus se pak stává stále více jistějším ve finální analýze pro testované vzorky a výsledná síť by se měla stále více příklánět k jednomu či druhému výsledku (konstanta 1 - živý otisk prstu, konstanta 0 - falešný otisk prstu). Samozřejmě však je nutno podotknout, že čím více epoch je umělá neuronová síť trénovaná, tím může finální klasifikace trvat delší dobu. 
+Klasifikátory SVM, rozhodovací stromy a umělé neuronové sítě byly určeny pro finální klasifikaci testovaných otisků prstů. Můžeme vidět, že umělá neuronová síť dosahuje nejvyšší přesnosti. Přesnost této metody tkví zejména ve skutečnosti, že neuronová síť může být trénována pomocí velkého počtu epoch. Počet epoch je parametr, který definuje, kolikrát algoritmus učení bude pracovat s celým trénovacím datasetem. \cite{BatchEpochANN} Můžeme nastavit tisíce epoch, ale i miliony. Algoritmus se pak stává stále více jistějším ve finální analýze pro testované vzorky a výsledná síť by se měla stále více příklánět k jednomu či druhému výsledku (konstanta 1 - živý otisk prstu, konstanta 0 - falešný otisk prstu). Samozřejmě však je nutno podotknout, že čím více epoch je umělá neuronová síť trénovaná, tím může finální klasifikace trvat delší dobu. \\\\\\\\\
 
 \capstartfalse
 \begin{table}[!htbp]
-\begin{tabular}{|l|l|}
+\centering
+\begin{tabular}{|c|c|}
 \hline
                              & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
-\textbf{Umělá neuronová síť} & 89,5843                                         \\ \hline
-\textbf{SVM}                 & 84,3915                                         \\ \hline
-\textbf{Rozhodovací strom}   & 82,9826                                         \\ \hline
+\textbf{ANN} & 90.131                                         \\ \hline
+\textbf{SVM}                 & 84.392                                         \\ \hline
+\textbf{DTs}   & 82.983                                         \\ \hline
 \end{tabular}
 \caption{Srovnání přesnosti použitých klasifikačních metod}
 \end{table}
@@ -1071,51 +1077,54 @@ Dále byly testovány průměrné přesnosti všech metod segmentace - s využit
 
 \capstartfalse
 \begin{table}[!htbp]
-\begin{tabular}{|l|l|}
+\centering
+\begin{tabular}{|c|c|}
 \hline
                   & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
-\textbf{Otsu}     & 88,4585                                         \\ \hline
-\textbf{Mean}     & 85,4833                                         \\ \hline
-\textbf{Gaussian} & 82,4179                                         \\ \hline
+\textbf{Otsu}     & 88.574                                         \\ \hline
+\textbf{Mean}     & 85.882                                         \\ \hline
+\textbf{Gaussian} & 82.418                                         \\ \hline
 \end{tabular}
 \caption{Srovnání přesnosti jednotlivých metod segmentace s využitým typem prahování}
 \end{table}
 \capstarttrue
 
- Pro všechny využité druhy segmentace byla testována každá ze zvolených metod kromě metody s extrahovaným vektorem na základě Sobel a Laplacova operátoru. Pro tuto metodu byla zvolena pouze segmentace s Otsu prahováním. Níže můžeme vidět průměrnou přesnost pro všechny metody, při kterých se uvažovaly všechny tři typy segmentace. Metoda využívající extrahovaného vektoru na základě lokálního binárního vzoru byla nejpřesnější, dosahuje přesnosti průměrně 90,3\%. Nejspolehlivější metodou založenou na vlnkové transformaci byla metoda $rbio3.1$ spadající do reverzních biortogonálních spline vlnek. Nejspolehlivější metodou biortogonálních spline vlnek byla vlnka $bior1.3$. Ačkoliv jsou vlnky Daubechies hojně používanými při zpracování obrazu, jejich přesnost je ve výsledku jednou z nejnižších. Přesto však všechny tyto metody dosahují přesnosti vyšší jak 80\%.
+ Pro všechny využité druhy segmentace byla testována každá ze zvolených metod kromě metody s extrahovaným vektorem na základě Sobel a Laplacova operátoru. Pro tuto metodu byla zvolena pouze segmentace s Otsu prahováním. Níže můžeme vidět průměrnou přesnost pro všechny metody, při kterých se uvažovaly všechny tři typy segmentace. Metoda využívající extrahovaného vektoru na základě lokálního binárního vzoru byla nejpřesnější, dosahuje přesnosti průměrně 90,2\%. Nejspolehlivější metodou založenou na vlnkové transformaci byla metoda $rbio3.1$ spadající do reverzních biortogonálních spline vlnek. Nejspolehlivější metodou biortogonálních spline vlnek byla vlnka $bior1.3$. Ačkoliv jsou vlnky Daubechies hojně používanými při zpracování obrazu, jejich přesnost je ve výsledku jednou z nejnižších. Přesto však všechny tyto metody dosahují přesnosti vyšší jak 80\%.
  
 \capstartfalse
 \begin{table}[!htbp]
-\begin{tabular}{|l|l|}
+\centering
+\begin{tabular}{|c|c|}
 \hline
                  & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
-\textbf{LBP}     & 90,3341                                         \\ \hline
-\textbf{rbio3.1} & 86,2630                                         \\ \hline
-\textbf{bior1.3} & 85,0333                                         \\ \hline
-\textbf{bior1.5} & 85,0186                                         \\ \hline
-\textbf{db4}     & 84,8569                                         \\ \hline
-\textbf{bior2.4} & 83,8722                                         \\ \hline
-\textbf{db2}     & 82,7944                                         \\ \hline
+\textbf{LBP}     & 90.197                                         \\ \hline
+\textbf{rbio3.1} & 86.258                                         \\ \hline
+\textbf{bior1.3} & 85.303                                         \\ \hline
+\textbf{bior1.5} & 85.146                                         \\ \hline
+\textbf{db4}     & 84.994                                         \\ \hline
+\textbf{bior2.4} & 84.411                                         \\ \hline
+\textbf{db2}     & 83.064                                         \\ \hline
 \end{tabular}
-\caption{Srovnání přesnosti jednotlivých metod, které využívají všechny typy segmentace}
+\caption{Srovnání přesnosti jednotlivých metod využívající všechny typy segmentace}
 \end{table}
 \capstarttrue
 
-Protože metoda založená na vektoru získaného z obrazu založeného na Sobel a Laplaceově operátoru využívá jen segmentaci s prahováním Otsu, bylo potřeba spočítat i průměrnou přesnost metod pouze s použitím tohoto prahování. Klasifikace podle těchto dvou algoritmů fungujícími jako detektory hran, je poměrně přesná a hlavně velmi rychlá. U datasetů nasvícených pouze jednou stejnou barvou světla dosahuje průměrné přesnosti 89,8\%. Avšak i při využívání pouze Otsu prahování je stále nejpřesnějším lokální binární vzor.
+Protože metoda založená na vektoru získaného z obrazu založeného na Sobel a Laplaceově operátoru využívá jen segmentaci s prahováním Otsu, bylo potřeba spočítat i průměrnou přesnost metod pouze s použitím tohoto prahování. Klasifikace podle těchto dvou algoritmů fungujícími jako detektory hran, je poměrně přesná a hlavně velmi rychlá. U datasetů nasvícených pouze jednou stejnou barvou světla dosahuje průměrné přesnosti 90.3\%. Pro segmentaci s využitím pouze Otsu prahování se nejvíce přesnou překvapivě stává metoda vlnkové transformace $bior1.5$, která v tabulce výše byla při využití všech typů segmentace umístěná až na čtvrtém místě.
 
 \capstartfalse
 \begin{table}[!htbp]
-\begin{tabular}{|l|l|}
+\centering
+\begin{tabular}{|c|c|}
 \hline
                                     & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
-\textbf{LBP}                        & 90,6526                                         \\ \hline
-\textbf{rbio3.1}                    & 90,2851                                         \\ \hline
-\textbf{bior1.5}                    & 90,2275                                         \\ \hline
-\textbf{Sobel a Laplaceův operátor} & 89,8442                                         \\ \hline
-\textbf{bior1.3}                    & 89,0506                                         \\ \hline
-\textbf{db4}                        & 88,2275                                         \\ \hline
-\textbf{db2}                        & 86,5961                                         \\ \hline
-\textbf{bior2.4}                    & 84,1711                                         \\ \hline
+\textbf{bior1.5}                        & 90.638                                         \\ \hline
+\textbf{rbio3.1}                    & 90.285                                         \\ \hline
+\textbf{Sobel a Laplaceův operátor}                    & 90.256                                         \\ \hline
+\textbf{LBP} & 89.830                                         \\ \hline
+\textbf{bior1.3}                    & 89.051                                         \\ \hline
+\textbf{db4}                        & 88.242                                        \\ \hline
+\textbf{db2}                        & 86.993                                         \\ \hline
+\textbf{bior2.4}                    & 84.979                                         \\ \hline
 \end{tabular}
 \caption{Srovnání přesnosti jednotlivých metod, které využívají pouze segmentaci s prahováním Otsu}
 \end{table}
@@ -1129,12 +1138,13 @@ Modré světlo má nejkratší vlnovou délku ve srovnání s zeleným a červen
 
 \capstartfalse
 \begin{table}[!htbp]
-\begin{tabular}{|l|l|}
+\centering
+\begin{tabular}{|c|c|}
 \hline
                               & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
-\textbf{Červená barva světla} & 89,7868                                         \\ \hline
-\textbf{Modrá barva světla}   & 86,8687                                         \\ \hline
-\textbf{Zelená barva světla}  & 80,3030                                         \\ \hline
+\textbf{Červená barva světla} & 90.067                                         \\ \hline
+\textbf{Modrá barva světla}   & 86.756                                         \\ \hline
+\textbf{Zelená barva světla}  & 80.682                                        \\ \hline
 \end{tabular}
 \caption{Srovnání přesnosti jednotlivých barev světla}
 \end{table}
