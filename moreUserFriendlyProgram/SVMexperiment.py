@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from numpy import newaxis
 from sklearn import svm
 
+# function for classification with SVM
 def clasifySVM(method_type):
     # csv files with data about vectors for LBP, Sobel and Wavelet methods
     if (method_type == "lbp"):

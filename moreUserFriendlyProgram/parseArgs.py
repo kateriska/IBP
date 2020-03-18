@@ -1,28 +1,33 @@
+# Author: Katerina Fortova
+# Bachelor's Thesis: Liveness Detection on Touchless Fingerprint Scanner
+# Academic Year: 2019/20
+# File: parseArgs.py - arguments parsing and calling of all modules
+
 import getopt
 import sys
-import LBPGLCMexperiment
-import NeuralNetworkClasify
-import SVMexperiment
-import decisionTree
-import NewClassificationTree
-import SobelLaplacianExperiment
-import WaveletExperiment
-import LBPshow
-import showWTransform
-import SobelLaplacianShow
-import SegmentationShow
+import LBPGLCMexperiment # extraction of vector based on LBP
+import NeuralNetworkClasify # classification with ANN
+import SVMexperiment # classification with SVM
+import decisionTree # classification with Decision Tree
+import SobelLaplacianExperiment # extraction of vector based on Sobel and Laplacian operator
+import WaveletExperiment # extraction of vector based on Wavelet transform
+import LBPshow # show histogram and LBP image of input image
+import showWTransform # show Wavelet transform of input image
+import SobelLaplacianShow # show results of Sobel and Laplacian operator of input image
+import SegmentationShow # show segmentation of input image with use of various tresholding methods
 
-
+# function for print help for classification commands
 def printHelpClasify():
     print()
-    print("Clasify with LBP: -test lbp -s otsu|gauss|mean -clasif ann|svm|clf|myclf -img b|g|r|all")
-    print("Clasify with SobelLaplacian: -test sobel -clasif ann|svm|clf|myclf -img b|g|r|all")
-    print("Clasify with Wavelet: -test wavelet -t <wavelet type> -s otsu|gauss|mean -clasif ann|svm|clf|myclf -img b|g|r|all")
+    print("Clasify with LBP: -test lbp -s otsu|gauss|mean -clasif ann|svm|clf -img b|g|r|all")
+    print("Clasify with SobelLaplacian: -test sobel -clasif ann|svm|clf -img b|g|r|all")
+    print("Clasify with Wavelet: -test wavelet -t <wavelet type> -s otsu|gauss|mean -clasif ann|svm|clf -img b|g|r|all")
     print("Show help for clasify: -test help")
     print("Show general help: -help")
     print("Note - Only segmentation for Sobel Clasify is Otsu, because of better results")
     return
 
+# function for print help for show methods commands
 def printHelpShow():
     print()
     print("Show LBP img: -show lbp [-s otsu|gauss|mean] -img <path>")
@@ -34,6 +39,7 @@ def printHelpShow():
     print("Note - Segmentation argument -s is mandatory")
     return
 
+# function for control of correct arguments
 def controlCorrectArguments(arguments_count):
     if (arguments_count == 1 and (sys.argv[1] == "-help")):
         printHelpClasify()
@@ -76,8 +82,8 @@ def controlCorrectArguments(arguments_count):
             sys.stderr.write("ERROR - Wrong count of arguments\n")
             exit(1)
 
-        elif (sys.argv[arguments_count - 2] != "ann" and sys.argv[arguments_count - 2] != "svm" and sys.argv[arguments_count - 2] != "clf" and sys.argv[arguments_count - 2] != "myclf"):
-            sys.stderr.write("ERROR - Use paramatres for -clasif ann, svm, clf or myclf\n")
+        elif (sys.argv[arguments_count - 2] != "ann" and sys.argv[arguments_count - 2] != "svm" and sys.argv[arguments_count - 2] != "clf"):
+            sys.stderr.write("ERROR - Use paramatres for -clasif ann, svm or clf\n")
             exit(1)
 
         elif ((sys.argv[2] == "wavelet" or sys.argv[2] == "lbp") and(sys.argv[arguments_count - 4] != "otsu" and sys.argv[arguments_count - 4] != "gauss" and sys.argv[arguments_count - 4] != "mean")):
@@ -114,9 +120,11 @@ def controlCorrectArguments(arguments_count):
 arguments_count = len(sys.argv) - 1
 controlCorrectArguments(arguments_count)
 
+# -show commands
 if (sys.argv[1] == "-show"):
     input_img = sys.argv[arguments_count]
     print(input_img)
+
     # SHOW LBP
     if (sys.argv[2] == "lbp"):
         if (sys.argv[3] == "-s"):
@@ -152,6 +160,7 @@ if (sys.argv[1] == "-show"):
             print(segmentation_type)
         SobelLaplacianShow.showSobelLaplacian(segmentation_type, input_img)
 
+    # SHOW SEGMENTATION
     elif (sys.argv[2] == "seg"  ):
         if (sys.argv[3] == "-s"):
             if (sys.argv[4] == "otsu" or sys.argv[4] == "gauss" or sys.argv[4] == "mean" ):
@@ -160,6 +169,7 @@ if (sys.argv[1] == "-show"):
 
                 SegmentationShow.showSegmentation(segmentation_type, input_img)
 
+# -test commands
 elif (sys.argv[1] == "-test"):
     print("Clasify")
     if ("-img" in sys.argv and "-clasif" in sys.argv):
@@ -168,7 +178,7 @@ elif (sys.argv[1] == "-test"):
         clasif_type = sys.argv[arguments_count - 2]
         print(clasif_type)
 
-        # LBP
+        # clasify LBP
         if (sys.argv[2] == "lbp" ):
             if (sys.argv[3] == "-s"):
                 if (sys.argv[4] == "otsu" or sys.argv[4] == "gauss" or sys.argv[4] == "mean" ):
@@ -185,13 +195,10 @@ elif (sys.argv[1] == "-test"):
 
                     elif (clasif_type == "clf"):
                         decisionTree.clasifyCLF("lbp")
-                    elif (clasif_type == "myclf"):
-                        NewClassificationTree.clasifyMyCLF("lbp")
 
-        # SOBEL
+
+        # clasify SOBEL LAPLACIAN
         elif (sys.argv[2] == "sobel" ):
-            #if (sys.argv[3] == "-s"):
-                #segmentation_type = "otsu"
             print(color_type)
             SobelLaplacianExperiment.vectorSobelLaplacian(color_type)
 
@@ -204,13 +211,7 @@ elif (sys.argv[1] == "-test"):
             elif (clasif_type == "clf"):
                 decisionTree.clasifyCLF("sobel")
 
-            elif (clasif_type == "myclf"):
-                NewClassificationTree.clasifyMyCLF("sobel")
-
-
-
-
-        # WAVELET
+        # clasify WAVELET
         elif (sys.argv[2] == "wavelet" ):
             if (sys.argv[5] == "-s"):
                 if ((sys.argv[6] == "otsu" or sys.argv[6] == "gauss" or sys.argv[6] == "mean") and  sys.argv[3] == "-t"):
@@ -228,9 +229,3 @@ elif (sys.argv[1] == "-test"):
 
                     elif (clasif_type == "clf"):
                         decisionTree.clasifyCLF("wavelet")
-
-                    elif (clasif_type == "myclf"):
-                        NewClassificationTree.clasifyMyCLF("wavelet")
-            #if (sys.argv[3] == "-t"):
-                #wavelet_type = sys.argv[4]
-                #print(wavelet_type)
