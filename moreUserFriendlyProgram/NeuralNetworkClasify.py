@@ -84,7 +84,7 @@ def clasifyANN(method_type):
 
 
     artificial_neural_network = ArtificialNeuralNetwork(trained_vectors, trained_results, vector_weights)
-    artificial_neural_network.processTraining(1000000) # process training for 1 000 000 epochs
+    artificial_neural_network.processTraining(500000) # process training for 1 000 000 epochs
 
 
     rows = tested_vectors.shape[0]
@@ -147,8 +147,8 @@ def clasifyANN(method_type):
     # show graph of error of ANN
     plt.figure(figsize=(15,5))
     plt.plot(artificial_neural_network.epochs_list, artificial_neural_network.error_list)
-    plt.xlabel('Epochs')
-    plt.ylabel('Error value')
+    plt.xlabel('Count of Epochs')
+    plt.ylabel('Error Value')
     plt.show()
 
     return
