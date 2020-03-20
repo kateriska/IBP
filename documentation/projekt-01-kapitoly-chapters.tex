@@ -275,18 +275,30 @@ Pro svoji analýzu jsem dále použila zhruba 36 falešných otisků prstů. I z
 
 \chapter{Průzkum současných řešení detekce živosti otisků prstů}
 \label{chap:Pruzkum}
-Algoritmů pro detekci živosti otisku prstu byla objevena ve studiích celá řada. Jedná se o práce, které využívají jak hardwarové metody analýzy, tak softwarové metody. Nevýhodou hardwarových metod je, že požadují zvláštní vybavení navíc. Tato kapitola popisuje stručně současné přístupy k analýze.
+Algoritmů pro detekci živosti otisku prstu byla objevena ve studiích celá řada, jak již bylo avizováno v jedné z předchozích kapitol. Jedná se o práce, které využívají jak hardwarové metody analýzy, tak softwarové metody. Nevýhodou hardwarových metod je, že požadují zvláštní vybavení navíc. Tato kapitola popisuje stručně současné přístupy k analýze.
 
 \section{Hardwarové metody}
 Hardwarové metody využívají k určení živosti otisku prstů zvláštní hardwarová zařízení. Důležitým opatřením pro tyto metody je skutečnost, aby byly daná hardwarová zařízení integrována takovým způsobem, aby měření neohrozila kombinace útočníkova živého prstu s falešným. Zde jsou uvedeny některé z daných přístupů.
 \subsection{Multispektrální analýza}
 Kůže člověka má některé unikátní optické charakteristiky díky chemickému složení, které ovlivňuje například absorbci optických vlastností. Díky snímkům nasvíceným světlem o různé vlnové délce, můžeme měřit různé vlastnosti lidské kůže a můžeme tedy odhalit případný falešný otisk prstu. Například modré světlo je rychle absorbováno prstem, vedle toho červené světlo prst prosvítí. Pomocí kamery je měřeno odražené světlo od nasvíceného prstu, měření může být poté vizualizováno do grafu a na základě výsledného spektra a matematických metod je stanoven výsledek. \cite{AdvancedBiometricsTechnologies2011}
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=180px]{obrazky-figures/multispectralAnalysis.PNG}
+    \caption{Rozdíl výsledku multispekrální analýzy mezi živým a falešným prstem, převzato z \cite{AdvancedBiometricsTechnologies2011}}
+\end{figure}
+
 \subsection{Pulsní oxyometrie}
 Tato metoda využívá meření obsahu kyslíku v krvi. Využivá LED a fotodetektor na opačných stranách prstu. Měření závisí na srdečním tepu a proto může trvat několik sekund, než je spočten jeden nebo dva celé cykly srdečního tepu. \cite{BiometricsEncyclopedia2009}
 \subsection{Teplý a studený podnět}
 Lidský prst dokáže odlišně reagovat na daný podnět, který je umístěný u senzoru. Výsledná informace je zaznamenaná, konkrétně se jedná o kolísání rychlosti průtoku krve v periferních cévách. Při teplém podnětu se amplituda rychlosti toku zvyšuje, při studeném podnětu pak snižuje. Tato metoda však může být ovlivněna citlivou lidskou periferní nervovou soustavou, kdy chvíli trvá, než správně zareaguje na teplý nebo studený podnět u daného člověka. \cite{AdvancedBiometricsTechnologies2011}
 \subsection{Teplota}
 Teplota lidské kůže u prstu se pohybuje okolo 25 - 37 stupňů Celsia. Nicméně tento rozsah musí být širší, aby mohl systém pracovat pod různými podmínkami, i díky lidem, kteří mají problém s cirkulací krve. Tato skutečnost však může vést k chybným rozhodnutím při této metodě. Dalším možným řešením je zahřátí prstu. Použitím falešného otisku dosáhneme rozdílu zhruba dvou stupňů Celsia. Rozdíl je tedy malý a tato metoda není dostatečně spolehlivou pro bezpečnou detekci živosti otisků prstů. \cite{AdvancedBiometricsTechnologies2011}
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=270px]{obrazky-figures/thermoscan.PNG}
+    \caption{Termosken prstů pomocí termokamery FLIR, převzato z \cite{AdvancedBiometricsTechnologies2011}}
+\end{figure}
 
 \section{Softwarové metody}
 Tyto metody užívají k detekci živosti informace, které jsou již obsažené v obrazu otisku prstu. Jedná se například o znaky deformace kůže, detekci pórů a další. Výhodou je, že tyto metody nemusí využívat žádné přídavné hardwarové zařízení a mohou být tedy i levnější na samotné nasazení.
@@ -299,7 +311,7 @@ I bříško prstu obsahuje potní žlázy, proto detekce pórů může poslouži
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=110px]{obrazky-figures/pores.png}
+    \includegraphics[width=250px]{obrazky-figures/pores.png}
     \caption{Srovnání vývoje detekce potu v čase mezi živým a falešným prstem, převzato z \cite{PoresResearch}}
 \end{figure}
 
@@ -364,7 +376,7 @@ Při segmentaci vybereme z vstupního obrazu pouze otisk prstu, což nám napom�
 
 Morfologické operace se používají obvykle na úpravu binárního obrazu. Potřebují dva vstupy - náš vstupní obraz a jádro. \cite{OpenCVMorphology} Tyto operace se používají často na obrazové předzpracování - odstraňují šum a zjednodušují tvary objektů. Eroze je morfologickou operací, která je užitečná pro odstranění malých bílých částí v obraze. Diletace je opakem eroze a použivá se k zaplnění mezer. \cite{ExerciseMorphology}
 
-Papilární linie jsou odděleny po vyprahování úzkými místy a tento algoritmus má za cíl úzká místa spojit a vytvořit tak masku, která bude určovat pozici otisku prstu v obrazu. Struktura objektu se tedy při vzniku masky zjednodušší. Výsledná maska je následně aplikována na normalizovaný obraz a je tedy vybrána pouze část obrazu, která obsahuje otisk prstu, pozadí zůstává bílé.
+Tento algoritmus má za cíl vytvořit masku, která bude určovat pozici otisku prstu v obrazu. Struktura objektu se tedy při vzniku masky zjednodušší. Výsledná maska je následně aplikována na normalizovaný obraz a je tedy vybrána pouze část obrazu, která obsahuje otisk prstu, pozadí zůstává bílé.
 
 Získaná maska vzniká prahováním, pro které byly využity tři výše zmíněné metody - metoda Otsu a dále adaptivní prahovací metody Mean a Gaussian.
 
@@ -1246,12 +1258,10 @@ Následující tabulka opět udává průměrnou přesnost metod, avšak pouze p
 \end{table}
 \capstarttrue
 
+\section{Vyhodnocení experimentů}
+Extrahovaný dataset určený pro experimenty obsahuje celkem 216 snímků živých otisků prstů a falešných otisků prstů nasvícených jedním ze tří barevných LED světel - modrým, zeleným nebo červeným. Pro klasifikaci testovaných snímků a tedy předpovězení, zda se jedná o živý nebo falešný otisk prstu, byla využita umělá neuronová síť, metoda SVM a rozhodovací stromy. Pro segmentaci otisku prstů z obrazu byly využity tři typy prahování - prahování pomocí Otsu a adaptivní prahování Mean a Gaussian. Tři různé vektory byly extrahované z obrazu pro experimenty. Vektor založený na lokálním binárním vzoru, vektor založený na Sobel a Laplaceově operátoru a vektor založen na vlnkové transformaci.
 
-\section{Implementace}
-
-\section{Experimenty}
-
-\section{Vyhodnocení}
+V první části experimentu byl dataset rozdělen na tři menší, ve kterých byly pouze snímky nasvícené jedním z těchto světel. Cílem bylo nalézt nejspolehlivější klasifikátor, typ prahování při segmentaci, metodu a konečně barvu světla, při které dávají nasvícené otisky prstů nejlepší výsledky přesnosti. Nejspolehlivější metodou klasifikace byla umělá neuronová síť s přesností 90.1\%. I jednoduchá neuronová síť dokáže být velmi přesnou, implementovaná neuronová síť v programu je trénována pro 500 000 epoch. Byly provedeny pokusy i pro trénování s větším počtem epoch, ale neuronová síť pak vykazovala již známky tzv. \textit{overfittingu}, kdy při větším počtu epoch se chyba zvyšovala a ne snižovala. Klasifikace pomocí neuronové sítě trvá pouze několik málo sekund, hodně záleží na počtu epoch, kdy více epoch trvá programu delší dobu pro výpočet. Přestože jsem se snažila použít i metody adaptivního prahování, u kterých jsem předpokládala, že budou pro snímky ze senzoru vhodnější, jak segmentace s prahováním Otsu, právě tato metoda s konstantním prahem v závislosti na daném vstupním obrazu byla nejpřesnější, dosahovala 88.6\%. Výhodou této metody také vidím v tom, že při ní nemusí člověk nastavovat různé parametry jako u adaptivních metod prahování (velikost bloku, konstanta $C$), hodnota prahu je prostě vybrána automaticky, bez jakéhokoliv zkoumání, jaká konstanta $C$ nebo velikost bloku fungují nejlépe pro snímky z našeho použitého senzoru.
 
 
 
