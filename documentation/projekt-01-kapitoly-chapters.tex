@@ -3,21 +3,9 @@ S rozvojem moderních technologií a komunikačních zařízení se stále více
 
 Mnoho systémů dnes využívá zabezpečení pomocí otisku prstu. Přestože tento druh identifikace se nám může jevit jako opravdu spolehlivý, i tato metoda může být napadena. Zfalšované otisky prstů mohou být vyrobeny z různých syntetických materiálů, které nemusí být nijak moc nákladné. Je proto potřeba vytvořit algoritmus, který by mohl původ otisků prstů nějakým způsobem rozlišit a odhalit, zda je systém narušený útočníkem nebo se jedná o živý otisk prstu.
 
-Ve své práci se zaměřuji na implementaci kombinace různých algoritmů pro detekci živosti otisku prstu. Jedná se o algoritmy, které se zaměřují na zpracování obrazu, úpravu obrazu a výzkum, jak se dané algoritmy chovají u obrázků falešných a přirozených otisků. Hlavním bodem analýzy je textura otisku prstu. Pro svůj výzkum jsem využila bezdotykový senzor, který poskytuje mnoho výhod, ve srovnání s klasickými dotykovými přístroji. Na daném senzoru probíhal sběr datasetu živých a falešných otisků prstů. Živé otisky mi poskytlo několik osob a falešné otisky byly vyrobeny z různých materiálů, poskytované naší fakultou. Pro práci s bezdotykovým senzorem bylo využito nasvicování prstů o světle různé vlnové délky. Na souborech získaných ze senzoru jsem poté testovala implementované algoritmy, zkoumala jejich chování a vyhodnocovala závěry.
+Ve své práci se zaměřuji na implementaci kombinace různých algoritmů pro detekci živosti otisků prstů. Jedná se o algoritmy, které se zaměřují na zpracování obrazu, úpravu obrazu a výzkum, jak se dané algoritmy chovají u snímků živých a falešných otisků. Hlavním bodem analýzy je textura otisku prstu. Pro svůj výzkum jsem využila bezdotykový senzor, který poskytuje mnoho výhod, ve srovnání s klasickými dotykovými přístroji. Na daném senzoru probíhal sběr datasetu živých a falešných otisků prstů. Živé otisky mi poskytlo několik osob a falešné otisky byly vyrobeny z různých materiálů, poskytované naší fakultou. Pro práci s bezdotykovým senzorem bylo využito nasvicování prstů o světle různé vlnové délky. Na souborech získaných ze senzoru jsem poté testovala implementované algoritmy, zkoumala jejich chování a vyhodnocovala závěry.
 
 Výsledná analýza se sestávala z porovnání metod analýzy textury obrazu, analýzy hran a využití různých metod vlnkové transformace. Klasifikace probíhala za pomocí umělých neuronových sítí, metody podpůrných vektorů SVM a rozhodovacích stromů. Součástí mé práce je porovnání jednotlivých klasifikačních metod. Dále jsem zkoumala, jaké nasvicované světlo (červené, zelené nebo modré) vykazovalo největší přesnost a spolehlivost při mém výzkumu. 
-
-
-
-
-
-
-%\chapter{Abstrakt}
-%\label{abstrakt}
-%Pod nadpisem Abstrakt je uvedeno shrnutí práce zabírající prostor maximálně 10 řádků. Z~dobrého abstraktu by mělo být i přes jeho malý rozsah patrné, jaký problém se řešil, jaký přístup k jeho řešení byl v práci použit a jakých výsledků bylo dosaženo. Účelem abstraktu je, aby potenciální čtenář práce již po přečtení abstraktu věděl, zda v práci najde to, co hledá \cite{fitWeb}. Zbytek této kapitoly byl převzat z blogu prof. Herouta \cite{Herout}.
-%\bigskip
-
-
 
 \chapter{Biometrie} 
 Biometrie je věda rozpoznávání identity člověka na základě jeho fyzických a behaviorálních vlastností jako například tvář, otisky prstů, hlas nebo oční duhovka. \cite{Jain2008} Slovo biometrie pochází z řeckých slov \textit{bios} (život) a \textit{metron} (měření). Biometrické identifikátory jsou v~informatice používány pro přístupovou kontrolu a identifikaci. Skoro všechny identifikátory jsou kombinací anatomických a behaviorálních charakteristik. U otisku prstu je behaviorální složkou skutečnost, že každý uživatel použije skener otisku prstů v závislosti na svém chování. Záleží i například na úhlu přiložení prstu nebo znečistění povrchu prstu či senzoru. U identifikace tváře pak záleží i na změnách pramenících z chování člověka (např. změna životního stylu vedoucí ke změně tělesné váhy). \cite{Maltoni2009}
@@ -421,94 +409,6 @@ Následující obrázky ukazují rozdílné výsledky segmentace s využítím r
   \end{minipage}
 \end{figure}
 
-%\section{Ztenčování linií}
-%Pro extrakci markantů (ukončení a vidličky) je potřeba ztenčit papilární linie otisku prstů. Pro ztenčení bylo znovu využito morfologických operací. V každé iteraci algoritmu je znovu provedena eroze obrazu.
-%Známým postupem pro vytvoření morfologické kostry je Lantuéjoulova formule:\cite{WikipediaSkeleton}\\\\
-%Pro diskrétní binární obraz $X$ $\subset$ $\mathds{Z}^2$, skeleton $S(X)$ je sjednocením podmnožin koster ${S_n(X)},$\\$ n = 0,1,..,N$, kde:
-%$$S_n(X) = (X \ominus nB) - (X \ominus nB) \circ B$$ Symboly $\ominus$ a $\circ$ jsou morfologická eroze a otevření. 
-
-%\begin{figure}[htbp]
-%  \begin{minipage}[b]{0.5\linewidth}
-%    \centering
-%    \includegraphics[width=130px]{obrazky-figures/SG_LLnorm.png}
-%    \caption{Vstupní normalizovaný a segmentovaný obraz}
-%  \end{minipage}
-% \hspace{0.5cm}
-%  \begin{minipage}[b]{0.5\linewidth}
-%    \centering
-%    \includegraphics[width=130px]{obrazky-figures/SG_LLthin.png}
-%    \caption{Obraz se ztenčenými papilárními liniemi}
-%  \end{minipage}
-%\end{figure}
-%\section{Extrakce ukončení a vidličky}
-%Extrakce těchto nejdůležitějších markantů v otisku prstu probíhá po normalizaci, segmentaci a ztenčení obrazu. Předchozí práce ukázala, že úroveň jasu v šedotónovém obrazu je náhodnou u živých otisků prstů, ale má sklon být buď uniformní nebo periodická u falešných otisků prstů. Stejná myšlenka je pak použita u místní analýzy textury otisku prstu. Z~tohoto důvodu počet hřebenů ukončení papilárních linií u živých otisků prstů má tendenci dosahovat k větším číslům, jak u falešných otisků prstů. Proto je očividné, že tato metoda může být efektivní vlastností, jak odlišit živé otisky prstů od falešných.\cite{AbhiskekStudy}
-
-%\begin{figure}[htbp]
-%    \centering
-%    \includegraphics[width=250px]{obrazky-figures/graylevel.png}
-%    \caption{Ukázka změn úrovně šedotónového jasu u živých otisků prstů v porovnání s falešnými otisky z syntetických materiálů, převzato z \cite{AbhiskekStudy}}
-%\end{figure}
-
-%Pro extrakci ukončení i vidličky bylo použito okna o velikosti 3x3 pixely. U každého pixelu pak bylo na základě tohoto okna ve středu s procházeným pixelem zjištěno, jaké hodnoty mají jeho sousedé a tento prostřední centrální pixel. 
-
-%\begin{figure}[htbp]
-%    \centering
-%    \includegraphics[width=350px]{obrazky-figures/windowridge.png}
-%    \caption{Okno o velikosti 9 pixelů pro extrakci ukončení, převzato z \cite{BansalStudy}}
-%\end{figure}
-%\begin{figure}[htbp]
-%    \centering
-%    \includegraphics[width=350px]{obrazky-figures/bif.png}
-%    \caption{Okno o velikosti 9 pixelů pro extrakci vidličky}
-%\end{figure}
-
-
-
-
-
-%\section{Extrakce orientovaného pole}
-%Tento algoritmus z detekovaného otisku prstu vytvoří orientovanou mapu. Algoritmus postupuje následovně:\\
-%1. Rozdělte normalizovaný obraz $G$ na bloky o velikosti $w$ x $w$.\\
-%2. Spočítejte gradienty $\delta_x$$(i, j)$ a $\delta_y$$(i, j)$ v každém pixelu obrazu. \\
-%2. Odhadněte místní orientaci každého bloku se středem v pixelu $(i, j)$ pomocí těchto rovnic:
-%$$V_x(i, j) = \sum_{u=i-\frac{w}{2}}^{i+\frac{w}{2}}\sum_{v=j-\frac{w}{2}}^{j+\frac{w}{2}} 2\delta_x(u,v)\delta_y(u,v)$$
-%$$V_y(i, j) = \sum_{u=i-\frac{w}{2}}^{i+\frac{w}{2}}\sum_{v=j-\frac{w}{2}}^{j+\frac{w}{2}} \delta_x^2(u,v) - \delta_y^2(u,v)$$
-%$$\theta(i, j) = \frac{1}{2}\tan^{-1}(\frac{V_y(i,j)}{V_x(i, j)}$$
-%3. Spočítejte magnitudu:
-%$$V(i,j) = \sqrt{V_x(i,j)^2 + V_y(i,j)^2}$$
-%4. Převeďte orientovaný obraz na souvislé pole vektorů pomocí rovnic:
-%$$\Phi_x(i,j) = V(i,j)\cos{2\theta(i,j)}$$
-%$$\Phi_y(i,j) = V(i,j)\sin{2\theta(i,j)}$$
-%5. Vypočítejte výsledný úhel se středem v pixelu $(i, j)$:
-%$$O(i, j) = \frac{1}{2}\tan^{-1}(\frac{\Phi_y(i,j)}{\Phi_x(i, j)}$$
-%Výsledné vykreslení orientovaných úseček probíhá následovně:\\
-%6. Vypočítejte počáteční body $(x_0,y_0)$ orientované úsečky:\\
-%$$x_0 = i + \frac{w}{2}$$
-%$$y_0 = j + \frac{w}{2}$$
-%7. Vypočítejte koncové body $(x_1,y_1)$ orientované úsečky:\\
-%$$r = \frac{w}{2}$$
-%$$x_1 = r * \cos({O(i,j)})+ x_0$$
-%$$y_1 = r * \sin({O(i,j)})+ y_0$$
-%8. Sestavte výsledné rovnice orientovaných úseček. Vypočtený úhel je kolmý směrem k hřebenům papilárních linií:\\
-%$$x_1 = r * cos(O(i,j)- \frac{\pi}{2}) + x_0$$
-%$$y_1 = r * sin(O(i,j)- \frac{\pi}{2}) + y_0$$
-
-%\begin{figure}[htbp]
-%  \begin{minipage}[b]{0.5\linewidth}
-%    \centering
-%    \includegraphics[width=135px]{obrazky-figures/norm_img.png}
-%    \caption{Normalizovaný a segmentovaný obraz}
-%  \end{minipage}
-%  \hspace{0.5cm}
-%  \begin{minipage}[b]{0.5\linewidth}
-%    \centering
-%    \includegraphics[width=140px]{obrazky-figures/orient.png}
-%    \caption{Orientované pole obrazu}
-%  \end{minipage}
-%\end{figure}
-
-
-
 \section{Lokální binární vzor (LBP)}
 Lokální binární vzor (\textit{Local Binary Pattern} - LBP) je jedním z hlavních algoritmů, které byly využity pro detekci živosti v této práci. Jedná se o efektivní algoritmus, který se používá pro analýzu textury objektů.  Lokální binární vzor je užitečný pro informace o změnách intenzity mezi jednotlivými pixely obrázku a jejich sousedy. Vzorec pro tuto metodu vypadá následovně: \cite{GaikwadStudy}
 
@@ -576,80 +476,6 @@ Výsledný předzpracovaný obraz po aplikaci lokálního binárního vzoru mů�
     \caption{Falešný otisk prstu po aplikaci algoritmu LBP}
   \end{minipage}
 \end{figure}
-
- %Nyní bylo potřeba vyextrahovat pro lokální binární vzor informace, na základě kterých by se dala detekovat problematika živosti otisku prstu. První informací, kterou jsem si z nového obrazu vyextrahovala byl jeho histogram. Histogramy se zvláště ve středových hodnotách podstatně liší. Svoji hypotézu jsem otestovala na základě porovnání částečných sum hodnot histogramů. Na základě prahu jsem pak mohla rozhodnout, zda je otisk prstu živý nebo falešný.
- 
- %Hypotéza byla otestována na třech databázích - dvou obsahující živé otisky prstu a jedné obsahující falešné otisky prstů. Celkem bylo pracováno se 140 snímky. Při výpočtu přesnosti budu využívat již zmiňovaný vzorec:\\
- %$$a = \frac{C}{N}$$
- %Do vzorce dosadíme:\\
- % $$a = \frac{122}{140} = 87,14\%$$
- 
- %Analýzou lokálního binárního vzoru pro detekci živosti a  dalšími algoritmy se budu dále zabívat v letním semestru.
- 
- %\begin{figure}[htbp]
- % \begin{minipage}[b]{0.5\linewidth}
- %   \centering
- %   \includegraphics[width=150px]{obrazky-figures/db3.png}
- %   \caption{Snímek z databáze DB1\_B (University at Bologna)}
- % \end{minipage}
- % \hspace{0.3cm}
- % \begin{minipage}[b]{0.5\linewidth}
- %   \centering
- %   \includegraphics[width=150px]{obrazky-figures/db2.png}
- %   \caption{Snímek z databáze DB3\_B (University at Bologna)}
- % \end{minipage}
-%\end{figure}
-%\begin{figure}[htbp]
-%    \centering
- %   \includegraphics[width=130px]{obrazky-figures/db1.png}
- %   \caption{Snímek z obdržené databáze falešných otisků prstů}
-%\end{figure}
-
-%\begin{figure}[htbp]
-%  \begin{minipage}[b]{0.5\linewidth}
- %   \centering
- %    \includegraphics[width=200px]{obrazky-figures/107_7.png}
- %    \caption{Vstupní normalizovaný a segmentovaný obraz živého otisku prstu}
-  % \end{minipage}
- %  \hspace{0.5cm}
-  % \begin{minipage}[b]{0.5\linewidth}
-  %   \centering
-  %   \includegraphics[width=200px]{obrazky-figures/107_7lbp.png}
- %    \caption{Výsledek aplikace lokálního binárního vzoru}
-  % \end{minipage}
- %\end{figure}
-
- %\begin{figure}[htbp]
-  % \begin{minipage}[b]{0.5\linewidth}
-  %   \centering
- %    \includegraphics[width=200px]{obrazky-figures/SG_LLnorm.png}
-  %   \caption{Vstupní normalizovaný a segmentovaný obraz falešného otisku prstu}
- %  \end{minipage}
-  % \hspace{0.5cm}
-  % \begin{minipage}[b]{0.5\linewidth}
-  %   \centering
-   %  \includegraphics[width=200px]{obrazky-figures/SDLBP.png}
-  %   \caption{Výsledek aplikace lokálního binárního vzoru}
-  % \end{minipage}
- %\end{figure}
-
-
-%\begin{figure}[htbp]
-%    \centering
-%    \includegraphics[width=300px]{obrazky-figures/histogramlive.png}
- %   \caption{Histogram pro výsledek lokálního binárního vzoru pro živý otisk prstu}
-%\end{figure}
-
-
-
-
-
-%
-%\begin{figure}[htbp]
-%    \centering
-%    \includegraphics[width=300px]{obrazky-figures/histfake.png}
-%    \caption{Histogram pro výsledek lokálního binárního vzoru pro falešný otisk prstu}
-%\end{figure}
 
 \section{Detektory hran Sobel a Laplaceův operátor}
 Sobel a Laplaceův operátor jsou vhodným řešením detekce hran v obrazu a tedy také popisem textury. Umožňují rychlé a snadné řešení jak snížit počet dat - pixelů pro analýzu a zvýraznit strukturální aspekt vstupního obrazu. 
@@ -982,20 +808,20 @@ Program využívá open source knihoven OpenCV, scikit-learn, PyWavelets a dalš
 
 Program může být spuštěn ve dvou režimech:
 \begin{itemize}
-    \item Extrakce vektorů a klasifikace - Umožňuje dle navržené metody získat vektory z obrazu a následně provézt trénování klasifikační sítě a testování neznámých vzorků.
+    \item Extrakce vektorů a klasifikace - Umožňuje dle navržené metody získat vektory z obrazu a následně provést trénování klasifikační sítě a testování neznámých vzorků.
     \item Metoda zobrazení jednotlivých technik - Na vstupním obraze zadaném uživatelem se provedou techniky a algoritmy dílčí pro analýzu (např. segmentace, vlnková transformace atd.) a výsledný zpracovaný otisk prstu se poté zobrazí uživateli jako výsledek.
 \end{itemize}
 
 \subsection{Režim extrakce vektorů a klasifikace}
 Program je možné spustit v následujících variantách:\\\\
 \verb=-test lbp -s otsu|gauss|mean -clasif ann|svm|clf -img b|g|r|all=\\
-Jedná se o extrakci vektorů a následnou klasifikace na základě vektoru založeném na lokálním binárním vzoru. V tomto případě si uživatel vybere danou metodu segmentace s užitím různých typů prahování (\verb=otsu= pro využití Otsu prahování, \verb=gauss= pro využití adaptivního prahování Gaussian, \verb=mean= pro adaptivní prahování Mean. Dále si uživatel vybere daný princip klasifikace - umělou neuronovou síť \verb=ann=, vektory SVM \verb=svm= nebo rozhodovací stromy \verb=clf=. Poslední a nedílnou součástí je, jaké snímky chceme analyzovat - nasvícené pouze modrým světlem (\verb=b=), zeleným (\verb=g=), červeným (\verb=r=), nebo chceme zkoumat všechny snímky získaného datasetu (\verb=all=).\\\\
+Jedná se o extrakci vektorů a následnou klasifikaci na základě vektoru založeném na lokálním binárním vzoru. V tomto případě si uživatel vybere danou metodu segmentace s užitím různých typů prahování (\verb=otsu= pro využití Otsu prahování, \verb=gauss= pro využití adaptivního prahování Gaussian, \verb=mean= pro adaptivní prahování Mean. Dále si uživatel vybere daný princip klasifikace - umělou neuronovou síť \verb=ann=, vektory SVM \verb=svm= nebo rozhodovací stromy \verb=clf=. Poslední a nedílnou součástí je určit, jaké snímky chceme analyzovat - nasvícené pouze modrým světlem (\verb=b=), zeleným (\verb=g=), červeným (\verb=r=), nebo chceme zkoumat všechny snímky získaného datasetu (\verb=all=).\\\\
 \verb=-test sobel -clasif ann|svm|clf -img b|g|r|all=\\
-Tento příkaz programu je určený pro extrakci a klasifikaci za pomocí Sobel a Laplaceova operátoru. Přepínač \verb=-s= tato metoda nevyužívá, segmentace je přímo provedena s využitím prahovací metody Otsu. Tato skutečnost je dána mým výzkumem, kdy některé testované datasety při využití umělé neuronové sítě poskytovaly špatnou křivku pro vývoj chyby, která by měla mít správně zhruba následující průběh:
+Tento příkaz programu je určený pro extrakci a klasifikaci za pomocí Sobel a Laplaceova operátoru. Přepínač \verb=-s= tato metoda nevyužívá, segmentace je přímo provedena s využitím prahovací metody Otsu. Tato skutečnost je dána mým výzkumem, kdy některé datasety při využití umělé neuronové sítě poskytovaly špatnou chybovou křivku.
 
 Vysvětlení dalších přepínačů je uvedeno výše.\\\\
 \verb=-test wavelet -t <type> -s otsu|gauss|mean -clasif ann|svm|clf -img b|g|r|all=\\
-Každý obraz otisku prstu je analyzován pomocí vlnkové transformace. Získaný vektor může být pomalejší při získání, zejména u velkých datasetů. Diskrétní vlnková transformace však poskytuje mnoho různých Wavelet rodin. Přepínač \verb=-t= je určený pro nastavení dané vlnkové rodiny a vlnky. Všechny podporované vlnky implementovaného programu \verb=type=, a zároveň i všechny podporované vlnky knihovnou PyWavelets pro 2D diskrétní vlnkovou transformaci, jsou uvedeny v Readme. 
+Každý obraz otisku prstu je analyzován pomocí vlnkové transformace. Získaný vektor může být pomalejší pro získání, zejména u velkých datasetů. Diskrétní vlnková transformace však poskytuje mnoho různých Wavelet rodin. Přepínač \verb=-t= je určený pro nastavení dané vlnkové rodiny a vlnky. Všechny podporované vlnky implementovaného programu \verb=type=, a zároveň i všechny podporované vlnky knihovnou PyWavelets pro 2D diskrétní vlnkovou transformaci, jsou uvedeny v Readme. 
 
 Další přepínače jsou obdobné jako v předchozích případech.
 
@@ -1004,21 +830,17 @@ Cílem tohoto režimu je předložit uživateli snadno různé použité technik
 \verb=-show lbp [-s otsu|gauss|mean] -img <path>=\\
 Uživatel proměnnou \verb=path= nahradí cestou k obrazu otisku prstu, který chce analyzovat. Výsledkem je zobrazení otisku prstu zpracovaného pomocí algoritmu LBP a výsledný histogram, který byl i důležitou vlastností v případě extrakce vektoru pro analýzu.\\\\
 \verb=-show sobel [-s otsu|gauss|mean] -img <path>=\\
-Tento příkaz umožňí zobrazit okno se zpracovaným otiskem prstu pomocí Sobel operátorů na základě osy $x$ a $y$ a s využitím Laplaceového operátoru.\\\\
+Tento příkaz umožní zobrazit okno se zpracovaným otiskem prstu pomocí Sobel operátoru na základě osy $x$ a $y$ a výsledku aplikace Laplaceova operátoru.\\\\
 \verb=-show wavelet -t <type> [-s otsu|gauss|mean] -img <path>=\\
-Provádí vlnkovou transformaci a výsledkem je horizontální, vertikální a digonální detail a jejich aproximace. Nastavení použité metody provede uživatel v proměnné \verb=type=.\\\\
+Provádí vlnkovou transformaci. Výsledkem je horizontální, vertikální a diagonální detail a jejich aproximace. Nastavení použité metody provede uživatel v proměnné \verb=type=.\\\\
 \verb=-show seg -s otsu|gauss|mean -img <path>=\\
 Ukáže segmentovaný obraz podle dané metody, jehož cestu uživatel zadal místo proměnné \verb=path=.\\\\
 Segmentace je v tomto režimu povinná pouze v posledním případě.
 
 \subsection{Struktura programu}
-Pro ukládání snímků určených k trénování slouží složky \verb=./blueTraining=, \verb=./greenTraining= a \verb=./redTraining= pro jednotlivé rozdělené datasety na otisky prstů nasvícených stejnou barvou světla a složka \verb=./allTraining= pro práci s datasetem obsahujícím snímky nasvícenými jednou z těchto tří barev. Testované snímky se pak nacházejí ve složkách \verb=./blueTesting=, \verb=./greenTesting=, \verb=./redTesting= a \verb=./allTesting=. Je důležité dodržovat názvy snímků, pro živé otisky prstu se musí v souboru vyskytovat slovo \verb=live=, u falešných pak slovo \verb=fake=. Pokud program provádí extrakci vektorů a následnou klasifikaci, jsou využité dva cykly \verb=for= - jeden prochází snímky určené k trénování a druhý k testování. Všechny extrahované vektory jsou ukládány do \verb=csv= souborů, u trénovaných snímků se vytvoří dva soubory - jeden pro zápis samotného vektoru na nový řádek \verb=csv= souboru a druhý pro zápis výsledku, který daný otisk prstu má (konstanta 1 - živý otisk, konstanta 0 - falešný otisk). U trénovaných snímků se vytvoří jeden \verb=csv= soubor který obsahuje na každém řádku jako první název souboru a pak extrahovaný vektor. Při klasifikaci pomocí umělé neuronové sítě, metody SVM nebo rozhodovacího stromu se získá daná předpovídaná hodnota podle klasifikace a porovná se s názvem obrázku, který je součástí \verb=csv=. Znovu, pokud obsahuje název obrázku slovo \verb=live=, jedná se o živý otisk, pokud \verb=fake=, tak falešný. Získaná předpovězená hodnota se porovná s tímto názvem souboru a počítá se hromadná průměrná přesnost celého testovaného datasetu. Dále se finálně vedle přesnosti uživateli zobrazí i vypočtené FAR a FRR. 
+Pro ukládání snímků určených k trénování slouží složky \verb=./blueTraining=, \verb=./greenTraining= a \verb=./redTraining= pro jednotlivé rozdělené datasety na otisky prstů nasvícených stejnou barvou světla a složka \verb=./allTraining= pro práci s datasetem obsahujícím snímky nasvícenými jednou z těchto tří barev. Testované snímky se pak nacházejí ve složkách \verb=./blueTesting=, \verb=./greenTesting=, \verb=./redTesting= a \verb=./allTesting=. Je důležité dodržovat názvy snímků, pro živé otisky prstu se musí v souboru vyskytovat slovo \verb=live=, u falešných pak slovo \verb=fake=. Pokud program provádí extrakci vektorů a následnou klasifikaci, jsou využité dva cykly \verb=for= - jeden prochází snímky určené k trénování a druhý k testování. Všechny extrahované vektory jsou ukládány do \verb=csv= souborů, u trénovaných snímků se vytvoří dva soubory - jeden pro zápis samotného vektoru na nový řádek \verb=csv= souboru a druhý pro zápis výsledku, který daný otisk prstu má (konstanta 1 - živý otisk, konstanta 0 - falešný otisk). U trénovaných snímků se vytvoří jeden \verb=csv= soubor, který obsahuje na každém řádku jako první název souboru a pak extrahovaný vektor. Při klasifikaci pomocí umělé neuronové sítě, metody SVM nebo rozhodovacího stromu se získá daná předpovídaná hodnota podle klasifikace a porovná se s názvem obrázku, který je součástí \verb=csv=. Znovu, pokud obsahuje název obrázku slovo \verb=live=, jedná se o živý otisk, pokud \verb=fake=, tak falešný. Získaná předpovězená hodnota se porovná s tímto názvem souboru a počítá se hromadná průměrná přesnost celého testovaného datasetu. Dále se finálně vedle přesnosti uživateli zobrazí i vypočtené FAR a FRR. 
 
 Pokud chce uživatel pouze zobrazit obraz otisku prstu s využitím některé z metod (segmentace, lokální binární vzor, Sobel a Laplaceův operátor, vlnková transformace), program pouze zavolá příslušný modul, předá mu cestu k danému obrázku, další parametry a provede následné zpracování a zobrazení finálního výsledku uživateli. Soubory obsahují i ukázky segmentovaného obrázku, detailů vlnkové transformace a Sobel a Laplaceova operátoru, průběžně se při zpracování ukládají a případně přepisují při iteraci složek.
-
-
-
-
 
 
 \section{Analýza datesetu}
@@ -1085,7 +907,7 @@ Klasifikátory SVM, rozhodovací stromy a umělé neuronové sítě byly určeny
 \end{table}
 \capstarttrue
 
-Dále byly testovány průměrné přesnosti všech metod segmentace - s využitím prahování pomocí algoritmu Otsu nebo adaptivního prahování Mean a Gaussian. Bylo zjištěno, že ačkoliv by mohla být segmentace s využitím adaptivního prahování lepší, protože tato metoda je vhodné i pro snímky s různými světelnými podmínkami, s obsahem různých stínů atd., nakonec nejvyšší přesnost vykazuje segmentace s Otsu prahováním, pomocí konstantního optimálního prahu závislého na daném vstupním obrazu.
+Dále byly testovány průměrné přesnosti všech metod segmentace - s využitím prahování pomocí algoritmu Otsu nebo adaptivního prahování Mean a Gaussian. Bylo zjištěno, že ačkoliv by mohla být segmentace s využitím adaptivního prahování lepší, protože tato metoda je vhodná i pro snímky s různými světelnými podmínkami, s obsahem stínů atd., nakonec nejvyšší přesnost vykazuje segmentace s Otsu prahováním, pomocí konstantního optimálního prahu závislého na daném vstupním obrazu.
 
 \capstartfalse
 \begin{table}[!htbp]
@@ -1101,7 +923,7 @@ Dále byly testovány průměrné přesnosti všech metod segmentace - s využit
 \end{table}
 \capstarttrue
 
- Pro všechny využité druhy segmentace byla testována každá ze zvolených metod kromě metody s extrahovaným vektorem na základě Sobel a Laplacova operátoru. Pro tuto metodu byla zvolena pouze segmentace s Otsu prahováním. Níže můžeme vidět průměrnou přesnost pro všechny metody, při kterých se uvažovaly všechny tři typy segmentace. Metoda využívající extrahovaného vektoru na základě lokálního binárního vzoru byla nejpřesnější, dosahuje přesnosti průměrně 90,2\%. Nejspolehlivější metodou založenou na vlnkové transformaci byla metoda $rbio3.1$ spadající do reverzních biortogonálních spline vlnek. Nejspolehlivější metodou biortogonálních spline vlnek byla vlnka $bior1.3$. Ačkoliv jsou vlnky Daubechies hojně používanými při zpracování obrazu, jejich přesnost je ve výsledku jednou z nejnižších. Přesto však všechny tyto metody dosahují přesnosti vyšší jak 80\%.
+ Pro všechny využité druhy segmentace byla testována každá ze zvolených metod kromě metody s extrahovaným vektorem na základě Sobel a Laplaceova operátoru. Pro tuto metodu byla zvolena pouze segmentace s Otsu prahováním. Níže můžeme vidět průměrnou přesnost pro všechny metody, při kterých se uvažovaly všechny tři typy segmentace. Metoda využívající extrahovaného vektoru na základě lokálního binárního vzoru byla nejpřesnější, dosahuje přesnosti průměrně 90,2\%. Nejspolehlivější metodou založenou na vlnkové transformaci byla metoda $rbio3.1$ spadající do reverzních biortogonálních spline vlnek. Nejspolehlivější metodou biortogonálních spline vlnek byla vlnka $bior1.3$. Ačkoliv jsou vlnky Daubechies hojně používanými při zpracování obrazu, jejich přesnost je ve výsledku v provedeném experimentu jednou z nejnižších. Přesto však všechny tyto metody dosahují přesnosti vyšší jak 80\%.
  
 \capstartfalse
 \begin{table}[!htbp]
@@ -1163,7 +985,7 @@ Modré světlo má nejkratší vlnovou délku ve srovnání s zeleným a červen
 \capstarttrue
 
 \subsection{Výsledky analýzy datasetu obsahující všechny získané snímky otisků prstů}
-Na tento experiment byl použit celý nerozdělený dataset snímků získaných z bezdotykového zařízení. Dataset tedy obsahuje jak nasvícené otisky prstů modrým světlem, tak i zeleným a červeným. Cílem tohoto pokusu je najít nejlepší formu klasifikace, prahování pro použitou segmentaci a nejpřesnější metody. Je nutné však podotknout, že extrakce vektorů pro klasifikaci trvá déle, vzhledem k počtu snímků, zvláště u vlnkové transformace. Výsledkem jsou však velmi dobré klasifikační přesnosti. 
+Na tento experiment byl použit celý nerozdělený dataset snímků získaných z bezdotykového zařízení. Dataset tedy obsahuje jak nasvícené otisky prstů modrým světlem, tak i zeleným a červeným. Cílem tohoto pokusu je najít nejlepší formu klasifikace, prahování pro použitou segmentaci a nejpřesnější metody. Je nutné však podotknout, že extrakce vektorů pro klasifikaci trvá déle, vzhledem k počtu snímků, zvláště u vlnkové transformace. Výsledkem jsou však velmi dobré klasifikační výsledky. 
 
 Níže můžeme vidět tabulku počtu trénovaných otisků prstů a testovaných otisků, které měli neznámý výsledek a sloužili pro předpovězení finální živosti či neživosti. Dále vidíme míru zastoupení jednotlivých kategorií na základě nasvíceného světla a počty živých a falešných otisků prstů.
 
@@ -1201,7 +1023,7 @@ Pro experiment jsou opět použity všechny tři metody klasifikace - umělé ne
 \end{table}
 \capstarttrue
 
-I u tohoto velkého získaného datasetu čítající více než 200 snímků, je metoda Otsu prahování ta, která dává nejpřesnější výsledky. Metody využívající segmentaci s adaptivním prahováním - metody Mean a Gaussian se umístili opět na druhém a třetím místě stejně jako u předchozího pokusu.
+I u tohoto velkého získaného datasetu čítající více než 200 snímků, je metoda Otsu prahování ta, která dává nejpřesnější výsledky. Metody využívající segmentaci s adaptivním prahováním, metody Mean a Gaussian, se umístili opět na druhém a třetím místě stejně jako u předchozího pokusu.
 
 \capstartfalse
 \begin{table}[!htbp]
@@ -1217,7 +1039,7 @@ I u tohoto velkého získaného datasetu čítající více než 200 snímků, j
 \end{table}
 \capstarttrue
 
-Nejdůležitějším úkolem bylo poté porovnat všechny metody a znovu nalézt tu, která vykazuje největší přesnost. Prvně porovnáme opět metody, u kterých byly využity všechny tři typy prahování při segmentaci obrazu. Jedná se teda o všechny přístupy s výjimkou vektoru založeného na Sobel a Laplaceově operátoru. Vektor založený na lokálním binárním vzoru vykazuje největší přesnost klasifikace 89.3\%. Nejpřesnějšími přístupy založenými na vlnkové transformaci jsou pak $rbio3.1$ s 86.9\% a $bior1.3$ s 86.3\%. Metody spadající do Daubechies vlnkové rodiny jsou jedny z nejméně přesných při našem experimentu - vlnka $db4$ má průměrnou přesnost 84.6\% a vlnka $db2$ pak 81.8\%.
+Nejdůležitějším úkolem bylo poté porovnat všechny metody a znovu nalézt tu, která vykazuje největší přesnost. Prvně porovnáme metody, u kterých byly využity všechny tři typy prahování při segmentaci obrazu. Jedná se teda o všechny přístupy s výjimkou vektoru založeného na Sobel a Laplaceově operátoru. Vektor založený na lokálním binárním vzoru vykazuje největší přesnost klasifikace 89.3\%. Nejpřesnějšími přístupy založenými na vlnkové transformaci jsou pak $rbio3.1$ s 86.9\% a $bior1.3$ s 86.3\%. Metody spadající do Daubechies vlnkové rodiny jsou jedny z nejméně přesných při našem experimentu - vlnka $db4$ má průměrnou přesnost 84.6\% a vlnka $db2$ pak 81.8\%.
 
 \capstartfalse
 \begin{table}[!htbp]
@@ -1237,7 +1059,7 @@ Nejdůležitějším úkolem bylo poté porovnat všechny metody a znovu nalézt
 \end{table}
 \capstarttrue
 
-Následující tabulka opět udává průměrnou přesnost metod, avšak pouze při využití Otsu prahování. Tímto způsobem tedy můžeme porovnat všech osm metod i s využitím Sobel a Laplaceova operátoru. Při využití našeho kompletního získaného datasetu ze senzoru vykazuje největší přesnost právě vektor založený na Sobel a Laplaceově operátoru. Tento nejrychlejší způsob extrakce vektoru pro tak rozsáhlý dataset klasifikuje otisky prstů s neznámým výsledkem s průměrnou přesností 92.7\%. Lokální binární vzor je pak druhým nejlepším přístupem pro finální klasifikaci s průměrnou přesností 91.9\%. Biortogonální spline vlnková rodina je pak nejlepší metodou vlnkové transformace pro tuto část experimentu. Vlnky $bior1.3$ a $bior2.4$ jsou nejvíce přesné, se shodným výsledkem 88.5\%. Bohužel vlnka $rbio3.1$ z rodiny reverzních biortogonálních spline vlnek je jednou z nejhorších při tomto přístupu, má přesnost 87.2\%. Nutno však podotknout, že segmentace s využitím Otsu prahování je celkově velmi přesnou a všechny metody dosahují aspoň nejméně 82\%, ale v mnohých případech mnohem více.
+Následující tabulka opět udává průměrnou přesnost metod, avšak pouze při využití Otsu prahování. Tímto způsobem tedy můžeme porovnat všech osm metod i s využitím Sobel a Laplaceova operátoru. Při využití našeho kompletního získaného datasetu ze senzoru vykazuje největší přesnost právě vektor založený na Sobel a Laplaceově operátoru. Tento nejrychlejší způsob extrakce vektoru pro rozsáhlejší dataset klasifikuje otisky prstů s neznámým výsledkem s průměrnou přesností 92.7\%. Lokální binární vzor je pak druhým nejlepším přístupem pro finální klasifikaci s průměrnou přesností 91.9\%. Biortogonální spline vlnková rodina je pak nejlepší metodou vlnkové transformace pro tuto část experimentu. Vlnky $bior1.3$ a $bior2.4$ jsou nejvíce přesné, se shodným výsledkem 88.5\%. Bohužel vlnka $rbio3.1$ z rodiny reverzních biortogonálních spline vlnek je jednou z nejhorších při tomto přístupu, má přesnost 87.2\%. Nutno však podotknout, že segmentace s využitím Otsu prahování je celkově velmi přesnou a všechny metody dosahují aspoň nejméně 82\%, ale v mnohých případech mnohem více.
 
 \capstartfalse
 \begin{table}[!htbp]
@@ -1259,7 +1081,7 @@ Následující tabulka opět udává průměrnou přesnost metod, avšak pouze p
 \capstarttrue
 
 \section{Vyhodnocení experimentů}
-Extrahovaný dataset určený pro experimenty obsahuje celkem 216 snímků živých otisků prstů a falešných otisků prstů nasvícených jedním ze tří barevných LED světel - modrým, zeleným nebo červeným. Pro klasifikaci testovaných snímků a tedy předpovězení, zda se jedná o živý nebo falešný otisk prstu, byla využita umělá neuronová síť, metoda SVM a rozhodovací stromy. Pro segmentaci otisku prstů z obrazu byly využity tři typy prahování - prahování pomocí Otsu a adaptivní prahování Mean a Gaussian. Tři různé vektory byly extrahované z obrazu pro experimenty. Vektor založený na lokálním binárním vzoru, vektor založený na Sobel a Laplaceově operátoru a vektor založen na vlnkové transformaci.
+Extrahovaný dataset určený pro experimenty obsahuje celkem 216 snímků živých otisků prstů a falešných otisků prstů nasvícených jedním ze tří barevných LED světel - modrým, zeleným nebo červeným. Pro klasifikaci testovaných snímků a tedy předpovězení, zda se jedná o živý nebo falešný otisk prstu, byla využita umělá neuronová síť, SVM a rozhodovací stromy. Pro segmentaci otisku prstů z obrazu byly využity tři typy prahování - prahování pomocí Otsu a adaptivní prahování Mean a Gaussian. Tři různé vektory byly extrahované z obrazu pro experimenty. Vektor založený na lokálním binárním vzoru, vektor založený na Sobel a Laplaceově operátoru a vektor založen na vlnkové transformaci.
 
 V první části experimentu byl dataset rozdělen na tři menší, ve kterých byly pouze snímky nasvícené jedním z těchto světel. Cílem bylo nalézt nejspolehlivější klasifikátor, typ prahování při segmentaci, metodu a konečně barvu světla, při které dávají nasvícené otisky prstů nejlepší výsledky přesnosti. Nejspolehlivější metodou klasifikace byla umělá neuronová síť s přesností 90.1\%. I jednoduchá neuronová síť dokáže být velmi přesnou, implementovaná neuronová síť v programu je trénována pro 500 000 epoch. Byly provedeny pokusy i pro trénování s větším počtem epoch, ale neuronová síť pak vykazovala již známky tzv. \textit{overfittingu}, kdy při větším počtu epoch se chyba zvyšovala a ne snižovala. Klasifikace pomocí neuronové sítě trvá pouze několik málo sekund, hodně záleží na počtu epoch, kdy více epoch trvá programu delší dobu pro výpočet. Přestože jsem se snažila použít i metody adaptivního prahování, u kterých jsem předpokládala, že budou pro snímky ze senzoru vhodnější, jak segmentace s prahováním Otsu, právě tato metoda s konstantním prahem v závislosti na daném vstupním obrazu byla nejpřesnější, dosahovala 88.6\%. Výhodou této metody také vidím v tom, že při ní nemusí člověk nastavovat různé parametry jako u adaptivních metod prahování (velikost bloku, konstanta $C$), hodnota prahu je prostě vybrána automaticky, bez jakéhokoliv zkoumání, jaká konstanta $C$ nebo velikost bloku fungují nejlépe pro snímky z našeho použitého senzoru.
 
@@ -1273,7 +1095,7 @@ V první části experimentu byl dataset rozdělen na tři menší, ve kterých 
 
 
 \chapter{Závěr}
-V průběhu zimního semestru jsem se v rámci povinného předmětu Semestrální projekt (ITT) začala seznamovat s tématem detekce živosti otisků prstů. Nastudovala jsem odborné články a literaturu, začala jsem pracovat na algoritmech pro předzpracování obrazu (normalizace, prahování, ztenčování linií, extrakce orientovaného pole, extrakce markantů). Začala jsem implementovat hlavní algoritmus pro detekci živosti - lokální binární vzor. V průběhu letního semestru budu svoji práci dále rozšiřovat a zdokonalovat, chci provést výzkum nejen softwarově generovaných otisků prstů, ale i otisků prstů z různých syntetických materiálů. Plánuji navštívit laboratoř a získat snímky syntetických otisků prstů z senzoru, dále se pak chci pokusit z lokálního binárního vzoru vyextrahovat další užitečné informace kromě histogramu. Svoji detekci živosti prstu chci vedle extrakce markantů a lokálního binárního vzoru rozšířit také o práci s vlnovou délkou. Jednotlivé algoritmy poté porovnám na základě přesnosti či rychlosti zpracování. 
+ 
 
 \label{zaver}
 
