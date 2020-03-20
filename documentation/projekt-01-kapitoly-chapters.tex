@@ -1057,7 +1057,7 @@ Cílem experimentu je zjistit, jaká barva světla poskytuje nejlepší výsledk
 \end{table}
 \capstarttrue
 
-Klasifikátory SVM, rozhodovací stromy a umělé neuronové sítě byly určeny pro finální klasifikaci testovaných otisků prstů. Můžeme vidět, že umělá neuronová síť dosahuje nejvyšší přesnosti. Přesnost této metody tkví zejména ve skutečnosti, že neuronová síť může být trénována pomocí velkého počtu epoch. Počet epoch je parametr, který definuje, kolikrát algoritmus učení bude pracovat s celým trénovacím datasetem. \cite{BatchEpochANN} Můžeme nastavit tisíce epoch, ale i miliony. Algoritmus se pak stává stále více jistějším ve finální analýze pro testované vzorky a výsledná síť by se měla stále více příklánět k jednomu či druhému výsledku (konstanta 1 - živý otisk prstu, konstanta 0 - falešný otisk prstu). Samozřejmě však je nutno podotknout, že čím více epoch je umělá neuronová síť trénovaná, tím může finální klasifikace trvat delší dobu. \\\\\\\\\
+Klasifikátory SVM, rozhodovací stromy a umělé neuronové sítě byly určeny pro finální klasifikaci testovaných otisků prstů. Můžeme vidět, že umělá neuronová síť dosahuje nejvyšší přesnosti. Přesnost této metody tkví zejména ve skutečnosti, že neuronová síť může být trénována pomocí velkého počtu epoch. Počet epoch je parametr, který definuje, kolikrát algoritmus učení bude pracovat s celým trénovacím datasetem. \cite{BatchEpochANN} Můžeme nastavit několik tisíce epoch, ale i více. Algoritmus se pak stává stále více jistějším ve finální analýze pro testované vzorky a výsledná síť by se měla stále více příklánět k jednomu či druhému výsledku (konstanta 1 - živý otisk prstu, konstanta 0 - falešný otisk prstu). Samozřejmě však je nutno podotknout, že čím více epoch je umělá neuronová síť trénovaná, tím může finální klasifikace trvat delší dobu. \\\\\\\\\
 
 \capstartfalse
 \begin{table}[!htbp]
@@ -1149,6 +1149,103 @@ Modré světlo má nejkratší vlnovou délku ve srovnání s zeleným a červen
 \caption{Srovnání přesnosti jednotlivých barev světla}
 \end{table}
 \capstarttrue
+
+\subsection{Výsledky analýzy datasetu obsahující všechny získané snímky otisků prstů}
+Na tento experiment byl použit celý nerozdělený dataset snímků získaných z bezdotykového zařízení. Dataset tedy obsahuje jak nasvícené otisky prstů modrým světlem, tak i zeleným a červeným. Cílem tohoto pokusu je najít nejlepší formu klasifikace, prahování pro použitou segmentaci a nejpřesnější metody. Je nutné však podotknout, že extrakce vektorů pro klasifikaci trvá déle, vzhledem k počtu snímků, zvláště u vlnkové transformace. Výsledkem jsou však velmi dobré klasifikační přesnosti. 
+
+Níže můžeme vidět tabulku počtu trénovaných otisků prstů a testovaných otisků, které měli neznámý výsledek a sloužili pro předpovězení finální živosti či neživosti. Dále vidíme míru zastoupení jednotlivých kategorií na základě nasvíceného světla a počty živých a falešných otisků prstů.
+
+\capstartfalse
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Barva světla} & \textbf{Otisky}  & \textbf{Trénované vzorky} & \textbf{Testované vzorky} \\ \hline
+\textbf{Modrá}        & \textbf{Živé}    & 23                        & 16                        \\ \hline
+\textbf{}             & \textbf{Falešné} & 23                        & 7                         \\ \hline
+\textbf{Zelená}       & \textbf{Živé}    & 23                        & 11                        \\ \hline
+\textbf{}             & \textbf{Falešné} & 23                        & 17                        \\ \hline
+\textbf{Červená}      & \textbf{Živé}    & 23                        & 12                        \\ \hline
+\textbf{}             & \textbf{Falešné} & 23                        & 15                        \\ \hline
+\textbf{Součet}       & \textbf{}        & 138                       & 78                        \\ \hline
+\end{tabular}
+\caption{Vlastnosti analyzovaného datasetu pro daný experiment}
+\end{table}
+\capstarttrue
+
+Pro experiment jsou opět použity všechny tři metody klasifikace - umělé neuronové sítě (ANN), SVM a rozhodovací stromy (DTs). Opět v průměrné přesnosti zaujímá první místo umělá neuronová síť, následována SVM. Jako poslední se pak umístili rozhodovací stromy, které i tak však dosahují přesnosti nad 83\%.
+
+\capstartfalse
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+                             & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
+\textbf{ANN} & 88.753                                         \\ \hline
+\textbf{SVM}                 & 85.023                                         \\ \hline
+\textbf{DTs}   & 83.625                                         \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti použitých klasifikačních metod}
+\end{table}
+\capstarttrue
+
+I u tohoto velkého získaného datasetu čítající více než 200 snímků, je metoda Otsu prahování ta, která dává nejpřesnější výsledky. Metody využívající segmentaci s adaptivním prahováním - metody Mean a Gaussian se umístili opět na druhém a třetím místě stejně jako u předchozího pokusu.
+
+\capstartfalse
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+                  & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
+\textbf{Otsu}     & 87.729                                         \\ \hline
+\textbf{Mean}     & 85.348                                         \\ \hline
+\textbf{Gaussian} & 83.333                                         \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti jednotlivých metod segmentace s využitým typem prahování}
+\end{table}
+\capstarttrue
+
+Nejdůležitějším úkolem bylo poté porovnat všechny metody a znovu nalézt tu, která vykazuje největší přesnost. Prvně porovnáme opět metody, u kterých byly využity všechny tři typy prahování při segmentaci obrazu. Jedná se teda o všechny přístupy s výjimkou vektoru založeného na Sobel a Laplaceově operátoru. Vektor založený na lokálním binárním vzoru vykazuje největší přesnost klasifikace 89.3\%. Nejpřesnějšími přístupy založenými na vlnkové transformaci jsou pak $rbio3.1$ s 86.9\% a $bior1.3$ s 86.3\%. Metody spadající do Daubechies vlnkové rodiny jsou jedny z nejméně přesných při našem experimentu - vlnka $db4$ má průměrnou přesnost 84.6\% a vlnka $db2$ pak 81.8\%.
+
+\capstartfalse
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+                 & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
+\textbf{LBP}     & 89.316                                         \\ \hline
+\textbf{rbio3.1} & 86.895                                         \\ \hline
+\textbf{bior1.3} & 86.325                                         \\ \hline
+\textbf{bior2.4} & 85.185                                         \\ \hline
+\textbf{db4}     & 84.615                                         \\ \hline
+\textbf{bior1.5} & 84.188                                         \\ \hline
+\textbf{db2}     & 81.766                                         \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti jednotlivých metod využívající všechny typy segmentace}
+\end{table}
+\capstarttrue
+
+Následující tabulka opět udává průměrnou přesnost metod, avšak pouze při využití Otsu prahování. Tímto způsobem tedy můžeme porovnat všech osm metod i s využitím Sobel a Laplaceova operátoru. Při využití našeho kompletního získaného datasetu ze senzoru vykazuje největší přesnost právě vektor založený na Sobel a Laplaceově operátoru. Tento nejrychlejší způsob extrakce vektoru pro tak rozsáhlý dataset klasifikuje otisky prstů s neznámým výsledkem s průměrnou přesností 92.7\%. Lokální binární vzor je pak druhým nejlepším přístupem pro finální klasifikaci s průměrnou přesností 91.9\%. Biortogonální spline vlnková rodina je pak nejlepší metodou vlnkové transformace pro tuto část experimentu. Vlnky $bior1.3$ a $bior2.4$ jsou nejvíce přesné, se shodným výsledkem 88.5\%. Bohužel vlnka $rbio3.1$ z rodiny reverzních biortogonálních spline vlnek je jednou z nejhorších při tomto přístupu, má přesnost 87.2\%. Nutno však podotknout, že segmentace s využitím Otsu prahování je celkově velmi přesnou a všechny metody dosahují aspoň nejméně 82\%, ale v mnohých případech mnohem více.
+
+\capstartfalse
+\begin{table}[!htbp]
+\centering
+\begin{tabular}{|c|c|}
+\hline
+                                    & \textbf{Průměrná přesnost klasifikace {[}\%{]}} \\ \hline
+\textbf{Sobel a Laplaceův operátor}                        & 92.735                                         \\ \hline
+\textbf{LBP}                    & 91.880                                         \\ \hline
+\textbf{bior1.3}                    & 88.462                                         \\ \hline
+\textbf{bior2.4} & 88.462                                         \\ \hline
+\textbf{db2}                    & 87.607                                         \\ \hline
+\textbf{bior1.5}                        & 87.607                                       \\ \hline
+\textbf{rbio3.1}                        & 87.179                                         \\ \hline
+\textbf{db4}                    & 82.906                                         \\ \hline
+\end{tabular}
+\caption{Srovnání přesnosti jednotlivých metod, které využívají pouze segmentaci s prahováním Otsu}
+\end{table}
+\capstarttrue
+
 
 \section{Implementace}
 
