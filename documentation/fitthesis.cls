@@ -74,9 +74,7 @@
 \usepackage{color}
 \usepackage{etoolbox}
 \usepackage{enumitem}
-\usepackage{ dsfont }
 \usepackage[]{algorithm2e}
-\usepackage{caption}
 
 \ifczech
   \main@language{czech}
@@ -196,7 +194,7 @@
 \def\@tdecl@CS{Prohlášení}
 \def\@tdecl@SK{Prehlásenie}
 \def\@tdecl@EN{Declaration}
-%\def\@tackn@CS{Poděkování}
+\def\@tackn@CS{Poděkování}
 \def\@tackn@SK{Poďakovanie}
 \def\@tackn@EN{Acknowledgements}
 
@@ -580,13 +578,12 @@ Management}{\@fit@EN}%
 
 \mktxt@b{16}{\ifslovak\@cite@SK\else\ifczech\@cite@CS\else\@cite@EN\fi\fi}
 \iftoggle{slovak_used}{
-  \noindent\MakeUppercase{\@author@s}, \@author@n. \it\@title\rm. Brno, \@year. \@projecttype@SK. \@vut@SK, \@fit@SK. {\@supervisor@SK} {\@supervisor@tp} {\@supervisor@n} {\@supervisor@s}{\ifx\undefined\@supervisor@ta\else,~\@supervisor@ta\fi}
+  \noindent\MakeUppercase{\@author@s}, \@author@n. \it\@title\rm. Brno, \@year. \@projecttype@SK. \@vut@SK, \@fit@SK. {\@supervisor@SK} {\ifx\undefined\@supervisor@tp\else\@supervisor@tp ~\fi}{\@supervisor@n} {\@supervisor@s}{\ifx\undefined\@supervisor@ta\else,~\@supervisor@ta\fi}
 }{
-  \noindent\MakeUppercase{\@author@s}, \@author@n. \it\@title\rm. Brno, \@year. \ifczech\@projecttype@CS\else\@projecttype@EN\fi. \ifczech\@vut@CS\else\@vut@EN\fi, \ifczech\@fit@CS\else\@fit@EN\fi. {\ifczech\@supervisor@CS\else\@supervisor@EN\fi} {\@supervisor@tp} {\@supervisor@n} {\@supervisor@s}{\ifx\undefined\@supervisor@ta\else,~\@supervisor@ta\fi}
+  \noindent\MakeUppercase{\@author@s}, \@author@n. \it\@title\rm. Brno, \@year. \ifczech\@projecttype@CS\else\@projecttype@EN\fi. \ifczech\@vut@CS\else\@vut@EN\fi, \ifczech\@fit@CS\else\@fit@EN\fi. {\ifczech\@supervisor@CS\else\@supervisor@EN\fi} {\ifx\undefined\@supervisor@tp\else\@supervisor@tp ~\fi}{\@supervisor@n} {\@supervisor@s}{\ifx\undefined\@supervisor@ta\else,~\@supervisor@ta\fi}
 }
 %===================================================
 \newpage
-
 
 }
 
@@ -996,7 +993,6 @@ Management}{\@fit@EN}%
 \usepackage{tabularx}
 \usepackage{graphicx}
 \usepackage{url}
-\usepackage{ dsfont }
 \DeclareUrlCommand\url{\def\UrlLeft{<}\def\UrlRight{>} \urlstyle{tt}}
 \def\UrlBreaks{\do\/\do-}
 

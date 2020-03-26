@@ -48,7 +48,7 @@ Skóre porovnání udává kvantifikovanou podobnost extrahovaného vzorku a ša
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=250px]{obrazky-figures/mira.png}
+    \includegraphics[width=220px]{obrazky-figures/mira.png}
     \caption{Skóre porovnání na základě zvoleného prahu, převzato z \cite{Drahansky}}
 \end{figure}
 
@@ -118,10 +118,10 @@ Nejdůležitějším částí detekce je senzor, který zaznamenává výsledný
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=300px]{obrazky-figures/kapacit.png}
+    \includegraphics[width=250px]{obrazky-figures/kapacit.png}
     \caption{Kapacitní senzor, převzato z \cite{Maltoni2009}}
 \end{figure}
-\item \textbf{Ultrazvukové senzory} - Jsou založeny na posílání akustického signálu prstu a zachytávání odraženého signálu. Odražený signál je použit na výpočet hloubky obrazu a struktury papilárních linií. Senzor se skládá z vysílače a příjimače. Vysílač generuje krátké zvukové pulsy a příjímač detekuje odpověď po odražení těchto akustických pulsů od povrchu prstu. Senzor je schopný detekovat strukturu otisku prstu i například přes tenké rukavice, stejně jako si dokáže poradit s případnými nečistotami i mastnotou. \cite{Maltoni2009}\\\\
+\item \textbf{Ultrazvukové senzory} - Jsou založeny na posílání akustického signálu prstu a zachytávání odraženého signálu. Odražený signál je použit na výpočet hloubky obrazu a struktury papilárních linií. Senzor se skládá z vysílače a příjimače. Vysílač generuje krátké zvukové pulsy a příjímač detekuje odpověď po odražení těchto akustických pulsů od povrchu prstu. Senzor je schopný detekovat strukturu otisku prstu i například přes tenké rukavice, stejně jako si dokáže poradit s případnými nečistotami i mastnotou. \cite{Maltoni2009}
 
 \begin{figure}[!htbp]
     \centering
@@ -415,8 +415,8 @@ Lokální binární vzor (\textit{Local Binary Pattern} - LBP) je jedním z hlav
 $$LBP(x_c,y_c) = \sum_{n=0}^{7}2^n(I_n-I(x_c,y_c)),$$
 kde $I_n$ jsou hodnoty sousedních pixelů, $I(x_c,y_c)$ je hodnota středového pixelu a $n$ je index souseda.\\\\
 Postup algoritmu je následující:\\
-1. Pro každý pixel je zjištěno okno o velikosti $3x3$ pixelů, kde námi procházený pixel $x$ je středem, středem s danými osmi sousedy.\\
-2. Pro každý pixel v $3x3$ okně je spočítána nová hodnota na základě tohoto pravidla - Pokud je hodnota zjišťovaného pixelu větší nebo rovna hodnotě středového pixelu, pak je novou hodnotou zjišťovaného pixelu 1, jinak 0.\\
+1. Pro každý pixel $I(x_c,y_c)$ je zjištěno okno o velikosti $3x3$ pixelů, kde námi procházený pixel $I(x_c,y_c)$ je středem, středem s danými osmi sousedními pixely $I_n$.\\
+2. Pro každý pixel $I_n$ v $3x3$ okně je spočítána nová hodnota na základě tohoto pravidla - Pokud je hodnota zjišťovaného pixelu $I_n$ větší nebo rovna hodnotě středového pixelu $I(x_c,y_c)$, pak je novou hodnotou zjišťovaného $I_n$ pixelu 1, jinak 0.\\
 3. Po spočítání nových hodnot celého $3x3$ okna je spočítána nová binární hodnota středového pixelu $I(x_c,y_c)$.\\
 
 \begin{figure}[!htbp]
@@ -633,13 +633,13 @@ Pro testování byly využity tři metody Wavelet rodiny biortogonálních splin
 \section{Matice souvislostí stupňů šedi v obraze (GLCM)}
 Matice GLCM (\textit{Grey Level Cooccurrence Matrix}) slouží jako klasifikátor textury v obraze. Jedná se o čtvercovou matici, která vyjadřuje, jak často se určité kombinace hodnot pixelů v obraze vyskytují. Jedná se tedy o statistickou analýzu dané textury. Existuje až čtrnáct charakteristik, které lze z matice pro daný obraz zjistit. Pro svoji práci jsem využila čtyři z nich - kontrast, korelaci, energii a homogenitu.
 
-Nechť $L$ x $L$ reprezentuje matici GLCM, kde prvky na souřadnicích $(i,j)$ reprezentují počet výskytů dvou sousedních pixelů, které mají hodnoty $i$ a $j$ v původním obraze. $P_{i,j}$ představuje normalizovanou matici GLCM, proměnná $levels$ dále počet stupňů šedi v obraze. Proměnné $\mu_i$, $\mu_j$, $\sigma_i$ a $\sigma_j$ charakterizují průměr a směrodatnou odchylku. \cite{TouchlessANN}
+Nechť $L$ x $L$ reprezentuje matici GLCM, kde prvky na souřadnicích $(i,j)$ reprezentují počet výskytů dvou sousedních pixelů, které mají hodnoty $i$ a $j$ v původním obraze. $P_{i,j}$ představuje normalizovanou matici GLCM, proměnná $levels$ dále počet stupňů šedi v obraze. Proměnné $\mu_i$, $\mu_j$, $\sigma_i$ a $\sigma_j$ charakterizují střední hodnotu a směrodatnou odchylku. \cite{TouchlessANN}
 
 Kontrast slouží pro měření intenzity mezi pixely a jejich sousedy v celém analyzovaném obraze. Jeho rozsah je $<0, (size(GLCM,1)-1)^2>$. Kontrast o hodnotě nula představuje konstantní obraz. \cite{MatlabGLCM} \cite{ScikitGLCM}
 $$contrast = \sum_{i,j=0}^{levels-1}P_{i,j}(i-j)^2$$
 
 Korelace měří míru korelace pixelu ke svým sousedům. Nabývá hodnot v rozsahu $<-1, 1>$. Tyto koncové míry charakterizují plně negativně nebo pozitivně korelovaný obraz. \cite{MatlabGLCM} Tuto charakteristiku můžeme spočítat podle následujícího vzorce: \cite{ScikitGLCM}
-$$correlation = \sum_{i,j=0}^{levels-1}[\frac{(i-\mu_i)(j-\mu_j)}{\sqrt{({\sigma_i}^2)({\sigma_j}^2)}}$$
+$$correlation = \sum_{i,j=0}^{levels-1}\frac{(i-\mu_i)(j-\mu_j)}{\sqrt{({\sigma_i}^2)({\sigma_j}^2)}}$$
 
 Energie počítá se sumou čtverců jednotlivých hodnot obsažených v GLCM matici. Výsledek energie leží v intervalu $<0, 1>$. Pro konstantní vstupní obraz má energie hodnotu 1. Jinak je tato vlastnost také nazývaná jako uniformita. Energie je založená na pravidelnosti, vysoké hodnoty představují obraz, který je pravidelně uspořádán. \cite{MatlabGLCM}
 
@@ -662,7 +662,7 @@ Umělá neuronová síť byla sestavena jako abstrakce podobná lidskému myšle
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=240px]{obrazky-figures/neuron.png}
+    \includegraphics[width=210px]{obrazky-figures/neuron.png}
     \caption{Obecný model umělého neuronu, převzato z \cite{PrednaskaIZU9}}
 \end{figure}
 
@@ -1083,7 +1083,11 @@ Následující tabulka opět udává průměrnou přesnost metod, avšak pouze p
 \section{Vyhodnocení experimentů}
 Extrahovaný dataset určený pro experimenty obsahuje celkem 216 snímků živých otisků prstů a falešných otisků prstů nasvícených jedním ze tří barevných LED světel - modrým, zeleným nebo červeným. Pro klasifikaci testovaných snímků a tedy předpovězení, zda se jedná o živý nebo falešný otisk prstu, byla využita umělá neuronová síť, SVM a rozhodovací stromy. Pro segmentaci otisku prstů z obrazu byly využity tři typy prahování - prahování pomocí Otsu a adaptivní prahování Mean a Gaussian. Tři různé vektory byly extrahované z obrazu pro experimenty. Vektor založený na lokálním binárním vzoru, vektor založený na Sobel a Laplaceově operátoru a vektor založen na vlnkové transformaci.
 
-V první části experimentu byl dataset rozdělen na tři menší, ve kterých byly pouze snímky nasvícené jedním z těchto světel. Cílem bylo nalézt nejspolehlivější klasifikátor, typ prahování při segmentaci, metodu a konečně barvu světla, při které dávají nasvícené otisky prstů nejlepší výsledky přesnosti. Nejspolehlivější metodou klasifikace byla umělá neuronová síť s přesností 90.1\%. I jednoduchá neuronová síť dokáže být velmi přesnou, implementovaná neuronová síť v programu je trénována pro 500 000 epoch. Byly provedeny pokusy i pro trénování s větším počtem epoch, ale neuronová síť pak vykazovala již známky tzv. \textit{overfittingu}, kdy při větším počtu epoch se chyba zvyšovala a ne snižovala. Klasifikace pomocí neuronové sítě trvá pouze několik málo sekund, hodně záleží na počtu epoch, kdy více epoch trvá programu delší dobu pro výpočet. Přestože jsem se snažila použít i metody adaptivního prahování, u kterých jsem předpokládala, že budou pro snímky ze senzoru vhodnější, jak segmentace s prahováním Otsu, právě tato metoda s konstantním prahem v závislosti na daném vstupním obrazu byla nejpřesnější, dosahovala 88.6\%. Výhodou této metody také vidím v tom, že při ní nemusí člověk nastavovat různé parametry jako u adaptivních metod prahování (velikost bloku, konstanta $C$), hodnota prahu je prostě vybrána automaticky, bez jakéhokoliv zkoumání, jaká konstanta $C$ nebo velikost bloku fungují nejlépe pro snímky z našeho použitého senzoru.
+V první části experimentu byl dataset rozdělen na tři menší, ve kterých byly pouze snímky nasvícené jedním z těchto světel. Cílem bylo nalézt nejspolehlivější klasifikátor, typ prahování při segmentaci, metodu a konečně barvu světla, při které dávají nasvícené otisky prstů nejlepší výsledky přesnosti. Nejspolehlivější metodou klasifikace byla umělá neuronová síť s přesností 90.1\%. I jednoduchá neuronová síť dokáže být velmi přesnou, implementovaná neuronová síť v programu je trénována pro 500 000 epoch. Byly provedeny pokusy i pro trénování s větším počtem epoch, ale neuronová síť pak vykazovala již známky situace zvané \textit{overfitting}, kdy při větším počtu epoch se chyba zvyšovala a nikoliv snižovala. Klasifikace pomocí neuronové sítě trvá pouze několik málo sekund, hodně záleží na počtu epoch, kdy více epoch trvá programu delší dobu pro výpočet. Přestože jsem se snažila použít i metody adaptivního prahování, u kterých jsem předpokládala, že budou pro snímky ze senzoru vhodnější, jak segmentace s prahováním Otsu, právě tato metoda s konstantním prahem v závislosti na daném vstupním obrazu byla nejpřesnější, dosahovala 88.6\%. Výhodou této metody také vidím v tom, že při ní nemusí člověk nastavovat různé parametry jako u adaptivních metod prahování (velikost bloku, konstanta $C$), hodnota prahu je prostě vybrána automaticky, bez jakéhokoliv zkoumání, jaká konstanta $C$ nebo velikost bloku fungují nejlépe pro snímky z našeho použitého senzoru. Nyní můžeme porovnat jednotlivé použité metody. Pro metodu využívající Sobel a Laplaceova operátoru byla zvolena pouze Otsu segmentace. Celkově největších přesností dosahovala metoda využívající lokální binární vzor (90.2\%), metoda používající Sobel a Laplaceův operátor (90.3\%) a vlnkové transformace s vlnkou z rodiny biortogonálních spline vlnek (průměr tří testovaných vlnek činil 85.0\%) a reverzních biortogonálních spline vlnek (86.3\%). Nakonec byla určena barva světla, která dávala při použití nejlepší výsledky. Snímky nasvícené červenou barvou světla prováděli klasifikaci s přesností 90.1\%. Otisky prstů nasvícené červeným světlem tedy poskytovaly nejlepší výsledky, narozdíl od modré a hlavně zelené barvy, kdy otisky prstů nasvícené modrou barvou se klasifikovali s průměrnou přesností 86.8\% a prsty nasvícené zeleným světlem pak 80.7\%.
+
+Cílem druhého experimentu bylo pracovat se všemi získanými snímky z bezdotykového senzoru. Těchto 216 bylo rozděleno znovu na snímky určené pro trénování s předem známým výsledkem a snímky určené pro testování, u které měl klasifikátor předpovědět, zda se jedná o živý nebo falešný otisk prstu. Nejlepším klasifikátorem se opět stala umělá neuronová síť jako v předchozím experimentu. Zde však dosahovala mírně nižší přesnosti než v předchozím případě - 88.8\%. Otsu metoda je opět nejlepším algoritmem využitým pro segmentaci. Dosahuje opět opravdu neptatrně nižší přesnosti jako u prvního experimentu - 87.7\%. Nejlepší metody jsou shodné s prvním experimentem, akorát celkové přesnosti se mírně změnili. Přesnost lokálního binárního vzoru se snížila na 89.3\%. Přesnost nejlepších metod vlnkové transformace se však průměrně zvýšila. Biortogonální spline vlnky dosahují průměrné přesnosti 85.2\% a reverzní biortogonální spline vlnky pak 86.9\%. Sobel a Laplaceův operátor pak klasifikuje otisky prstů s přesností 92.7\%. Metoda založená právě na Sobel a Laplaceově operátoru pak představuje v kombinaci s extrahovanými charakteristiky opravdu velmi přesnou a rychlou klasifikaci i tohoto rozsáhlejšího datasetu. Vlnková transformace je pak nejpomalejším řešením, ale umožňuje různé přístupy k analýze, knihovna PyWavelets nabízí různé vlnkové rodiny, které mezi sebou můžeme porovnat a stanovit ty nejvhodnější pro zkoumanou detekci živosti.
+
+Na základě obou experimentů můžeme stanovit záverečný úsudek. Pro detekci živosti na našem bezdotykovém zařízení je nejlepším řešením použít pro nasvicování otisků prstů světlo červené barvy. Nejrychlejším a nejspolehlivějším řešením pro klasifikaci snímků je pak získat předzpracované snímky s využitím Sobel a Laplaceova operátoru, z takto zpracovaných výsledků pak určit důležité vlastnosti pro GLCM matici a sestavit výsledný vektor. Poté je provedeno trénování neuronové sítě na vzorcích se známým výsledkem a výsledná predikce živosti a neživosti testovaných otisků prstů. Další možností je využití vlnkové transformace nebo lokálního binárního vzoru. Lokální binární vzor je druhou nejrychlejší metodou, jeho přesnost je opravdu pouze nepatrně nižší jak u Sobel a Laplaceova operátoru. Při využití vlnkové transformace je vhodné pak využít biortogonální spline vlnky nebo reverzní biortogonální spline vlnky. Správnost klasifikace je průměrně vyšší jak 80\%. Tato metoda je však nejpomalejším řešením, ale i tak poskytuje dobré výsledky a možné podklady pro další výzkum, díky možnosti experimentovat s různými vlnkovými rodinami a parametry.
 
 
 
