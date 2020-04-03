@@ -1,11 +1,11 @@
 \chapter{Úvod}
 S rozvojem moderních technologií a komunikačních zařízení se stále více aktuální stává otázka bezpečnosti a ochrany dat. Zabezpečování údajů pomocí biometrie si získalo velký úspěch, zvláště díky snadnému přihlášení do systému a větší míře bezpečnosti jak například u~hesel nebo různých několikamístných kódů. Není zde totiž potřeba si pamatovat údaje, stačí pouze použít svůj vlastní biometrický identifikátor, který bývá i bezpečnějším způsobem přihlášení nebo ochrany soukromých údajů. 
 
-Mnoho systémů dnes využívá zabezpečení pomocí otisku prstu. Přestože tento druh identifikace se nám může jevit jako opravdu spolehlivý, i tato metoda může být napadena. Zfalšované otisky prstů mohou být vyrobeny z různých syntetických materiálů, které nemusí být nijak moc nákladné. Je proto potřeba vytvořit algoritmus, který by mohl původ otisků prstů nějakým způsobem rozlišit a odhalit, zda je systém narušený útočníkem nebo se jedná o živý otisk prstu.
+Mnoho systémů dnes využívá zabezpečení pomocí otisku prstu. Přestože tento druh identifikace se nám může jevit jako opravdu spolehlivý, i tato metoda může být napadena. Zfalšované otisky prstů mohou být vyrobeny z různých syntetických materiálů, které nemusí být nijak moc nákladné. Proto je snahou vytvořit systém, který by mohl původ otisků prstů nějakým způsobem rozlišit a odhalit, zda je systém narušený útočníkem nebo se jedná o živý otisk prstu.
 
-Ve své práci se zaměřuji na implementaci kombinace různých algoritmů pro detekci živosti otisků prstů. Jedná se o algoritmy, které se zaměřují na zpracování obrazu, úpravu obrazu a výzkum, jak se dané algoritmy chovají u snímků živých a falešných otisků. Hlavním bodem analýzy je textura otisku prstu. Pro svůj výzkum jsem využila bezdotykový senzor, který poskytuje mnoho výhod, ve srovnání s klasickými dotykovými přístroji. Na daném senzoru probíhal sběr datasetu živých a falešných otisků prstů. Živé otisky mi poskytlo několik osob a falešné otisky byly vyrobeny z různých materiálů, poskytované naší fakultou. Pro práci s bezdotykovým senzorem bylo využito nasvicování prstů o světle různé vlnové délky. Na souborech získaných ze senzoru jsem poté testovala implementované algoritmy, zkoumala jejich chování a vyhodnocovala závěry.
+Ve své práci se zaměřuji na implementaci kombinace různých algoritmů pro detekci živosti otisků prstů. Jedná se o algoritmy, které se zaměřují na zpracování obrazu, úpravu obrazu a výzkum, jak se dané algoritmy chovají u snímků živých a falešných otisků. Hlavním bodem analýzy je textura otisku prstu. Pro svůj výzkum jsem využila bezdotykový senzor, který poskytuje mnoho výhod, ve srovnání s klasickými dotykovými přístroji. Na daném senzoru probíhal sběr datasetu živých a falešných otisků prstů. Živé otisky mi poskytlo několik osob a falešné otisky byly vyrobeny z různých materiálů, poskytované naší fakultou. Pro práci s bezdotykovým senzorem bylo využito osvětlování prstů světlem o různé vlnové délce. Na souborech získaných ze senzoru jsem poté testovala implementované algoritmy, zkoumala jejich chování a vyhodnocovala závěry.
 
-Výsledná analýza se sestávala z porovnání metod analýzy textury obrazu, analýzy hran a využití různých metod vlnkové transformace. Klasifikace probíhala za pomocí umělých neuronových sítí, metody podpůrných vektorů SVM a rozhodovacích stromů. Součástí mé práce je porovnání jednotlivých klasifikačních metod. Dále jsem zkoumala, jaké nasvicované světlo (červené, zelené nebo modré) vykazovalo největší přesnost a spolehlivost při mém výzkumu. 
+Výsledná analýza se sestávala z porovnání metod analýzy textury obrazu, analýzy hran a využití různých metod vlnkové transformace. Klasifikace probíhala za pomocí umělých neuronových sítí, metody podpůrných vektorů SVM a rozhodovacích stromů. Součástí mé práce je porovnání jednotlivých klasifikačních metod. Dále jsem zkoumala, jaké světlo vlnové délky viditelného spektra (červené, zelené nebo modré) vykazovalo největší přesnost a spolehlivost při mém výzkumu. 
 
 \chapter{Biometrie} 
 Biometrie je věda rozpoznávání identity člověka na základě jeho fyzických a behaviorálních vlastností jako například tvář, otisky prstů, hlas nebo oční duhovka. \cite{Jain2008} Slovo biometrie pochází z řeckých slov \textit{bios} (život) a \textit{metron} (měření). Biometrické identifikátory jsou v~informatice používány pro přístupovou kontrolu a identifikaci. Skoro všechny identifikátory jsou kombinací anatomických a behaviorálních charakteristik. U otisku prstu je behaviorální složkou skutečnost, že každý uživatel použije skener otisku prstů v závislosti na svém chování. Záleží i například na úhlu přiložení prstu nebo znečistění povrchu prstu či senzoru. U identifikace tváře pak záleží i na změnách pramenících z chování člověka (např. změna životního stylu vedoucí ke změně tělesné váhy). \cite{Maltoni2009}
@@ -54,11 +54,11 @@ Skóre porovnání udává kvantifikovanou podobnost extrahovaného vzorku a ša
 
 \subsection{Míra chybného přijetí (FAR)}
 FAR (\textit{False Acceptance Rate}) udává procentuální zastoupení identifikovaných instancí, kdy jsou neautorizované osoby akceptovány daným biometrickým systémem. Tato vlastnost je spočítána následujícím vzorcem:
-$$FAR = \frac{pocet\:prijatych\:neautorizovanych\:osob}{celkovy\:pocet\:testovaných\:vzorku} * 100 \%$$
+$$FAR = \frac{pocet\:prijatych\:neautorizovanych\:osob}{celkovy\:pocet\:testovaných\:vzorku} \cdot 100 \%$$
 
 \subsection{Míra chybného odmítnutí (FRR)}
 FRR (\textit{False Rejection Rate}) představuje procentuální zastoupení identifikovaných instancí, kdy jsou autorizované osoby nekorektně biometrickým systémem zamítnuty. Výpočet je obdobný jako u charakteristiky FAR.
-$$FRR = \frac{pocet\:zamitnutych\:autorizovanych\:osob}{celkovy\:pocet\:testovaných\:vzorku} * 100 \%$$
+$$FRR = \frac{pocet\:zamitnutych\:autorizovanych\:osob}{celkovy\:pocet\:testovaných\:vzorku} \cdot 100 \%$$
 
 \subsection{Souvislost FAR a FRR}
 Vliv charakteristik FAR a FRR znázorňuje následující graf. S větší úrovní zabezpečení se snižuje hodnota FAR, čili je přijato stále méně a méně neautorizovaných osob. Naopak se zvyšuje riziko zamítnutí autorizovaných osob daným systémem. Průsečík těchto dvou křivek nese zkratku EER (\textit{Equal Error Rate}) neboli Míra vyrovnání chyb. V tomto bodě bude chybně akceptován a chybně odmítnut stejný počet osob. Můžeme mít systém, který je více bezpečný, ale méně uživatelsky přívětivý nebo obráceně. \cite{FARFRR}
@@ -70,7 +70,7 @@ Vliv charakteristik FAR a FRR znázorňuje následující graf. S větší úrov
 \end{figure}
 
 \chapter{Detekce otisků prstů}
-Následující kapitola se zabývá základními informacemi o otiscích prstů. Po stručném shrnutí historie analýzy otisků prstů, jsem se zaměřila například na papilární linie, různé důležité markanty v otisku prstu nebo na typy senzorů, které se používají pro jejich snímání.
+Následující kapitola se zabývá základními informacemi o otiscích prstů. Po stručném shrnutí historie analýzy otisků prstů, je tato kapitola dále zaměřena například na papilární linie, různé důležité markanty v otisku prstu nebo na typy senzorů, které se používají pro jejich snímání.
 \section{Historie}
 Lidské otisky prstů byly objeveny na velkém počtu archeologických artefaktů a historických předmětů. I když tyto nálezy dokazují, že lidé si v té době byli vědomi unikátnosti otisků prstů, až v 16. století byla objevena první vědecká technika v jejich výzkumu. V roce 1864 anglický vědec Nehemiah Grew publikoval první vědeckou studii o hřebenech, rýhách a pórech v struktuře otisku prstu.
 
@@ -86,15 +86,15 @@ Daktyloskopie je naukou o obrazcích papilárních linií. S touto vědou se poj
 \end{itemize}
 
 \section{Struktura otisku prstu}
-Otisk prstu je tvořen vzorem papilárních linií. Výška papilárních je v rozmezí 0,1 - 0,4 mm a šířka v rozmezí 0,2 - 0,5 mm. \cite{Drahansky} Průběhy papilárních linií jsou jedinečné pro každého člověka. S přibývajícím věkem se mění rozměry plošek prstů či dlaní, avšak struktura papilárních linií zůstává stejná.
+Otisk prstu je tvořen vzorem papilárních linií. Výška papilárních je v rozmezí 0,1 -- 0,4 mm a šířka v rozmezí 0,2 -- 0,5 mm. \cite{Drahansky} Průběhy papilárních linií jsou jedinečné pro každého člověka. S přibývajícím věkem se mění rozměry plošek prstů či dlaní, avšak struktura papilárních linií zůstává stejná.
 
-Nejvýznamější atributy papilárních liníí se vyvíjí již v nitroděložní části života. Konečná podoba papilárních linií je u dítěte již v 6. - 7. měsíci nitroděložního vývoje. \cite{DrahanskyBrezinova}
+Nejvýznamější atributy papilárních liníí se vyvíjí již v nitroděložní části života. Konečná podoba papilárních linií je u dítěte již v 6. -- 7. měsíci nitroděložního vývoje. \cite{DrahanskyBrezinova}
 
 Otisky prstů dělíme na základní tři druhy: \cite{Drahansky}
 \begin{itemize}
-\item Válený otisk (barvený, rolovaný)
-\item Píchaný otisk (živý)
-\item Latentní otisk (skrytý)
+\item válený otisk (barvený, rolovaný)
+\item píchaný otisk (živý)
+\item latentní otisk (skrytý)
 \end{itemize}
 
 \begin{figure}[!htbp]
@@ -106,7 +106,7 @@ Otisky prstů dělíme na základní tři druhy: \cite{Drahansky}
 \section{Typy senzorů}
 Nejdůležitějším částí detekce je senzor, který zaznamenává výsledný otisk prstu. Řadíme je do těchto základních kategorií:
 \begin{itemize}
-\item \textbf{Optické senzory} - Využívají jednoduchý zdroj světla (LED), který osvětlí plochu prstu. \cite{Drahansky} Nejvíce používaným zástupcem optických senzorů je senzor FTIR. Prst se při snímání dotýká skleněného nebo plastového hranolu. Při dotyku jsou hřebeny papilárních linií v kontaktu s povrchem snímače, ale údolí papilárních linií jsou vzdálena. Světlo pocházející z hranolu dopadá na prst a je odraženo údolími papilárních liníí nebo náhodně pohlceno hřebeny. Ve výsledném obrazu jsou pak hřebeny tmavá místa a údolí světlá místa. FTIR snímače dokáží snímat 3D otisk prstu a tak dokáží detekovat i zfalšované otisky prstu, které například pocházejí z fotografie. \cite{Maltoni2009}
+\item \textbf{Optické senzory} - Využívají jednoduchý zdroj světla (LED), který osvětlí plochu prstu. \cite{Drahansky} Nejvíce používaným zástupcem optických senzorů je infračervený spektrometr s Fourierovou transformací (FTIR). Prst se při snímání dotýká skleněného nebo plastového hranolu. Při dotyku jsou hřebeny papilárních linií v kontaktu s povrchem snímače, ale údolí papilárních linií jsou vzdálena. Světlo pocházející z hranolu dopadá na prst a je odraženo údolími papilárních liníí nebo náhodně pohlceno hřebeny. Ve výsledném obrazu jsou pak hřebeny tmavá místa a údolí světlá místa. FTIR snímače dokáží snímat 3D otisk prstu a tak dokáží detekovat i zfalšované otisky prstu, které například pocházejí z fotografie. \cite{Maltoni2009}
 
 \begin{figure}[!htbp]
     \centering
@@ -142,20 +142,20 @@ Nejdůležitějším částí detekce je senzor, který zaznamenává výsledný
 \section{Základní druhy markantů}
 Otisk prstu obsahuje útvary, které tvoří papilární linie - markanty. Mezi důležité markanty patří: \cite{Drahansky}
 \begin{itemize}
-    \item Ukončení (\textit{Line Ending})
-    \item Jednoduchá vidlička (\textit{Simple Bifurcation})
-    \item Dvojitá vidlička (\textit{Double Bifurcation})
-    \item Trojitá vidlička (\textit{Triple Bifurcation})
-    \item Hák (\textit{Hook})
-    \item Křížení (\textit{Crossing})
-    \item Boční kontakt (\textit{Side Contact})
-    \item Bod (\textit{Point})
-    \item Interval (\textit{Interval})
-    \item Jednoduchá smyčka (\textit{Single Whorl})
-    \item Dvojitá smyčka (\textit{Double Whorl})
-    \item Jednoduchý most (\textit{Single Bridge})
-    \item Dvojitý most (\textit{Twin Bridge})
-    \item Průsečná linie (\textit{Through Line})
+    \item ukončení (\textit{Line Ending})
+    \item jednoduchá vidlička (\textit{Simple Bifurcation})
+    \item dvojitá vidlička (\textit{Double Bifurcation})
+    \item trojitá vidlička (\textit{Triple Bifurcation})
+    \item hák (\textit{Hook})
+    \item křížení (\textit{Crossing})
+    \item boční kontakt (\textit{Side Contact})
+    \item bod (\textit{Point})
+    \item interval (\textit{Interval})
+    \item jednoduchá smyčka (\textit{Single Whorl})
+    \item dvojitá smyčka (\textit{Double Whorl})
+    \item jednoduchý most (\textit{Single Bridge})
+    \item dvojitý most (\textit{Twin Bridge})
+    \item průsečná linie (\textit{Through Line})
 \end{itemize}
 
 \begin{figure}[!htbp]
@@ -169,12 +169,12 @@ U přístupových systémů se však využívá pouze ukončení (\textit{Line E
 \section{Třídy otisků prstů}
 Otisky prstů můžeme na základě charakteristických znaků rozdělit do následujících kategorií: \cite{Drahansky}
 \begin{itemize}
-    \item Oblouk (\textit{Arch})
-    \item Klenutý oblouk (\textit{Tended Arch})
-    \item Spirála / závit (\textit{Whorl})
-    \item Levá smyčka (\textit{Left Loop})
-    \item Pravá smyčka (\textit{Right Loop})
-    \item Dvojitá smyčka (\textit{Twin Loop})
+    \item oblouk (\textit{Arch})
+    \item klenutý oblouk (\textit{Tended Arch})
+    \item spirála / závit (\textit{Whorl})
+    \item levá smyčka (\textit{Left Loop})
+    \item pravá smyčka (\textit{Right Loop})
+    \item dvojitá smyčka (\textit{Twin Loop})
 \end{itemize}
 
 \begin{figure}[!htbp]
@@ -186,8 +186,8 @@ Otisky prstů můžeme na základě charakteristických znaků rozdělit do nás
 \section{Falšování otisků prstů a výpočet přesnosti analýzy}
 Falešné biometrické reprezentace jsou obecně velkým nebezpečím, protože umožňují vydávat se zločinci za někoho jiného a tím narušit soukromí a bezpečnost jedince. Abnormální otisky prstů dělíme do dvou kategorií:
 \begin{itemize}
-    \item Falešné otisky prstů
-    \item Pozměněné otisky prstů
+    \item falešné otisky prstů
+    \item pozměněné otisky prstů
 \end{itemize}
 Falešný otisk prstu reprezentuje repliku skutečného otisku prstu vyrobeného z materiálů jako je želatina, silikon nebo latex. Biometrické zařízení musí rozhodnout, zda otisk je živý nebo falešný. Tato procedura se nazývá detekce živosti.
 Pozměněné otisky prstů jsou skutečné, avšak jejich struktura je změněna. Otisky mohou být neúplné, pokřivené. Důvodem poškození otisku mohou být nemoci kůže, např. pořezání, popálenina, poleptání silnými chemikáliemi, transplantace kůže nebo různé kožní nemoci. \cite{Petrovici}
@@ -281,7 +281,7 @@ Tato metoda využívá měření obsahu kyslíku v krvi. Používá LED a fotode
 \subsection{Teplý a studený podnět}
 Lidský prst dokáže odlišně reagovat na daný podnět, který je umístěný u senzoru. Výsledná informace je zaznamenaná, konkrétně se jedná o kolísání rychlosti průtoku krve v periferních cévách. Při teplém podnětu se amplituda rychlosti toku zvyšuje, při studeném podnětu pak snižuje. Tato metoda však může být ovlivněna citlivou lidskou periferní nervovou soustavou, kdy chvíli trvá, než správně zareaguje na teplý nebo studený podnět u daného člověka. \cite{AdvancedBiometricsTechnologies2011}
 \subsection{Teplota}
-Teplota lidské kůže u prstu se pohybuje okolo 25 - 37 stupňů Celsia. Nicméně tento rozsah musí být širší, aby mohl systém pracovat pod různými podmínkami, i díky lidem, kteří mají problém s cirkulací krve. Tahle skutečnost však může vést k chybným rozhodnutím při této metodě. Dalším možným řešením je zahřátí prstu. Použitím falešného otisku dosáhneme rozdílu zhruba dvou stupňů Celsia. Rozdíl je tedy malý a tato metoda není dostatečně spolehlivou pro bezpečnou detekci živosti otisků prstů. \cite{AdvancedBiometricsTechnologies2011}
+Teplota lidské kůže u prstu se pohybuje okolo 25 -- 37 stupňů Celsia. Nicméně tento rozsah musí být širší, aby mohl systém pracovat pod různými podmínkami, i díky lidem, kteří mají problém s cirkulací krve. Tahle skutečnost však může vést k chybným rozhodnutím při této metodě. Dalším možným řešením je zahřátí prstu. Použitím falešného otisku dosáhneme rozdílu zhruba dvou stupňů Celsia. Rozdíl je tedy malý a tato metoda není dostatečně spolehlivou pro bezpečnou detekci živosti otisků prstů. \cite{AdvancedBiometricsTechnologies2011}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=270px]{obrazky-figures/thermoscan.PNG}
@@ -360,9 +360,9 @@ Adaptivní prahování slouží pro analýzu obrazu při situacích, kdy určit�
   \end{minipage}
 \end{figure}
 \section{Segmentace}
-Při segmentaci vybereme z vstupního obrazu pouze otisk prstu, což nám napomáhá eliminovat pozadí obrazu. Bylo využito morfologického otevření - kombinace eroze a následné diletace obrazu.
+Při segmentaci je vybrán z vstupního obrazu pouze otisk prstu, což napomáhá eliminovat pozadí obrazu. Bylo využito morfologického otevření - kombinace eroze a následné diletace obrazu.
 
-Morfologické operace se používají obvykle na úpravu binárního obrazu. Potřebují dva vstupy - náš vstupní obraz a jádro. \cite{OpenCVMorphology} Tyto operace se používají často na obrazové předzpracování - odstraňují šum a zjednodušují tvary objektů. Eroze je morfologickou operací, která je užitečná pro odstranění malých bílých částí v obraze. Diletace je opakem eroze a použivá se k zaplnění mezer. \cite{ExerciseMorphology}
+Morfologické operace se používají obvykle na úpravu binárního obrazu. Potřebují dva vstupy - daný vstupní obraz a jádro. \cite{OpenCVMorphology} Tyto operace se používají často na obrazové předzpracování - odstraňují šum a zjednodušují tvary objektů. Eroze je morfologickou operací, která je užitečná pro odstranění malých bílých částí v obraze. Diletace je opakem eroze a použivá se k zaplnění mezer. \cite{ExerciseMorphology}
 
 Tento algoritmus má za cíl vytvořit masku, která bude určovat pozici otisku prstu v obrazu. Struktura objektu se tedy při vzniku masky zjednodušší. Výsledná maska je následně aplikována na normalizovaný obraz a je tedy vybrána pouze část obrazu, která obsahuje otisk prstu, pozadí zůstává bílé.
 
@@ -415,9 +415,11 @@ Lokální binární vzor (\textit{Local Binary Pattern} - LBP) je jedním z hlav
 $$LBP(x_c,y_c) = \sum_{n=0}^{7}2^n(I_n-I(x_c,y_c)),$$
 kde $I_n$ jsou hodnoty sousedních pixelů, $I(x_c,y_c)$ je hodnota středového pixelu a $n$ je index souseda.\\\\
 Postup algoritmu je následující:\\
-1. Pro každý pixel $I(x_c,y_c)$ je zjištěno okno o velikosti $3x3$ pixelů, kde námi procházený pixel $I(x_c,y_c)$ je středem, středem s danými osmi sousedními pixely $I_n$.\\
-2. Pro každý pixel $I_n$ v $3x3$ okně je spočítána nová hodnota na základě tohoto pravidla - Pokud je hodnota zjišťovaného pixelu $I_n$ větší nebo rovna hodnotě středového pixelu $I(x_c,y_c)$, pak je novou hodnotou zjišťovaného $I_n$ pixelu 1, jinak 0.\\
-3. Po spočítání nových hodnot celého $3x3$ okna je spočítána nová binární hodnota středového pixelu $I(x_c,y_c)$.\\
+\begin{enumerate}
+    \item Pro každý pixel $I(x_c,y_c)$ je zjištěno okno o velikosti $3\times3$ pixelů, kde námi procházený pixel $I(x_c,y_c)$ je středem, středem s danými osmi sousedními pixely $I_n$.
+    \item Pro každý pixel $I_n$ v $3\times3$ okně je spočítána nová hodnota na základě tohoto pravidla - Pokud je hodnota zjišťovaného pixelu $I_n$ větší nebo rovna hodnotě středového pixelu $I(x_c,y_c)$, pak je novou hodnotou zjišťovaného $I_n$ pixelu 1, jinak 0.
+    \item Po spočítání nových hodnot celého $3\times3$ okna je spočítána nová binární hodnota středového pixelu $I(x_c,y_c)$.
+\end{enumerate}
 
 \begin{figure}[!htbp]
     \centering
@@ -439,8 +441,8 @@ Pro výpočet lokálního binárního vzoru byl použitý algoritmus, který lze
  \For{každý obrázek}{
     \For{každý pixel v obrazu}
     {
-        zjisti pro každý pixel jeho sousední pixely v okně 3x3 vyjma krajních pixelů\;
-        \For{každý pixel v okně 3x3}
+        zjisti pro každý pixel jeho sousední pixely v okně 3$\times$3 vyjma krajních pixelů\;
+        \For{každý pixel v okně 3$\times$3}
         {
             porovnej každý sousední pixel se středovým pixelem\;
             \eIf{prostřední pixel > daný sousední pixel}
@@ -480,7 +482,7 @@ Výsledný předzpracovaný obraz po aplikaci lokálního binárního vzoru mů�
 \section{Detektory hran Sobel a Laplaceův operátor}
 Sobel a Laplaceův operátor jsou vhodným řešením detekce hran v obrazu a tedy také popisem textury. Umožňují rychlé a snadné řešení jak snížit počet dat - pixelů pro analýzu a zvýraznit strukturální aspekt vstupního obrazu. 
 
-Sobel operátor je metodou založenou na gradientu. Principem je spočítání derivací 1. řádu pro obraz při ose $x$ a ose $y$. Získáme tak dva odlišné výsledky, se kterými můžeme dále pracovat. Pro analýzu bylo využito jádro (\textit{kernel}) o velikosti $5x5$, které se využívá pro aproximování daných výsledků - derivací 1. řádu, protože samotný obraz není spojitý. 
+Sobel operátor je metodou založenou na gradientu. Principem je spočítání derivací 1. řádu pro obraz při ose $x$ a ose $y$. Získáme tak dva odlišné výsledky, se kterými můžeme dále pracovat. Pro analýzu bylo využito jádro (\textit{kernel}) o velikosti $5\times5$, které se využívá pro aproximování daných výsledků - derivací 1. řádu, protože samotný obraz není spojitý. 
 
 Laplaceův operátor využívá pouze jedno jádro. Získáme tedy jeden finální výsledek, ne dva výsledky pro osu $x$ a $y$ jako u předchozího detektoru hran. \cite{SobelLaplacianDetectors}
 
@@ -548,18 +550,19 @@ Diskrétní vlnková transformace (\textit{Discrete Wavelet Transform} - DWT) pr
 $$s = 2^j$$
 $$p = k2^j$$
 
+\noindent
 Pak můžeme vzorec diskrétní vlnkové transformace napsat následujícím způsobem:
 $$\Psi_{j,k} = \frac{1}{\sqrt{2^j}}\Psi\frac{n-k2^j}{2^j}$$
 
 Diskrétní vlnková transformace při zpracování obrazu se využívá hlavně pro detekci hran a textur, kompresi, filtraci šumu a získání důležitých vlastností pro další klasifikaci. \cite{WaveletElektrorevue}
 
-\subsection{Wavelet rodiny vhodné pro diskrétní vlnkovou transformaci v analýze obrazu}
+\subsection{Wavelet rodiny vhodné pro analýzu obrazu}
 Existuje mnoho druhů mateřských vlnek. Na základě mateřské vlnky můžeme odvodit celou danou rodinu. Vlnky mají různé vlastnosti: \cite{PyWaveletsBrowser}
 \begin{itemize}
-    \item Symetrie
-    \item Asymetrie
-    \item Ortogonálnost - Jedná se o vlnku, jejíž vlnková transformace je ortogonální, to znamená, že inverzní vlnková transformace je sdružená vlnkové transformaci. \cite{WaveletBasics} 
-    \item Biortogonálnost - Vlastnost vlnky, kdy je daná vlnková transformace invertovaná, ale ne nutně ortogonální. 
+    \item symetrie
+    \item asymetrie
+    \item ortogonálnost - Jedná se o vlnku, jejíž vlnková transformace je ortogonální, to znamená, že inverzní vlnková transformace je sdružená vlnkové transformaci. \cite{WaveletBasics} 
+    \item biortogonálnost - Vlastnost vlnky, kdy je daná vlnková transformace invertovaná, ale ne nutně ortogonální. 
 \end{itemize}
 
 Pro diskrétní vlnkovou transformaci se používají například následující Wavelet rodiny.
@@ -633,7 +636,7 @@ Pro testování byly využity tři metody Wavelet rodiny biortogonálních splin
 \section{Matice souvislostí stupňů šedi v obraze (GLCM)}
 Matice GLCM (\textit{Grey Level Cooccurrence Matrix}) slouží jako klasifikátor textury v obraze. Jedná se o čtvercovou matici, která vyjadřuje, jak často se určité kombinace hodnot pixelů v obraze vyskytují. Jedná se tedy o statistickou analýzu dané textury. Existuje až čtrnáct charakteristik, které lze z matice pro daný obraz zjistit. Pro svoji práci jsem využila čtyři z nich - kontrast, korelaci, energii a homogenitu.
 
-Nechť $L$ x $L$ reprezentuje matici GLCM, kde prvky na souřadnicích $(i,j)$ reprezentují počet výskytů dvou sousedních pixelů, které mají hodnoty $i$ a $j$ v původním obraze. $P_{i,j}$ představuje normalizovanou matici GLCM, proměnná $levels$ dále počet stupňů šedi v obraze. Proměnné $\mu_i$, $\mu_j$, $\sigma_i$ a $\sigma_j$ charakterizují střední hodnotu a směrodatnou odchylku. \cite{TouchlessANN}
+Nechť $L$ $\times$ $L$ reprezentuje matici GLCM, kde prvky na souřadnicích $(i,j)$ reprezentují počet výskytů dvou sousedních pixelů, které mají hodnoty $i$ a $j$ v původním obraze. $P_{i,j}$ představuje normalizovanou matici GLCM, proměnná $levels$ dále počet stupňů šedi v obraze. Proměnné $\mu_i$, $\mu_j$, $\sigma_i$ a $\sigma_j$ charakterizují střední hodnotu a směrodatnou odchylku. \cite{TouchlessANN}
 
 Kontrast slouží pro měření intenzity mezi pixely a jejich sousedy v celém analyzovaném obraze. Jeho rozsah je $<0, (size(GLCM,1)-1)^2>$. Kontrast o hodnotě nula představuje konstantní obraz. \cite{MatlabGLCM} \cite{ScikitGLCM}
 $$contrast = \sum_{i,j=0}^{levels-1}P_{i,j}(i-j)^2$$
@@ -645,7 +648,7 @@ Energie počítá se sumou čtverců jednotlivých hodnot obsažených v GLCM ma
 
 S pojmem energie úzce souvisí vlastnost ASM (\textit{Angular Second Moment}), který se spočítá podle následující rovnice: \cite{ScikitGLCM}
 $$ASM = \sum_{i,j=0}^{levels-1}P_{i,j}^2$$
-
+\noindent
 Výsledná energie se pak spočte jako: \cite{ScikitGLCM}
 $$energy = \sqrt{ASM}$$
 
