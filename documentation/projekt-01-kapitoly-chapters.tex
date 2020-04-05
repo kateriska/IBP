@@ -306,7 +306,7 @@ I bříško prstu obsahuje potní žlázy, proto detekce pórů může poslouži
 
 
 
-\chapter{Využité algoritmy pro předzpracování a analýzu živosti otisků prstů}
+\chapter{Algoritmy pro předzpracování a analýzu}
 Tato kapitola se zabývá popisem použitých algoritmů pro předzpracování obrazu a následně vybraných algoritmů pro samotnou detekci živosti otisků prstů. Pro hlavní analýzu bylo algoritmů vybráno více. Samotná detekce se pak sestává z aplikace různých řešení a získání vlastností z samotného obrazu otisku prstu, které jsou použitelné pro rozlišení živých a falešných vzorků.
 \section{Převedení na normalizovaný obraz}
 Po načtení obrazu bylo potřeba obraz převést na šedotonový. Poté byla provedena normalizace obrazu. Normalizace je proces, při kterém je upraven rozsah hodnot intenzity pixelů. Základem je zvýšit dynamický rozsah šedotónového jasu. U otisků prstů tento algoritmus nemění ostrost hřebenů a údolí papilárních linií. Hlavním účelem je minimalizovat změny šedo-úrovňových hodnot podél hřebenů a údolí. 
@@ -328,7 +328,7 @@ Po načtení obrazu bylo potřeba obraz převést na šedotonový. Poté byla pr
 
 
 \section{Prahování}
-Při prahování jsou světlé objekty odděleny od tmavých pomocí zadaných prahů. Tento algoritmus je nutno použít před samotnou segmentací obrazu pomocí morfologických metod. Jednoduché prahování závisí na oddělení světlých a tmavých objektů podle daných konstantních prahů. Existují však i další metody prahování, které poskytují lepší analýzu a výsledky a při mém výzkumu byly použity.
+Při prahování jsou světlé objekty odděleny od tmavých pomocí zadaných prahů. Tento algoritmus je nutno použít před samotnou segmentací obrazu pomocí morfologických metod. Jednoduché prahování závisí na oddělení světlých a tmavých objektů podle daných předem zvolených konstantních prahů. Existují však i další metody prahování, které poskytují lepší analýzu a výsledky a při mém výzkumu byly použity. Jedná se o níže popsané metody.
 
 \subsection{Prahování pomocí metody Otsu}
 Při globálním prahování je nutné si vybrat konstantní práh již před analýzou obrazu. Metoda Otsu tento globální optimální práh vybírá automaticky, na základě daného vstupního obrazu. \cite{OpenCVTresholding} Výpočet daného optimálního prahu zahrnuje iteraci přes všechny možné prahové hodnoty a výpočet rozložení pixelů na jednotlivých stranách prahu, pixelů, které spadají buď do popředí nebo pozadí obrazu. Účelem je pak najít hodnotu prahu, kdy součet rozložení na popředí a pozadí je na svém minimu. \cite{LabBookPagesTresholding}
@@ -657,7 +657,7 @@ Poslední extrahovanou charakteristikou byla homogenita. Tato vlastnost předsta
 $$homogeneity = \sum_{i,j=0}^{levels-1}\frac{P_{i,j}}{1+(i-j)^2}$$
 
 
-\chapter{Klasifikační algoritmy pro rozhodování o živosti a neživosti otisku prstu}
+\chapter{Rozhodovací algoritmy živosti}
 Pro samotné rozhodnutí o živosti či neživosti otisku prstu je potřeba navrhnout a použít některý z klasifikátorů, které jsou založeny na bázi umělé inteligence. Pro vlastní výzkum jsem použila neuronovou síť, klasifikátor SVM (\textit{Support Vector Machines}) a rozhodovací stromy. Tato kapitola popisuje stručný úvod do umělé inteligence a popisy jednotlivých užitých přístupů.
 
 \section{Umělá neuronová síť}
@@ -669,7 +669,7 @@ Umělá neuronová síť byla sestavena jako abstrakce podobná lidskému myšle
     \caption{Obecný model umělého neuronu, převzato z \cite{PrednaskaIZU9}}
 \end{figure}
 
-Každá neuronová síť funguje na následujícím principu: Váhy se vynásobí s daným vstupem, dále probíhá přičtení speciální hodnoty zvané \textit{bias}. Poté se aplikuje daná aktivační funkce a vstup se předá další vrstvě. Provádí se zpětná propagace, při které se aktualizují váhy. Vnitřní stav sítě můžeme tedy charakterizovat následujícím předpisem: $w_0x_0 + \sum_{i=1}^{n}P_{i,j}w_ix_i$, kde bias představuje prvek s hodnotou $x_0$ a s vahou $w_0$ a proměnné $x_1, x_2, ...x_i$ představují vstupní hodnoty s danými vahami $w_1, w_2, ...w_i$. V některých případech může být výstup daných hodnot velmi velký, pokud pracujeme s více vrstvami neuronové sítě, hodnoty se mohou stále stávat vyššími a samotný výpočet pak nekontrolovatelným. Proto hraje důležitou roli aktivační funkce, která na výstupu pracuje s hodnotami v určitém intervalu, např. $(-1, 1)$ nebo $(0, 1)$. \cite{MediumDeepLearning} 
+Každá neuronová síť funguje na následujícím principu: Váhy se vynásobí s daným vstupem, dále probíhá přičtení speciální hodnoty zvané \textit{bias}. Poté se aplikuje daná aktivační funkce a vstup se předá další vrstvě. Provádí se zpětná propagace, při které se aktualizují váhy. Vnitřní stav sítě můžeme tedy charakterizovat následujícím předpisem: $w_0x_0 + \sum_{i=1}^{n}P_{i,j}w_ix_i$, kde bias představuje prvek s hodnotou $x_0$ a s vahou $w_0$ a proměnné $x_1, x_2,\ldots x_i$ představují vstupní hodnoty s danými vahami $w_1, w_2, \ldots w_i$. V některých případech může být výstup daných hodnot velmi velký, pokud pracujeme s více vrstvami neuronové sítě, hodnoty se mohou stále stávat vyššími a samotný výpočet pak nekontrolovatelným. Proto hraje důležitou roli aktivační funkce, která na výstupu pracuje s hodnotami v určitém intervalu, např. $(-1, 1)$ nebo $(0, 1)$. \cite{MediumDeepLearning} 
 
 V rámci bakalářské práce jsem jako aktivační funkci využila sigmoidu. Jedná se o nelineární funkci nabývající hodnot v intervalu $(0, 1)$. Proto je vhodná pro modely, u kterých máme předpovědět pravděpodobnost vstupu. Rovnice funkce je následující:
 $$f(x)=\frac{1}{1+e^{-x}}$$
@@ -694,8 +694,8 @@ Parametr $\alpha$ je malá konstanta zvaná \textit{learning rate}, která rozho
 Důležitým parametrem pro práci umělé neuronové sítě je počet epoch. Každou epochu se provádí zpracování dat a zpětná propagace, kdy se aktualizují hodnoty vah vstupních vektorů. Po procesu trénování je schopna umělá neuronová síť předpovědět výsledky neznámých vzorků. Čím větší počet epoch probíhá trénování umělé neuronové sítě, tím dokáže algoritmus s větší jistotou rozlišit, zda je otisk prstu živý nebo falešný. Menší nevýhodou je, že trénování sítě při vyšším počtu epoch trvá déle, řádově několik sekund, výhodou však je stále nižší chyba a také větší jistota ve finální klasifikaci testovaných otisků prstů.
 
 
-\section{Algoritmy podpůrných vektorů (SVM)}
-Algoritmy podpůrných vektorů (\textit{Support Vector Machines}) jsou další metodou strojového učení sloužící pro klasifikaci. Principem algoritmu je nalézt nadrovinu pro členění daných vektorů. Data určená pro trénování, u kterých víme, jaké mají výsledky, slouží právě pro nalezení optimální nadroviny, která potom rozdělí do kategorií testované vzorky, u kterých předpovídáme výsledek. V dvourozměrném prostoru je nadrovinou přímka, která dělí rovinu na dvě části (poloroviny), kdy vzorky z jedné třídy leží v jedné polorovině, vzorky druhé třídy pak v druhé polorovině. 
+\section{Algoritmy podpůrných vektorů}
+Algoritmy podpůrných vektorů (\textit{Support Vector Machines (SVM)}) jsou další metodou strojového učení sloužící pro klasifikaci. Principem algoritmu je nalézt nadrovinu pro členění daných vektorů. Data určená pro trénování, u kterých víme, jaké mají výsledky, slouží právě pro nalezení optimální nadroviny, která potom rozdělí do kategorií testované vzorky, u kterých předpovídáme výsledek. V dvourozměrném prostoru je nadrovinou přímka, která dělí rovinu na dvě části (poloroviny), kdy vzorky z jedné třídy leží v jedné polorovině, vzorky druhé třídy pak v druhé polorovině. 
 
 Pokud není možné vzorky rozumně rozdělit polorovinou, aplikujeme transformaci a přidáme jeden další rozměr, osu $z$. Nechť hodnoty bodů na ose $z$ mají hodnotu $w = x^2 + y^2$. V tomto případě můžeme měnit vzdálenosti bodu od osy $z$. Pokud nyní načrtneme graf o souřadních $yz$, vidíme zde rozdělení, které můžeme zase oddělit přímkou. 
 
@@ -749,7 +749,7 @@ Výhody rozhodovacích stromů jsou: \cite{ScikitDTs}
 
 Algoritmus však může v některých případech vytvořit až příliš komplexní strom, který data špatně zpracovává a generalizuje. Tato situace se nazývá overfitting. Jedná se tedy o chybu v modelování, kdy je model příliš složitý a fukce je příliš kompatabilní s omezenou sadou datových bodů. Při nepatrně nepřesných údajích může finální model získat podstatné chyby a predikce může být pak nepřesná.
     
-\chapter{Průběh implementace, experimenty a vyhodnocení}
+\chapter{Implementace, experimenty a vyhodnocení}
 Cílem samotné implemetace bylo aplikovat algoritmy pro předzpracování obrazu a následně využít postupy, které mohou zajistit na základě analýzy textury výsledné rozhodnutí o živosti či neživosti daného otisku prstu.
 Pro implementaci byl využit jazyk Python 3.6 s dalšími podporovanými knihovnami. Pro vývoj bylo použito prostředí operačního systému Ubuntu 18.04.4 LTS.
 
@@ -760,7 +760,7 @@ OpenCV je open source knihovna, která slouží pro práci s obrazem a získáv�
 Pokročilejším ekvivalentem pro knihovnu OpenCV je knihovna scikit-learn, která však umožňuje pouze podporu pro jazyk Python. Tato knihovna se primárně specializuje na podporu strojového učení, obsahuje také funkce pro zpracování obrazu. Byla nápomocná při extrahování matice GLCM z obrazu, jejíž některé vlastnosti byly klíčové pro extrahovaný vektor při všech uvažovaných a zkoumaných formách analýzy. Pro klasifikaci pak byla využita funkce pro metodu SVM a taky pro rozhodovací strom. Knihovna scikit-learn představuje snadnou práci s algoritmy umělé inteligence, algoritmy jsou dobře optimalizované a rychlé. Umožňuje experimenty s různými metodami a přístupy, na základě kterých můžeme uvážit co nejvíce metod klasifikace, které mezi sebou můžeme porovnat a zkoumat chování v různých podmínkách.
 
 \section{Knihovna PyWavelets}
-Knihovna PyWavelets představuje open source knihovnu umožňující aplikování vlnkové transformace při práci v jazyce Python. Knihovna je částečně implementována v jazyce C. PyWavelets poskytuje 1D či 2D diskrétní vlnkovou transformaci a také 1D spojitou vlnkovou transformaci. Obsahuje více jak 100 vestavěných vlnkových filtrů a podporuje i tvorbu vlastních vlnek uživatelem. Poskytuje co nejpřesnější výsledky, které jsou kompatabilní například s MATLAB Wavelet Toolbox (TM) v programovacím jazyce MATLAB.
+Knihovna PyWavelets představuje open source knihovnu umožňující aplikování vlnkové transformace při práci v jazyce Python. Knihovna je částečně implementována v jazyce C. PyWavelets poskytuje 1D či 2D diskrétní vlnkovou transformaci a také 1D spojitou vlnkovou transformaci. Obsahuje více než 100 vestavěných vlnkových filtrů a podporuje i tvorbu vlastních vlnek uživatelem. Poskytuje co nejpřesnější výsledky, které jsou kompatabilní například s MATLAB Wavelet Toolbox (TM) v programovacím jazyce MATLAB.
 
 Knihovna byla využita pro diskrétní vlnkovou transformaci analyzovaných otisků prstů. Vedle využitých vlnkových rodin (biortogonální spline vlnky, reverzní biortogonální spline vlnky, vlnky Daubechies) poskytuje pro možnou analýzu i další vlnkové rodiny jako např. Symlety nebo Coiflety. \cite{PywtAbout}
 
@@ -860,7 +860,7 @@ Cílem experimentu je zjistit, jaká barva světla poskytuje nejlepší výsledk
 \textbf{}                     & \textbf{Počet trénovaných vzorků} & \textbf{Počet testovaných vzorků} \\ \hline
 \textbf{Živé otisky prstů}    & 21                                & 18                                \\ \hline
 \textbf{Falešné otisky prstů} & 21                                & 9                                \\ \hline
-\textbf{Součet}               & 42                                & 27                                \\ \hline
+\textbf{Celkový počet}               & 42                                & 27                                \\ \hline
 \end{tabular}
 \caption{Dataset snímků nasvícených pouze modrým světlem}
 \end{table}
@@ -874,7 +874,7 @@ Cílem experimentu je zjistit, jaká barva světla poskytuje nejlepší výsledk
 \textbf{}                     & \textbf{Počet trénovaných vzorků} & \textbf{Počet testovaných vzorků} \\ \hline
 \textbf{Živé otisky prstů}    & 23                                & 11                                \\ \hline
 \textbf{Falešné otisky prstů} & 23                                & 17                                \\ \hline
-\textbf{Součet}               & 46                                & 28                                \\ \hline
+\textbf{Celkový počet}               & 46                                & 28                                \\ \hline
 \end{tabular}
 \caption{Dataset snímků nasvícených pouze zeleným světlem}
 \end{table}
@@ -888,7 +888,7 @@ Cílem experimentu je zjistit, jaká barva světla poskytuje nejlepší výsledk
 \textbf{}                     & \textbf{Počet trénovaných vzorků} & \textbf{Počet testovaných vzorků} \\ \hline
 \textbf{Živé otisky prstů}    & 23                                & 12                                \\ \hline
 \textbf{Falešné otisky prstů} & 23                                & 15                                \\ \hline
-\textbf{Součet}               & 46                                & 27                                \\ \hline
+\textbf{Celkový počet}               & 46                                & 27                                \\ \hline
 \end{tabular}
 \caption{Dataset snímků nasvícených pouze červeným světlem}
 \end{table}
@@ -926,7 +926,7 @@ Dále byly testovány průměrné přesnosti všech metod segmentace - s využit
 \end{table}
 \capstarttrue
 
- Pro všechny využité druhy segmentace byla testována každá ze zvolených metod kromě metody s extrahovaným vektorem na základě Sobel a Laplaceova operátoru. Pro tuto metodu byla zvolena pouze segmentace s Otsu prahováním. Níže můžeme vidět průměrnou přesnost pro všechny metody, při kterých se uvažovaly všechny tři typy segmentace. Metoda využívající extrahovaného vektoru na základě lokálního binárního vzoru byla nejpřesnější, dosahuje přesnosti průměrně 90,2\%. Nejspolehlivější metodou založenou na vlnkové transformaci byla metoda $rbio3.1$ spadající do reverzních biortogonálních spline vlnek. Nejspolehlivější metodou biortogonálních spline vlnek byla vlnka $bior1.3$. Ačkoliv jsou vlnky Daubechies hojně používanými při zpracování obrazu, jejich přesnost je ve výsledku v provedeném experimentu jednou z nejnižších. Přesto však všechny tyto metody dosahují přesnosti vyšší jak 80\%.
+ Pro všechny využité druhy segmentace byla testována každá ze zvolených metod kromě metody s extrahovaným vektorem na základě Sobel a Laplaceova operátoru. Pro tuto metodu byla zvolena pouze segmentace s Otsu prahováním. Níže můžeme vidět průměrnou přesnost pro všechny metody, při kterých se uvažovaly všechny tři typy segmentace. Metoda využívající extrahovaného vektoru na základě lokálního binárního vzoru byla nejpřesnější, dosahuje přesnosti průměrně 90.2\%. Nejspolehlivější metodou založenou na vlnkové transformaci byla metoda $rbio3.1$ spadající do reverzních biortogonálních spline vlnek. Nejspolehlivější metodou biortogonálních spline vlnek byla vlnka $bior1.3$. Ačkoliv jsou vlnky Daubechies hojně používanými při zpracování obrazu, jejich přesnost je ve výsledku v provedeném experimentu jednou z nejnižších. Přesto však všechny tyto metody dosahují přesnosti vyšší jak 80\%.
  
 \capstartfalse
 \begin{table}[!htbp]
@@ -1084,7 +1084,7 @@ Následující tabulka opět udává průměrnou přesnost metod, avšak pouze p
 \capstarttrue
 
 \section{Vyhodnocení experimentů}
-Extrahovaný dataset určený pro experimenty obsahuje celkem 216 snímků živých otisků prstů a falešných otisků prstů nasvícených jedním ze tří barevných LED světel - modrým, zeleným nebo červeným. Pro klasifikaci testovaných snímků a tedy předpovězení, zda se jedná o živý nebo falešný otisk prstu, byla využita umělá neuronová síť, SVM a rozhodovací stromy. Pro segmentaci otisku prstů z obrazu byly využity tři typy prahování - prahování pomocí Otsu a adaptivní prahování Mean a Gaussian. Tři různé vektory byly extrahované z obrazu pro experimenty. Vektor založený na lokálním binárním vzoru, vektor založený na Sobel a Laplaceově operátoru a vektor založen na vlnkové transformaci.
+Extrahovaný dataset určený pro experimenty obsahuje celkem 216 snímků - 108 snímků živých otisků prstů a 108 snímků falešných otisků prstů nasvícených jedním ze tří barevných LED světel - modrým, zeleným nebo červeným. Pro klasifikaci testovaných snímků a tedy předpovězení, zda se jedná o živý nebo falešný otisk prstu, byla využita umělá neuronová síť, SVM a rozhodovací stromy. Pro segmentaci otisku prstů z obrazu byly využity tři typy prahování - prahování pomocí Otsu a adaptivní prahování Mean a Gaussian. Tři různé vektory byly extrahované z obrazu pro experimenty. Vektor založený na lokálním binárním vzoru, vektor založený na Sobel a Laplaceově operátoru a vektor založen na vlnkové transformaci.
 
 V první části experimentu byl dataset rozdělen na tři menší, ve kterých byly pouze snímky nasvícené jedním z těchto světel. Cílem bylo nalézt nejspolehlivější klasifikátor, typ prahování při segmentaci, metodu a konečně barvu světla, při které dávají nasvícené otisky prstů nejlepší výsledky přesnosti. Nejspolehlivější metodou klasifikace byla umělá neuronová síť s přesností 90.1\%. I jednoduchá neuronová síť dokáže být velmi přesnou, implementovaná neuronová síť v programu je trénována pro 500 000 epoch. Byly provedeny pokusy i pro trénování s větším počtem epoch, ale neuronová síť pak vykazovala již známky situace zvané \textit{overfitting}, kdy při větším počtu epoch se chyba zvyšovala a nikoliv snižovala. Klasifikace pomocí neuronové sítě trvá pouze několik málo sekund, hodně záleží na počtu epoch, kdy více epoch trvá programu delší dobu pro výpočet. Přestože jsem se snažila použít i metody adaptivního prahování, u kterých jsem předpokládala, že budou pro snímky ze senzoru vhodnější, jak segmentace s prahováním Otsu, právě tato metoda s konstantním prahem v závislosti na daném vstupním obrazu byla nejpřesnější, dosahovala 88.6\%. Výhodou této metody také vidím v tom, že při ní nemusí člověk nastavovat různé parametry jako u adaptivních metod prahování (velikost bloku, konstanta $C$), hodnota prahu je prostě vybrána automaticky, bez jakéhokoliv zkoumání, jaká konstanta $C$ nebo velikost bloku fungují nejlépe pro snímky z našeho použitého senzoru. Nyní můžeme porovnat jednotlivé použité metody. Pro metodu využívající Sobel a Laplaceova operátoru byla zvolena pouze Otsu segmentace. Celkově největších přesností dosahovala metoda využívající lokální binární vzor (90.2\%), metoda používající Sobel a Laplaceův operátor (90.3\%) a vlnkové transformace s vlnkou z rodiny biortogonálních spline vlnek (průměr tří testovaných vlnek činil 85.0\%) a reverzních biortogonálních spline vlnek (86.3\%). Nakonec byla určena barva světla, která dávala při použití nejlepší výsledky. Snímky nasvícené červenou barvou světla prováděli klasifikaci s přesností 90.1\%. Otisky prstů nasvícené červeným světlem tedy poskytovaly nejlepší výsledky, narozdíl od modré a hlavně zelené barvy, kdy otisky prstů nasvícené modrou barvou se klasifikovali s průměrnou přesností 86.8\% a prsty nasvícené zeleným světlem pak 80.7\%.
 
