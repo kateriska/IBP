@@ -33,8 +33,8 @@ def clasifyCLF(method_type):
     clf = tree.DecisionTreeClassifier()
     clf.fit(trained_vectors, trained_results)
     prediction = clf.predict(tested_vectors)
-    print(prediction)
-    print(tested_files)
+    #print(prediction)
+    #print(tested_files)
 
     i = 0
     live_sample = False
@@ -43,8 +43,7 @@ def clasifyCLF(method_type):
     far_value = 0 # the percentage of identification instances in which unauthorised persons are incorrectly accepted
     frr_value = 0 # the percentage of identification instances in which authorised persons are incorrectly rejected
     for cols in tested_files:
-        print(cols)
-        print(prediction[i])
+        print("Name of file: " + cols + ", prediction: " + str(prediction[i]))
 
         # get final predicted value for fingerprint from vector of predictions
         if (prediction[i] == 1):

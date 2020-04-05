@@ -1,3 +1,8 @@
+# Author: Katerina Fortova
+# Bachelor's Thesis: Liveness Detection on Touchless Fingerprint Scanner
+# Academic Year: 2019/20
+# File: WaveletExperiment.py - extraction of vectors based on Wavelet transform
+
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
@@ -8,97 +13,89 @@ from skimage.feature import greycomatrix, greycoprops
 from skimage import io, color, img_as_ubyte
 import pywt
 
-### IMAGE SEGMENTATION WITH MORPHOLOGY OPERATIONS
+# function for segmentation of fingerprint with using Otsu tresholding
 def imgSegmentation(img):
     ret, tresh_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
 
     # noise removal
     kernel = np.ones((21,21), np.uint8)
-    opening = cv2.morphologyEx(tresh_img, cv2.MORPH_OPEN,kernel)
+    opening = cv2.morphologyEx(tresh_img, cv2.MORPH_OPEN,kernel) # use morphological operations
     im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     cv2.Canny(opening, 100, 200);
     result_tresh = cv2.add(tresh_img, opening)
-    result_orig = cv2.add(img, opening)
+    result_orig = cv2.add(img, opening) # add mask with input image
     return result_orig
 
+# function for segmentation of fingerprint with using adaptive Gaussian tresholding
 def adaptiveSegmentationGaussian(img):
     th3 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
             cv2.THRESH_BINARY,3,4)
     kernel = np.ones((21,21), np.uint8)
-    opening = cv2.morphologyEx(th3, cv2.MORPH_OPEN,kernel)
-    #cv2.imshow('Opening', opening)
+    opening = cv2.morphologyEx(th3, cv2.MORPH_OPEN,kernel) # use morphological operations
     im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    #cv2.drawContours(opening, contours, -1, (0,255,0), 3)
 
     cv2.Canny(opening, 100, 200);
-    #cv2.imshow('Opening with contours', opening)
-    result = cv2.add(img, opening)
-    #cv2.imshow('Img after noise removal', result)
-    #cv2.imwrite("segment.tif", result)
+    result = cv2.add(img, opening) # add mask with input image
     return result
 
+# function for segmentation of fingerprint with using adaptive Mean tresholding
 def adaptiveSegmentationMean(img):
     th2 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
             cv2.THRESH_BINARY,11,7)
     kernel = np.ones((24,24), np.uint8)
-    opening = cv2.morphologyEx(th2, cv2.MORPH_OPEN,kernel)
+    opening = cv2.morphologyEx(th2, cv2.MORPH_OPEN,kernel) # use morphological operations
     im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     cv2.Canny(opening, 100, 200);
-    #cv2.imshow('Opening with contours', opening)
-    result = cv2.add(img, opening)
+    result = cv2.add(img, opening) # add mask with input image
     return result
 
 
 def vectorWavelet(segmentation_type, color_type, wavelet_type):
 # IMAGES FOR TRAINING
-#path = '/home/katerina/Documents/IBP/redImagesTraining/*'
 
+    # csv files for trained images
     f = open("WaveletTrained.csv","w+")
     g = open("WaveleTrainedResult.csv","w+")
-    if (color_type == "b"):
+
+    # folders of trained and tested images based on chosen argument of user
+    if (color_type == "b"): # blue images
         path_training = '/home/katerina/Documents/FinalProgramIBP/blueTraining/*'
         path_testing = '/home/katerina/Documents/FinalProgramIBP/blueTesting/*'
-    elif (color_type == "g"):
+    elif (color_type == "g"): # green images
         path_training = '/home/katerina/Documents/FinalProgramIBP/greenTraining/*'
         path_testing = '/home/katerina/Documents/FinalProgramIBP/greenTesting/*'
-    elif (color_type == "r"):
+    elif (color_type == "r"): # red images
         path_training = '/home/katerina/Documents/FinalProgramIBP/redTraining/*'
         path_testing = '/home/katerina/Documents/FinalProgramIBP/redTesting/*'
-    elif (color_type == "all"):
+    elif (color_type == "all"): # all images
         path_training = '/home/katerina/Documents/FinalProgramIBP/allTraining/*'
         path_testing = '/home/katerina/Documents/FinalProgramIBP/allTesting/*'
 
     for file in glob.glob(path_training):
         img = cv2.imread(file, 0) # uint8 image in grayscale
-    #img = cv2.resize(img,(360,360)) # resize of image
         img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
-        #segmented_img = adaptiveSegmentationMean(img)
+
         if (segmentation_type == "otsu"):
             segmented_img = imgSegmentation(img)
         elif (segmentation_type == "gauss"):
             segmented_img = adaptiveSegmentationGaussian(img)
         elif (segmentation_type == "mean"):
             segmented_img = adaptiveSegmentationMean(img)
-    #cv2.imshow('Segmented image', segmented_img)
+
         cv2.imwrite('segmented_img.jpg', segmented_img)
 
         image = cv2.imread('segmented_img.jpg')
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-    # Convert to float for more resolution for use with pywt
+        # Convert to float32 for more resolution for use with pywt
         image = np.float32(image)
         image /= 255
 
-    # ...
-    # Do your processing
-    # ...
-
-    # Wavelet transform of image, and plot approximation and details
-    #titles = ['Approximation', ' Horizontal detail', 'Vertical detail', 'Diagonal detail']
         coeffs2 = pywt.dwt2(image, wavelet_type)
         LL, (LH, HL, HH) = coeffs2
 
+        # gaining LH, HL and HH image
         plt.imshow(LH, interpolation="nearest", cmap=plt.cm.gray)
         plt.axis('off')
         plt.savefig('LHimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
@@ -121,6 +118,7 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         max_value = inds.max() + 1
         matrix_coocurrence = greycomatrix(inds, [1], [0], levels=max_value, normed=False, symmetric=False)
 
+        # GLCM matrix characteristics - contrast, homogeinity, energy, correlation
         contrast2 = greycoprops(matrix_coocurrence, 'contrast')
         print("Contrast:")
         print(contrast2)
@@ -217,16 +215,11 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         saved_str = (str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3) + ", " +  str(contrast_str4) + ", " + str(homogeneity_str4) + ", " + str(energy_str4) + ", " + str(correlation_str4) +   "\n" )
         print(saved_str)
 
-    #plt.show()
-    # Convert back to uint8 OpenCV format
-    #image *= 255
-    #image = np.uint8(image)
-
-
         file_substr = file.split('/')[-1]
 
-        f.write(saved_str)
+        f.write(saved_str) # write vector to file
 
+        # save known result of image based on its file name
         if ("fake" in file_substr):
             print("This is FAKE image.")
             g.write("0\n")
@@ -235,27 +228,21 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
             g.write("1\n")
 
 
-    #k = cv2.waitKey(1000)
-    #destroy the window
-    #cv2.destroyAllWindows()
-
 
 # IMAGES FOR TESTING
-#path_testing = '/home/katerina/Documents/IBP/redImagesTesting/*'
 
-    h = open("WaveletTested.csv","w+")
+    h = open("WaveletTested.csv","w+") # csv file for tested images
     for file in glob.glob(path_testing):
         img = cv2.imread(file, 0) # uint8 image in grayscale
-    #img = cv2.resize(img,(360,360)) # resize of image
         img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
-        #segmented_img = adaptiveSegmentationMean(img)
+
         if (segmentation_type == "otsu"):
             segmented_img = imgSegmentation(img)
         elif (segmentation_type == "gauss"):
             segmented_img = adaptiveSegmentationGaussian(img)
         elif (segmentation_type == "mean"):
             segmented_img = adaptiveSegmentationMean(img)
-    #cv2.imshow('Segmented image', segmented_img)
+
         cv2.imwrite('segmented_img.jpg', segmented_img)
         image = cv2.imread('segmented_img.jpg')
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -264,19 +251,8 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         image = np.float32(image)
         image /= 255
 
-    # ...
-    # Do your processing
-    # ...
-
-    # Wavelet transform of image, and plot approximation and details
-    #titles = ['Approximation', ' Horizontal detail', 'Vertical detail', 'Diagonal detail']
         coeffs2 = pywt.dwt2(image, wavelet_type)
         LL, (LH, HL, HH) = coeffs2
-
-    #plt.imshow(LL, interpolation="nearest", cmap=plt.cm.gray)
-    #plt.axis('off')
-
-    #plt.savefig('LLimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
 
         plt.imshow(LH, interpolation="nearest", cmap=plt.cm.gray)
         plt.axis('off')
@@ -300,6 +276,7 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         max_value = inds.max() + 1
         matrix_coocurrence = greycomatrix(inds, [1], [0], levels=max_value, normed=False, symmetric=False)
 
+        # GLCM matrix characteristics - contrast, homogeinity, energy, correlation
         contrast2 = greycoprops(matrix_coocurrence, 'contrast')
         print("Contrast:")
         print(contrast2)
@@ -397,20 +374,9 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         saved_str = (file_substr + ", " + str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3) + ", " +  str(contrast_str4) + ", " + str(homogeneity_str4) + ", " + str(energy_str4) + ", " + str(correlation_str4) +   "\n" )
         print(saved_str)
 
-    #plt.show()
+        h.write(saved_str) # write vector to file
 
-    # Convert back to uint8 OpenCV format
-    #image *= 255
-    #image = np.uint8(image)
-
-        h.write(saved_str)
-
-    #k = cv2.waitKey(1000)
-    #destroy the window
-    #cv2.destroyAllWindows()
-
-
-
+    # properly close all csv files
     f.close()
     g.close()
     h.close()
