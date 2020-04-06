@@ -25,7 +25,7 @@ Identifikace, verifikace, identita a autentizace jsou základními čtyřmi pojm
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=150px]{obrazky-figures/identifver.png}
-    \caption{Rozdíl mezi identifikací a verifikací, převzato z \cite{Drahansky}}
+    \caption{Rozdíl mezi identifikací a verifikací \cite{Drahansky}}
 \end{figure}
 
 
@@ -40,7 +40,7 @@ Biometrické systémy dělíme do dvou základních kategorií: \cite{Drahansky}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=340px]{obrazky-figures/biosystem.png}
-    \caption{Znázornění biometrického systému, převzato z \cite{Drahansky}}
+    \caption{Znázornění biometrického systému \cite{Drahansky}}
 \end{figure}
 
 \section{Skóre porovnání}
@@ -49,24 +49,24 @@ Skóre porovnání udává kvantifikovanou podobnost extrahovaného vzorku a ša
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=220px]{obrazky-figures/mira.png}
-    \caption{Skóre porovnání na základě zvoleného prahu, převzato z \cite{Drahansky}}
+    \caption{Skóre porovnání na základě zvoleného prahu \cite{Drahansky}}
 \end{figure}
 
-\subsection{Míra chybného přijetí (FAR)}
+\subsubsection{Míra chybného přijetí (FAR)}
 FAR (\textit{False Acceptance Rate}) udává procentuální zastoupení identifikovaných instancí, kdy jsou neautorizované osoby akceptovány daným biometrickým systémem. Tato vlastnost je spočítána následujícím vzorcem:
 $$FAR = \frac{pocet\:prijatych\:neautorizovanych\:osob}{celkovy\:pocet\:testovaných\:vzorku} \cdot 100 \%$$
 
-\subsection{Míra chybného odmítnutí (FRR)}
+\subsubsection{Míra chybného odmítnutí (FRR)}
 FRR (\textit{False Rejection Rate}) představuje procentuální zastoupení identifikovaných instancí, kdy jsou autorizované osoby nekorektně biometrickým systémem zamítnuty. Výpočet je obdobný jako u charakteristiky FAR.
 $$FRR = \frac{pocet\:zamitnutych\:autorizovanych\:osob}{celkovy\:pocet\:testovaných\:vzorku} \cdot 100 \%$$
 
-\subsection{Souvislost FAR a FRR}
+\subsubsection{Souvislost FAR a FRR}
 Vliv charakteristik FAR a FRR znázorňuje následující graf. S větší úrovní zabezpečení se snižuje hodnota FAR, čili je přijato stále méně a méně neautorizovaných osob. Naopak se zvyšuje riziko zamítnutí autorizovaných osob daným systémem. Průsečík těchto dvou křivek nese zkratku EER (\textit{Equal Error Rate}) neboli Míra vyrovnání chyb. V tomto bodě bude chybně akceptován a chybně odmítnut stejný počet osob. Můžeme mít systém, který je více bezpečný, ale méně uživatelsky přívětivý nebo obráceně. \cite{FARFRR}
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=150px]{obrazky-figures/frrfar.jpeg}
-    \caption{Souvislost charakteristik FAR a FRR, převzato z \cite{FARFRR}}
+    \caption{Souvislost charakteristik FAR a FRR \cite{FARFRR}}
 \end{figure}
 
 \chapter{Detekce otisků prstů}
@@ -100,7 +100,7 @@ Otisky prstů dělíme na základní tři druhy: \cite{Drahansky}
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=280px]{obrazky-figures/druhyotisk.png}
-    \caption{Válený, píchaný a latentní otisk prstu, převzato z \cite{Drahansky}}
+    \caption{Válený, píchaný a latentní otisk prstu \cite{Drahansky}}
 \end{figure}
 
 \section{Typy senzorů}
@@ -111,7 +111,7 @@ Nejdůležitějším částí detekce je senzor, který zaznamenává výsledný
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=200px]{obrazky-figures/ftiredit.png}
-    \caption{Senzor FTIR, převzato z \cite{Maltoni2009}}
+    \caption{Senzor FTIR \cite{Maltoni2009}}
 \end{figure}
 
 \item \textbf{Kapacitní senzory} - Jsou složeny z matice malých vodivých plošek, na níž je napařena vrstva nevodivého oxidu křemičitého. \cite{Drahansky} Mezi povrchem prstu a každou z plošek (mikrokapacitorů) v čipu vzniká malý elektrický náboj. Při skládání výsledného otisku prstu je důležitá vzdálenost mezi povrchem otisku prstu a mikrokapacitorem. Hřebeny a údolí papilárních linií otisku prstu mají jinou vzdálenost od mikrokapacitoru, tudíž i odlišnou intenzitu ve výsledném obraze. Stejně jako u senzoru FTIR nemůže tato technologie být zneužita útočníkem při předložení fotografie. Jsou zde totiž měřeny vzdálenosti a pouze trojrozměrný povrch může být nasnímán. \cite{Maltoni2009}
@@ -119,21 +119,21 @@ Nejdůležitějším částí detekce je senzor, který zaznamenává výsledný
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=250px]{obrazky-figures/kapacit.png}
-    \caption{Kapacitní senzor, převzato z \cite{Maltoni2009}}
+    \caption{Kapacitní senzor \cite{Maltoni2009}}
 \end{figure}
 \item \textbf{Ultrazvukové senzory} - Jsou založeny na posílání akustického signálu prstu a zachytávání odraženého signálu. Odražený signál je použit na výpočet hloubky obrazu a struktury papilárních linií. Senzor se skládá z vysílače a příjimače. Vysílač generuje krátké zvukové pulsy a příjímač detekuje odpověď po odražení těchto akustických pulsů od povrchu prstu. Senzor je schopný detekovat strukturu otisku prstu i například přes tenké rukavice, stejně jako si dokáže poradit s případnými nečistotami i mastnotou. \cite{Maltoni2009}
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=310px]{obrazky-figures/ultrasound.png}
-    \caption{Ultrazvukový senzor, převzato z \cite{Maltoni2009}}
+    \caption{Ultrazvukový senzor \cite{Maltoni2009}}
 \end{figure}
 \item \textbf{Elektrooptické senzory} - Tyto snímače jsou složeny ze dvou vrstev. První dokáže emitovat světlo, pokud je polarizováno správným nápětím. Druhá vrstva úzce spolupracuje s první, zpracovává emitované světlo a vytváří finální digitální obraz. \cite{Maltoni2009}
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=320px]{obrazky-figures/electro.png}
-    \caption{Elektrooptický senzor, převzato z \cite{Maltoni2009}}
+    \caption{Elektrooptický senzor \cite{Maltoni2009}}
 \end{figure}
 \item \textbf{Tlakový senzor} - Je vytvořen z materiálu citlivého na mechanické namáhání, při~kterém generuje elektrický signál. Velikost elektrického signálu závisí na tlaku, který vyvíjí prst na povrch senzoru. Hřebeny a údolí papilárních linií jsou v jiných vzdálenostech od povrchu snímače, proto produkují jinou hodnotu elektrického signálu. \cite{Maltoni2009}
 \item \textbf{Termický senzor} - Senzor využívá pyroelektrický materiál, který generuje elektrický náboj na základě teplotních rozdílů. Je založen na skutečnosti, že hřebeny v kontaktu s~povrchem senzoru produkují jinou teplotu jak údolí, které jsou vzdálenější od povrchu snímače. Senzor je obvykle předehřán na vyšší teplotu, aby se zvýšila odlišnost mezi povrchem zařízení a hřebeny linií. \cite{Maltoni2009}
@@ -161,7 +161,7 @@ Otisk prstu obsahuje útvary, které tvoří papilární linie - markanty. Mezi 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=260px]{obrazky-figures/markants.png}
-    \caption{Základní typy markantů ve vyjmenovaném pořadí, převzato z \cite{Drahansky}}
+    \caption{Základní typy markantů ve vyjmenovaném pořadí \cite{Drahansky}}
 \end{figure}
 
 U přístupových systémů se však využívá pouze ukončení (\textit{Line Ending}) a vidličky (\textit{Bifuraction}). \cite{Drahansky}
@@ -180,7 +180,7 @@ Otisky prstů můžeme na základě charakteristických znaků rozdělit do nás
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=250px]{obrazky-figures/classes.png}
-    \caption{Třídy otisků prstů, převzato z \cite{Drahansky}}
+    \caption{Třídy otisků prstů \cite{Drahansky}}
 \end{figure}
 
 \section{Falšování otisků prstů a výpočet přesnosti analýzy}
@@ -273,7 +273,7 @@ Kůže člověka má některé unikátní optické charakteristiky díky chemick
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=180px]{obrazky-figures/multispectralAnalysis.PNG}
-    \caption{Rozdíl výsledku multispekrální analýzy mezi živým a falešným prstem, převzato z \cite{AdvancedBiometricsTechnologies2011}}
+    \caption{Rozdíl výsledku multispekrální analýzy mezi živým a falešným prstem \cite{AdvancedBiometricsTechnologies2011}}
 \end{figure}
 
 \subsection{Pulsní oxyometrie}
@@ -285,7 +285,7 @@ Teplota lidské kůže u prstu se pohybuje okolo 25 -- 37 stupňů Celsia. Nicm�
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=270px]{obrazky-figures/thermoscan.PNG}
-    \caption{Termosken prstů pomocí termokamery FLIR, převzato z \cite{AdvancedBiometricsTechnologies2011}}
+    \caption{Termosken prstů pomocí termokamery FLIR \cite{AdvancedBiometricsTechnologies2011}}
 \end{figure}
 
 \section{Softwarové metody}
@@ -300,7 +300,7 @@ I bříško prstu obsahuje potní žlázy, proto detekce pórů může poslouži
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=250px]{obrazky-figures/pores.png}
-    \caption{Srovnání vývoje detekce potu v čase mezi živým a falešným prstem, převzato z \cite{PoresResearch}}
+    \caption{Srovnání vývoje detekce potu v čase mezi živým a falešným prstem \cite{PoresResearch}}
 \end{figure}
 
 
@@ -424,13 +424,13 @@ Postup algoritmu je následující:\\
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=70px]{obrazky-figures/lbpn.png}
-    \caption{Okno o velikosti 9 pixelů se středovým pixelem a jeho sousedy pro analýzu lokálního binárního vzoru, převzato z \cite{GragnanielloStudy}}
+    \caption{Okno o velikosti 9 pixelů se středovým pixelem a jeho sousedy pro analýzu lokálního binárního vzoru \cite{GragnanielloStudy}}
 \end{figure}
 
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=400px]{obrazky-figures/lbpprincip.png}
-    \caption{Princip výpočtu lokálního binárního vzoru, upraveno s využitím \cite{GaikwadStudy}}
+    \caption{Princip výpočtu lokálního binárního vzoru}
 \end{figure}
 
 Pro výpočet lokálního binárního vzoru byl použitý algoritmus, který lze zapsat následujícím pseudokódem:\\\\
@@ -577,13 +577,13 @@ Každá Daubechies vlnka má počet nulových momentů rovných polovině svých
   \begin{minipage}[b]{0.5\linewidth}
     \centering
     \includegraphics[width=170px]{obrazky-figures/db2wavelet.PNG}
-    \caption{Vlnková funkce pro vlnku Daubechies db2, převzato z \cite{PyWaveletsBrowser}}
+    \caption{Vlnková funkce pro vlnku Daubechies db2 \cite{PyWaveletsBrowser}}
   \end{minipage}
   \hspace{0.5cm}
   \begin{minipage}[b]{0.5\linewidth}
     \centering
     \includegraphics[width=170px]{obrazky-figures/db4wavelet.PNG}
-    \caption{Vlnková funkce pro vlnku Daubechies db4, převzato z \cite{PyWaveletsBrowser}}
+    \caption{Vlnková funkce pro vlnku Daubechies db4 \cite{PyWaveletsBrowser}}
   \end{minipage}
 \end{figure}
     
@@ -594,13 +594,13 @@ Biortogonální spline vlnky jsou symetrické, biortogonální, ale nejsou ortog
   \begin{minipage}[b]{0.5\linewidth}
     \centering
     \includegraphics[width=170px]{obrazky-figures/bior13wavelet.PNG}
-    \caption{Dekompoziční vlnková funkce pro bior1.3, převzato z \cite{PyWaveletsBrowser}}
+    \caption{Dekompoziční vlnková funkce pro bior1.3 \cite{PyWaveletsBrowser}}
   \end{minipage}
   \hspace{0.5cm}
   \begin{minipage}[b]{0.5\linewidth}
     \centering
     \includegraphics[width=170px]{obrazky-figures/bior24wavelet.PNG}
-    \caption{Dekompoziční vlnková funkce pro bior2.4, převzato z \cite{PyWaveletsBrowser}}
+    \caption{Dekompoziční vlnková funkce pro bior2.4 \cite{PyWaveletsBrowser}}
   \end{minipage}
 \end{figure}
 
@@ -626,7 +626,7 @@ Reverzní biortogonální spline vlnky jsou symetrické. biortogonální a nejso
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=170px]{obrazky-figures/rbio31wavelet.PNG}
-    \caption{Dekompoziční vlnková funkce pro rbio2.4, převzato z \cite{PyWaveletsBrowser}}
+    \caption{Dekompoziční vlnková funkce pro rbio2.4 \cite{PyWaveletsBrowser}}
 \end{figure}
 
 \subsection{Použité vlnky pro testování algoritmu}
@@ -666,7 +666,7 @@ Umělá neuronová síť byla sestavena jako abstrakce podobná lidskému myšle
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=210px]{obrazky-figures/neuron.png}
-    \caption{Obecný model umělého neuronu, převzato z \cite{PrednaskaIZU9}}
+    \caption{Obecný model umělého neuronu \cite{PrednaskaIZU9}}
 \end{figure}
 
 Každá neuronová síť funguje na následujícím principu: Váhy se vynásobí s daným vstupem, dále probíhá přičtení speciální hodnoty zvané \textit{bias}. Poté se aplikuje daná aktivační funkce a vstup se předá další vrstvě. Provádí se zpětná propagace, při které se aktualizují váhy. Vnitřní stav sítě můžeme tedy charakterizovat následujícím předpisem: $w_0x_0 + \sum_{i=1}^{n}P_{i,j}w_ix_i$, kde bias představuje prvek s hodnotou $x_0$ a s vahou $w_0$ a proměnné $x_1, x_2,\ldots x_i$ představují vstupní hodnoty s danými vahami $w_1, w_2, \ldots w_i$. V některých případech může být výstup daných hodnot velmi velký, pokud pracujeme s více vrstvami neuronové sítě, hodnoty se mohou stále stávat vyššími a samotný výpočet pak nekontrolovatelným. Proto hraje důležitou roli aktivační funkce, která na výstupu pracuje s hodnotami v určitém intervalu, např. $(-1, 1)$ nebo $(0, 1)$. \cite{MediumDeepLearning} 
@@ -678,7 +678,7 @@ Sigmoida je snadno diferencovatelná, můžeme ji lehce použít pro aktualizaci
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=300px]{obrazky-figures/sigmoid.jpeg}
-    \caption{Graf sigmoidy a její derivace, převzato z \cite{MediumDeepLearning}}
+    \caption{Graf sigmoidy a její derivace \cite{MediumDeepLearning}}
 \end{figure}
 
 Zderivovaná sigmoida má pak následující předpis:
@@ -702,20 +702,20 @@ Pokud není možné vzorky rozumně rozdělit polorovinou, aplikujeme transforma
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=230px]{obrazky-figures/svmVapnik.png}
-    \caption{Příklad problému v dvourozměrném prostoru a nalezení optimální nadroviny a rozpětí, převzato z \cite{VapnikSVM}, na které se podílel jeden z původních výzkumníků algoritmu}
+    \caption{Příklad problému v dvourozměrném prostoru a nalezení optimální nadroviny a rozpětí, převzato ze studie, na které se podílel jeden z původních výzkumníků algoritmu \cite{VapnikSVM}}
 \end{figure}
 
 \begin{figure}[!htbp]
   \begin{minipage}[b]{0.5\linewidth}
   \centering
    \includegraphics[width=260px]{obrazky-figures/mediumsvm1.png}
-   \caption{Vstupní vzorky, které není možné rozdělit polorovinou, převzato z \cite{MediumSVM}}
+   \caption{Vstupní vzorky, které není možné rozdělit polorovinou \cite{MediumSVM}}
   \end{minipage}
    \hspace{0.5cm}
   \begin{minipage}[b]{0.5\linewidth}
   \centering
    \includegraphics[width=260px]{obrazky-figures/mediumsvm2.png}
-  \caption{Graf o souřadnicích yz s rozdělením na dané poloroviny, převzato z \cite{MediumSVM}} 
+  \caption{Graf o souřadnicích yz s rozdělením na dané poloroviny \cite{MediumSVM}} 
   \end{minipage}
  \end{figure}
 
@@ -724,7 +724,7 @@ Pokud zpět transformujeme tuto přímku do grafu o závislosti osy $y$ na ose $
 \begin{figure}[!htbp]
     \centering
     \includegraphics[width=300px]{obrazky-figures/mediumsvm3.png}
-    \caption{Nalezení finální rozdělující nadroviny, převzato z \cite{MediumSVM}}
+    \caption{Nalezení finální rozdělující nadroviny \cite{MediumSVM}}
 \end{figure}
 
 Výhodami SVM jsou: \cite{ScikitSVM}
@@ -967,7 +967,7 @@ Protože metoda založená na vektoru získaného z obrazu založeného na Sobel
 \end{table}
 \capstarttrue
 
-Nyní zbývá rozhodnout, které barevné světlo dává co nejlepší výsledky při nasvicování otisků prstů na bezdotykovém senzoru. Bylo zjištěno, že nejlepší přesnost vykazují snímky nasvícené červeným světlem. Proto byly nejvhodnější použitou barvou světla na užitém bezdotykovém senzoru. 
+Na konec tohoto experimentu můžeme stanovit, které světlo odpovídající vlnové délky se podílelo na největší přesnosti při detekci živosti na použitém bezdotykovém senzoru. Bylo zjištěno, že nejlepší přesnost vykazují snímky nasvícené červeným světlem. Proto byly nejvhodnější použitou barvou světla na užitém bezdotykovém senzoru. 
 
 Modré světlo má nejkratší vlnovou délku ve srovnání s zeleným a červeným světlem, je nejvíce absorbováno prstem. Na druhou stranu červené světlo, s nejdelší vlnovou délkou, prst dokáže co nejvíce prosvítit při hardwarové datekci živosti, která užívá multispektrální analýzu a CMOS nebo CCD detektor, který má měřit odražené světlo od otisku prstu. \cite{AdvancedBiometricsTechnologies2011}
 
@@ -1004,7 +1004,7 @@ Níže můžeme vidět tabulku počtu trénovaných otisků prstů a testovanýc
 \textbf{}             & \textbf{Falešné} & 23                        & 17                        \\ \hline
 \textbf{Červená}      & \textbf{Živé}    & 23                        & 12                        \\ \hline
 \textbf{}             & \textbf{Falešné} & 23                        & 15                        \\ \hline
-\textbf{Součet}       & \textbf{}        & 138                       & 78                        \\ \hline
+\textbf{Celkový počet}       & \textbf{}        & 138                       & 78                        \\ \hline
 \end{tabular}
 \caption{Vlastnosti analyzovaného datasetu pro daný experiment}
 \end{table}
