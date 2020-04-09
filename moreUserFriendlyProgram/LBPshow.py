@@ -1,3 +1,8 @@
+# Author: Katerina Fortova
+# Bachelor's Thesis: Liveness Detection on Touchless Fingerprint Scanner
+# Academic Year: 2019/20
+# File: LBPshow.py - shows processed fingerprint with LBP
+
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
@@ -7,47 +12,7 @@ import glob
 from skimage.feature import greycomatrix, greycoprops
 from skimage import io, color, img_as_ubyte
 import pywt
-
-### IMAGE SEGMENTATION WITH MORPHOLOGY OPERATIONS
-def imgSegmentation(img):
-    ret, tresh_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
-
-    # noise removal
-    kernel = np.ones((21,21), np.uint8)
-    opening = cv2.morphologyEx(tresh_img, cv2.MORPH_OPEN,kernel)
-    im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    cv2.Canny(opening, 100, 200);
-    result_tresh = cv2.add(tresh_img, opening)
-    result_orig = cv2.add(img, opening)
-    return result_orig
-
-def adaptiveSegmentationGaussian(img):
-    th3 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
-            cv2.THRESH_BINARY,3,4)
-    kernel = np.ones((21,21), np.uint8)
-    opening = cv2.morphologyEx(th3, cv2.MORPH_OPEN,kernel)
-    #cv2.imshow('Opening', opening)
-    im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    #cv2.drawContours(opening, contours, -1, (0,255,0), 3)
-
-    cv2.Canny(opening, 100, 200);
-    #cv2.imshow('Opening with contours', opening)
-    result = cv2.add(img, opening)
-    #cv2.imshow('Img after noise removal', result)
-    #cv2.imwrite("segment.tif", result)
-    return result
-
-def adaptiveSegmentationMean(img):
-    th2 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
-            cv2.THRESH_BINARY,11,7)
-    kernel = np.ones((24,24), np.uint8)
-    opening = cv2.morphologyEx(th2, cv2.MORPH_OPEN,kernel)
-    im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-
-    cv2.Canny(opening, 100, 200);
-    #cv2.imshow('Opening with contours', opening)
-    result = cv2.add(img, opening)
-    return result
+import processedSegmentation
 
 ### LBP ALGORITHM
 def LBPprocesspixel(img, pix5, x, y):
@@ -101,15 +66,15 @@ def showLBP(segmentation_type, input_img):
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
 #segmented_img = adaptiveSegmentationMean(img)
     if (segmentation_type == "otsu"):
-        segmented_img = imgSegmentation(img)
+        segmented_img = processedSegmentation.imgSegmentation(img)
     elif (segmentation_type == "gauss"):
-        segmented_img = adaptiveSegmentationGaussian(img)
+        segmented_img = processedSegmentation.adaptiveSegmentationGaussian(img)
     elif (segmentation_type == "mean"):
-        segmented_img = adaptiveSegmentationMean(img)
+        segmented_img = processedSegmentation.adaptiveSegmentationMean(img)
 #cv2.imshow('Segmented image', segmented_img)
     if (segmentation_type != "none"):
-        cv2.imwrite('segmented_img.jpg', segmented_img)
-        img = cv2.imread('segmented_img.jpg')
+        cv2.imwrite('./processedImg/segmented_img.jpg', segmented_img)
+        img = cv2.imread('./processedImg/segmented_img.jpg')
 
     height, width, channel = img.shape
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)

@@ -25,7 +25,7 @@ def clasifyCLF(method_type):
 
     elif (method_type == "wavelet"):
         trained_vectors = np.genfromtxt('./csvFiles/WaveletTrained.csv',delimiter=",")
-        trained_results = np.genfromtxt('./csvFiles/WaveleTrainedResult.csv',dtype=int)
+        trained_results = np.genfromtxt('./csvFiles/WaveletTrainedResult.csv',dtype=int)
         tested_vectors = np.genfromtxt('./csvFiles/WaveletTested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8,9,10,11,12))
         tested_files = np.genfromtxt('./csvFiles/WaveletTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
 

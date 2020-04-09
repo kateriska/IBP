@@ -1,16 +1,18 @@
 # Author: Katerina Fortova
 # Bachelor's Thesis: Liveness Detection on Touchless Fingerprint Scanner
 # Academic Year: 2019/20
-# File: parseArgs.py - arguments parsing and calling of all modules
+# File: bt.py - arguments parsing and calling of all modules
+
 import sys
+import pywt
 import LBPGLCMclasif # extraction of vector based on LBP
 import artificialNeuralNetwork # classification with ANN
 import supportVectorMachines # classification with SVM
 import decisionTree # classification with Decision Tree
-import SobelLaplacianclasif # extraction of vector based on Sobel and Laplacian operator
-import Waveletclasif # extraction of vector based on Wavelet transform
+import SobelLaplacianClasif # extraction of vector based on Sobel and Laplacian operator
+import WaveletClasif # extraction of vector based on Wavelet transform
 import LBPshow # show histogram and LBP image of input image
-import showWTransform # show Wavelet transform of input image
+import WaveletShow # show Wavelet transform of input image
 import SobelLaplacianShow # show results of Sobel and Laplacian operator of input image
 import SegmentationShow # show segmentation of input image with use of various tresholding methods
 
@@ -133,13 +135,16 @@ if (sys.argv[1] == "-show"):
         if (sys.argv[3] == "-t"):
             wavelet_type = sys.argv[4]
             print(wavelet_type)
+            if (wavelet_type not in pywt.wavelist(kind='discrete')):
+                sys.stderr.write("ERROR - Unknown type of wavelet\n")
+                exit(1)
             if (sys.argv[5] == "-s"):
                 if (sys.argv[6] == "otsu" or sys.argv[6] == "gauss" or sys.argv[6] == "mean" ):
                     segmentation_type = sys.argv[6]
                     print(segmentation_type)
             else:
                 segmentation_type = "none"
-            showWTransform.showWavelet(segmentation_type, input_img, wavelet_type)
+            WaveletShow.showWavelet(segmentation_type, input_img, wavelet_type)
 
     # SHOW SOBEL LAPLACIAN
     elif (sys.argv[2] == "sobel"  ):
@@ -187,7 +192,7 @@ elif (sys.argv[1] == "-test"):
         # clasify SOBEL LAPLACIAN
         elif (sys.argv[2] == "sobel" ):
             print(color_type)
-            SobelLaplacianclasif.vectorSobelLaplacian(color_type)
+            SobelLaplacianClasif.vectorSobelLaplacian(color_type)
 
             if (clasif_type == "ann"):
                 artificialNeuralNetwork.clasifyANN("sobel")
@@ -203,7 +208,10 @@ elif (sys.argv[1] == "-test"):
                 print(segmentation_type)
                 wavelet_type = sys.argv[4]
                 print(wavelet_type)
-                Waveletclasif.vectorWavelet(segmentation_type, color_type, wavelet_type)
+                if (wavelet_type not in pywt.wavelist(kind='discrete')):
+                    sys.stderr.write("ERROR - Unknown type of wavelet\n")
+                    exit(1)
+                WaveletClasif.vectorWavelet(segmentation_type, color_type, wavelet_type)
 
                 if (clasif_type == "ann"):
                     artificialNeuralNetwork.clasifyANN("wavelet")
