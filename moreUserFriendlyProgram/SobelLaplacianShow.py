@@ -14,8 +14,9 @@ def showSobelLaplacian(segmentation_type, input_img):
     else:
         img = cv2.imread(input_img)
 
+    results = list()
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX)
-
+    results.append(img)
     if (segmentation_type == "otsu"):
         segmented_img = processedSegmentation.imgSegmentation(img)
     elif (segmentation_type == "gauss"):
@@ -30,20 +31,33 @@ def showSobelLaplacian(segmentation_type, input_img):
 
     laplacian = cv2.Laplacian(img,cv2.CV_64F) # processed with Laplacian operator
     cv2.imwrite("./processedImg/laplacian_img.jpg", laplacian)
+    laplacian_img = cv2.imread("./processedImg/laplacian_img.jpg", 0)
+    results.append(laplacian_img)
     sobelx = cv2.Sobel(img,cv2.CV_64F,1,0,ksize=5)  # processed with Sobel on x-axis
     cv2.imwrite("./processedImg/sobelx_img.jpg", sobelx)
+    sobelx_img = cv2.imread("./processedImg/sobelx_img.jpg", 0)
+    results.append(sobelx_img)
     sobely = cv2.Sobel(img,cv2.CV_64F,0,1,ksize=5)  # processed with Sobel on y-axis
     cv2.imwrite("./processedImg/sobely_img.jpg", sobely)
+    sobely_img = cv2.imread("./processedImg/sobely_img.jpg", 0)
+    results.append(sobely_img)
 
-    plt.subplot(2,2,1),plt.imshow(img,cmap = 'gray')
-    plt.title('Original image'), plt.xticks([]), plt.yticks([])
-    plt.subplot(2,2,2),plt.imshow(laplacian,cmap = 'gray')
-    plt.title('Applied Laplacian operator'), plt.xticks([]), plt.yticks([])
-    plt.subplot(2,2,3),plt.imshow(sobelx,cmap = 'gray')
-    plt.title('Applied Sobel operator of x axis'), plt.xticks([]), plt.yticks([])
-    plt.subplot(2,2,4),plt.imshow(sobely,cmap = 'gray')
-    plt.title('Applied Sobel operator of y axis'), plt.xticks([]), plt.yticks([])
+    titles = ['Original normalized image', 'Applied Laplacian operator',
+          'Applied Sobel operator of x axis', 'Applied Sobel operator of y axis']
 
+
+    fig = plt.figure(figsize=(11, 11))
+    i = 0
+    for a in results:
+        ax = fig.add_subplot(2, 2, i + 1)
+        ax.imshow(a, cmap='gray')
+        ax.set_title(titles[i], fontsize=10)
+        ax.set_xticks([])
+        ax.set_yticks([])
+        i = i + 1
+
+    fig.tight_layout()
     plt.show()
+
 
     return
