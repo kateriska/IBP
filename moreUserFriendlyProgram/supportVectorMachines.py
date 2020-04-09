@@ -1,15 +1,15 @@
 # Author: Katerina Fortova
 # Bachelor's Thesis: Liveness Detection on Touchless Fingerprint Scanner
 # Academic Year: 2019/20
-# File: decisionTree.py - clasificcation with Decision Tree
+# File: SVMexperiment.py - clasificcation with Support Vector Machines (SVM)
 
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy import newaxis
-from sklearn import tree
+from sklearn import svm
 
-# function for classification with Decision Tree
-def clasifyCLF(method_type):
+# function for classification with SVM
+def clasifySVM(method_type):
     # csv files with data about vectors for LBP, Sobel and Wavelet methods
     if (method_type == "lbp"):
         trained_vectors = np.genfromtxt('./csvFiles/LBPGLCMtrained.csv',delimiter=",")
@@ -29,10 +29,10 @@ def clasifyCLF(method_type):
         tested_vectors = np.genfromtxt('./csvFiles/WaveletTested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8,9,10,11,12))
         tested_files = np.genfromtxt('./csvFiles/WaveletTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
 
-    # train and predict with Decision Tree with use of sklearn library
-    clf = tree.DecisionTreeClassifier()
-    clf.fit(trained_vectors, trained_results)
-    prediction = clf.predict(tested_vectors)
+    # function for Support Vector Machines from sklearn library
+    clf = svm.SVC()
+    clf.fit(trained_vectors, trained_results) # train SVM with trained vectors and their results
+    prediction = clf.predict(tested_vectors) # predict results of tested vectors
     #print(prediction)
     #print(tested_files)
 
