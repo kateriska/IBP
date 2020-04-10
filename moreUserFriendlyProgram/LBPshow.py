@@ -90,13 +90,18 @@ def showLBP(segmentation_type, input_img):
     hist_lbp = cv2.calcHist([lbp_image], [0], None, [256], [0, 256])
 
 
-    figure = plt.figure()
-    current_plot = figure.add_subplot(1, 1, 1)
+    figure = plt.figure(figsize=(30, 30))
+    image_plot = figure.add_subplot(1,2,1)
+    image_plot.imshow(lbp_image)
+    image_plot.set_xticks([])
+    image_plot.set_yticks([])
+    image_plot.set_title("LBP image", fontsize=10)
+    current_plot = figure.add_subplot(1, 2, 2)
     current_plot.plot(hist_lbp, color = (0, 0, 0.2))
 #current_plot.set_xlim([0,260])
     current_plot.set_xlim([0,256])
     current_plot.set_ylim([0,6000])
-    current_plot.set_title("LBP Histogram")
+    current_plot.set_title("LBP histogram", fontsize=10)
     current_plot.set_xlabel("Intensity")
     current_plot.set_ylabel("Count of pixels")
     ytick_list = [int(i) for i in current_plot.get_yticks()]

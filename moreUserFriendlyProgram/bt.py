@@ -19,9 +19,9 @@ import SegmentationShow # show segmentation of input image with use of various t
 # function for print help for classification commands
 def printHelpClasify():
     print()
-    print("Clasify with LBP: -test lbp -s otsu|gauss|mean -clasif ann|svm|clf -img b|g|r|all")
-    print("Clasify with SobelLaplacian: -test sobel -clasif ann|svm|clf -img b|g|r|all")
-    print("Clasify with Wavelet: -test wavelet -t <wavelet type> -s otsu|gauss|mean -clasif ann|svm|clf -img b|g|r|all")
+    print("Clasify with LBP: -test lbp -s otsu|gauss|mean -clasif ann|svm|dts -img b|g|r|all")
+    print("Clasify with SobelLaplacian: -test sobel -clasif ann|svm|dts -img b|g|r|all")
+    print("Clasify with Wavelet: -test wavelet -t <wavelet type> -s otsu|gauss|mean -clasif ann|svm|dts -img b|g|r|all")
     print("Show help for clasify: -test help")
     print("Show general help: -help")
     print("Note - Only segmentation for Sobel Clasify is Otsu, because of better results")
@@ -76,8 +76,8 @@ def controlCorrectArguments(arguments_count):
             sys.stderr.write("ERROR - Wrong count of arguments\n")
             exit(1)
 
-        elif (sys.argv[arguments_count - 2] != "ann" and sys.argv[arguments_count - 2] != "svm" and sys.argv[arguments_count - 2] != "clf"):
-            sys.stderr.write("ERROR - Use paramatres for -clasif ann, svm or clf\n")
+        elif (sys.argv[arguments_count - 2] != "ann" and sys.argv[arguments_count - 2] != "svm" and sys.argv[arguments_count - 2] != "dts"):
+            sys.stderr.write("ERROR - Use paramatres for -clasif ann, svm or dts\n")
             exit(1)
 
         elif ((sys.argv[2] == "wavelet" or sys.argv[2] == "lbp") and(sys.argv[arguments_count - 4] != "otsu" and sys.argv[arguments_count - 4] != "gauss" and sys.argv[arguments_count - 4] != "mean")):
@@ -186,8 +186,8 @@ elif (sys.argv[1] == "-test"):
                     artificialNeuralNetwork.clasifyANN("lbp")
                 elif (clasif_type == "svm"):
                     supportVectorMachines.clasifySVM("lbp")
-                elif (clasif_type == "clf"):
-                    decisionTree.clasifyCLF("lbp")
+                elif (clasif_type == "dts"):
+                    decisionTree.clasifyDTS("lbp")
 
         # clasify SOBEL LAPLACIAN
         elif (sys.argv[2] == "sobel" ):
@@ -198,8 +198,8 @@ elif (sys.argv[1] == "-test"):
                 artificialNeuralNetwork.clasifyANN("sobel")
             elif (clasif_type == "svm"):
                 supportVectorMachines.clasifySVM("sobel")
-            elif (clasif_type == "clf"):
-                decisionTree.clasifyCLF("sobel")
+            elif (clasif_type == "dts"):
+                decisionTree.clasifyDTS("sobel")
 
         # clasify WAVELET
         elif (sys.argv[2] == "wavelet" ):
@@ -217,5 +217,5 @@ elif (sys.argv[1] == "-test"):
                     artificialNeuralNetwork.clasifyANN("wavelet")
                 elif (clasif_type == "svm"):
                     supportVectorMachines.clasifySVM("wavelet")
-                elif (clasif_type == "clf"):
-                    decisionTree.clasifyCLF("wavelet")
+                elif (clasif_type == "dts"):
+                    decisionTree.clasifyDTS("wavelet")

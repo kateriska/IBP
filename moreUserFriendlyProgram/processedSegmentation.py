@@ -9,7 +9,7 @@ def imgSegmentation(img):
     kernel = np.ones((21,21), np.uint8)
     opening = cv2.morphologyEx(tresh_img, cv2.MORPH_OPEN,kernel) # use morphological operations
     im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    cv2.Canny(opening, 100, 200);
+    cv2.Canny(opening, 100, 200)
     result_tresh = cv2.add(tresh_img, opening)
     result_orig = cv2.add(img, opening) # add mask with input image
     return result_orig
@@ -22,7 +22,7 @@ def adaptiveSegmentationGaussian(img):
     opening = cv2.morphologyEx(th3, cv2.MORPH_OPEN,kernel) # use morphological operations
     im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-    cv2.Canny(opening, 100, 200);
+    cv2.Canny(opening, 100, 200)
     result = cv2.add(img, opening) # add mask with input image
     return result
 
@@ -34,6 +34,6 @@ def adaptiveSegmentationMean(img):
     opening = cv2.morphologyEx(th2, cv2.MORPH_OPEN,kernel) # use morphological operations
     im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-    cv2.Canny(opening, 100, 200);
+    cv2.Canny(opening, 100, 200)
     result = cv2.add(img, opening) # add mask with input image
     return result

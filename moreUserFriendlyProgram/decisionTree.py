@@ -9,7 +9,7 @@ from numpy import newaxis
 from sklearn import tree
 
 # function for classification with Decision Tree
-def clasifyCLF(method_type):
+def clasifyDTS(method_type):
     # csv files with data about vectors for LBP, Sobel and Wavelet methods
     if (method_type == "lbp"):
         trained_vectors = np.genfromtxt('./csvFiles/LBPGLCMtrained.csv',delimiter=",")
@@ -30,9 +30,9 @@ def clasifyCLF(method_type):
         tested_files = np.genfromtxt('./csvFiles/WaveletTested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
 
     # train and predict with Decision Tree with use of sklearn library
-    clf = tree.DecisionTreeClassifier()
-    clf.fit(trained_vectors, trained_results)
-    prediction = clf.predict(tested_vectors)
+    dts = tree.DecisionTreeClassifier()
+    dts.fit(trained_vectors, trained_results)
+    prediction = dts.predict(tested_vectors)
     #print(prediction)
     #print(tested_files)
 

@@ -16,7 +16,7 @@ def imgSegmentation(img, results):
     kernel = np.ones((21,21), np.uint8)
     opening = cv2.morphologyEx(tresh_img, cv2.MORPH_OPEN,kernel) # use morphological operations
     im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    cv2.Canny(opening, 100, 200);
+    cv2.Canny(opening, 100, 200)
     #cv2.imshow("Segmented mask of image", opening) # show segmented mask of image
     results.append(opening)
     result_orig = cv2.add(img, opening) # add mask with input image
@@ -34,7 +34,7 @@ def adaptiveSegmentationGaussian(img, results):
     opening = cv2.morphologyEx(th3, cv2.MORPH_OPEN,kernel) # use morphological operations
     im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-    cv2.Canny(opening, 100, 200);
+    cv2.Canny(opening, 100, 200)
     #cv2.imshow("Segmented mask of image", opening) # show segmented mask of image
     results.append(opening)
     result = cv2.add(img, opening) # add mask with input image
@@ -52,7 +52,7 @@ def adaptiveSegmentationMean(img, results):
     opening = cv2.morphologyEx(th2, cv2.MORPH_OPEN,kernel)  # use morphological operations
     im2, contours, hierarchy = cv2.findContours(opening, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
-    cv2.Canny(opening, 100, 200);
+    cv2.Canny(opening, 100, 200)
     results.append(opening)
     #cv2.imshow("Segmented mask of image", opening) # show segmented mask of image
     result = cv2.add(img, opening) # add mask with input image
