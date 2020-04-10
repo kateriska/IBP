@@ -206,84 +206,6 @@ Další existující řešení pro analýzu živosti otisků prstů jsou uveden�
 Přesnost analýzy živosti $a$ můžeme spočítat na základě vzorce:
 $a = \frac{C}{N}$, kde $C$ je počet správných rozhodnutí (klasifikace živého otisku prstu jako "živého" a falešného otisku prstu jako "falešného") a $N$ je počet všech rozhodnutí. \cite{GottschlichStudy}
 
-\chapter{Bezdotykový senzor a sběr datasetu}
-Tato kapitola se zabývá popisem bezdotykového senzoru, který je základním přístrojem, se kterým jsem v rámci své bakalářské práce pracovala. Dále je zde popsán průběh sběru datasetu, který byl nedílnou součástí provádění experimentů v rámci této bakalářské práce.
-
-\section{Popis bezdotykového senzoru}
-Bezdotykový senzor je představitelem poslední generace senzorů pro snímání otisků prstů. Je založen na typu snímání, kdy daný prst nepřichází do kontaktu s žádným povrchem, jako je to u dotykových senzorů. 
-
-Díky kontaktu s daným povrchem se mohou obrazy otisků prstů od stejného objektu lišit. Dále je i použití dotykových senzorů otisků prstů mírně nehygienické v místech, kde ho denně použijí stovky nebo tisíce lidí. Dané povrchy pro analýzu jsou u dotykového senzoru ploché, ale sám povrch prstu plochý není. Objekt musí tedy vyvinout jistý tlak na senzor, který dokáže výsledný obraz zkreslit. 
-
-Bezdotykový senzor pro snímání otisků prstů tyto problémy dokáže vyřešit. Snímek otisku prstu je získán bez nutnosti zkreslené při dotyku povrchu a problémy týkající se hygieny jsou také vyřešeny, protože se povrchu senzoru nemusíme dotýkat. Dokážeme rychle zachytit celý daný snímaný prostor. Bezdotykový senzor může sloužit k 2D i 3D snímání, při analýze je možné použít různé algoritmy pro analýzu textury nebo nasvícení světlem o různých vlnových délkách. Bohužel díky absenci povrchu pro snímání otisků prstů nemusí být snímky dostatečně ostré, protože daný subjekt se musí naučit držet svůj prst v co nejvíce statické poloze s co největším potlačením jakéhokoliv třesu. \cite{TouchlessSensorStudy} 
-
-Použitý bezdotykový senzor v rámci bakalářské práce je složen ze tří kamer a světel o různých vlnových délkách, které dokáží prst nasvítit. Pro výzkum byla použita prostřední kamera díky její nejlepší kvalitě. Prsty byly nasvicovány modrým, zeleným a červeným světlem. Byly provedeny experimenty i s ultrafialovým zářením, ale toto světlo bylo velmi slabé, výsledky nebyly dobré a proto nebylo při výsledné analýze nakonec použito.
-
-\begin{figure}[!htbp]
-  \begin{minipage}[b]{0.3\linewidth}
-    \centering
-    \includegraphics[width=130px]{obrazky-figures/IMG_4539.JPG}
-    \caption{Zapojený bezdotykový senzor}
-  \end{minipage}
-  \hspace{0.3cm}
-  \begin{minipage}[b]{0.3\linewidth}
-    \centering
-    \includegraphics[width=130px]{obrazky-figures/IMG_4516.JPG}
-    \caption{Svrchní pohled na bezdotykový senzor s detailem snímacích kamer}
-  \end{minipage}
-  \hspace{0.3cm}
-    \begin{minipage}[b]{0.3\linewidth}
-    \centering
-    \includegraphics[width=130px]{obrazky-figures/IMG_4518.JPG}
-    \caption{Detail bezdotykového senzoru}
-  \end{minipage}
-\end{figure}
-
-\section{Sběr datasetu}
-Pro snímky živých otisků prstů bylo použito zhruba šest osob. Prsty byly nasvicovány jednotlivými světly. Bylo potřeba dbát na skutečnost, aby nebyly obrazy přesvětlené a vynikly tak co nejlépe papilární linie a textura povrchu prstu. I přes vynaloženou snahu, se mohou na snímcích objevit stíny, ale snažila jsem se co nejvíce simulovat skutečné používání senzoru, aby dokázal analyzovat živost s co největším rozpětím, v různých podmínkách a s robustností. 
-
-Zjistila jsem, že pro některé osoby bylo zpočátku trochu nezvyklé držet prst opravdu ve statické poloze při snímání, což beru jako mírnou nevýhodu bezdotykového senzoru. Dalším mírným problémem při sbírání otisků prstů od subjektů bylo dbaní na správné natočení prstu, aby vynikl celý prst a ne například pouze jeho část, pokud účastník prst příliš nesprávně natočil a kamera nemohla celý otisk správně snímat. Sběr datasetu probíhal při více setkáních, kdy bylo možné co nejvíce eliminovat případné chyby a všichni účastníci byly již více obeznámeni s používaným typem bezdotykového senzoru. Pro svoji analýzu jsem dále použila zhruba 36 falešných otisků prstů. I zde bylo potřeba dbát na co největší vyniknutí papilárních linií. Bylo nezbytné experimentovat s různými hodnotami napětí pro dané barvy světla právě kvůli zajištění co nejmenšího možného přesvětlení otisků prstů a nejlepšímu vyniknutí jejich textury.
-
-Finální dataset obsahuje 216 snímků otisků prstů nasvícenými jedním z daných světel odpovídající vlnové délky (modrá, zelená nebo červená barva světla) - 108 snímků zobrazuje živý otisk prstu, 108 snímků pak znázorňuje falešný otisk prstu.
-
-\begin{figure}[!htbp]
-  \begin{minipage}[b]{0.3\linewidth}
-    \centering
-    \includegraphics[width=130px]{obrazky-figures/live120.jpg}
-    \caption{Obrázek živého otisku prstu s nasvícením modrým světlem}
-  \end{minipage}
-  \hspace{0.3cm}
-  \begin{minipage}[b]{0.3\linewidth}
-    \centering
-    \includegraphics[width=130px]{obrazky-figures/live38.jpg}
-    \caption{Obrázek živého otisku prstu s nasvícením zeleným světlem}
-  \end{minipage}
-  \hspace{0.3cm}
-    \begin{minipage}[b]{0.3\linewidth}
-    \centering
-    \includegraphics[width=130px]{obrazky-figures/live56.jpg}
-    \caption{Obrázek živého otisku prstu s nasvícením červeným světlem}
-  \end{minipage}
-\end{figure}
-
-\begin{figure}[!htbp]
-  \begin{minipage}[b]{0.3\linewidth}
-    \centering
-    \includegraphics[width=130px]{obrazky-figures/fake23.jpg}
-    \caption{Obrázek falešného otisku prstu s nasvícením modrým světlem}
-  \end{minipage}
-  \hspace{0.3cm}
-  \begin{minipage}[b]{0.3\linewidth}
-    \centering
-    \includegraphics[width=130px]{obrazky-figures/fake64.jpg}
-    \caption{Obrázek falešného otisku prstu s nasvícením zeleným světlem}
-  \end{minipage}
-  \hspace{0.3cm}
-    \begin{minipage}[b]{0.3\linewidth}
-    \centering
-    \includegraphics[width=130px]{obrazky-figures/fake47.jpg}
-    \caption{Obrázek falešného otisku prstu s nasvícením červeným světlem}
-  \end{minipage}
-\end{figure}
 
 \chapter{Průzkum současných řešení detekce živosti otisků prstů}
 \label{chap:Pruzkum}
@@ -326,6 +248,12 @@ I bříško prstu obsahuje potní žlázy, proto detekce pórů může poslouži
     \includegraphics[width=250px]{obrazky-figures/pores.png}
     \caption{Srovnání vývoje detekce potu v čase mezi živým a falešným prstem \cite{PoresResearch}}
 \end{figure}
+
+\subsection*{Nasvicování prstů světlem o různé vlnové délce}
+Tato metoda byla využitá s využitím bezdotykového senzoru. Prst byl nasvicován červeným, zeleným a modrým světlem. Byl vytvořen obdelník o fixní délce, ze kterého se analyzovaly dané pixely. Globální vlastnosti extrahované z celého obdelníku byly následující - aritmetický průměr intenzity pixelů, standartní odchylka intenzity pixelů, průměr, medián a standartní odchylka pro extrahovaný histogram. Dále byly snímky po nasvícení všemi třemi barvami světla spojeny do jediného obrázku a bylo experimentováno s různými barevnými modely.
+
+\subsection*{Využití detekce textury otisku prstu}
+Jedná se opět o přístup, kdy bylo experimentováno se snímky s využitím bezdotykového senzoru. Extrahovaný vektor byl složen z 512 deskriptorů algoritmu vylepšeného lokálního binárního vzoru (Improved Local Binary Pattern (ILBP), který vedle klasických hlavních vlastností LBP představuje další nové vlastnosti. Místo počítání binárního kódu je pracováno s průměrem, výsledné číslo není 8-bitové jako u algoritmu LBP, ale 9-bitové. Druhá složka vektoru je založena na matici GLCM (Grey Level Cooccurrence Matrix) a jejich čtyř vlastností (kontrast, korelace, energie a homogenita). Je nutno podotknout, že tyto vlastnosti jsou průměrem vlastností získaných z 8 GLCM matic, které jsou u každého pixelu spočteny pro každý směr. Dále je na celý vektor aplikována metoda Principal Component Analysis (PCA), která redukuje dimenzi příznakového prostoru. Pro finální trénování a testování byla použita umělá neuronová síť, která předpověděla nejen živost a neživost daného otisku prstu, ale i materiál, ze kterého jsou umělé otisky prstu vyrobeny. \cite{TouchlessANN}
 
 
 
@@ -761,21 +689,101 @@ Výhodami SVM jsou: \cite{ScikitSVM}
 Je však na druhou stranu nevýhodou, že pokud je počet vlastností o mnoho vyšší jak počet vzorků, nemusíme dostávat tolik přesné výsledky. 
 
 \section{Rozhodovací stromy}
-Cílem dalšího z klasifikačních algoritmů, rozhodovacích stromů (\textit{Decision Trees} - DTs) je předpovědět výsledek na základě jednoduchých rozhodovacích pravidel, které jsou odvozené od vlastností dat. Tato klasifikační metoda tedy pro svoji práci využívá graf, který můžeme označit jako strom, protože je souvislý a neobsahuje žádnou kružnici. Cesty od kořene k listu reprezentují klasifikační pravidla. 
+Cílem dalšího z klasifikačních algoritmů, rozhodovacích stromů (\textit{Decision Trees} - DTs) je předpovědět výsledek na základě jednoduchých rozhodovacích pravidel, které jsou odvozené od vlastností dat. Tato klasifikační metoda tedy pro svoji práci využívá graf, který můžeme označit jako strom, protože je souvislý a neobsahuje žádnou kružnici. Každý list stromu reprezentuje test pro atribut, každá větev pak značí výsledek daného testu. Cesty od kořene k listu reprezentují klasifikační pravidla. 
 
 Výhody rozhodovacích stromů jsou: \cite{ScikitDTs}
 \begin{itemize}
     \item Jednoduché na pochopení a vizualizaci, stromy jde také vizualizovat.
     \item Vstupní data nemusí být různě upravována nebo normalizována.
+    \item Rozhodovací stromy mohou být využity při problematice, kdy je současně modelem řešeno více klasifikačních problémů. 
     \item Používá model white box - bílou skříňku. Pokud je daná situace v modelu pozorovatelná, vysvětlení pro podmínky může být snadno vysvětleno pomocí boolovské logiky. Umělá neuronová síť je reprezentantem modelu black box - černé skříňky, kdy mohou být výsledky obtížnější interpretovat. 
 \end{itemize}
 
 
-Algoritmus však může v některých případech vytvořit až příliš komplexní strom, který data špatně zpracovává a generalizuje. Tato situace se nazývá overfitting. Jedná se tedy o chybu v modelování, kdy je model příliš složitý a fukce je příliš kompatabilní s omezenou sadou datových bodů. Při nepatrně nepřesných údajích může finální model získat podstatné chyby a predikce může být pak nepřesná.
+Algoritmus však může v některých případech vytvořit až příliš komplexní strom, který data špatně zpracovává a generalizuje. Tato situace se nazývá overfitting. Jedná se tedy o chybu v modelování, kdy je model příliš složitý a fukce je příliš kompatabilní s omezenou sadou datových bodů. Při nepatrně nepřesných údajích může finální model získat podstatné chyby a predikce může být pak nepřesná. Dále nedokáže rozhodovací strom snadno zpracovat nenumerická data.
+
+Rozhodovací stromy jsou považovány za jedny z nejlepších a nejpoužívanějších metod pro klasifikaci a regresi. Metody založené na rozhodovacích stromech poskytují vysokou přesnost, stabilitu a snadnost interpretace. Narozdíl od lineárních modelů jsou schopny snadno řešit i nelineární vztahy. \cite{DecisionTrees}
     
 \chapter{Implementace}
-Cílem samotné implemetace bylo aplikovat algoritmy pro předzpracování obrazu a následně využít postupy, které mohou zajistit na základě analýzy textury výsledné rozhodnutí o živosti či neživosti daného otisku prstu.
+Cílem samotné implementace bylo aplikovat algoritmy pro předzpracování obrazu a následně využít postupy, které mohou zajistit na základě analýzy textury výsledné rozhodnutí o živosti či neživosti daného otisku prstu. Tato kapitola popisuje nejen samotnou implementaci programu, jeho základní funkcionalitu a logiku, ale také nedílnou součást - postup sběru datasetu na využitém bezdotykovém zařízení. Tento dataset byl využitý jak pro trénování, tak pro testování vzorků s neznámým výsledkem a předpovězení jejich živosti či neživosti. Dále tato kapitola popisuje i samotný bezdotykový senzor, jeho výhody a nevýhody oproti klasickým dotykovým senzorům pro snímání otisku prstu a také jednu z dalších nejdůležitějších částí implementace - extrahované vektory z daných otisků prstů založených na několika principech - algoritmu lokálního binárního vzoru, Sobel a Laplaceova operátoru a vlnkové transformace.
+
 Pro implementaci byl využit jazyk Python 3.6 s dalšími podporovanými knihovnami. Pro vývoj bylo použito prostředí operačního systému Ubuntu 18.04.4 LTS.
+
+\section{Popis bezdotykového senzoru}
+Bezdotykový senzor je představitelem poslední generace senzorů pro snímání otisků prstů. Je založen na typu snímání, kdy daný prst nepřichází do kontaktu s žádným povrchem, jako je to u dotykových senzorů. 
+
+Díky kontaktu s daným povrchem se mohou obrazy otisků prstů od stejného objektu lišit. Dále je i použití dotykových senzorů otisků prstů mírně nehygienické v místech, kde ho denně použijí stovky nebo tisíce lidí. Dané povrchy pro analýzu jsou u dotykového senzoru ploché, ale sám povrch prstu plochý není. Objekt musí tedy vyvinout jistý tlak na senzor, který dokáže výsledný obraz zkreslit. 
+
+Bezdotykový senzor pro snímání otisků prstů tyto problémy dokáže vyřešit. Snímek otisku prstu je získán bez nutnosti zkreslené při dotyku povrchu a problémy týkající se hygieny jsou také vyřešeny, protože se povrchu senzoru nemusíme dotýkat. Dokážeme rychle zachytit celý daný snímaný prostor. Bezdotykový senzor může sloužit k 2D i 3D snímání, při analýze je možné použít různé algoritmy pro analýzu textury nebo nasvícení světlem o různých vlnových délkách. Bohužel díky absenci povrchu pro snímání otisků prstů nemusí být snímky dostatečně ostré, protože daný subjekt se musí naučit držet svůj prst v co nejvíce statické poloze s co největším potlačením jakéhokoliv třesu. \cite{TouchlessSensorStudy} 
+
+Použitý bezdotykový senzor v rámci bakalářské práce je složen ze tří kamer a světel o různých vlnových délkách, které dokáží prst nasvítit. Pro výzkum byla použita prostřední kamera díky její nejlepší kvalitě. Prsty byly nasvicovány modrým, zeleným a červeným světlem. Byly provedeny experimenty i s ultrafialovým zářením, ale toto světlo bylo velmi slabé, výsledky nebyly dobré a proto nebylo při výsledné analýze nakonec použito.
+
+\begin{figure}[!htbp]
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/IMG_4539.JPG}
+    \caption{Zapojený bezdotykový senzor}
+  \end{minipage}
+  \hspace{0.3cm}
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/IMG_4516.JPG}
+    \caption{Svrchní pohled na bezdotykový senzor s detailem snímacích kamer}
+  \end{minipage}
+  \hspace{0.3cm}
+    \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/IMG_4518.JPG}
+    \caption{Detail bezdotykového senzoru}
+  \end{minipage}
+\end{figure}
+
+\section{Sběr datasetu}
+Pro snímky živých otisků prstů bylo použito zhruba šest osob. Prsty byly nasvicovány jednotlivými světly. Bylo potřeba dbát na skutečnost, aby nebyly obrazy přesvětlené a vynikly tak co nejlépe papilární linie a textura povrchu prstu. I přes vynaloženou snahu, se mohou na snímcích objevit stíny, ale snažila jsem se co nejvíce simulovat skutečné používání senzoru, aby dokázal analyzovat živost s co největším rozpětím, v různých podmínkách a s robustností. 
+
+Zjistila jsem, že pro některé osoby bylo zpočátku trochu nezvyklé držet prst opravdu ve statické poloze při snímání, což beru jako mírnou nevýhodu bezdotykového senzoru. Dalším mírným problémem při sbírání otisků prstů od subjektů bylo dbaní na správné natočení prstu, aby vynikl celý prst a ne například pouze jeho část, pokud účastník prst příliš nesprávně natočil a kamera nemohla celý otisk správně snímat. Sběr datasetu probíhal při více setkáních, kdy bylo možné co nejvíce eliminovat případné chyby a všichni účastníci byly již více obeznámeni s používaným typem bezdotykového senzoru. Pro svoji analýzu jsem dále použila zhruba 36 falešných otisků prstů. I zde bylo potřeba dbát na co největší vyniknutí papilárních linií. Bylo nezbytné experimentovat s různými hodnotami napětí pro dané barvy světla právě kvůli zajištění co nejmenšího možného přesvětlení otisků prstů a nejlepšímu vyniknutí jejich textury.
+
+Finální dataset obsahuje 216 snímků otisků prstů nasvícenými jedním z daných světel odpovídající vlnové délky (modrá, zelená nebo červená barva světla) - 108 snímků zobrazuje živý otisk prstu, 108 snímků pak znázorňuje falešný otisk prstu.
+
+\begin{figure}[!htbp]
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/live120.jpg}
+    \caption{Obrázek živého otisku prstu s nasvícením modrým světlem}
+  \end{minipage}
+  \hspace{0.3cm}
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/live38.jpg}
+    \caption{Obrázek živého otisku prstu s nasvícením zeleným světlem}
+  \end{minipage}
+  \hspace{0.3cm}
+    \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/live56.jpg}
+    \caption{Obrázek živého otisku prstu s nasvícením červeným světlem}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/fake23.jpg}
+    \caption{Obrázek falešného otisku prstu s nasvícením modrým světlem}
+  \end{minipage}
+  \hspace{0.3cm}
+  \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/fake64.jpg}
+    \caption{Obrázek falešného otisku prstu s nasvícením zeleným světlem}
+  \end{minipage}
+  \hspace{0.3cm}
+    \begin{minipage}[b]{0.3\linewidth}
+    \centering
+    \includegraphics[width=130px]{obrazky-figures/fake47.jpg}
+    \caption{Obrázek falešného otisku prstu s nasvícením červeným světlem}
+  \end{minipage}
+\end{figure}
 
 \section{Knihovna OpenCV}
 OpenCV je open source knihovna, která slouží pro práci s obrazem a získávání důležitých dat. Vedle programovacího jazyka Python může být využita například i s jazykem Java nebo C++. Samotná knihovna byla napsána v jazyce C/C++. \cite{OpenCVLibrary} Vedle práce s obrazem nabízí tato knihovna například i funkce pro práci s kamerami, které byly využity například při získávání dat ze senzoru. Tato knihovna byla využita při práci s otisky prstů, její funkce byly nápomocny při předzpracování obrazu a dále napomáhala i při implementaci algoritmu pro lokální binární vzor.
@@ -948,7 +956,7 @@ Dále byly testovány průměrné přesnosti všech metod segmentace - s využit
 \end{table}
 \capstarttrue
 
- Pro všechny využité druhy segmentace byla testována každá ze zvolených metod kromě metody s extrahovaným vektorem na základě Sobel a Laplaceova operátoru. Pro tuto metodu byla zvolena pouze segmentace s Otsu prahováním. Níže můžeme vidět průměrnou přesnost pro všechny metody, při kterých se uvažovaly všechny tři typy segmentace. Metoda využívající extrahovaného vektoru na základě lokálního binárního vzoru byla nejpřesnější, dosahuje přesnosti průměrně 90.2\%. Nejspolehlivější metodou založenou na vlnkové transformaci byla metoda $rbio3.1$ spadající do rodiny reverzních biortogonálních spline vlnek. Nejspolehlivější metodou biortogonálních spline vlnek byla vlnka $bior1.3$. Ačkoliv jsou vlnky Daubechies hojně používanými při zpracování obrazu, jejich přesnost je ve výsledku v provedeném experimentu jednou z nejnižších. Přesto však všechny tyto metody dosahují přesnosti vyšší jak 80\%.
+ Pro všechny využité druhy segmentace byla testována každá ze zvolených metod kromě metody s extrahovaným vektorem na základě Sobel a Laplaceova operátoru. Pro tuto metodu byla zvolena pouze segmentace s Otsu prahováním. Níže můžeme vidět průměrnou přesnost pro všechny metody, při kterých se uvažovaly všechny tři typy segmentace. Metoda využívající extrahovaného vektoru na základě lokálního binárního vzoru byla nejpřesnější, dosahuje přesnosti průměrně 90.2\%. Nejspolehlivější metodou založenou na vlnkové transformaci byla metoda $rbio3.1$ spadající do rodiny reverzních biortogonálních spline vlnek. Nejspolehlivější metodou biortogonálních spline vlnek byla vlnka $bior1.3$. Ačkoliv jsou vlnky Daubechies hojně používanými při zpracování obrazu, jejich přesnost je ve výsledku v provedeném experimentu jednou z nejnižších. Přesto však všechny tyto metody dosahují přesnosti vyšší jak 80\% a průměrná přesnost vektoru založeném na vlnkové transformaci je 84.9\%.
  
 \capstartfalse
 \begin{table}[!htbp]
@@ -1064,7 +1072,7 @@ I u tohoto velkého získaného datasetu čítající více než 200 snímků, j
 \end{table}
 \capstarttrue
 
-Nejdůležitějším úkolem bylo poté porovnat všechny metody a znovu nalézt tu, která vykazuje největší přesnost. Prvně porovnáme metody, u kterých byly využity všechny tři typy prahování při segmentaci obrazu. Jedná se teda o všechny přístupy s výjimkou vektoru založeného na Sobel a Laplaceově operátoru. Vektor založený na lokálním binárním vzoru vykazuje největší přesnost klasifikace 89.3\%. Nejpřesnějšími přístupy založenými na vlnkové transformaci jsou pak $rbio3.1$ s 86.9\% a $bior1.3$ s 86.3\%. Metody spadající do Daubechies vlnkové rodiny jsou jedny z nejméně přesných při našem experimentu - vlnka $db4$ má průměrnou přesnost 84.6\% a vlnka $db2$ pak 81.8\%.
+Nejdůležitějším úkolem bylo poté porovnat všechny metody a znovu nalézt tu, která vykazuje největší přesnost. Prvně porovnáme metody, u kterých byly využity všechny tři typy prahování při segmentaci obrazu. Jedná se teda o všechny přístupy s výjimkou vektoru založeného na Sobel a Laplaceově operátoru. Vektor založený na lokálním binárním vzoru vykazuje největší přesnost klasifikace 89.3\%. Nejpřesnějšími přístupy založenými na vlnkové transformaci jsou pak $rbio3.1$ s 86.9\% a $bior1.3$ s 86.3\%. Metody spadající do Daubechies vlnkové rodiny jsou jedny z nejméně přesných při našem experimentu - vlnka $db4$ má průměrnou přesnost 84.6\% a vlnka $db2$ pak 81.8\%. Při tomto experimentu je celková průměrná přesnost při klasifikaci pomocí vektoru založeném na vlnkové transformaci 84.8\%.
 
 \capstartfalse
 \begin{table}[!htbp]
@@ -1112,13 +1120,13 @@ V první části experimentu byl dataset rozdělen na tři menší, ve kterých 
 
 Přestože jsem se snažila použít i metody adaptivního prahování, u kterých jsem předpokládala, že budou pro snímky ze senzoru vhodnější, jak segmentace s prahováním Otsu, právě tato metoda s konstantním prahem v závislosti na daném vstupním obrazu byla nejpřesnější, dosahovala 88.6\%. Výhodou této metody také vidím v tom, že při ní nemusí člověk nastavovat různé parametry jako u adaptivních metod prahování (velikost bloku, konstanta $C$), hodnota prahu je vybrána automaticky, bez jakéhokoliv zkoumání, jaká konstanta $C$ nebo velikost bloku fungují nejlépe pro snímky z našeho použitého senzoru. 
 
-Nyní můžeme porovnat jednotlivé použité metody. Pro metodu využívající Sobel a Laplaceova operátoru byla zvolena pouze Otsu segmentace. Celkově největších přesností dosahovala metoda využívající lokální binární vzor (90.2\%), metoda používající Sobel a Laplaceův operátor (90.3\%) a vlnková transformace s použitou vlnkou z rodiny biortogonálních spline vlnek (průměr tří testovaných vlnek činil 85.0\%) a reverzních biortogonálních spline vlnek (86.3\%). 
+Nyní můžeme porovnat jednotlivé použité metody. Pro metodu využívající Sobel a Laplaceova operátoru byla zvolena pouze Otsu segmentace. Celkově největších přesností dosahovala metoda využívající lokální binární vzor (90.2\%), metoda používající Sobel a Laplaceův operátor (90.3\%) a vlnková transformace s použitou vlnkou z rodiny biortogonálních spline vlnek (průměr tří testovaných vlnek činil 85.0\%) a reverzních biortogonálních spline vlnek (86.3\%). Průměrná přesnost klasifikace s využitím vlnkové transformace byla 84.8\%.
 
 Nakonec byla určena barva světla, která dávala při použití nejlepší výsledky. Snímky nasvícené červenou barvou světla prováděli klasifikaci s přesností 90.1\%. Otisky prstů nasvícené červeným světlem tedy poskytovaly nejlepší výsledky, narozdíl od modré a hlavně zelené barvy, kdy otisky prstů nasvícené modrou barvou se klasifikovali s průměrnou přesností 86.8\% a prsty nasvícené zeleným světlem pak 80.7\%.
 
 Cílem druhého experimentu bylo pracovat se všemi získanými snímky z bezdotykového senzoru. Těchto 216 bylo rozděleno znovu na snímky určené pro trénování s předem známým výsledkem a snímky určené pro testování, u které měl klasifikátor předpovědět, zda se jedná o živý nebo falešný otisk prstu. Nejlepším klasifikátorem se opět stala umělá neuronová síť jako v předchozím experimentu. Zde však dosahovala mírně nižší přesnosti než v předchozím případě - 88.8\%. Otsu metoda je opět nejlepším algoritmem využitým pro segmentaci. Dosahuje opět opravdu nepatrně nižší přesnosti jako u prvního experimentu - 87.7\%. 
 
-Nejlepší metody jsou shodné s prvním experimentem, akorát celkové přesnosti se mírně změnili. Přesnost lokálního binárního vzoru se snížila na 89.3\%. Přesnost nejlepších metod vlnkové transformace se však průměrně zvýšila. Biortogonální spline vlnky dosahují průměrné přesnosti 85.2\% a reverzní biortogonální spline vlnky pak 86.9\%. Sobel a Laplaceův operátor pak klasifikuje otisky prstů s přesností 92.7\%. Metoda založená právě na Sobel a Laplaceově operátoru pak představuje v kombinaci s extrahovanými charakteristiky opravdu velmi přesnou a rychlou klasifikaci i u tohoto rozsáhlejšího datasetu. Vlnková transformace je pak nejpomalejším řešením, ale umožňuje různé přístupy k analýze, knihovna PyWavelets nabízí různé vlnkové rodiny, které mezi sebou můžeme porovnat a stanovit ty nejvhodnější pro zkoumanou detekci živosti.
+Nejlepší metody jsou shodné s prvním experimentem, akorát celkové přesnosti se mírně změnili. Přesnost lokálního binárního vzoru se snížila na 89.3\%. Přesnost nejlepších metod vlnkové transformace se však průměrně zvýšila. Biortogonální spline vlnky dosahují průměrné přesnosti 85.2\% a reverzní biortogonální spline vlnky pak 86.9\%. Celková průměrná přesnost metod vlnkové transformace je 84.9\%, jen nepatrně se zvýšila ve srovnání s prvním experimentem. Sobel a Laplaceův operátor pak klasifikuje otisky prstů s přesností 92.7\%. Metoda založená právě na Sobel a Laplaceově operátoru pak představuje v kombinaci s extrahovanými charakteristikami opravdu velmi přesnou a rychlou klasifikaci i u tohoto rozsáhlejšího datasetu. Vlnková transformace je pak nejpomalejším řešením, ale umožňuje různé přístupy k analýze, protože knihovna PyWavelets nabízí různé vlnkové rodiny, které mezi sebou můžeme porovnat a stanovit ty nejvhodnější pro zkoumanou detekci živosti.
 
 Na základě obou experimentů můžeme stanovit záverečný úsudek. Pro detekci živosti na našem bezdotykovém zařízení je nejlepším řešením použít pro nasvicování otisků prstů světlo červené barvy. Nejrychlejším a nejspolehlivějším řešením pro klasifikaci snímků je pak získat předzpracované snímky s využitím Sobel a Laplaceova operátoru, z takto zpracovaných výsledků pak určit důležité vlastnosti pro GLCM matici a sestavit výsledný vektor. Poté je provedeno trénování neuronové sítě na vzorcích se známým výsledkem a výsledná predikce živosti a neživosti testovaných otisků prstů. Další možností je využití vlnkové transformace nebo lokálního binárního vzoru. Lokální binární vzor je druhou nejrychlejší metodou, jeho přesnost je opravdu pouze nepatrně nižší jak u Sobel a Laplaceova operátoru. Při využití vlnkové transformace je vhodné pak využít biortogonální spline vlnky nebo reverzní biortogonální spline vlnky. Správnost klasifikace je průměrně vyšší jak 80\%. Tato metoda je však nejpomalejším řešením, ale i tak poskytuje dobré výsledky a možné podklady pro další výzkum, díky možnosti experimentovat s různými vlnkovými rodinami a parametry.
 
