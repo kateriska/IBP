@@ -95,6 +95,8 @@ def clasifyANN(method_type):
     wrong_clasify = 0
     far_value = 0 # the percentage of identification instances in which unauthorised persons are incorrectly accepted
     frr_value = 0 # the percentage of identification instances in which authorised persons are incorrectly rejected
+    live_count = 0 # count of live fingerprints
+    fake_count = 0 # count of fake fingerprints
     for cols in tested_vectors:
         live_percent = 0
         fake_percent = 0
@@ -127,6 +129,12 @@ def clasifyANN(method_type):
         else:
             wrong_clasify += 1
 
+        # count sum of all tested live and fake fingerprints
+        if ("live" in file_tested_str):
+            live_count += 1
+        else:
+            fake_count += 1
+
         # compute FAR and FRR
         if (live_sample == True and "fake" in file_tested_str):
             far_value += 1
@@ -135,20 +143,23 @@ def clasifyANN(method_type):
 
         tested_files_index = tested_files_index + 1
 
+    print()
+    print("Number of tested live fingerprints: " + str(live_count))
+    print("Number of tested fake fingerprints: " + str(live_count))
     print("Number of correct classifications: " + str(correct_clasify))
     print("Number of wrong classifications: " + str(wrong_clasify))
     accuracy = (100 * correct_clasify) / (correct_clasify + wrong_clasify)
     print("Accuracy: " + str(accuracy) + " %" )
-    far_count = (far_value * 100) / (correct_clasify + wrong_clasify)
-    frr_count = (frr_value * 100) / (correct_clasify + wrong_clasify)
-    print("FAR (the percentage of identification instances in which unauthorised persons are incorrectly accepted): " + str(far_count) + " %")
-    print("FRR (the percentage of identification instances in which authorised persons are incorrectly rejected): " + str(frr_count) + " %")
+    far_count = (far_value * 100) / fake_count
+    frr_count = (frr_value * 100) / live_count
+    print("FAR (unauthorised persons are incorrectly accepted): " + str(far_count) + " %")
+    print("FRR (authorised persons are incorrectly rejected): " + str(frr_count) + " %")
 
     # show graph of error of ANN
     plt.figure(figsize=(15,5))
     plt.plot(artificial_neural_network.epochs_list, artificial_neural_network.error_list)
-    plt.xlabel('Count of Epochs')
-    plt.ylabel('Error Value')
+    plt.xlabel('Count of epochs')
+    plt.ylabel('Error value')
     plt.show()
 
     return
