@@ -76,7 +76,7 @@ def clasifyDTS(method_type):
 
     print()
     print("Number of tested live fingerprints: " + str(live_count))
-    print("Number of tested fake fingerprints: " + str(live_count))
+    print("Number of tested fake fingerprints: " + str(fake_count))
     print("Number of correct classifications: " + str(correct_clasify))
     print("Number of wrong classifications: " + str(wrong_clasify))
     accuracy = (100 * correct_clasify) / (correct_clasify + wrong_clasify)
