@@ -9,6 +9,7 @@ Výsledná analýza se sestávala z porovnání metod analýzy textury obrazu, a
 
 \chapter{Biometrie} 
 Biometrie je věda rozpoznávání identity člověka na základě jeho fyzických a behaviorálních vlastností jako například tvář, otisky prstů, hlas nebo oční duhovka. \cite{Jain2008} Slovo biometrie pochází z řeckých slov \textit{bios} (život) a \textit{metron} (měření). Biometrické identifikátory jsou v~informatice používány pro přístupovou kontrolu a identifikaci. Skoro všechny identifikátory jsou kombinací anatomických a behaviorálních charakteristik. U otisku prstu je behaviorální složkou skutečnost, že každý uživatel použije skener otisku prstů v závislosti na svém chování. Záleží i například na úhlu přiložení prstu nebo znečistění povrchu prstu či senzoru. U identifikace tváře pak záleží i na změnách pramenících z chování člověka (např. změna životního stylu vedoucí ke změně tělesné váhy). \cite{Maltoni2009}
+
 \section{Identita, identifikace, verifikace a autentizace}
 Identifikace, verifikace, identita a autentizace jsou základními čtyřmi pojmy, které biometrické systémy využívají a pracují s nimi. \cite{Drahansky}
 \begin{itemize}
@@ -24,13 +25,13 @@ Identifikace, verifikace, identita a autentizace jsou základními čtyřmi pojm
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=150px]{obrazky-figures/identifver.png}
+    \includegraphics[width=160px]{obrazky-figures/identifver.png}
     \caption{Rozdíl mezi identifikací a verifikací \cite{Drahansky}}
 \end{figure}
 
 
 
-\section{Biometrické systémy}
+\section{Biometrické systémy a vlastnosti}
 Biometrické systémy dělíme do dvou základních kategorií: \cite{Drahansky}
 \begin{itemize}
     \item \textbf{Registrační modul} - Zde je zaregistrována biometrická informace (tzv. biometrický markant) a je uložena do databáze.
@@ -43,29 +44,51 @@ Biometrické systémy dělíme do dvou základních kategorií: \cite{Drahansky}
     \caption{Znázornění biometrického systému \cite{Drahansky}}
 \end{figure}
 
+Biometrické vlastnosti (rysy) můžeme dělit do dvou kategorií. Biometrie dokáže pracovat nejen se statickými vlastnosti, ale i s dynamickými, pro zkoumání lze využít celou řadu biometrických rysů člověka. Statické vlastnosti představují samotnou analýzu anatomických vlastností, jedná se o vždy přítomnou biometrickou vlastnost. Dynamické vlastnosti jsou pak spojeny s nějakou akcí daného uživatele.
+
+\begin{itemize}
+    \item anatomické (fyzické statické) vlastnosti - otisk prstu, obličej, duhovka oka, sítnice oka, geometrie ruky, dlaň, termogram obličeje, termogram ruky, dentální obraz, podpis, tvar ucha, snímek nehtu, DNA
+    \item dynamické vlastnosti (chování nebo jednání) - hlas (řeč), gestikulace obličeje, podpis (dynamické vlastnosti). dynamika stisku kláves, pohyby rtů, chůze
+\end{itemize}
+
+Biometrický systém můžeme právě dle daných biometrických vlastností dělit na unimodální biometrický systém a multimodální biometrický systém. Unimodální biometrický systém využívá pouze jednu danou biometrickou vlastnost. Multimodální biometrický systém pak využívá více biometrických vlastností nebo statické i dynamické příznaky pro jednu biometrickou vlastnost (např. statické a dynamické vlastnosti podpisu). Multimodální systémy jsou spolehlivější pro analýzu, avšak mají dražší pořizovací náklady jak unimodální systémy. \cite{Drahansky}
+
+Důležitými kritérii pro rozhodnutí o použití daného biometrického systému jsou atributy biometrických vlastností. Mezi nejdůležitější atributy patří:
+
+\begin{itemize}
+    \item univerzalita - biometrickou vlastnost by měla mít každá osoba
+    \item jedinečnost - biometrická vlastnost je unikátní pro daného člověka
+    \item konstantnost - biometrická vlasnost se nemění v čase
+    \item získatelnost - biometrickou vlastnost můžeme kvantitativně změřit
+    \item výkonnost - biometrická vlastnost se nesmí změnit
+    \item akceptace - souhlas s nasnímaním dané biometrické vlastnosti danými subjekty
+    \item bezpečnost proti falšování - míra obtížnosti vytvoření falsifikátu pro danou biometrickou vlastnosti
+    \item finanční náklady na pořízení - míra finančních nákladů potřebných k pořízení biometrického systému \cite{Drahansky}
+\end{itemize}
+
 \section{Skóre porovnání}
 Skóre porovnání udává kvantifikovanou podobnost extrahovaného vzorku a šablony. Extrahovaný vzorek obsahuje významné rysy z vstupních dat. Šablona je pak uložená např. v databázi nebo na čipové kartě. Tato míra shody je založená na aplikaci prahu $T$, na základě kterého je rozhodnuto o přijetí nebo nepřijetí daného objektu. \cite{Drahansky}
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=220px]{obrazky-figures/mira.png}
+    \includegraphics[width=330px]{obrazky-figures/mira.png}
     \caption{Skóre porovnání na základě zvoleného prahu \cite{Drahansky}}
 \end{figure}
 
 \subsection*{Míra chybného přijetí (FAR)}
 FAR (\textit{False Acceptance Rate}) udává procentuální zastoupení identifikovaných instancí, kdy jsou neautorizované osoby akceptovány daným biometrickým systémem. Tato vlastnost je spočítána následujícím vzorcem:
-$$FAR = \frac{pocet\:prijatych\:neautorizovanych\:osob}{celkovy\:pocet\:testovaných\:vzorku} \cdot 100 \%$$
+$$FAR = \frac{pocet\:prijatych\:neautorizovanych\:osob}{celkovy\:pocet\:porovnani\:shodnych\:vzoru} \cdot 100 \%$$
 
 \subsection*{Míra chybného odmítnutí (FRR)}
 FRR (\textit{False Rejection Rate}) představuje procentuální zastoupení identifikovaných instancí, kdy jsou autorizované osoby nekorektně biometrickým systémem zamítnuty. Výpočet je obdobný jako u charakteristiky FAR.
-$$FRR = \frac{pocet\:zamitnutych\:autorizovanych\:osob}{celkovy\:pocet\:testovaných\:vzorku} \cdot 100 \%$$
+$$FRR = \frac{pocet\:zamitnutych\:autorizovanych\:osob}{celkovy\:pocet\:porovnani\:shodnych\:vzoru} \cdot 100 \%$$
 
 \subsection*{Souvislost FAR a FRR}
 Vliv charakteristik FAR a FRR znázorňuje následující graf. S větší úrovní zabezpečení se snižuje hodnota FAR, čili je přijato stále méně a méně neautorizovaných osob. Naopak se zvyšuje riziko zamítnutí autorizovaných osob daným systémem. Průsečík těchto dvou křivek nese zkratku EER (\textit{Equal Error Rate}) neboli Míra vyrovnání chyb. V tomto bodě bude chybně akceptován a chybně odmítnut stejný počet osob. Můžeme mít systém, který je více bezpečný, ale méně uživatelsky přívětivý nebo obráceně. \cite{FARFRR}
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=150px]{obrazky-figures/frrfar.jpeg}
+    \includegraphics[width=250px]{obrazky-figures/frrfar.jpeg}
     \caption{Souvislost charakteristik FAR a FRR \cite{FARFRR}}
 \end{figure}
 
@@ -79,9 +102,9 @@ První detailní popis struktury otisků prstů byl předveden německým anatom
 \section{Zákony daktyloskopie}
 Daktyloskopie je naukou o obrazcích papilárních linií. S touto vědou se pojí samotná identifikace daktyloskopických stop a osob. \cite{PolicieDaktyloskopie} Byly zavedeny tyto daktyloskopické zákony:
 \begin{itemize}
-    \item struktura papilárních linií je unikátní pro každého jedince,
-    \item vzor tvořený papilárními liniemi je pro každého jedince během života relativně neměnný,
-    \item obnova papilárních liní probíhá dorůstáním kůže na povrchu prstů, papilární linie mohou být pozměněny pouze pokud se poškodí nebo odstraní epidermální vrstva kůže a poté již nemůže docházet k obnově,
+    \item struktura papilárních linií je unikátní pro každého jedince
+    \item vzor tvořený papilárními liniemi je pro každého jedince během života relativně neměnný
+    \item obnova papilárních liní probíhá dorůstáním kůže na povrchu prstů, papilární linie mohou být pozměněny pouze pokud se poškodí nebo odstraní epidermální vrstva kůže a poté již nemůže docházet k obnově
     \item konfigurační typy se mohou individuálně měnit, jedná se však o malé změny, které leží v tolerančních limitech a umožňují tak systematickou klasifikaci \cite{Drahansky}
 \end{itemize}
 
@@ -106,11 +129,13 @@ Otisky prstů dělíme na základní tři druhy:
 \section{Typy senzorů}
 Nejdůležitějším částí detekce je senzor, který zaznamenává výsledný otisk prstu. Řadíme je do těchto základních kategorií:
 \begin{itemize}
+\item \textbf{Tlakový senzor} - Je vytvořen z materiálu citlivého na mechanické namáhání, při~kterém generuje elektrický signál. Velikost elektrického signálu závisí na tlaku, který vyvíjí prst na povrch senzoru. Hřebeny a údolí papilárních linií jsou v jiných vzdálenostech od povrchu snímače, proto produkují jinou hodnotu elektrického signálu. \cite{Maltoni2009}
+\item \textbf{Termický senzor} - Senzor využívá pyroelektrický materiál, který generuje elektrický náboj na základě teplotních rozdílů. Je založen na skutečnosti, že hřebeny v kontaktu s~povrchem senzoru produkují jinou teplotu jak údolí, které jsou vzdálenější od povrchu snímače. Senzor je obvykle předehřán na vyšší teplotu, aby se zvýšila odlišnost mezi povrchem zařízení a hřebeny linií. \cite{Maltoni2009}
 \item \textbf{Optické senzory} - Využívají jednoduchý zdroj světla (LED), který osvětlí plochu prstu. \cite{Drahansky} Nejvíce používaným zástupcem optických senzorů je infračervený spektrometr s Fourierovou transformací (FTIR). Prst se při snímání dotýká skleněného nebo plastového hranolu. Při dotyku jsou hřebeny papilárních linií v kontaktu s povrchem snímače, ale údolí papilárních linií jsou vzdálena. Světlo pocházející z hranolu dopadá na prst a je odraženo údolími papilárních liníí nebo náhodně pohlceno hřebeny. Ve výsledném obrazu jsou pak hřebeny tmavá místa a údolí světlá místa. FTIR snímače dokáží snímat 3D otisk prstu a tak dokáží detekovat i zfalšované otisky prstu, které například pocházejí z fotografie. \cite{Maltoni2009}
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=200px]{obrazky-figures/ftiredit.png}
+    \includegraphics[width=220px]{obrazky-figures/ftiredit.png}
     \caption{Senzor FTIR \cite{Maltoni2009}}
 \end{figure}
 
@@ -118,25 +143,24 @@ Nejdůležitějším částí detekce je senzor, který zaznamenává výsledný
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=250px]{obrazky-figures/kapacit.png}
+    \includegraphics[width=280px]{obrazky-figures/kapacit.png}
     \caption{Kapacitní senzor \cite{Maltoni2009}}
 \end{figure}
 \item \textbf{Ultrazvukové senzory} - Jsou založeny na posílání akustického signálu prstu a zachytávání odraženého signálu. Odražený signál je použit na výpočet hloubky obrazu a struktury papilárních linií. Senzor se skládá z vysílače a příjimače. Vysílač generuje krátké zvukové pulsy a příjímač detekuje odpověď po odražení těchto akustických pulsů od povrchu prstu. Senzor je schopný detekovat strukturu otisku prstu i například přes tenké rukavice, stejně jako si dokáže poradit s případnými nečistotami i mastnotou. \cite{Maltoni2009}
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=310px]{obrazky-figures/ultrasound.png}
+    \includegraphics[width=290px]{obrazky-figures/ultrasound.png}
     \caption{Ultrazvukový senzor \cite{Maltoni2009}}
 \end{figure}
 \item \textbf{Elektrooptické senzory} - Tyto snímače jsou složeny ze dvou vrstev. První dokáže emitovat světlo, pokud je polarizováno správným nápětím. Druhá vrstva úzce spolupracuje s první, zpracovává emitované světlo a vytváří finální digitální obraz. \cite{Maltoni2009}
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=320px]{obrazky-figures/electro.png}
+    \includegraphics[width=310px]{obrazky-figures/electro.png}
     \caption{Elektrooptický senzor \cite{Maltoni2009}}
 \end{figure}
-\item \textbf{Tlakový senzor} - Je vytvořen z materiálu citlivého na mechanické namáhání, při~kterém generuje elektrický signál. Velikost elektrického signálu závisí na tlaku, který vyvíjí prst na povrch senzoru. Hřebeny a údolí papilárních linií jsou v jiných vzdálenostech od povrchu snímače, proto produkují jinou hodnotu elektrického signálu. \cite{Maltoni2009}
-\item \textbf{Termický senzor} - Senzor využívá pyroelektrický materiál, který generuje elektrický náboj na základě teplotních rozdílů. Je založen na skutečnosti, že hřebeny v kontaktu s~povrchem senzoru produkují jinou teplotu jak údolí, které jsou vzdálenější od povrchu snímače. Senzor je obvykle předehřán na vyšší teplotu, aby se zvýšila odlišnost mezi povrchem zařízení a hřebeny linií. \cite{Maltoni2009}
+
 \end{itemize}
 
 \section{Základní druhy markantů}
@@ -160,7 +184,7 @@ Otisk prstu obsahuje útvary, které tvoří papilární linie - markanty. Mezi 
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=260px]{obrazky-figures/markants.png}
+    \includegraphics[width=200px]{obrazky-figures/markants.png}
     \caption{Základní typy markantů ve vyjmenovaném pořadí \cite{Drahansky}}
 \end{figure}
 
@@ -179,11 +203,11 @@ Otisky prstů můžeme na základě charakteristických znaků rozdělit do nás
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=250px]{obrazky-figures/classes.png}
+    \includegraphics[width=180px]{obrazky-figures/classes.png}
     \caption{Třídy otisků prstů \cite{Drahansky}}
 \end{figure}
 
-\section{Falšování otisků prstů a výpočet přesnosti analýzy}
+\section{Falšování otisků prstů}
 Falešné biometrické reprezentace jsou obecně velkým nebezpečím, protože umožňují vydávat se zločinci za někoho jiného a tím narušit soukromí a bezpečnost jedince. Abnormální otisky prstů dělíme do dvou kategorií:
 \begin{itemize}
     \item falešné otisky prstů
@@ -191,20 +215,7 @@ Falešné biometrické reprezentace jsou obecně velkým nebezpečím, protože 
 \end{itemize}
 Falešný otisk prstu reprezentuje repliku skutečného otisku prstu vyrobeného z materiálů jako je želatina, silikon nebo latex. Biometrické zařízení musí rozhodnout, zda otisk je živý nebo falešný. Tato procedura se nazývá detekce živosti.
 Pozměněné otisky prstů jsou skutečné, avšak jejich struktura je změněna. Otisky mohou být neúplné, pokřivené. Důvodem poškození otisku mohou být nemoci kůže, např. pořezání, popálenina, poleptání silnými chemikáliemi, transplantace kůže nebo různé kožní nemoci. \cite{Petrovici}
-\section{Známé metody pro analýzu živosti otisku prstu a výpočet přesnosti analýzy}
-Algoritmů pro detekci živosti otisku prstu byla objevena ve studiích celá řada. Některé z nich zahrnují: \cite{AbhiskekStudy}
-\begin{itemize}
-    \item Využití vlastnosti elasticity lidské kůže.
-    \item Umístění senzoru na zachytávání pachu vedle senzoru pro detekci otisku prstu. Senzor pachu zaznamenává výsledný signál a je tak schopen rozpoznat lidskou kůži od~syntetických materiálů, jako např. latex, silikon nebo želatina.
-    \item Kombinace statických vlastností při detekci živosti. Bylo pracováno s histogramem, tloušťkou hřebenů papilárních linií, signálem detekovaným z hřebenů nebo hodnotou výkonového frekvenčního spektra.
-    
-\end{itemize}
 
-Další existující řešení pro analýzu živosti otisků prstů jsou uvedené v kapitole \textit{Průzkum současných řešení detekce živosti otisků prstů} (\autoref{chap:Pruzkum}).
-
-
-Přesnost analýzy živosti $a$ můžeme spočítat na základě vzorce:
-$a = \frac{C}{N}$, kde $C$ je počet správných rozhodnutí (klasifikace živého otisku prstu jako "živého" a falešného otisku prstu jako "falešného") a $N$ je počet všech rozhodnutí. \cite{GottschlichStudy}
 
 
 \chapter{Průzkum současných řešení detekce živosti otisků prstů}
@@ -213,24 +224,24 @@ Algoritmů pro detekci živosti otisku prstu byla objevena ve studiích celá ř
 
 \section{Hardwarové metody}
 Hardwarové metody využívají k určení živosti otisků prstů zvláštní hardwarová zařízení. Důležitým opatřením pro tyto metody je skutečnost, aby byly daná hardwarová zařízení integrována takovým způsobem, aby analýzu neohrozila kombinace útočníkova živého prstu s falešným. Zde jsou uvedeny některé z daných přístupů.
+\subsection*{Pulsní oxyometrie}
+Tato metoda využívá měření obsahu kyslíku v krvi. Používá LED a fotodetektor na opačných stranách prstu. Měření závisí na srdečním tepu a proto může trvat několik sekund, než je spočten jeden nebo dva celé cykly srdečního tepu. \cite{BiometricsEncyclopedia2009}
+\subsection*{Teplý a studený podnět}
+Lidský prst dokáže odlišně reagovat na daný podnět, který je umístěný u senzoru. Výsledná informace je zaznamenaná, konkrétně se jedná o kolísání rychlosti průtoku krve v periferních cévách. Při teplém podnětu se amplituda rychlosti toku zvyšuje, při studeném podnětu pak snižuje. Tato metoda však může být ovlivněna citlivou lidskou periferní nervovou soustavou, kdy chvíli trvá, než správně zareaguje na teplý nebo studený podnět u daného člověka. \cite{AdvancedBiometricsTechnologies2011}
 \subsection*{Multispektrální analýza}
 Kůže člověka má některé unikátní optické charakteristiky díky chemickému složení, které ovlivňuje například absorbci optických vlastností. Díky snímkům nasvíceným světlem o různé vlnové délce, můžeme měřit různé vlastnosti lidské kůže a následně tedy odhalit případný falešný otisk prstu. Krátké vlnové délky prst absorbuje a dlouhé vlnové délky pak prst prosvítí. Pomocí kamery je měřeno odražené světlo od nasvíceného prstu. Měření může být poté vizualizováno do grafu a na základě výsledného spektra a matematických metod je stanoven výsledek. \cite{AdvancedBiometricsTechnologies2011}
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=180px]{obrazky-figures/multispectralAnalysis.PNG}
+    \includegraphics[width=300px]{obrazky-figures/multispectralAnalysis.PNG}
     \caption{Rozdíl výsledku multispekrální analýzy mezi živým a falešným prstem \cite{AdvancedBiometricsTechnologies2011}}
 \end{figure}
 
-\subsection*{Pulsní oxyometrie}
-Tato metoda využívá měření obsahu kyslíku v krvi. Používá LED a fotodetektor na opačných stranách prstu. Měření závisí na srdečním tepu a proto může trvat několik sekund, než je spočten jeden nebo dva celé cykly srdečního tepu. \cite{BiometricsEncyclopedia2009}
-\subsection*{Teplý a studený podnět}
-Lidský prst dokáže odlišně reagovat na daný podnět, který je umístěný u senzoru. Výsledná informace je zaznamenaná, konkrétně se jedná o kolísání rychlosti průtoku krve v periferních cévách. Při teplém podnětu se amplituda rychlosti toku zvyšuje, při studeném podnětu pak snižuje. Tato metoda však může být ovlivněna citlivou lidskou periferní nervovou soustavou, kdy chvíli trvá, než správně zareaguje na teplý nebo studený podnět u daného člověka. \cite{AdvancedBiometricsTechnologies2011}
 \subsection*{Teplota}
 Teplota lidské kůže u prstu se pohybuje okolo 25 -- 37 stupňů Celsia. Nicméně tento rozsah musí být širší, aby mohl systém pracovat pod různými podmínkami, i díky lidem, kteří mají problém s cirkulací krve. Tahle skutečnost však může vést k chybným rozhodnutím při této metodě. Dalším možným řešením je zahřátí prstu. Použitím falešného otisku dosáhneme rozdílu zhruba dvou stupňů Celsia. Rozdíl je tedy malý a tato metoda není dostatečně spolehlivou pro bezpečnou detekci živosti otisků prstů. \cite{AdvancedBiometricsTechnologies2011}
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=270px]{obrazky-figures/thermoscan.PNG}
+    \includegraphics[width=340px]{obrazky-figures/thermoscan.PNG}
     \caption{Termosken prstů pomocí termokamery FLIR \cite{AdvancedBiometricsTechnologies2011}}
 \end{figure}
 
@@ -245,15 +256,34 @@ I bříško prstu obsahuje potní žlázy, proto detekce pórů může poslouži
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=250px]{obrazky-figures/pores.png}
+    \includegraphics[width=200px]{obrazky-figures/pores.png}
     \caption{Srovnání vývoje detekce potu v čase mezi živým a falešným prstem \cite{PoresResearch}}
 \end{figure}
 
-\subsection*{Nasvicování prstů světlem o různé vlnové délce}
-Tato metoda byla využitá s využitím bezdotykového senzoru. Prst byl nasvicován červeným, zeleným a modrým světlem. Byl vytvořen obdelník o fixní délce, ze kterého se analyzovaly dané pixely. Globální vlastnosti extrahované z celého obdelníku byly následující - aritmetický průměr intenzity pixelů, standartní odchylka intenzity pixelů, průměr, medián a standartní odchylka pro extrahovaný histogram. Dále byly snímky po nasvícení všemi třemi barvami světla spojeny do jediného obrázku a bylo experimentováno s různými barevnými modely.
-
 \subsection*{Využití detekce textury otisku prstu}
-Jedná se opět o přístup, kdy bylo experimentováno se snímky s využitím bezdotykového senzoru. Extrahovaný vektor byl složen z 512 deskriptorů algoritmu vylepšeného lokálního binárního vzoru (Improved Local Binary Pattern (ILBP), který vedle klasických hlavních vlastností LBP představuje další nové vlastnosti. Místo počítání binárního kódu je pracováno s průměrem, výsledné číslo není 8-bitové jako u algoritmu LBP, ale 9-bitové. Druhá složka vektoru je založena na matici GLCM (Grey Level Cooccurrence Matrix) a jejich čtyř vlastností (kontrast, korelace, energie a homogenita). Je nutno podotknout, že tyto vlastnosti jsou průměrem vlastností získaných z 8 GLCM matic, které jsou u každého pixelu spočteny pro každý směr. Dále je na celý vektor aplikována metoda Principal Component Analysis (PCA), která redukuje dimenzi příznakového prostoru. Pro finální trénování a testování byla použita umělá neuronová síť, která předpověděla nejen živost a neživost daného otisku prstu, ale i materiál, ze kterého jsou umělé otisky prstu vyrobeny. \cite{TouchlessANN}
+Tato metoda byla využitá s využitím bezdotykového senzoru. Extrahovaný vektor byl složen z 512 deskriptorů algoritmu vylepšeného lokálního binárního vzoru (Improved Local Binary Pattern (ILBP), který vedle klasických hlavních vlastností LBP představuje další nové vlastnosti. Místo počítání binárního kódu je pracováno s průměrem, výsledné číslo není 8-bitové jako u algoritmu LBP, ale 9-bitové. Druhá složka vektoru je založena na matici GLCM (Grey Level Cooccurrence Matrix) a jejich čtyř vlastností (kontrast, korelace, energie a homogenita). Je nutno podotknout, že tyto vlastnosti jsou průměrem vlastností získaných z 8 GLCM matic, které jsou u každého pixelu spočteny pro každý směr. Dále je na celý vektor aplikována metoda Principal Component Analysis (PCA), která redukuje dimenzi příznakového prostoru. Pro finální trénování a testování byla použita umělá neuronová síť, která předpověděla nejen živost a neživost daného otisku prstu, ale i materiál, ze kterého jsou umělé otisky prstu vyrobeny. \cite{TouchlessANN}
+
+\subsection*{Nasvicování prstů světlem o různé vlnové délce}
+Jedná se opět o přístup, kdy bylo experimentováno se snímky s využitím bezdotykového senzoru. Prst byl nasvicován červeným, zeleným a modrým světlem. Na základě zkoumání byl vytvořen obdelník o fixní délce, ze kterého se analyzovalo daných obsažených 11 pixelů. Globální vlastnosti extrahované z celého obdelníku byly následující - aritmetický průměr intenzity pixelů, standartní odchylka intenzity pixelů, průměr, medián a standartní odchylka pro extrahovaný histogram. Dále byly snímky po nasvícení všemi třemi barvami světla spojeny do jediného obrázku a bylo experimentováno s různými barevnými modely, další extrahovanou vlastností se stal 3-kanálový histogram získaný z tohoto snímku. Pro následnou klasifikaci byla použita umělá neuronová síť a náhodný les. \cite{NewOpticalMethodsLiveness}
+
+
+\begin{figure}[!htbp]
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=170px]{obrazky-figures/waveletrectangle.PNG}
+    \caption{Obdelník s 11 extrahovanými pixely \cite{NewOpticalMethodsLiveness}}
+  \end{minipage}
+  \hspace{0.5cm}
+  \begin{minipage}[b]{0.5\linewidth}
+    \centering
+    \includegraphics[width=210px]{obrazky-figures/merged.PNG}
+    \caption{Sloučené snímky nasvícené různými barvami světla (RGB model) \cite{NewOpticalMethodsLiveness}}
+  \end{minipage}
+\end{figure}
+
+
+
+
 
 
 
@@ -679,6 +709,7 @@ Pokud zpět transformujeme tuto přímku do grafu o závislosti osy $y$ na ose $
     \caption{Nalezení finální rozdělující nadroviny \cite{MediumSVM}}
 \end{figure}
 
+\noindent
 Výhodami SVM jsou: \cite{ScikitSVM}
 \begin{itemize}
     \item Jedná se o efektivní metodu v prostorech o více dimenzích.
@@ -690,13 +721,13 @@ Je však na druhou stranu nevýhodou, že pokud je počet vlastností o mnoho vy
 
 \section{Rozhodovací stromy}
 Cílem dalšího z klasifikačních algoritmů, rozhodovacích stromů (\textit{Decision Trees} - DTs) je předpovědět výsledek na základě jednoduchých rozhodovacích pravidel, které jsou odvozené od vlastností dat. Tato klasifikační metoda tedy pro svoji práci využívá graf, který můžeme označit jako strom, protože je souvislý a neobsahuje žádnou kružnici. Každý list stromu reprezentuje test pro atribut, každá větev pak značí výsledek daného testu. Cesty od kořene k listu reprezentují klasifikační pravidla. 
-
+\noindent
 Výhody rozhodovacích stromů jsou: \cite{ScikitDTs}
 \begin{itemize}
-    \item Jednoduché na pochopení a vizualizaci, stromy jde také vizualizovat.
+    \item Jsou jednoduché na pochopení a vizualizaci, stromy jde také vizualizovat.
     \item Vstupní data nemusí být různě upravována nebo normalizována.
     \item Rozhodovací stromy mohou být využity při problematice, kdy je současně modelem řešeno více klasifikačních problémů. 
-    \item Používá model white box - bílou skříňku. Pokud je daná situace v modelu pozorovatelná, vysvětlení pro podmínky může být snadno vysvětleno pomocí boolovské logiky. Umělá neuronová síť je reprezentantem modelu black box - černé skříňky, kdy mohou být výsledky obtížnější interpretovat. 
+    \item Používají model white box - bílou skříňku. Pokud je daná situace v modelu pozorovatelná, vysvětlení pro podmínky může být snadno vysvětleno pomocí boolovské logiky. Umělá neuronová síť je reprezentantem modelu black box - černé skříňky, kdy mohou být výsledky obtížnější interpretovat. 
 \end{itemize}
 
 
@@ -833,18 +864,18 @@ $$v_3 = [f_{1_{LH}}, f_{2_{LH}}, f_{3_{LH}}, f_{4_{LH}}, f_{1_{HL}}, f_{2_{HL}},
 \section{Práce s implementovaným programem}
 Cílem implementovaného programu je zejména:
 \begin{itemize}
-    \item Předzpracování vstupního obrazu otisku prstu získaného ze senzoru.
-    \item Extrakce vektorů na základě uživatelských pokynů.
-    \item Klasifikace a výpočet její přesnosti, FAR a FRR.
-    \item Zobrazení zpracovaných otisků prstů uživateli.
+    \item předzpracování vstupního obrazu otisku prstu získaného ze senzoru
+    \item extrakce vektorů na základě uživatelských pokynů
+    \item klasifikace a výpočet její přesnosti, FAR a FRR
+    \item zobrazení zpracovaných otisků prstů uživateli
 \end{itemize}
 
 Program využívá open source knihoven OpenCV, scikit-learn, PyWavelets a dalších, které jsou uvedeny v Readme na přiloženém CD. Všechny knihovny lze snadno stáhnout např. pomocí příkazu v terminálu pro instalaci knihoven v jazyce Python \verb|pip3|. 
 
 Program může být spuštěn ve dvou režimech.
 \begin{itemize}
-    \item Extrakce vektorů a klasifikace - Umožňuje dle navržené metody získat vektory z obrazu a následně provést trénování klasifikační sítě a testování neznámých vzorků.
-    \item Metoda zobrazení jednotlivých technik - Na vstupním obraze zadaném uživatelem se provedou techniky a algoritmy dílčí pro analýzu - segmentace, lokální binární vzor, Sobel a Laplaceův operátor a vlnková transformace. Výsledný zpracovaný otisk prstu se poté zobrazí uživateli jako výsledek.
+    \item extrakce vektorů a klasifikace - Umožňuje dle navržené metody získat vektory z obrazu a následně provést trénování klasifikační sítě a testování neznámých vzorků.
+    \item metoda zobrazení jednotlivých technik - Na vstupním obraze zadaném uživatelem se provedou techniky a algoritmy dílčí pro analýzu - segmentace, lokální binární vzor, Sobel a Laplaceův operátor a vlnková transformace. Výsledný zpracovaný otisk prstu se poté zobrazí uživateli jako výsledek.
 \end{itemize}
 
 \subsection{Režim extrakce vektorů a klasifikace}
