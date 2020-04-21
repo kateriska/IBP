@@ -1,9 +1,44 @@
 % Tento soubor nahraďte vlastním souborem s přílohami (nadpisy níže jsou pouze pro příklad)
 
 % Umístění obsahu paměťového média do příloh je vhodné konzultovat s vedoucím
-%\chapter{Obsah přiloženého paměťového média}
+\chapter{Obsah přiloženého paměťového média}
 
-%\chapter{Manuál}
+\chapter{Manuál}
+Pro správný běh programu je nutno mít nainstalovaný Python 3.6 a následující knihovny:
+
+\begin{itemize}
+    \item \verb=numpy= (knihovna NumPy)
+    \item \verb=cv2= (knihovna OpenCV)
+    \item \verb=matplotlib=
+    \item \verb=skimage= (knihovna scikit-image)
+    \item \verb=pywt= (knihovna PyWavelets)
+    \item \verb=sklearn= (knihovna scikit-learn)
+\end{itemize}
+
+Program se spouští ve tvaru \verb=python3.6 bt.py arguments=, kde \verb=arguments= jsou jednotlivé argumenty uvedené níže s jejich podrobným vysvětlením a funkcí. 
+
+\subsection*{Režim extrakce vektorů a klasifikace}
+Program je možné spustit v následujících variantách:\\\\
+\verb=-test lbp -s otsu|gauss|mean -clasif ann|svm|dts -img b|g|r|all=\\
+Jedná se o extrakci vektorů a následnou klasifikaci na základě vektoru založeném na lokálním binárním vzoru. V tomto případě si uživatel vybere danou metodu segmentace s užitím různých typů prahování (\verb=otsu= pro využití Otsu prahování, \verb=gauss= pro využití adaptivního prahování Gaussian, \verb=mean= pro adaptivní prahování Mean). Dále si uživatel vybere daný princip klasifikace - umělou neuronovou síť \verb=ann=, SVM \verb=svm= nebo rozhodovací stromy \verb=dts=. Poslední a nedílnou součástí je určit, jaké snímky chceme analyzovat - nasvícené pouze modrým světlem (\verb=b=), zeleným (\verb=g=), červeným (\verb=r=), nebo chceme zkoumat všechny snímky získaného datasetu (\verb=all=).\\\\
+\verb=-test sobel -clasif ann|svm|dts -img b|g|r|all=\\
+Tento příkaz programu je určený pro extrakci a klasifikaci pomocí Sobel a Laplaceova operátoru. Přepínač \verb=-s= tato metoda nevyužívá, segmentace je přímo provedena s využitím prahovací metody Otsu.\\\\
+\verb=-test wavelet -t <type> -s otsu|gauss|mean -clasif ann|svm|dts -img b|g|r|all=\\
+Každý obraz otisku prstu je analyzován pomocí vlnkové transformace. Získaný vektor může být pomalejší pro získání, zejména u velkých datasetů. Diskrétní vlnková transformace však využívá mnoho různých Wavelet rodin. Přepínač \verb=-t= je určený pro nastavení dané vlnkové rodiny a typu vlnky. Všechny podporované vlnky implementovaného programu \verb=type=, a zároveň i všechny podporované vlnky knihovnou PyWavelets pro 2D diskrétní vlnkovou transformaci, jsou uvedeny v Readme.\\\\
+\noindent
+Pořadí argumentů není volitelné.
+
+\subsection*{Režim metody zobrazení jednotlivých technik}
+Cílem tohoto režimu uživateli snadno předložit různé využité techniky při analýze. Program je možné spustit následovně:\\\\
+\verb=-show lbp [-s otsu|gauss|mean] -img <path>=\\
+Uživatel proměnnou \verb=path= nahradí cestou k obrazu otisku prstu, který chce analyzovat. Výsledkem je zobrazení otisku prstu zpracovaného pomocí algoritmu LBP a histogram, který byl důležitou vlastností v případě extrakce vektoru pro analýzu.\\\\
+\verb=-show sobel [-s otsu|gauss|mean] -img <path>=\\
+Tento příkaz umožní zobrazit okno se zpracovaným otiskem prstu pomocí Sobel operátoru na základě osy $x$ a $y$ a výsledku aplikace Laplaceova operátoru.\\\\
+\verb=-show wavelet -t <type> [-s otsu|gauss|mean] -img <path>=\\
+Provádí vlnkovou transformaci. Výsledkem je horizontální, vertikální a diagonální detail a jejich aproximace.\\\\
+\verb=-show seg -s otsu|gauss|mean -img <path>=\\
+Zobrazí segmentovaný obraz s využitím daného typu prahování.\\\\
+Segmentace je v tomto režimu povinná pouze v posledním případě. Pořadí argumentů není volitelné.
 
 %\chapter{Konfigurační soubor}
 

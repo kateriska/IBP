@@ -289,20 +289,20 @@ Jedná se opět o přístup, kdy bylo experimentováno se snímky s využitím b
 
 
 \chapter{Algoritmy pro předzpracování a analýzu}
-Tato kapitola se zabývá popisem použitých algoritmů pro předzpracování obrazu a následně vybraných algoritmů pro samotnou detekci živosti otisků prstů. Pro hlavní analýzu bylo algoritmů vybráno více. Samotná detekce se pak sestává z aplikace různých řešení a získání vlastností z samotného obrazu otisku prstu, které jsou použitelné pro rozlišení živých a falešných vzorků.
+Tato kapitola se zabývá popisem použitých algoritmů pro předzpracování obrazu a následně vybraných algoritmů pro samotnou detekci živosti otisků prstů. Pro hlavní analýzu bylo algoritmů vybráno více, aby pak bylo možné dané přístupy mezi sebou porovnat a stanovit ten nejlepší pro detekci živosti otisku prstu na užitém bezdotykovém senzoru. Samotná detekce se pak sestává z aplikace různých řešení a získání vlastností z samotného obrazu otisku prstu, které jsou použitelné pro rozlišení živých a falešných vzorků.
 \section{Převedení na normalizovaný obraz}
 Po načtení obrazu bylo potřeba obraz převést na šedotonový. Poté byla provedena normalizace obrazu. Normalizace je proces, při kterém je upraven rozsah hodnot intenzity pixelů. Základem je zvýšit dynamický rozsah šedotónového jasu. U otisků prstů tento algoritmus nemění ostrost hřebenů a údolí papilárních linií. Hlavním účelem je minimalizovat změny šedo-úrovňových hodnot podél hřebenů a údolí. 
 
 \begin{figure}[htbp]
   \begin{minipage}[b]{0.5\linewidth}
     \centering
-    \includegraphics[width=170px]{obrazky-figures/live87grayscale.png}
+    \includegraphics[width=180px]{obrazky-figures/live87grayscale.png}
     \caption{Šedotónový obraz živého otisku prstu}
   \end{minipage}
   \hspace{0.5cm}
   \begin{minipage}[b]{0.5\linewidth}
     \centering
-    \includegraphics[width=170px]{obrazky-figures/live87norm.png}
+    \includegraphics[width=180px]{obrazky-figures/live87norm.png}
     \caption{Normalizovaný obraz živého otisku prstu}
   \end{minipage}
 \end{figure}
@@ -356,11 +356,11 @@ Získaná maska vzniká prahováním, pro které byly využity tři výše zmín
     \includegraphics[width=150px]{obrazky-figures/live104norm.png}
     \caption{Vstupní normalizovaný obraz}
   \end{minipage}
-  \hspace{0.55cm}
+  \hspace{0.3cm}
   \begin{minipage}[b]{0.3\linewidth}
     \centering
-    \includegraphics[width=160px]{obrazky-figures/live104mask.png}
-    \caption{Získaná maska s využitím Otsu prahování}
+    \includegraphics[width=150px]{obrazky-figures/live104mask.png}
+    \caption{Získaná maska}
   \end{minipage}
   \hspace{0.3cm}
     \begin{minipage}[b]{0.3\linewidth}
@@ -381,7 +381,7 @@ Následující obrázky ukazují rozdílné výsledky segmentace s využítím r
   \begin{minipage}[b]{0.3\linewidth}
     \centering
     \includegraphics[width=170px]{obrazky-figures/Images14gauss.png}
-    \caption{Segmentace při použítí Gaussian prahování}
+    \caption{Segmentace při Gaussian prahování}
   \end{minipage}
   \hspace{0.3cm}
     \begin{minipage}[b]{0.3\linewidth}
@@ -411,7 +411,7 @@ Postup algoritmu je následující:\\
 
 \begin{figure}[!htbp]
     \centering
-    \includegraphics[width=400px]{obrazky-figures/lbpprincip.png}
+    \includegraphics[width=320px]{obrazky-figures/lbpprincip.png}
     \caption{Princip výpočtu lokálního binárního vzoru}
 \end{figure}
 
@@ -838,15 +838,15 @@ $$histogram = \{value_b, value_{b+1}, ... value_{255}\}$$
 
 Pro analýzu byl využit experiment, kdy byly extrahovány čtyři částečné sumy histogramu. Každá z nich udává součet pixelů pro dané rozmezí stupňů šedi.
 
-$$partialLBPsum_1 = \sum_{b=0}^{b=63} value_b $$
-$$partialLBPsum_2 = \sum_{b=64}^{b=127} value_b $$
-$$partialLBPsum_3 = \sum_{b=128}^{b=191} value_b $$
-$$partialLBPsum_4 = \sum_{b=192}^{b=255} value_b $$
+$$LBPsum_1 = \sum_{b=0}^{b=63} value_b $$
+$$LBPsum_2 = \sum_{b=64}^{b=127} value_b $$
+$$LBPsum_3 = \sum_{b=128}^{b=191} value_b $$
+$$LBPsum_4 = \sum_{b=192}^{b=255} value_b $$
 
 Druhou část extrahovaného vektoru $v$ tvoří čtyři zjišťované vlastnosti z matice GLCM - kontrast $f_1$, homogenenita $f_2$, energie $f_3$ a korelace $f_4$. Tyto charakteristiky jsou získány z předzpracovaného šedotonového obrazu.
 
 Výsledný vektor $v_1$ určený pro analýzu můžeme tedy zapsat následovně:
-$$v_1 = [partialLBPsum_1, partialLBPsum_2, partialLBPsum_3, partialLBPsum_4, f_1, f_2, f_3, f_4]$$
+$$v_1 = [LBPsum_1, LBPsum_2, LBPsum_3, LBPsum_4, f_1, f_2, f_3, f_4]$$
 
 \subsection{Vektor založený na Sobel a Laplaceově operátoru}
 Pro extrakci hran a textury pomocí Sobel operátoru bylo využito jádra o velikosti $5x5$. OpenCV umožňuje snadné extrahování pomocí Sobel operátoru pouze pro osu $x$ nebo pro osu $y$. Získáme tedy odlišné výsledky pro horizontální a vertikální část. Poté byl obraz zpracován Laplaceovým operátorem, který poskytuje pouze jeden výsledek a ne rozložení pro obě osy. 
@@ -872,39 +872,25 @@ Cílem implementovaného programu je zejména:
 
 Program využívá open source knihoven OpenCV, scikit-learn, PyWavelets a dalších, které jsou uvedeny v Readme na přiloženém CD. Všechny knihovny lze snadno stáhnout např. pomocí příkazu v terminálu pro instalaci knihoven v jazyce Python \verb|pip3|. 
 
-Program může být spuštěn ve dvou režimech.
+Program může být spuštěn ve dvou režimech:
 \begin{itemize}
     \item extrakce vektorů a klasifikace - Umožňuje dle navržené metody získat vektory z obrazu a následně provést trénování klasifikační sítě a testování neznámých vzorků.
     \item metoda zobrazení jednotlivých technik - Na vstupním obraze zadaném uživatelem se provedou techniky a algoritmy dílčí pro analýzu - segmentace, lokální binární vzor, Sobel a Laplaceův operátor a vlnková transformace. Výsledný zpracovaný otisk prstu se poté zobrazí uživateli jako výsledek.
 \end{itemize}
 
-\subsection{Režim extrakce vektorů a klasifikace}
-Program je možné spustit v následujících variantách:\\\\
-\verb=-test lbp -s otsu|gauss|mean -clasif ann|svm|dts -img b|g|r|all=\\
-Jedná se o extrakci vektorů a následnou klasifikaci na základě vektoru založeném na lokálním binárním vzoru. V tomto případě si uživatel vybere danou metodu segmentace s užitím různých typů prahování (\verb=otsu= pro využití Otsu prahování, \verb=gauss= pro využití adaptivního prahování Gaussian, \verb=mean= pro adaptivní prahování Mean). Dále si uživatel vybere daný princip klasifikace - umělou neuronovou síť \verb=ann=, SVM \verb=svm= nebo rozhodovací stromy \verb=dts=. Poslední a nedílnou součástí je určit, jaké snímky chceme analyzovat - nasvícené pouze modrým světlem (\verb=b=), zeleným (\verb=g=), červeným (\verb=r=), nebo chceme zkoumat všechny snímky získaného datasetu (\verb=all=).\\\\
-\verb=-test sobel -clasif ann|svm|dts -img b|g|r|all=\\
-Tento příkaz programu je určený pro extrakci a klasifikaci pomocí Sobel a Laplaceova operátoru. Přepínač \verb=-s= tato metoda nevyužívá, segmentace je přímo provedena s využitím prahovací metody Otsu.\\\\
-\verb=-test wavelet -t <type> -s otsu|gauss|mean -clasif ann|svm|dts -img b|g|r|all=\\
-Každý obraz otisku prstu je analyzován pomocí vlnkové transformace. Získaný vektor může být pomalejší pro získání, zejména u velkých datasetů. Diskrétní vlnková transformace však využívá mnoho různých Wavelet rodin. Přepínač \verb=-t= je určený pro nastavení dané vlnkové rodiny a typu vlnky. Všechny podporované vlnky implementovaného programu \verb=type=, a zároveň i všechny podporované vlnky knihovnou PyWavelets pro 2D diskrétní vlnkovou transformaci, jsou uvedeny v Readme. 
-
-\subsection{Režim metody zobrazení jednotlivých technik}
-Cílem tohoto režimu uživateli snadno předložit různé využité techniky při analýze. Program je možné spustit následovně:\\\\
-\verb=-show lbp [-s otsu|gauss|mean] -img <path>=\\
-Uživatel proměnnou \verb=path= nahradí cestou k obrazu otisku prstu, který chce analyzovat. Výsledkem je zobrazení otisku prstu zpracovaného pomocí algoritmu LBP a histogram, který byl důležitou vlastností v případě extrakce vektoru pro analýzu.\\\\
-\verb=-show sobel [-s otsu|gauss|mean] -img <path>=\\
-Tento příkaz umožní zobrazit okno se zpracovaným otiskem prstu pomocí Sobel operátoru na základě osy $x$ a $y$ a výsledku aplikace Laplaceova operátoru.\\\\
-\verb=-show wavelet -t <type> [-s otsu|gauss|mean] -img <path>=\\
-Provádí vlnkovou transformaci. Výsledkem je horizontální, vertikální a diagonální detail a jejich aproximace.\\\\
-\verb=-show seg -s otsu|gauss|mean -img <path>=\\
-Zobrazí segmentovaný obraz podle dané metody.\\\\
-Segmentace je v tomto režimu povinná pouze v posledním případě.
 
 \subsection{Struktura programu}
 Celý dataset otisků prstů je uložen ve složce \verb=./dataset=. Pro ukládání snímků v této složce určených k trénování slouží podsložky \verb=/blueTrain=, \verb=/greenTrain= a \verb=/redTrain= pro jednotlivé rozdělené datasety na otisky prstů nasvícených stejnou barvou světla a složka \verb=/allTrain= pro práci s datasetem obsahujícím snímky nasvícenými jednou z těchto tří barev. Testované snímky se pak nacházejí ve složkách \verb=/blueTest=, \verb=/greenTest=, \verb=/redTest= a \verb=/allTest=. Je důležité dodržovat názvy snímků, pro živé otisky prstu se musí v souboru vyskytovat slovo \verb=live=, u falešných pak slovo \verb=fake=. 
 
 Pokud program provádí extrakci vektorů a následnou klasifikaci, jsou využité dva cykly \verb=for= - jeden prochází snímky určené k trénování a druhý k testování. Všechny extrahované vektory jsou ukládány do \verb=csv= souborů. U trénovaných snímků se vytvoří dva soubory - jeden pro zápis samotného vektoru na nový řádek \verb=csv= souboru a druhý pro zápis výsledku daného otisku prstu (konstanta 1 - živý otisk, konstanta 0 - falešný otisk). U trénovaných snímků se vytvoří jeden \verb=csv= soubor, který obsahuje na každém řádku jako první položku název souboru a pak extrahovaný vektor. Všechny \verb=csv= jsou ukládány do složky \verb=./csvFiles=. Při klasifikaci pomocí umělé neuronové sítě, metody SVM nebo rozhodovacího stromu je provedeno trénování na základě vektorů získaných ze snímků k tomu určených. Poté se získá daná předpovídaná hodnota podle klasifikace a porovná se s názvem obrázku, který je součástí souboru \verb=csv=. Znovu, pokud obsahuje název obrázku slovo \verb=live=, jedná se o živý otisk, pokud \verb=fake=, tak falešný. Získaná předpovězená hodnota se porovná s tímto názvem souboru. Uživateli se poté zobrazí název souboru a předpovězená hodnota (konstanta 0 nebo 1), u klasifikace neuronové sítě je získáno přímo procentuální zastoupení pro živost a neživost daného otisku prstu. Počítá se hromadná průměrná přesnost celého testovaného datasetu. Dále se finálně vedle přesnosti uživateli zobrazí i vypočtené FAR a FRR. 
 
-Pokud chce uživatel pouze zobrazit obraz otisku prstu s využitím některé z metod (segmentace, lokální binární vzor, Sobel a Laplaceův operátor, vlnková transformace), program pouze zavolá příslušný modul, předá mu cestu k danému obrázku a případně další parametry (typ prahování pro segmentaci, typ vlnky) a provede následné zpracování a zobrazení finálního výsledku uživateli. Soubory obsahují i ukázky segmentovaného obrázku, detailů vlnkové transformace a Sobel a Laplaceova operátoru, průběžně se při zpracování ukládají do složky \verb=./processedImg= a případně přepisují při iteraci složek.
+Pokud chce uživatel pouze zobrazit obraz otisku prstu s využitím některé z metod (segmentace, lokální binární vzor, Sobel a Laplaceův operátor, vlnková transformace), program pouze zavolá příslušný modul, předá mu cestu k danému obrázku a případně další parametry (typ prahování pro segmentaci, typ vlnky u vlnkové transformace) a provede následné zpracování a zobrazení finálního výsledku uživateli. Soubory obsahují i ukázky segmentovaného obrázku, detailů vlnkové transformace a Sobel a Laplaceova operátoru, průběžně se při zpracování ukládají do složky \verb=./processedImg= a případně přepisují při iteraci složek.
+
+\begin{figure}[!htbp]
+    \centering
+    \includegraphics[width=450px]{obrazky-figures/diagramLiveness.png}
+    \caption{Schéma implementované problematiky detekce živosti}
+\end{figure}
 
 
 \chapter{Experimenty a vyhodnocení}
