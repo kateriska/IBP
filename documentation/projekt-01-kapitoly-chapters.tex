@@ -291,7 +291,7 @@ Jedná se opět o přístup, kdy bylo experimentováno se snímky s využitím b
 \chapter{Algoritmy pro předzpracování a analýzu}
 Tato kapitola se zabývá popisem použitých algoritmů pro předzpracování obrazu a následně vybraných algoritmů pro samotnou detekci živosti otisků prstů. Pro hlavní analýzu bylo algoritmů vybráno více, aby pak bylo možné dané přístupy mezi sebou porovnat a stanovit ten nejlepší pro detekci živosti otisku prstu na užitém bezdotykovém senzoru. Samotná detekce se pak sestává z aplikace různých řešení a získání vlastností z samotného obrazu otisku prstu, které jsou použitelné pro rozlišení živých a falešných vzorků.
 \section{Převedení na normalizovaný obraz}
-Po načtení obrazu bylo potřeba obraz převést na šedotonový. Poté byla provedena normalizace obrazu. Normalizace je proces, při kterém je upraven rozsah hodnot intenzity pixelů. Základem je zvýšit dynamický rozsah šedotónového jasu. U otisků prstů tento algoritmus nemění ostrost hřebenů a údolí papilárních linií. Hlavním účelem je minimalizovat změny šedo-úrovňových hodnot podél hřebenů a údolí. 
+Po načtení obrazu bylo potřeba obraz převést na šedotonový. Poté byla provedena normalizace obrazu. Normalizace je proces, při kterém je upraven rozsah hodnot intenzity pixelů. Základem je zvýšit dynamický rozsah šedotónového jasu. U otisků prstů tento algoritmus nemění ostrost hřebenů a údolí papilárních linií. Hlavním účelem je minimalizovat změny šedo-úrovňových hodnot podél hřebenů a údolí. \cite{FingerprintImageEnhancement}
 
 \begin{figure}[htbp]
   \begin{minipage}[b]{0.5\linewidth}
@@ -1148,15 +1148,16 @@ Nejlepší metody jsou shodné s prvním experimentem, akorát celkové přesnos
 Na základě obou experimentů můžeme stanovit záverečný úsudek. Pro detekci živosti na našem bezdotykovém zařízení je nejlepším řešením použít pro nasvicování otisků prstů světlo červené barvy. Nejrychlejším a nejspolehlivějším řešením pro klasifikaci snímků je pak získat předzpracované snímky s využitím Sobel a Laplaceova operátoru, z takto zpracovaných výsledků pak určit důležité vlastnosti pro GLCM matici a sestavit výsledný vektor. Poté je provedeno trénování neuronové sítě na vzorcích se známým výsledkem a výsledná predikce živosti a neživosti testovaných otisků prstů. Další možností je využití vlnkové transformace nebo lokálního binárního vzoru. Lokální binární vzor je druhou nejrychlejší metodou, jeho přesnost je opravdu pouze nepatrně nižší jak u Sobel a Laplaceova operátoru. Při využití vlnkové transformace je vhodné pak využít biortogonální spline vlnky nebo reverzní biortogonální spline vlnky. Správnost klasifikace je průměrně vyšší jak 80\%. Tato metoda je však nejpomalejším řešením, ale i tak poskytuje dobré výsledky a možné podklady pro další výzkum, díky možnosti experimentovat s různými vlnkovými rodinami a parametry.
 
 
-
-
-
-
 \label{citace}
 
-
-
 \chapter{Závěr}
+Cílem mé bakalářské práce bylo vytvořit algoritmus, který by dokázal detekovat živost nebo neživost otisku prstu na užitém bezdotykovém zařízení. Pro výzkum jsem si vybrala algoritmy, které fungují jako dobré deskriptory textury obrazu - lokální binární vzor, Sobel a Laplaceův operátor a vlnkovou transformaci. Velkou roli pro extrahované vektory hrála matice GLCM a její získané vlastnosti - kontrast, korelace, homogenita a energie. V rámci své práce jsem porovnala právě více extrahovaných vektorů na základě různých faktorů, stejně jako bylo porovnáno více metod určených pro trénování známých otisků prstů a testování neznámých vzorků - umělá neuronová síť, SVM a rozhodovací stromy. Byly provedeno více experimentů, které byly poté detailně shrnuty. Algoritmus byl otestován na datasetu, který byl získán právě z daného bezdotykového zařízení. 
+
+Celkově nejlepší metodou pro klasifikaci byla umělá neuronová síť s přesností 89.4\% a nejlepším prahováním využitým při předzpracování otisku prstu Otsu prahování s průměrnou přesností 88.2\%. Oba vektory založené na lokálním binárním vzoru a Sobel a Laplaceově operátoru vykazovaly průměrnou přesnost okolo 90\%, vektor založený na vlnkové transformaci klasifikoval přesně v 85\% případů. Snímky nasvícené červenou barvou světla měli v porovnání s modrým a zeleným světlem nejlepší přesnost pro klasifikaci testovaných vzorků - 90\%. Záměr nalezení algoritmu pro detekci živosti byl tedy splněn. 
+
+Mnoho prací pro detekci živosti otisků prstů se více zaměřuje na užití tradičních dotykových senzorů. Užití bezdotykového senzoru a představení získaných výsledků je tedy přispěním do výzkumu, který se věnuje této méně zastoupené problematice. Rozšíření možné budoucí práce by mohlo zahrnovat rozhodně rozšíření datasetu snímků získaných z bezdotykového senzoru, použítí dalších rodin vlnkové transformace nebo nasvícení snímků světlem o jiné vlnové délce.
+
+Práce mi umožnila proniknout více do problematiky biometrie a bioinformatiky, které se bakalářské studium příliš nevěnuje a přesvědčila mě, že bych se tomuto zaměření chtěla věnovat i během magisterského studia, protože v něm vidím veliký potenciál.
  
 
 \label{zaver}
