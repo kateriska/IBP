@@ -1,3 +1,8 @@
+# Author: Katerina Fortova
+# Bachelor's Thesis: Liveness Detection on Touchless Fingerprint Scanner
+# Academic Year: 2019/20
+# File: processedSegmentation.py - process segmentation of fingerprint with using Otsu, Gaussian or Mean thresholding
+
 import numpy as np
 import cv2
 

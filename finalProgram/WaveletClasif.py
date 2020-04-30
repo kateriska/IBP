@@ -1,7 +1,7 @@
 # Author: Katerina Fortova
 # Bachelor's Thesis: Liveness Detection on Touchless Fingerprint Scanner
 # Academic Year: 2019/20
-# File: Waveletclasif.py - extraction of vectors based on Wavelet transform
+# File: WaveletClasif.py - extraction of vectors based on Wavelet transform
 
 import numpy as np
 import cv2

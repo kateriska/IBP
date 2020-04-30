@@ -1,7 +1,7 @@
 # Author: Katerina Fortova
 # Bachelor's Thesis: Liveness Detection on Touchless Fingerprint Scanner
 # Academic Year: 2019/20
-# File: showWTransform.py - shows approximation, horizontal, vertical and diagonal detail of fingerprint
+# File: WaveletShow.py - shows approximation, horizontal, vertical and diagonal detail of fingerprint after processing with Wavelet transform
 
 import cv2
 import numpy as np

@@ -1,7 +1,7 @@
 # Author: Katerina Fortova
 # Bachelor's Thesis: Liveness Detection on Touchless Fingerprint Scanner
 # Academic Year: 2019/20
-# File: SobelLaplacianclasif.py - extraction of vectors based on Sobel and Laplacian operator
+# File: SobelLaplacianClasif.py - extraction of vectors based on Sobel and Laplacian operator
 
 import numpy as np
 import cv2
