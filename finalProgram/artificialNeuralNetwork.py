@@ -75,17 +75,13 @@ def clasifyANN(method_type):
     trained_vectors_size = trained_vectors.size
     trained_results_size = trained_results.size
     vector_length = int (trained_vectors_size / trained_results_size) # compute length of vector because of length of vector of weights
-    print(vector_length)
 
     mu, sigma = 0, 1 # mean and standard deviation, randomly init weights of ANN
     vector_weights = np.random.normal(mu, sigma, size=(vector_length, 1))
-    print(vector_weights)
     trained_results = trained_results[:,np.newaxis]
 
-
     artificial_neural_network = ArtificialNeuralNetwork(trained_vectors, trained_results, vector_weights)
-    artificial_neural_network.processTraining(500000) # process training for 1 000 000 epochs
-
+    artificial_neural_network.processTraining(500000) # process training for 500 000 epochs
 
     rows = tested_vectors.shape[0]
     cols = tested_vectors.shape[1]

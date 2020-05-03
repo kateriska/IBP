@@ -190,6 +190,8 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
             print("This is LIVE image.")
             g.write("1\n")
 
+        print()
+
 
 
 # IMAGES FOR TESTING
@@ -338,6 +340,7 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         print(saved_str)
 
         h.write(saved_str) # write vector to file
+        print()
 
     # properly close all csv files
     f.close()

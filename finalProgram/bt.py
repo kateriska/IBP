@@ -18,18 +18,19 @@ import SegmentationShow # show segmentation of input image with use of various t
 
 # function for print help for classification commands
 def printHelpClasify():
-    print()
+    print("HELP FOR CLASSIFICATION:")
     print("Clasify with LBP: -test lbp -s otsu|gauss|mean -clasif ann|svm|dts -img b|g|r|all")
     print("Clasify with SobelLaplacian: -test sobel -clasif ann|svm|dts -img b|g|r|all")
     print("Clasify with Wavelet: -test wavelet -t <wavelet type> -s otsu|gauss|mean -clasif ann|svm|dts -img b|g|r|all")
     print("Show help for clasify: -test help")
     print("Show general help: -help")
     print("Note - Only segmentation for Sobel Clasify is Otsu, because of better results")
+    print()
     return
 
 # function for print help for show methods commands
 def printHelpShow():
-    print()
+    print("HELP FOR SHOWING PROCESSED SAMPLES:")
     print("Show LBP img: -show lbp [-s otsu|gauss|mean] -img <path>")
     print("Show SobelLaplacian img: -show sobel [-s otsu|gauss|mean] -img <path>")
     print("Show Wavelet: -show wavelet -t <wavelet type> [-s otsu|gauss|mean] -img <path>")
@@ -37,6 +38,7 @@ def printHelpShow():
     print("Show help for show: -show help")
     print("Show general help: -help")
     print("Note - Segmentation argument -s is mandatory")
+    print()
     return
 
 # function for control of correct arguments
@@ -117,14 +119,12 @@ controlCorrectArguments(arguments_count)
 # -show commands
 if (sys.argv[1] == "-show"):
     input_img = sys.argv[arguments_count]
-    print(input_img)
 
     # SHOW LBP
     if (sys.argv[2] == "lbp"):
         if (sys.argv[3] == "-s"):
             if (sys.argv[4] == "otsu" or sys.argv[4] == "gauss" or sys.argv[4] == "mean" ):
                 segmentation_type = sys.argv[4]
-                print(segmentation_type)
         else:
             segmentation_type = "none"
 
@@ -134,14 +134,12 @@ if (sys.argv[1] == "-show"):
     elif (sys.argv[2] == "wavelet"):
         if (sys.argv[3] == "-t"):
             wavelet_type = sys.argv[4]
-            print(wavelet_type)
             if (wavelet_type not in pywt.wavelist(kind='discrete')):
                 sys.stderr.write("ERROR - Unknown type of wavelet\n")
                 exit(1)
             if (sys.argv[5] == "-s"):
                 if (sys.argv[6] == "otsu" or sys.argv[6] == "gauss" or sys.argv[6] == "mean" ):
                     segmentation_type = sys.argv[6]
-                    print(segmentation_type)
             else:
                 segmentation_type = "none"
             WaveletShow.showWavelet(segmentation_type, input_img, wavelet_type)
@@ -151,10 +149,8 @@ if (sys.argv[1] == "-show"):
         if (sys.argv[3] == "-s"):
             if (sys.argv[4] == "otsu" or sys.argv[4] == "gauss" or sys.argv[4] == "mean" ):
                 segmentation_type = sys.argv[4]
-                print(segmentation_type)
         else:
             segmentation_type = "none"
-            print(segmentation_type)
         SobelLaplacianShow.showSobelLaplacian(segmentation_type, input_img)
 
     # SHOW SEGMENTATION
@@ -162,24 +158,18 @@ if (sys.argv[1] == "-show"):
         if (sys.argv[3] == "-s"):
             if (sys.argv[4] == "otsu" or sys.argv[4] == "gauss" or sys.argv[4] == "mean" ):
                 segmentation_type = sys.argv[4]
-                print(segmentation_type)
                 SegmentationShow.showSegmentation(segmentation_type, input_img)
 
 # -test commands
 elif (sys.argv[1] == "-test"):
-    print("Clasify")
     if ("-img" in sys.argv and "-clasif" in sys.argv):
         color_type = sys.argv[arguments_count]
-        print(color_type)
         clasif_type = sys.argv[arguments_count - 2]
-        print(clasif_type)
 
-        # clasify LBP
+        # CLASIFY LBP
         if (sys.argv[2] == "lbp" ):
             if (sys.argv[3] == "-s"):
                 segmentation_type = sys.argv[4]
-                print(segmentation_type)
-                print(color_type)
                 LBPGLCMclasif.vectorLBP(segmentation_type, color_type)
 
                 if (clasif_type == "ann"):
@@ -189,9 +179,8 @@ elif (sys.argv[1] == "-test"):
                 elif (clasif_type == "dts"):
                     decisionTree.clasifyDTS("lbp")
 
-        # clasify SOBEL LAPLACIAN
+        # CLASIFY SOBEL LAPLACIAN
         elif (sys.argv[2] == "sobel" ):
-            print(color_type)
             SobelLaplacianClasif.vectorSobelLaplacian(color_type)
 
             if (clasif_type == "ann"):
@@ -201,16 +190,16 @@ elif (sys.argv[1] == "-test"):
             elif (clasif_type == "dts"):
                 decisionTree.clasifyDTS("sobel")
 
-        # clasify WAVELET
+        # CLASIFY WAVELET
         elif (sys.argv[2] == "wavelet" ):
             if (sys.argv[5] == "-s"):
                 segmentation_type = sys.argv[6]
-                print(segmentation_type)
                 wavelet_type = sys.argv[4]
-                print(wavelet_type)
+
                 if (wavelet_type not in pywt.wavelist(kind='discrete')):
                     sys.stderr.write("ERROR - Unknown type of wavelet\n")
                     exit(1)
+                    
                 WaveletClasif.vectorWavelet(segmentation_type, color_type, wavelet_type)
 
                 if (clasif_type == "ann"):
