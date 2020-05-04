@@ -1,0 +1,62 @@
+Author: Katerina Fortova
+Bachelor's Thesis: Liveness Detection on Touchless Fingerprint Scanner
+Academic Year: 2019/20
+
+This program requests installed Python 3.6 and these libraries:
+- numpy (NumPy) library
+- cv2 (OpenCV library)
+- matplotlib
+- skimage (scikit-image library)
+- pywt (PyWavelets library)
+- sklearn (scikit-learn library)
+
+The program is run with following command:
+python3.6 bt.py <arguments>, where arguments can be following:
+
+1. Extraction of vectors and classification
+  -test lbp -s otsu|gauss|mean -clasif ann|svm|dts -img b|g|r|all
+  Extraction of vectors based on Local Binary Pattern.
+  User chooses Otsu, Gaussian or Mean thresholding used for segmentation.
+  Classification will be processed with chosen Artificial Neural Network (ann), Support Vector Machines (svm) or Decision Trees (dts).
+  Possible to process training and testing for images illuminated by blue light (b), green light (g) or red light (r) or user can use whole dataset of all the images illuminated by various lights.
+
+  -test sobel -clasif ann|svm|dts -img b|g|r|all
+  Extraction of vectors based on Sobel and Laplacian operator.
+  The switch -s is not used for this method, segmentation is processed with Otsu thresholding.
+
+  -test wavelet -t <type> -s otsu|gauss|mean -clasif ann|svm|dts -img b|g|r|all
+  Extraction of vectors based on Wavelet transform.
+  This vector can be slower to gain, especially for larger datasets. Nevertheless, Discrete Wavelet Transform uses several Wavelet families for experiments.
+  Switch -t is used for setting specified wavelet of Wavelet family.
+  The wavelets used for experiments were: bior1.3, bior1.5, bior2.4, db2, db4, rbio3.1
+  All wavelets supported by PyWavelets library can be found in Manual attachment in Thesis on page 54.
+
+  The order of arguments is not optional.
+
+2. Display of used techniques
+  -show lbp [-s otsu|gauss|mean] -img <path>
+  User replaces the variable path for path to image with fingerprint which he want to analyze.
+  This fingerprint is processed by Local Binary Pattern and the result is displayed along with histogram of Local Binary Pattern.
+
+  -show sobel [-s otsu|gauss|mean] -img <path>
+  This command displays result of processed fingerprint with Sobel operator on x a y axis and Laplacian operator.
+
+  -show wavelet -t <type> [-s otsu|gauss|mean] -img <path>
+  Command displays result after processing fingerprint with Wavelet transform.
+  The displayed results are horizontal, vertical, diagonal detail and their approximation.
+
+  -show seg -s otsu|gauss|mean -img <path>
+  Displays segmented fingerprint with using of Otsu, Gaussian or Mean thresholding.
+
+  The switch -s for segmentation is compulsory only for last command.
+  The order of arguments is not optional.
+
+3. Printing of help
+   -help
+   Prints help for all program.
+
+   -test help
+   Prints help for Extraction of vectors and classification.
+
+   -show help
+   Prints help for Display of used techniques.
