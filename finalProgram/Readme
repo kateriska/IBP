@@ -3,14 +3,14 @@ Bachelor's Thesis: Liveness Detection on Touchless Fingerprint Scanner
 Academic Year: 2019/20
 
 This program requests installed Python 3.6 and these libraries:
-- numpy (NumPy) library
+- numpy (NumPy library)
 - cv2 (OpenCV library)
-- matplotlib
+- matplotlib (Matplotlib library)
 - skimage (scikit-image library)
 - pywt (PyWavelets library)
 - sklearn (scikit-learn library)
 
-The program is run with following command:
+The program is run with command:
 python3.6 bt.py <arguments>, where arguments can be following:
 
 1. Extraction of vectors and classification
@@ -29,13 +29,13 @@ python3.6 bt.py <arguments>, where arguments can be following:
   This vector can be slower to gain, especially for larger datasets. Nevertheless, Discrete Wavelet Transform uses several Wavelet families for experiments.
   Switch -t is used for setting specified wavelet of Wavelet family.
   The wavelets used for experiments were: bior1.3, bior1.5, bior2.4, db2, db4, rbio3.1
-  All wavelets supported by PyWavelets library can be found in Manual attachment in Thesis on page 54.
+  All wavelets supported by PyWavelets library for DWT can be found in Manual attachment of Thesis on page 54.
 
   The order of arguments is not optional.
 
 2. Display of used techniques
   -show lbp [-s otsu|gauss|mean] -img <path>
-  User replaces the variable path for path to image with fingerprint which he want to analyze.
+  User replaces the variable path for path to image with fingerprint which he wants to analyze.
   This fingerprint is processed by Local Binary Pattern and the result is displayed along with histogram of Local Binary Pattern.
 
   -show sobel [-s otsu|gauss|mean] -img <path>
@@ -53,7 +53,7 @@ python3.6 bt.py <arguments>, where arguments can be following:
 
 3. Printing of help
    -help
-   Prints help for all program.
+   Prints help for whole program.
 
    -test help
    Prints help for Extraction of vectors and classification.

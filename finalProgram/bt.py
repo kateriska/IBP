@@ -22,9 +22,9 @@ def printHelpClasify():
     print("Clasify with LBP: -test lbp -s otsu|gauss|mean -clasif ann|svm|dts -img b|g|r|all")
     print("Clasify with SobelLaplacian: -test sobel -clasif ann|svm|dts -img b|g|r|all")
     print("Clasify with Wavelet: -test wavelet -t <wavelet type> -s otsu|gauss|mean -clasif ann|svm|dts -img b|g|r|all")
-    print("Show help for clasify: -test help")
+    print("Show help for clasify commands: -test help")
     print("Show general help: -help")
-    print("Note - Only segmentation for Sobel Clasify is Otsu, because of better results")
+    print("Note - Segmentation for SobelLaplacian is implicitly using Otsu thresholding")
     print()
     return
 
@@ -35,9 +35,9 @@ def printHelpShow():
     print("Show SobelLaplacian img: -show sobel [-s otsu|gauss|mean] -img <path>")
     print("Show Wavelet: -show wavelet -t <wavelet type> [-s otsu|gauss|mean] -img <path>")
     print("Show Segmented img: -show seg -s otsu|gauss|mean -img <path>")
-    print("Show help for show: -show help")
+    print("Show help for show commands: -show help")
     print("Show general help: -help")
-    print("Note - Segmentation argument -s is mandatory")
+    print("Note - Segmentation argument -s is mandatory only for Show Segmented img")
     print()
     return
 
@@ -199,7 +199,7 @@ elif (sys.argv[1] == "-test"):
                 if (wavelet_type not in pywt.wavelist(kind='discrete')):
                     sys.stderr.write("ERROR - Unknown type of wavelet\n")
                     exit(1)
-                    
+
                 WaveletClasif.vectorWavelet(segmentation_type, color_type, wavelet_type)
 
                 if (clasif_type == "ann"):

@@ -9,10 +9,8 @@ from matplotlib import pyplot as plt
 import processedSegmentation
 
 def showSobelLaplacian(segmentation_type, input_img):
-    if (segmentation_type != "none"):
-        img = cv2.imread(input_img, 0) # uint8 image in grayscale
-    else:
-        img = cv2.imread(input_img)
+    
+    img = cv2.imread(input_img, 0) # uint8 image in grayscale
 
     results = list()
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX)
@@ -27,7 +25,7 @@ def showSobelLaplacian(segmentation_type, input_img):
     if (segmentation_type != "none"):
         cv2.imwrite('./processedImg/segmented_img.jpg', segmented_img)
         img = cv2.imread('./processedImg/segmented_img.jpg')
-    img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     laplacian = cv2.Laplacian(img,cv2.CV_64F) # processed with Laplacian operator
     cv2.imwrite("./processedImg/laplacian_img.jpg", laplacian)

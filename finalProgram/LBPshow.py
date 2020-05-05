@@ -14,7 +14,7 @@ from skimage import io, color, img_as_ubyte
 import pywt
 import processedSegmentation
 
-### LBP ALGORITHM
+# function for processing pixel with LBP
 def LBPprocesspixel(img, pix5, x, y):
     new_value = 0
 
@@ -29,7 +29,9 @@ def LBPprocesspixel(img, pix5, x, y):
 
     return new_value
 
+# function for processing LBP
 def processLBP(img, x, y, lbp_values):
+    # 3x3 window of pixels
     '''
      pix7 | pix8 | pix9
     ----------------
@@ -37,7 +39,7 @@ def processLBP(img, x, y, lbp_values):
     ----------------
      pix1 | pix2 | pix3
     '''
-    pix5 = img[x][y]
+    pix5 = img[x][y] # center pixel
     pixel_new_value = []
     pixel_new_value.append(LBPprocesspixel(img, pix5, x, y+1))     #pix8
     pixel_new_value.append(LBPprocesspixel(img, pix5, x-1, y+1))   #pix7
@@ -48,7 +50,7 @@ def processLBP(img, x, y, lbp_values):
     pixel_new_value.append(LBPprocesspixel(img, pix5, x+1, y))     #pix6
     pixel_new_value.append(LBPprocesspixel(img, pix5, x+1, y+1))   #pix9
 
-    powers_bin = [1, 2, 4, 8, 16, 32, 64, 128]
+    powers_bin = [1, 2, 4, 8, 16, 32, 64, 128] # 2^0 - 2^7
     value_dec = 0
     for i in range(len(pixel_new_value)):
         value_dec = value_dec + (pixel_new_value[i] * powers_bin[i])
@@ -62,16 +64,16 @@ def showLBP(segmentation_type, input_img):
         img = cv2.imread(input_img, 0) # uint8 image in grayscale
     else:
         img = cv2.imread(input_img)
-#img = cv2.resize(img,(400,400)) # resize of image
+
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
-#segmented_img = adaptiveSegmentationMean(img)
+
     if (segmentation_type == "otsu"):
         segmented_img = processedSegmentation.imgSegmentation(img)
     elif (segmentation_type == "gauss"):
         segmented_img = processedSegmentation.adaptiveSegmentationGaussian(img)
     elif (segmentation_type == "mean"):
         segmented_img = processedSegmentation.adaptiveSegmentationMean(img)
-#cv2.imshow('Segmented image', segmented_img)
+
     if (segmentation_type != "none"):
         cv2.imwrite('./processedImg/segmented_img.jpg', segmented_img)
         img = cv2.imread('./processedImg/segmented_img.jpg')
@@ -86,7 +88,7 @@ def showLBP(segmentation_type, input_img):
         for j in range(0, width):
             lbp_image[i, j] = processLBP(img_gray, i, j, lbp_values)
 
-    cv2.imshow("lbp image", lbp_image)
+    #cv2.imshow("lbp image", lbp_image)
     hist_lbp = cv2.calcHist([lbp_image], [0], None, [256], [0, 256])
 
 
@@ -98,7 +100,7 @@ def showLBP(segmentation_type, input_img):
     image_plot.set_title("LBP image", fontsize=10)
     current_plot = figure.add_subplot(1, 2, 2)
     current_plot.plot(hist_lbp, color = (0, 0, 0.2))
-#current_plot.set_xlim([0,260])
+
     current_plot.set_xlim([0,256])
     current_plot.set_ylim([0,6000])
     current_plot.set_title("LBP histogram", fontsize=10)
