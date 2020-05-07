@@ -55,10 +55,10 @@ class ArtificialNeuralNetwork:
 def clasifyANN(method_type):
     # csv files with data about vectors for LBP, Sobel and Wavelet methods
     if (method_type == "lbp"):
-        trained_vectors = np.genfromtxt('./csvFiles/LBPGLCMtrained.csv',delimiter=",")
-        trained_results = np.genfromtxt('./csvFiles/LBPGLCMtrainedResult.csv',dtype=int)
-        tested_vectors = np.genfromtxt('./csvFiles/LBPGLCMtested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8))
-        tested_files = np.genfromtxt('./csvFiles/LBPGLCMtested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
+        trained_vectors = np.genfromtxt('./csvFiles/LBPtrained.csv',delimiter=",")
+        trained_results = np.genfromtxt('./csvFiles/LBPtrainedResult.csv',dtype=int)
+        tested_vectors = np.genfromtxt('./csvFiles/LBPtested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8))
+        tested_files = np.genfromtxt('./csvFiles/LBPtested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
 
     elif (method_type == "sobel"):
         trained_vectors = np.genfromtxt('./csvFiles/SLtrained.csv',delimiter=",")
@@ -153,9 +153,10 @@ def clasifyANN(method_type):
 
     # show graph of error of ANN
     plt.figure(figsize=(15,5))
-    plt.plot(artificial_neural_network.epochs_list, artificial_neural_network.error_list)
-    plt.xlabel('Count of epochs')
-    plt.ylabel('Error value')
+    plt.plot(artificial_neural_network.epochs_list, artificial_neural_network.error_list, color = (0, 0, 0.2))
+    plt.title('Artificial Neural Network Performance', fontsize=10)
+    plt.xlabel('Count of epochs', fontsize=8)
+    plt.ylabel('Error value', fontsize=8)
     plt.show()
 
     return

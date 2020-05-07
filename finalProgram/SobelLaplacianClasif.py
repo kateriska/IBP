@@ -35,6 +35,9 @@ def vectorSobelLaplacian(color_type):
     f = open("./csvFiles/SLtrained.csv","w+")
     g = open("./csvFiles/SLtrainedResult.csv","w+")
     for file in glob.glob(path_training):
+        file_substr = file.split('/')[-1] # get name of processed file
+        print(file_substr)
+
         img = cv2.imread(file, 0) # uint8 image in grayscale
         img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
         segmented_img = processedSegmentation.imgSegmentation(img)
@@ -51,6 +54,7 @@ def vectorSobelLaplacian(color_type):
         cv2.imwrite("./processedImg/sobely_img.jpg", sobelx)
 
     # PROCESS LAPLACIAN IMAGE
+        print("LAPLACIAN OPERATOR:")
         img = cv2.imread('./processedImg/laplacian_img.jpg',0)
         image = img_as_ubyte(img)
 
@@ -86,6 +90,7 @@ def vectorSobelLaplacian(color_type):
         correlation_str = correlation_float / 10
 
     # PROCESS SOBEL ON X-AXIS IMAGE
+        print("SOBEL OPERATOR OF X-AXIS:")
         img = cv2.imread('./processedImg/sobelx_img.jpg',0)
         image = img_as_ubyte(img)
 
@@ -120,6 +125,7 @@ def vectorSobelLaplacian(color_type):
         correlation_str2 = correlation_float2 / 10
 
     # PROCESS SOBEL ON Y-AXIS IMAGE
+        print("SOBEL OPERATOR OF Y-AXIS:")
         img = cv2.imread('./processedImg/sobely_img.jpg',0)
         image = img_as_ubyte(img)
 
@@ -154,18 +160,14 @@ def vectorSobelLaplacian(color_type):
         correlation_str3 = correlation_float3 / 10
 
         saved_str = (str(contrast_str) + ", " + str(homogeneity_str) + ", " + str(energy_str) + ", " + str(correlation_str) + ", "+ str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3) +   "\n" )
-        print(saved_str)
-
-        file_substr = file.split('/')[-1]
-
         f.write(saved_str) # write vector to file
 
         # save known result of image based on its file name
         if ("fake" in file_substr):
-            print("This is FAKE image.")
+            print("This is known FAKE image for training")
             g.write("0\n")
         elif ("live" in file_substr):
-            print("This is LIVE image.")
+            print("This is known LIVE image for training")
             g.write("1\n")
 
         print()
@@ -175,6 +177,9 @@ def vectorSobelLaplacian(color_type):
 # IMAGES FOR TESTING
     h = open("./csvFiles/SLtested.csv","w+") # csv file for tested images
     for file in glob.glob(path_testing):
+        file_substr = file.split('/')[-1] # get name of processed file
+        print(file_substr)
+
         img = cv2.imread(file, 0) # uint8 image in grayscale
         img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
         segmented_img = processedSegmentation.imgSegmentation(img)
@@ -191,6 +196,7 @@ def vectorSobelLaplacian(color_type):
         cv2.imwrite("./processedImg/sobely_img.jpg", sobelx)
 
     # PROCESS LAPLACIAN IMAGE
+        print("LAPLACIAN OPERATOR:")
         img = cv2.imread('./processedImg/laplacian_img.jpg',0)
         image = img_as_ubyte(img)
 
@@ -226,6 +232,7 @@ def vectorSobelLaplacian(color_type):
         correlation_str = correlation_float / 10
 
     # PROCESS SOBEL ON X-AXIS IMAGE
+        print("SOBEL OPERATOR OF X-AXIS:")
         img = cv2.imread('./processedImg/sobelx_img.jpg',0)
         image = img_as_ubyte(img)
 
@@ -260,6 +267,7 @@ def vectorSobelLaplacian(color_type):
         correlation_str2 = correlation_float2 / 10
 
     # PROCESS SOBEL ON Y-AXIS IMAGE
+        print("SOBEL OPERATOR OF Y-AXIS:")
         img = cv2.imread('./processedImg/sobely_img.jpg',0)
         image = img_as_ubyte(img)
 
@@ -293,12 +301,8 @@ def vectorSobelLaplacian(color_type):
         correlation_float3 = float(correlation3)
         correlation_str3 = correlation_float3 / 10
 
-
-        file_substr = file.split('/')[-1]
-
         saved_str = (file_substr + ", " + str(contrast_str) + ", " + str(homogeneity_str) + ", " + str(energy_str) + ", " + str(correlation_str) + ", "+ str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3)  +   "\n" )
-        print(saved_str)
-
+        print("This image will be used for liveness prediction")
         h.write(saved_str) # write vector to file
         print()
 

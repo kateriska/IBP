@@ -10,6 +10,15 @@ This program requests installed Python 3.6 and these libraries:
 - pywt (PyWavelets library)
 - sklearn (scikit-learn library)
 
+Libraries can be installed via pip3 and these commands:
+sudo apt install python3-pip
+pip3 install opencv-python
+pip3 install scikit-image
+pip3 install scikit-learn
+pip3 install PyWavelets
+
+Other libraries like NumPy or Matplotlib should be installed along with these 4 libraries.
+
 The program is run with command:
 python3.6 bt.py <arguments>, where arguments can be following:
 

@@ -12,10 +12,10 @@ from sklearn import tree
 def clasifyDTS(method_type):
     # csv files with data about vectors for LBP, Sobel and Wavelet methods
     if (method_type == "lbp"):
-        trained_vectors = np.genfromtxt('./csvFiles/LBPGLCMtrained.csv',delimiter=",")
-        trained_results = np.genfromtxt('./csvFiles/LBPGLCMtrainedResult.csv',dtype=int)
-        tested_vectors = np.genfromtxt('./csvFiles/LBPGLCMtested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8))
-        tested_files = np.genfromtxt('./csvFiles/LBPGLCMtested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
+        trained_vectors = np.genfromtxt('./csvFiles/LBPtrained.csv',delimiter=",")
+        trained_results = np.genfromtxt('./csvFiles/LBPtrainedResult.csv',dtype=int)
+        tested_vectors = np.genfromtxt('./csvFiles/LBPtested.csv',delimiter=",", usecols=(1,2,3,4,5,6,7,8))
+        tested_files = np.genfromtxt('./csvFiles/LBPtested.csv',delimiter=",", usecols=(0), dtype=None, encoding=None)
 
     elif (method_type == "sobel"):
         trained_vectors = np.genfromtxt('./csvFiles/SLtrained.csv',delimiter=",")

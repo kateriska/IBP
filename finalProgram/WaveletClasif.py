@@ -36,6 +36,9 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         path_testing = './dataset/allTest/*'
 
     for file in glob.glob(path_training):
+        file_substr = file.split('/')[-1] # get name of processed file
+        print(file_substr)
+
         img = cv2.imread(file, 0) # uint8 image in grayscale
         img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
 
@@ -72,6 +75,7 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         plt.savefig('./processedImg/HHimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
 
     # PROCESS LH IMAGE - Horizontal detail
+        print("HORIZONTAL DETAIL:")
         img = cv2.imread('./processedImg/LHimg.png',0)
         image = img_as_ubyte(img)
 
@@ -108,6 +112,7 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
 
 
     # PROCESS HL IMAGE - Vertical detail
+        print("VERTICAL DETAIL:")
         img = cv2.imread('./processedImg/HLimg.png',0)
         image = img_as_ubyte(img)
 
@@ -142,6 +147,7 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         correlation_str3 = correlation_float3 / 10
 
     # PROCESS HH IMAGE - Diagonal detail
+        print("DIAGONAL DETAIL:")
         img = cv2.imread('./processedImg/HHimg.png',0)
         image = img_as_ubyte(img)
 
@@ -176,18 +182,14 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         correlation_str4 = correlation_float4 / 10
 
         saved_str = (str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3) + ", " +  str(contrast_str4) + ", " + str(homogeneity_str4) + ", " + str(energy_str4) + ", " + str(correlation_str4) +   "\n" )
-        print(saved_str)
-
-        file_substr = file.split('/')[-1]
-
         f.write(saved_str) # write vector to file
 
         # save known result of image based on its file name
         if ("fake" in file_substr):
-            print("This is FAKE image.")
+            print("This is known FAKE image for training")
             g.write("0\n")
         elif ("live" in file_substr):
-            print("This is LIVE image.")
+            print("This is known LIVE image for training")
             g.write("1\n")
 
         print()
@@ -198,6 +200,9 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
 
     h = open("./csvFiles/WaveletTested.csv","w+") # csv file for tested images
     for file in glob.glob(path_testing):
+        file_substr = file.split('/')[-1] # get name of processed file
+        print(file_substr)
+
         img = cv2.imread(file, 0) # uint8 image in grayscale
         img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
 
@@ -232,6 +237,7 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         plt.savefig('./processedImg/HHimg.png', transparent = True, bbox_inches='tight', pad_inches = 0)
 
     # PROCESS LH IMAGE
+        print("HORIZONTAL DETAIL:")
         img = cv2.imread('./processedImg/LHimg.png',0)
         image = img_as_ubyte(img)
 
@@ -267,6 +273,7 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         correlation_str2 = correlation_float2 / 10
 
     # PROCESS HL IMAGE
+        print("VERTICAL DETAIL:")
         img = cv2.imread('./processedImg/HLimg.png',0)
         image = img_as_ubyte(img)
 
@@ -301,6 +308,7 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         correlation_str3 = correlation_float3 / 10
 
     # PROCESS HH IMAGE
+        print("DIAGONAL DETAIL:")
         img = cv2.imread('./processedImg/HHimg.png',0)
         image = img_as_ubyte(img)
 
@@ -334,11 +342,8 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         correlation_float4 = float(correlation4)
         correlation_str4 = correlation_float4 / 10
 
-        file_substr = file.split('/')[-1]
-
         saved_str = (file_substr + ", " + str(contrast_str2) + ", " + str(homogeneity_str2) + ", " + str(energy_str2) + ", " + str(correlation_str2)  + ", " + str(contrast_str3) + ", " + str(homogeneity_str3) + ", " + str(energy_str3) + ", " + str(correlation_str3) + ", " +  str(contrast_str4) + ", " + str(homogeneity_str4) + ", " + str(energy_str4) + ", " + str(correlation_str4) +   "\n" )
-        print(saved_str)
-
+        print("This image will be used for liveness prediction")
         h.write(saved_str) # write vector to file
         print()
 

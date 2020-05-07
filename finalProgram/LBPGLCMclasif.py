@@ -74,9 +74,12 @@ def vectorLBP(segmentation_type, color_type):
         path_testing = './dataset/allTest/*'
 
     # csv files for trained images
-    f = open("./csvFiles/LBPGLCMtrained.csv","w+")
-    g = open("./csvFiles/LBPGLCMtrainedResult.csv","w+")
+    f = open("./csvFiles/LBPtrained.csv","w+")
+    g = open("./csvFiles/LBPtrainedResult.csv","w+")
     for file in glob.glob(path_training):
+        file_substr = file.split('/')[-1] # get name of processed file
+        print(file_substr)
+
         img = cv2.imread(file, 0) # uint8 image in grayscale
         img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalize image
 
@@ -94,9 +97,6 @@ def vectorLBP(segmentation_type, color_type):
         height, width, channel = img.shape
         img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         lbp_image = np.zeros((height, width,3), np.uint8)
-
-        file_substr = file.split('/')[-1] # get name of processed file
-        print(file_substr)
 
         # processing LBP algorithm
         lbp_values = []
@@ -175,24 +175,28 @@ def vectorLBP(segmentation_type, color_type):
         correlation_float = float(correlation)
         correlation_str = correlation_float / 10
 
-
         saved_str = str(sum_hist1_div) + ", " + str(sum_hist2_div) + ", " + str(sum_hist3_div) + ", " + str(sum_hist4_div) + ", " + str(contrast_str) + ", " + str(homogeneity_str) + ", " + str(energy_str) + ", " + str(correlation_str) + "\n"
         f.write(saved_str) # write vector to file
 
         # save known result of image based on its file name
         if ("fake" in file_substr):
-            print("This is FAKE image.")
+            print("This is known FAKE image for training")
             g.write("0\n")
         elif ("live" in file_substr):
-            print("This is LIVE image.")
+            print("This is known LIVE image for training")
             g.write("1\n")
+
+        print()
 
 
 
 # IMAGES FOR TESTING
 
-    h = open("./csvFiles/LBPGLCMtested.csv","w+") # csv file for tested images
+    h = open("./csvFiles/LBPtested.csv","w+") # csv file for tested images
     for file in glob.glob(path_testing):
+        file_substr = file.split('/')[-1] # get name of processed file
+        print(file_substr)
+
         img = cv2.imread(file, 0) # uint8 image in grayscale
         img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX) # normalized image
 
@@ -253,8 +257,6 @@ def vectorLBP(segmentation_type, color_type):
         sum_hist3_div = sum_hist3 / 1000000
         sum_hist4_div = sum_hist4  / 1000000
 
-        file_substr = file.split('/')[-1]
-
         img = cv2.imread('./processedImg/segmented_img.jpg', 0)
 
         image = img_as_ubyte(img)
@@ -291,7 +293,9 @@ def vectorLBP(segmentation_type, color_type):
         correlation_str = correlation_float / 10
 
         saved_str = file_substr + ", " + str(sum_hist1_div) + ", " + str(sum_hist2_div) + ", " + str(sum_hist3_div) + ", " + str(sum_hist4_div) + ", " + str(contrast_str) + ", " + str(homogeneity_str) + ", " + str(energy_str) + ", " + str(correlation_str) +"\n"
+        print("This image will be used for liveness prediction")
         h.write(saved_str) # write vector to file
+        print()
 
     # properly close all csv files
     f.close()
