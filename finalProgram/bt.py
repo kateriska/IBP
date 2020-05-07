@@ -5,7 +5,7 @@
 
 import sys
 import pywt
-import LBPGLCMclasif # extraction of vector based on LBP
+import LBPclasif # extraction of vector based on LBP
 import artificialNeuralNetwork # classification with ANN
 import supportVectorMachines # classification with SVM
 import decisionTree # classification with Decision Tree
@@ -170,7 +170,7 @@ elif (sys.argv[1] == "-test"):
         if (sys.argv[2] == "lbp" ):
             if (sys.argv[3] == "-s"):
                 segmentation_type = sys.argv[4]
-                LBPGLCMclasif.vectorLBP(segmentation_type, color_type)
+                LBPclasif.vectorLBP(segmentation_type, color_type)
 
                 if (clasif_type == "ann"):
                     artificialNeuralNetwork.clasifyANN("lbp")
