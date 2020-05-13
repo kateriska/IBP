@@ -69,7 +69,7 @@ def vectorSobelLaplacian(color_type):
         print("Contrast:")
         print(contrast)
         contrast_float = float(contrast)
-        contrast_str = contrast_float / 10
+        contrast_str = contrast_float / 10 # transform to more proper range for classification
 
         homogeneity = greycoprops(matrix_coocurrence, 'homogeneity')
         print("Homogeneity:")
@@ -211,7 +211,7 @@ def vectorSobelLaplacian(color_type):
         print("Contrast:")
         print(contrast)
         contrast_float = float(contrast)
-        contrast_str = contrast_float / 10
+        contrast_str = contrast_float / 10 # transform to more proper range for classification
 
         homogeneity = greycoprops(matrix_coocurrence, 'homogeneity')
         print("Homogeneity:")

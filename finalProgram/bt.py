@@ -79,11 +79,11 @@ def controlCorrectArguments(arguments_count):
             exit(1)
 
         elif (sys.argv[arguments_count - 2] != "ann" and sys.argv[arguments_count - 2] != "svm" and sys.argv[arguments_count - 2] != "dts"):
-            sys.stderr.write("ERROR - Use paramatres for -clasif ann, svm or dts\n")
+            sys.stderr.write("ERROR - Use parametres ann, svm or dts for -clasif\n")
             exit(1)
 
         elif ((sys.argv[2] == "wavelet" or sys.argv[2] == "lbp") and(sys.argv[arguments_count - 4] != "otsu" and sys.argv[arguments_count - 4] != "gauss" and sys.argv[arguments_count - 4] != "mean")):
-            sys.stderr.write("ERROR - Use paramatres for -s otsu, gauss or mean\n")
+            sys.stderr.write("ERROR - Use parametres otsu, gauss or mean for -s\n")
             exit(1)
 
     elif (sys.argv[1] == "-show"):

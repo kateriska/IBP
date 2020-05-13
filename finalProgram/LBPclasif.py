@@ -134,7 +134,7 @@ def vectorLBP(segmentation_type, color_type):
             hist_value_n = str(hist_value[0])
             sum_hist4 = sum_hist4 + float(hist_value_n)
 
-        # transform to more proper range
+        # transform to more proper range for classification
         sum_hist1_div = sum_hist1 / 1000000
         sum_hist2_div = sum_hist2 / 1000000
         sum_hist3_div = sum_hist3 / 1000000
@@ -155,7 +155,7 @@ def vectorLBP(segmentation_type, color_type):
         print("Contrast:")
         print(contrast)
         contrast_float = float(contrast)
-        contrast_str = contrast_float / 10
+        contrast_str = contrast_float / 10  # transform to more proper range for classification
 
         homogeneity = greycoprops(matrix_coocurrence, 'homogeneity')
         print("Homogeneity:")
@@ -252,6 +252,7 @@ def vectorLBP(segmentation_type, color_type):
             hist_value_n = str(hist_value[0])
             sum_hist4 = sum_hist4 + float(hist_value_n)
 
+        # transform to more proper range for classification
         sum_hist1_div = sum_hist1 / 1000000
         sum_hist2_div = sum_hist2 / 1000000
         sum_hist3_div = sum_hist3 / 1000000
@@ -272,7 +273,7 @@ def vectorLBP(segmentation_type, color_type):
         print("Contrast:")
         print(contrast)
         contrast_float = float(contrast)
-        contrast_str = contrast_float / 10
+        contrast_str = contrast_float / 10 # transform to more proper range for classification
 
         homogeneity = greycoprops(matrix_coocurrence, 'homogeneity')
         print("Homogeneity:")

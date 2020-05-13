@@ -90,7 +90,7 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         print("Contrast:")
         print(contrast2)
         contrast_float2 = float(contrast2)
-        contrast_str2 = contrast_float2 / 10
+        contrast_str2 = contrast_float2 / 10 # transform to more proper range for classification
 
         homogeneity2 = greycoprops(matrix_coocurrence, 'homogeneity')
         print("Homogeneity:")
@@ -252,7 +252,7 @@ def vectorWavelet(segmentation_type, color_type, wavelet_type):
         print("Contrast:")
         print(contrast2)
         contrast_float2 = float(contrast2)
-        contrast_str2 = contrast_float2 / 10
+        contrast_str2 = contrast_float2 / 10 # transform to more proper range for classification
 
         homogeneity2 = greycoprops(matrix_coocurrence, 'homogeneity')
         print("Homogeneity:")
