@@ -38,7 +38,7 @@ python3.6 bt.py <arguments>, where arguments can be following:
   This vector can be slower to gain, especially for larger datasets. Nevertheless, Discrete Wavelet Transform uses several Wavelet families for experiments.
   Switch -t is used for setting specified wavelet of Wavelet family.
   The wavelets used for experiments were: bior1.3, bior1.5, bior2.4, db2, db4, rbio3.1
-  All wavelets supported by PyWavelets library for DWT can be found in Manual attachment of Thesis on page 54.
+  All wavelets supported by PyWavelets library for DWT can be found in Manual attachment of Thesis on page 55.
 
   The order of arguments is not optional.
 
