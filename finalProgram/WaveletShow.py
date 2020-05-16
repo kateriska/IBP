@@ -38,8 +38,8 @@ def showWavelet(segmentation_type, input_img, wavelet_type):
     img = np.float32(img)
     img /= 255
 
-    titles = ['Approximation', ' Horizontal Detail (LH)',
-          'Vertical Detail (HL)', 'Diagonal Detail (HH)']
+    titles = ['Approximation', ' Horizontal detail (LH)',
+          'Vertical detail (HL)', 'Diagonal detail (HH)']
     coeffs2 = pywt.dwt2(img, wavelet_type)
     LL, (LH, HL, HH) = coeffs2
     fig = plt.figure(figsize=(11, 11))
