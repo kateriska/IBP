@@ -52,6 +52,7 @@ class ArtificialNeuralNetwork:
         tested_result = self.sigmoidFunction(tested_vector_weight_product, False)
         return tested_result
 
+# function for processing classification with ANN, compute average accuracy, FAR and FRR
 def clasifyANN(method_type):
     # csv files with data about vectors for LBP, Sobel and Wavelet methods
     if (method_type == "lbp"):
@@ -131,7 +132,7 @@ def clasifyANN(method_type):
         else:
             fake_count += 1
 
-        # compute FAR and FRR
+        # gain info for FAR and FRR
         if (live_sample == True and "fake" in file_tested_str):
             far_value += 1
         elif (live_sample == False and "live" in file_tested_str):

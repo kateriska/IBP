@@ -25,7 +25,7 @@ python3.6 bt.py <arguments>, where arguments can be following:
 1. Extraction of vectors and classification
   -test lbp -s otsu|gauss|mean -clasif ann|svm|dts -img b|g|r|all
   Extraction of vectors based on Local Binary Pattern.
-  User chooses Otsu, Gaussian or Mean thresholding used for segmentation.
+  User chooses Otsu (otsu), Gaussian (gauss) or Mean (mean) thresholding used for segmentation.
   Classification will be processed with chosen Artificial Neural Network (ann), Support Vector Machines (svm) or Decision Trees (dts).
   Possible to process training and testing for images illuminated by blue light (b), green light (g) or red light (r) or user can use whole dataset of all the images illuminated by various lights.
 

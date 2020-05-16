@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from numpy import newaxis
 from sklearn import svm
 
-# function for classification with SVM
+# function for classification with SVM, compute average accuracy, FAR and FRR
 def clasifySVM(method_type):
     # csv files with data about vectors for LBP, Sobel and Wavelet methods
     if (method_type == "lbp"):
@@ -33,8 +33,6 @@ def clasifySVM(method_type):
     clf = svm.SVC()
     clf.fit(trained_vectors, trained_results) # train SVM with trained vectors and their results
     prediction = clf.predict(tested_vectors) # predict results of tested vectors
-    #print(prediction)
-    #print(tested_files)
 
     i = 0
     live_sample = False
@@ -65,7 +63,7 @@ def clasifySVM(method_type):
         else:
             fake_count += 1
 
-        # compute FAR and FRR
+        # gain info for FAR and FRR
         if (live_sample == True and "fake" in cols):
             far_value += 1
         elif (live_sample == False and "live" in cols):

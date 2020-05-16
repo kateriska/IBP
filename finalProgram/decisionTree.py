@@ -1,14 +1,14 @@
 # Author: Katerina Fortova
 # Bachelor's Thesis: Liveness Detection on Touchless Fingerprint Scanner
 # Academic Year: 2019/20
-# File: decisionTree.py - clasificcation with Decision Tree
+# File: decisionTree.py - classification with Decision Tree
 
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy import newaxis
 from sklearn import tree
 
-# function for classification with Decision Tree
+# function for classification with Decision Tree, compute average accuracy, FAR and FRR
 def clasifyDTS(method_type):
     # csv files with data about vectors for LBP, Sobel and Wavelet methods
     if (method_type == "lbp"):
@@ -33,8 +33,6 @@ def clasifyDTS(method_type):
     dts = tree.DecisionTreeClassifier()
     dts.fit(trained_vectors, trained_results)
     prediction = dts.predict(tested_vectors)
-    #print(prediction)
-    #print(tested_files)
 
     i = 0
     live_sample = False
@@ -65,7 +63,7 @@ def clasifyDTS(method_type):
         else:
             fake_count += 1
 
-        # compute FAR and FRR
+        # gain info for FAR and FRR
         if (live_sample == True and "fake" in cols):
             far_value += 1
         elif (live_sample == False and "live" in cols):

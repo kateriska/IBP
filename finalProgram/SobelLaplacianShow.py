@@ -8,8 +8,9 @@ import numpy as np
 from matplotlib import pyplot as plt
 import processedSegmentation
 
+# function for showing original normalized image and details of processing with Sobel operator on x and y axis and Laplacian operator
 def showSobelLaplacian(segmentation_type, input_img):
-    
+
     img = cv2.imread(input_img, 0) # uint8 image in grayscale
 
     results = list()

@@ -11,6 +11,7 @@ from skimage.feature import greycomatrix, greycoprops
 from skimage import io, color, img_as_ubyte
 import processedSegmentation
 
+# function for showing horizontal, vertical, diagonal detail after processing with Wavelet transform and their approximation
 def showWavelet(segmentation_type, input_img, wavelet_type):
     if (segmentation_type != "none"):
         img = cv2.imread(input_img, 0) # uint8 image in grayscale

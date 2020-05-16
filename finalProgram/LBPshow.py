@@ -14,7 +14,7 @@ from skimage import io, color, img_as_ubyte
 import pywt
 import processedSegmentation
 
-# function for processing pixel with LBP
+# function for processing every neighbour pixel with LBP
 def LBPprocesspixel(img, pix5, x, y):
     new_value = 0
 
@@ -29,14 +29,14 @@ def LBPprocesspixel(img, pix5, x, y):
 
     return new_value
 
-# function for processing LBP
+# function for processing LBP and gain new value for center pixel
 def processLBP(img, x, y, lbp_values):
     # 3x3 window of pixels
     '''
      pix7 | pix8 | pix9
-    ----------------
+    ---------------------
      pix4 | pix5 | pix6
-    ----------------
+    ---------------------
      pix1 | pix2 | pix3
     '''
     pix5 = img[x][y] # center pixel
@@ -53,9 +53,8 @@ def processLBP(img, x, y, lbp_values):
     powers_bin = [1, 2, 4, 8, 16, 32, 64, 128] # 2^0 - 2^7
     value_dec = 0
     for i in range(len(pixel_new_value)):
-        value_dec = value_dec + (pixel_new_value[i] * powers_bin[i])
+        value_dec = value_dec + (pixel_new_value[i] * powers_bin[i]) # new decimal value
 
-    #print(value_dec)
     lbp_values.append(value_dec)
     return value_dec
 
@@ -88,10 +87,9 @@ def showLBP(segmentation_type, input_img):
         for j in range(0, width):
             lbp_image[i, j] = processLBP(img_gray, i, j, lbp_values)
 
-    #cv2.imshow("lbp image", lbp_image)
     hist_lbp = cv2.calcHist([lbp_image], [0], None, [256], [0, 256])
 
-
+    # show LBP image and LBP histogram
     figure = plt.figure(figsize=(30, 30))
     image_plot = figure.add_subplot(1,2,1)
     image_plot.imshow(lbp_image)
@@ -109,10 +107,6 @@ def showLBP(segmentation_type, input_img):
     ytick_list = [int(i) for i in current_plot.get_yticks()]
     current_plot.set_yticklabels(ytick_list,rotation = 90)
     plt.show()
-
-
-
-
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()

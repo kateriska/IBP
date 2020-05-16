@@ -14,6 +14,7 @@ from skimage import io, color, img_as_ubyte
 import pywt
 import processedSegmentation
 
+# function for gaining feature vector based on Sobel and Laplacian operator for trained and tested images
 def vectorSobelLaplacian(color_type):
     # IMAGES FOR TRAINING
 

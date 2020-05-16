@@ -14,7 +14,7 @@ import WaveletClasif # extraction of vector based on Wavelet transform
 import LBPshow # show histogram and LBP image of input image
 import WaveletShow # show Wavelet transform of input image
 import SobelLaplacianShow # show results of Sobel and Laplacian operator of input image
-import SegmentationShow # show segmentation of input image with use of various tresholding methods
+import SegmentationShow # show segmentation of input image with use of various thresholding methods
 
 # function for print help for classification commands
 def printHelpClasify():
