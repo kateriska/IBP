@@ -17,7 +17,7 @@ pip3 install scikit-image
 pip3 install scikit-learn
 pip3 install PyWavelets
 
-Other libraries like NumPy or Matplotlib should be installed along with these 4 libraries.
+Other libraries like NumPy or Matplotlib should be installed along with these 4 libraries automatically.
 
 The program is run with command:
 python3.6 bt.py <arguments>, where arguments can be following:
@@ -27,7 +27,7 @@ python3.6 bt.py <arguments>, where arguments can be following:
   Extraction of vectors based on Local Binary Pattern.
   User chooses Otsu (otsu), Gaussian (gauss) or Mean (mean) thresholding used for segmentation.
   Classification will be processed with chosen Artificial Neural Network (ann), Support Vector Machines (svm) or Decision Trees (dts).
-  Possible to process training and testing for images illuminated by blue light (b), green light (g) or red light (r) or user can use whole dataset of all the images illuminated by various lights.
+  Possible to process training and testing for images illuminated by blue light (b), green light (g) or red light (r) or user can use whole dataset of all the images illuminated by various lights (all).
 
   -test sobel -clasif ann|svm|dts -img b|g|r|all
   Extraction of vectors based on Sobel and Laplacian operator.
@@ -57,7 +57,7 @@ python3.6 bt.py <arguments>, where arguments can be following:
   -show seg -s otsu|gauss|mean -img <path>
   Displays segmented fingerprint with using of Otsu, Gaussian or Mean thresholding.
 
-  The switch -s for segmentation is compulsory only for last command.
+  The switch -s for segmentation is compulsory only for last command in Display of used techniques.
   The order of arguments is not optional.
 
 3. Printing of help
@@ -72,6 +72,7 @@ python3.6 bt.py <arguments>, where arguments can be following:
 
 --------------------------------------------------------------------------------------------------
 Some examples of correctly using of commands and their meaning:
+
   python3.6 bt.py -test lbp -s gauss -clasif ann -img r
   The classification is processed with vector based on Local Binary Pattern.
   Otsu thresholding is used for pre-processing.
