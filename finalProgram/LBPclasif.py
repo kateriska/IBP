@@ -15,46 +15,54 @@ import processedSegmentation
 
 # function for processing every neighbour pixel with LBP
 def LBPprocesspixel(img, pix5, x, y):
-    new_value = 0
+
+    pixel_new_value = 0 # init the variable before try block
 
     try:
         if (img[x][y] >= pix5):
-            new_value = 1
+            pixel_new_value = 1
         else:
-            new_value = 0
+            pixel_new_value = 0
 
     except:
         pass
 
-    return new_value
+    return pixel_new_value
 
 # function for processing LBP and gain new value for center pixel
 def processLBP(img, x, y, lbp_values):
-    # 3x3 window of pixels
-    '''
-     pix7 | pix8 | pix9
-    ---------------------
-     pix4 | pix5 | pix6
-    ---------------------
-     pix1 | pix2 | pix3
-    '''
-    pix5 = img[x][y] # center pixel
-    pixel_new_value = []
-    pixel_new_value.append(LBPprocesspixel(img, pix5, x, y+1))     #pix8
-    pixel_new_value.append(LBPprocesspixel(img, pix5, x-1, y+1))   #pix7
-    pixel_new_value.append(LBPprocesspixel(img, pix5, x-1, y))     #pix4
-    pixel_new_value.append(LBPprocesspixel(img, pix5, x-1, y-1))   #pix1
-    pixel_new_value.append(LBPprocesspixel(img, pix5, x, y-1))     #pix2
-    pixel_new_value.append(LBPprocesspixel(img, pix5, x+1, y-1))   #pix3
-    pixel_new_value.append(LBPprocesspixel(img, pix5, x+1, y))     #pix6
-    pixel_new_value.append(LBPprocesspixel(img, pix5, x+1, y+1))   #pix9
+    # 3x3 window of pixels, where center pixel pix5 is on position [x,y]
 
-    powers_bin = [1, 2, 4, 8, 16, 32, 64, 128] # 2^0 - 2^7
-    value_dec = 0
-    for i in range(len(pixel_new_value)):
-        value_dec = value_dec + (pixel_new_value[i] * powers_bin[i]) # new decimal value
+    '''
+            +------+------+------+
+            | pix7 | pix8 | pix9 |
+            +------+------+------+
+    y-axis  | pix4 | pix5 | pix6 |
+            +------+------+------+
+            | pix1 | pix2 | pix3 |
+            +------+------+------+
 
-    lbp_values.append(value_dec)
+                    x-axis
+    '''
+
+    value_dec = 0 # init variable for computing the final new decimal value for center pixel
+
+    pix5 = img[x][y] # center pixel on position [x,y]
+
+    # process the all neighbour pixels and receive 8-bit binary code 
+    pix8 = LBPprocesspixel(img, pix5, x, y+1) # LSB
+    pix7 = LBPprocesspixel(img, pix5, x-1, y+1)
+    pix4 = LBPprocesspixel(img, pix5, x-1, y)
+    pix1 = LBPprocesspixel(img, pix5, x-1, y-1)
+    pix2 = LBPprocesspixel(img, pix5, x, y-1)
+    pix3 = LBPprocesspixel(img, pix5, x+1, y-1)
+    pix6 = LBPprocesspixel(img, pix5, x+1, y)
+    pix9 = LBPprocesspixel(img, pix5, x+1, y+1) # MSB
+
+    # compute new decimal value for center pixel - convert binary code to decimal number
+    value_dec = (pix9 * 2 ** 7) + (pix6 * 2 ** 6) + (pix3 * 2 ** 5) + (pix2 * 2 ** 4) + (pix1 * 2 ** 3) + (pix4 * 2 ** 2) + (pix7 * 2 ** 1) + (pix8 * 2 ** 0)
+
+    lbp_values.append(value_dec) # append new decimal value of pixel to array of whole processed lbp image
     return value_dec
 
 # function for gaining feature vector based on LBP for trained and tested images
