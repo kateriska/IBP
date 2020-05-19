@@ -69,3 +69,31 @@ python3.6 bt.py <arguments>, where arguments can be following:
 
    -show help
    Prints help for Display of used techniques.
+
+--------------------------------------------------------------------------------------------------
+Some examples of correctly using of commands and their meaning:
+  python3.6 bt.py -test lbp -s gauss -clasif ann -img r
+  The classification is processed with vector based on Local Binary Pattern.
+  Otsu thresholding is used for pre-processing.
+  Artificial Neural Network is used for final training and testing.
+  Only samples illuminated by red light are used.
+
+  python3.6 bt.py -test wavelet -t bior1.5 -s otsu -clasif svm -img b
+  The classification is processed with vector based on Wavelet transform.
+  Wavelet bior1.5 of Biorthogonal spline wavelet family is used for Discrete Wavelet Transform.
+  Otsu thresholding is used for pre-processing.
+  Support Vector Machines are used for final training and testing.
+  Only samples illuminated by blue light are used.
+
+  python3.6 bt.py -test sobel -clasif ann -img all
+  The classification is processed with vector based on Sobel and Laplacian operator.
+  Artificial Neural Network is used for final training and testing.
+  All dataset images illuminated by various lights (blue, green and red) are used.
+
+  python3.6 bt.py -show seg -s otsu -img ./dataset/allTest/live99.jpg
+  This fingerprint is pre-processed and segmented with using of Otsu thresholding.
+  The input normalized image, thresholded image, extracted mask and final segmented image is displayed to user.
+
+  python3.6 bt.py -show sobel -s otsu -img ./dataset/allTrain/fake69.jpg
+  Input image is pre-processed and segmented with using Otsu thresholding.
+  The input normalized image, result of application of Sobel and Laplacian operator is displayed to user.
